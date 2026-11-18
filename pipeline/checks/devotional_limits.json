@@ -1,0 +1,9 @@
+{
+  "_comment": "Word limits per devotional section (whitespace-separated words). The prompt quotes these; tune after reading real output.",
+  "words": {
+    "context": {"min": 60, "max": 110},
+    "reflect": {"min": 120, "max": 180},
+    "applyIt": {"min": 40, "max": 80},
+    "prayer":  {"min": 25, "max": 60}
+  }
+}
