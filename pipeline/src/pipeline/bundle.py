@@ -3,7 +3,7 @@ Copy the Gospels and Psalms book files from the local release into the app's ass
 
 Run before release builds (no Gradle involved):
     PYTHONPATH=src .venv/bin/python -m pipeline bundle
-Writes app/src/main/assets/studies/{BOOK}.json.gz plus manifest.json (the bundled subset of the release
+Writes app/src/main/assets/studies/{BOOK}.json.gzip plus manifest.json (the bundled subset of the release
 manifest, so the app knows which contentVersion it already has and can skip downloading those books).
 """
 from __future__ import annotations
@@ -17,6 +17,9 @@ from .paths import REPO
 from .publish import SITE, _site_path, canonical_json
 
 BUNDLED_BOOKS = ("MAT", "MRK", "LUK", "JHN", "PSA")
+#: Not ".gz": Android's asset packager (AAPT) gunzips *.gz assets and drops the suffix, so the app would find
+#: neither the file name nor the bytes the manifest's SHA-256 describes. ".gzip" is packaged byte-for-byte.
+BUNDLED_SUFFIX = ".json.gzip"
 ASSETS = REPO / "app/src/main/assets/studies"
 
 
@@ -46,16 +49,16 @@ def bundle(site: Path = SITE, assets: Path = ASSETS, books: tuple[str, ...] = BU
         data = (site / _site_path(entry["url"])).read_bytes()
         if hashlib.sha256(data).hexdigest() != entry["sha256"]:
             raise ValueError(f"{book}: file in {site} doesn't match its manifest SHA-256; rebuild the release")
-        target = assets / f"{book}.json.gz"
+        target = assets / f"{book}{BUNDLED_SUFFIX}"
         if not target.exists() or target.read_bytes() != data:
             target.write_bytes(data)
         copied.append(book)
         total += len(data)
-        subset.append({**entry, "url": f"{book}.json.gz"})
+        subset.append({**entry, "url": f"{book}{BUNDLED_SUFFIX}"})
 
     removed = []
-    for stale in assets.glob("*.json.gz"):
-        if stale.name.removesuffix(".json.gz") not in copied:
+    for stale in [*assets.glob("*.json.gz"), *assets.glob(f"*{BUNDLED_SUFFIX}")]:
+        if stale.name.removesuffix(".json.gz").removesuffix(BUNDLED_SUFFIX) not in copied or stale.name.endswith(".json.gz"):
             stale.unlink()
             removed.append(stale.name)
     bundled = {"formatVersion": manifest["formatVersion"], "schemaVersion": manifest["schemaVersion"],

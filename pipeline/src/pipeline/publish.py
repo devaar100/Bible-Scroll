@@ -3,9 +3,10 @@ Package publishable studies into one gzip JSON file per book, write manifest.jso
 what would change against the live site, and deploy to Firebase Hosting.
 
 Layout (out/site/ = the Firebase public directory):
-  manifest.json                         short cache; lists every book file
+  manifest.json                         short cache; lists every book and devotionals month file
   discover.json                         short cache; curated Discover verses in order
   studies/v{contentVersion}/{BOOK}.json.gz   immutable; contentVersion = sha256(file)[:12]
+  devotionals/v{contentVersion}/{MM}.json.gz immutable; one per month (devotionals/publish.py)
 """
 from __future__ import annotations
 
@@ -97,9 +98,14 @@ class Release:
     files: dict[str, bytes]              # site-relative path -> bytes
     left_out: dict[str, dict[str, int]]  # book -> {status: count} of studies not published
     discover_dropped: list[str]          # discover.txt ids that aren't publishable
+    devotionals_left_out: dict[str, dict[str, int]] = field(default_factory=dict)  # month -> {status: count}
 
 
-def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str] | None = None) -> Release:
+def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str] | None = None,
+                  devotionals=None) -> Release:
+    """devotionals: a DevotionalStore, or None for none (the manifest then lists no months)."""
+    from .devotionals.publish import collect, month_files
+
     book_validator, manifest_validator = validators()
     by_book: dict[str, list[dict]] = {}
     left_out: dict[str, dict[str, int]] = {}
@@ -140,14 +146,18 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
     discover_entry = {"url": prefix + "discover.json", "count": len(discover["verses"]),
                       "sha256": hashlib.sha256(files["discover.json"]).hexdigest(), "bytes": len(files["discover.json"])}
 
-    body = {"books": books, "discover": discover_entry}
+    months = collect(devotionals)
+    month_data, month_entries = month_files(months, prefix, canonical_gzip)
+    files.update(month_data)
+
+    body = {"books": books, "discover": discover_entry, "devotionals": {"months": month_entries}}
     release = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:12]
     manifest = {"formatVersion": FORMAT_VERSION, "schemaVersion": SCHEMA_VERSION, "release": release, **body}
     errors = [f"{e.json_path}: {e.message}" for e in manifest_validator.iter_errors(manifest)]
     if errors:
         raise ValueError(f"manifest fails schema/manifest.json: {errors[:5]}")
     files["manifest.json"] = canonical_json(manifest)
-    return Release(manifest, files, left_out, [i for i in wanted if i not in published])
+    return Release(manifest, files, left_out, [i for i in wanted if i not in published], months.left_out)
 
 
 def write_site(release: Release, site: Path = SITE, keep_from: dict | None = None) -> list[str]:
@@ -156,7 +166,8 @@ def write_site(release: Release, site: Path = SITE, keep_from: dict | None = Non
     so clients holding the previous manifest can still download. Anything else is removed.
     Returns the paths kept from the previous release.
     """
-    keep = {_site_path(b["url"]) for b in (keep_from or {}).get("books", [])}
+    previous = [*(keep_from or {}).get("books", []), *(keep_from or {}).get("devotionals", {}).get("months", [])]
+    keep = {_site_path(entry["url"]) for entry in previous}
     site.mkdir(parents=True, exist_ok=True)
     wanted = set(release.files)
     kept = []
@@ -184,8 +195,11 @@ def write_site(release: Release, site: Path = SITE, keep_from: dict | None = Non
 
 def _site_path(url: str) -> str:
     """'https://x.web.app/studies/v1/JHN.json.gz' or 'studies/v1/JHN.json.gz' -> 'studies/v1/JHN.json.gz'."""
-    index = url.find("studies/")
-    return url[index:] if index >= 0 else url
+    for folder in ("studies/", "devotionals/"):
+        index = url.find(folder)
+        if index >= 0:
+            return url[index:]
+    return url
 
 
 # ---- Comparing with what's live ---------------------------------------------------------------------
@@ -213,11 +227,15 @@ class Diff:
     unchanged: list[dict] = field(default_factory=list)
     discover_before: list[str] = field(default_factory=list)
     discover_after: list[str] = field(default_factory=list)
+    months_added: list[dict] = field(default_factory=list)
+    months_changed: list[tuple[dict, dict]] = field(default_factory=list)
+    months_removed: list[dict] = field(default_factory=list)
     upload_bytes: int = 0
 
     @property
     def any(self) -> bool:
-        return bool(self.added or self.changed or self.removed or self.discover_before != self.discover_after)
+        return bool(self.added or self.changed or self.removed or self.discover_before != self.discover_after
+                    or self.months_added or self.months_changed or self.months_removed)
 
 
 def diff(release: Release, live: dict | None, live_discover: list[str] | None = None) -> Diff:
@@ -234,6 +252,17 @@ def diff(release: Release, live: dict | None, live_discover: list[str] | None = 
         else:
             d.unchanged.append(entry)
     d.removed = [b for name, b in old.items() if name not in new]
+    old_months = {m["month"]: m for m in (live or {}).get("devotionals", {}).get("months", [])}
+    new_months = {m["month"]: m for m in release.manifest["devotionals"]["months"]}
+    for month, entry in new_months.items():
+        if month not in old_months:
+            d.months_added.append(entry)
+        elif old_months[month]["sha256"] != entry["sha256"]:
+            d.months_changed.append((old_months[month], entry))
+        else:
+            continue
+        d.upload_bytes += entry["bytes"]
+    d.months_removed = [m for name, m in old_months.items() if name not in new_months]
     d.discover_before = live_discover or []
     d.discover_after = json.loads(release.files["discover.json"])["verses"]
     return d
@@ -274,6 +303,17 @@ def render_diff(d: Diff, release: Release, live: dict | None) -> str:
                      + (f"; added {', '.join(added[:10])}" if added else "")
                      + (f"; removed {', '.join(removed[:10])}" if removed else "")
                      + ("; order changed" if not added and not removed else ""))
+    for m in d.months_added:
+        lines.append(f"  + devotionals {m['month']}: {m['count']} days ({m['reviewedCount']} reviewed), {m['bytes']:,} bytes")
+    for old, new in d.months_changed:
+        lines.append(f"  ~ devotionals {new['month']}: {old['count']} -> {new['count']} days, "
+                     f"reviewed {old['reviewedCount']} -> {new['reviewedCount']}, {new['bytes']:,} bytes")
+    for m in d.months_removed:
+        lines.append(f"  - devotionals {m['month']}: nothing publishable any more (was {m['count']})")
+    flagged_days = {m: c["flagged"] for m, c in release.devotionals_left_out.items() if c.get("flagged")}
+    if flagged_days:
+        lines.append(f"  Devotionals left out as flagged: {sum(flagged_days.values())} in month(s) "
+                     + ", ".join(f"{m} ({n})" for m, n in flagged_days.items()))
     if release.discover_dropped:
         lines.append(f"  Discover verses left out (not auto_checked/reviewed yet): {', '.join(release.discover_dropped[:20])}")
     flagged = {b: c["flagged"] for b, c in release.left_out.items() if c.get("flagged")}
@@ -281,8 +321,9 @@ def render_diff(d: Diff, release: Release, live: dict | None) -> str:
         lines.append(f"  Left out as flagged: {sum(flagged.values())} verse(s) in "
                      + ", ".join(f"{b} {n}" for b, n in flagged.items()))
     total = sum(b["verseCount"] for b in release.manifest["books"])
-    lines.append(f"Publishing {total:,} verses in {len(release.manifest['books'])} book(s); "
-                 f"{d.upload_bytes:,} bytes of book files to upload.")
+    days = sum(m["count"] for m in release.manifest["devotionals"]["months"])
+    lines.append(f"Publishing {total:,} verses in {len(release.manifest['books'])} book(s) and {days} devotional(s); "
+                 f"{d.upload_bytes:,} bytes of content files to upload.")
     return "\n".join(lines)
 
 
@@ -312,7 +353,9 @@ def verify_live(base_url: str, release: Release) -> list[str]:
     live = fetch_live_manifest(base_url)
     if live != release.manifest:
         problems.append("live manifest.json doesn't match the local release (CDN cache? try again in 5 minutes)")
-    for book in release.manifest["books"]:
+    files = [*release.manifest["books"],
+             *({"book": f"devotionals {m['month']}", **m} for m in release.manifest["devotionals"]["months"])]
+    for book in files:
         request = urllib.request.Request(book["url"], headers={"Accept-Encoding": "identity"})
         with urllib.request.urlopen(request, timeout=60) as response:
             data = response.read()

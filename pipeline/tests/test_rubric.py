@@ -30,9 +30,10 @@ def judge_with(result):
     return AnthropicJudge(client=SimpleNamespace(messages=messages)), messages
 
 
-def scores(f=0, t=0, o=0):
-    return json.dumps({"factualRisk": {"score": f, "reason": "r1"}, "oneSidedTheology": {"score": t, "reason": "r2"},
-                       "tone": {"score": o, "reason": "r3"}})
+def scores(f=0, t=0, o=0, quote="This verse word"):
+    def one(score, reason):
+        return {"score": score, "reason": reason, "section": "Meaning", "quote": quote}
+    return json.dumps({"factualRisk": one(f, "r1"), "oneSidedTheology": one(t, "r2"), "tone": one(o, "r3")})
 
 
 def test_request_shape(written):
@@ -80,3 +81,22 @@ def test_prompt_contains_every_section(written):
     prompt = build_prompt(written, "text")
     for title in ("Meaning", "Historical context", "Life in Bible times", "Theology", "Did you know?", "Apply it"):
         assert f"## {title}" in prompt
+
+
+def test_quotes_are_verified_against_the_section_but_never_change_status(written):
+    judge, _ = judge_with(response(scores()))
+    good = judge.judge(written, "")
+    assert all(good.rubric[k]["verified"] and good.rubric[k]["section"] == "meaning"
+               for k in ("factualRisk", "oneSidedTheology", "tone"))
+    assert good.unverified == 0 and good.reasons == []
+
+    judge, _ = judge_with(response(scores(quote="custodia militaris")))
+    bad = judge.judge(written, "")
+    assert bad.unverified == 3 and bad.reasons == []  # logged, not flagged
+    assert judge.reviews == 1 and judge.unverified_reviews == 1
+
+
+def test_quote_must_come_from_the_named_section(written):
+    written["applyIt"] = "Pray for one person today."
+    judge, _ = judge_with(response(scores(quote="Pray for one person")))
+    assert judge.judge(written, "").unverified == 3  # it is in applyIt, not Meaning

@@ -24,7 +24,7 @@ SCHEMA_PATH = PIPELINE / "schema" / "study.json"
 STUDIES_DIR = OUT / "studies"
 SUMMARY_PATH = OUT / "studies_summary.json"
 MAX_CROSS_REFERENCES = 8
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3  # 3: status "failed"; meta.promptVersion/batchId/attempts
 PROSE_FIELDS = ("meaning", "historicalContext", "lifeInBibleTimes", "theology", "didYouKnow", "applyIt")
 
 # Part of contentVersion: bump the text whenever a selection rule below changes.

@@ -4,7 +4,6 @@ from __future__ import annotations
 import hashlib
 import json
 import math
-import shutil
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -13,8 +12,11 @@ from .bible import VerseIndex, minutes
 from .catalogue import CATALOGUE, CATEGORIES, START_HERE, StructuralPlan
 from .split import split_days, to_passages
 from .validate import CHECKER_VERSION, check_plan, day_words, schema_validator
+from ..translate.content import category_titles, load_categories_i18n, mark_stale, public_plan_i18n
 
 PLANS_DIR = OUT / "plans"
+#: Translated category titles (pipeline `translate plans`).
+CATEGORIES_I18N = PLANS_DIR / "categories.i18n.json"
 APP_ASSETS = REPO / "app/src/main/assets/plans"
 STRUCTURAL_CREDITS = ("Reading plan by Bible Scroll. Daily times are estimated from the World English Bible "
                       "at about 200 words a minute.")
@@ -51,6 +53,9 @@ def finish(plan: dict, index: VerseIndex, existing: dict | None = None) -> dict:
     plan["contentVersion"] = content_version(plan)
     if existing and existing.get("contentVersion") == plan["contentVersion"]:
         plan["meta"] = existing["meta"]
+    # Translations survive a rebuild; ones made from different English become stale (kept, not shipped).
+    if existing and existing.get("i18n"):
+        plan["i18n"] = mark_stale(existing["i18n"], plan["contentVersion"])
     return plan
 
 
@@ -118,7 +123,8 @@ def publishable(plan: dict) -> bool:
 
 
 def load_plans(directory: Path = PLANS_DIR) -> dict[str, dict]:
-    return {p.stem: json.loads(p.read_text()) for p in sorted(directory.glob("*.json")) if p.name != "index.json"}
+    skip = {"index.json", CATEGORIES_I18N.name}  # same folder, not plans
+    return {p.stem: json.loads(p.read_text()) for p in sorted(directory.glob("*.json")) if p.name not in skip}
 
 
 def write_json(path: Path, data: dict) -> None:
@@ -128,18 +134,33 @@ def write_json(path: Path, data: dict) -> None:
     tmp.replace(path)
 
 
-def build_index(plans: dict[str, dict]) -> dict:
-    """index.json: publishable plans grouped by category, plus the "Start here" featured list."""
+def build_index(plans: dict[str, dict], categories_path: Path | None = None) -> dict:
+    """
+    index.json: publishable plans grouped by category, plus the "Start here" featured list. Publishable translations
+    of plan titles/hooks and category titles go in "i18n" blocks (older apps ignore them).
+    """
+    categories_path = categories_path or CATEGORIES_I18N
     shown = {pid: p for pid, p in sorted(plans.items()) if publishable(p)}
-    summary = {pid: {"id": pid, "title": p["title"], "shortDescription": p["shortDescription"],
-                     "category": p["category"], "days": len(p["days"]), "estimatedMinutesPerDay": p["estimatedMinutesPerDay"],
-                     "difficulty": p["difficulty"], "contentVersion": p["contentVersion"]} for pid, p in shown.items()}
+    summary = {}
+    for pid, p in shown.items():
+        summary[pid] = {"id": pid, "title": p["title"], "shortDescription": p["shortDescription"],
+                        "category": p["category"], "days": len(p["days"]), "estimatedMinutesPerDay": p["estimatedMinutesPerDay"],
+                        "difficulty": p["difficulty"], "contentVersion": p["contentVersion"]}
+        localized = {lang: {k: loc[k] for k in ("title", "shortDescription")} for lang, loc in public_plan_i18n(p).items()}
+        if localized:
+            summary[pid]["i18n"] = localized
+    titles = category_titles(CATEGORIES, load_categories_i18n(categories_path))
+    categories = []
+    for c in CATEGORIES:
+        entry = {**c, "plans": [pid for pid, p in shown.items() if p["category"] == c["id"]]}
+        localized = {lang: {"title": t[c["id"]]} for lang, t in titles.items() if t.get(c["id"])}
+        if localized:
+            entry["i18n"] = localized
+        categories.append(entry)
     return {
         "formatVersion": 1,
         "startHere": [pid for pid in START_HERE if pid in shown],
-        "categories": [
-            {**c, "plans": [pid for pid, p in shown.items() if p["category"] == c["id"]]} for c in CATEGORIES
-        ],
+        "categories": categories,
         "plans": list(summary.values()),
     }
 
@@ -171,8 +192,9 @@ def bundle(directory: Path = PLANS_DIR, assets: Path = APP_ASSETS) -> list[str]:
         errors = list(validator.iter_errors(plan))
         if errors:
             raise ValueError(f"{plan['id']} isn't schema-valid: {errors[0].message}")
-    if assets.exists():
-        shutil.rmtree(assets)
+    # Replace the plan files only; verses.bin (plans/verse_data.py) lives here too.
+    for old in assets.glob("*.json") if assets.exists() else []:
+        old.unlink()
     for plan in chosen:
         write_json(assets / f"{plan['id']}.json", public_plan(plan))
     write_json(assets / "index.json", build_index(plans))
@@ -180,7 +202,10 @@ def bundle(directory: Path = PLANS_DIR, assets: Path = APP_ASSETS) -> list[str]:
 
 
 def public_plan(plan: dict) -> dict:
-    """What ships: no review notes or reviewer names."""
-    out = {k: v for k, v in plan.items() if k not in ("checks", "meta")}
+    """What ships: no review notes or reviewer names; only publishable, up-to-date translations."""
+    out = {k: v for k, v in plan.items() if k not in ("checks", "meta", "i18n")}
     out["reviewed"] = plan["status"] == "reviewed"
+    localized = public_plan_i18n(plan)
+    if localized:
+        out["i18n"] = localized
     return out

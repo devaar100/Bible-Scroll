@@ -8,7 +8,7 @@ VALIDATOR = validator()
 
 VALID = {
     "id": "JHN.3.16",
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "contentVersion": "0123456789ab",
     "originalLanguage": {
         "language": "greek",

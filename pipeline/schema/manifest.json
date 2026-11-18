@@ -5,7 +5,7 @@
   "description": "manifest.json at the content root. The app fetches it, then downloads any book whose contentVersion differs from what it has.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["formatVersion", "schemaVersion", "release", "books", "discover"],
+  "required": ["formatVersion", "schemaVersion", "release", "books", "discover", "devotionals"],
   "properties": {
     "formatVersion": {"const": 1},
     "schemaVersion": {"const": 2},
@@ -37,6 +37,31 @@
         "count": {"type": "integer", "minimum": 0},
         "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
         "bytes": {"type": "integer", "minimum": 1}
+      }
+    },
+    "devotionals": {
+      "description": "One immutable file per month (schema/devotional_month.json). Months with nothing publishable yet are absent.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["months"],
+      "properties": {
+        "months": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["month", "url", "contentVersion", "count", "reviewedCount", "sha256", "bytes"],
+            "properties": {
+              "month": {"type": "string", "pattern": "^(0[1-9]|1[0-2])$"},
+              "url": {"type": "string"},
+              "contentVersion": {"type": "string", "pattern": "^[0-9a-f]{12}$"},
+              "count": {"type": "integer", "minimum": 1},
+              "reviewedCount": {"type": "integer", "minimum": 0},
+              "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+              "bytes": {"type": "integer", "minimum": 1}
+            }
+          }
+        }
       }
     }
   }

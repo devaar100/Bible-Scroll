@@ -63,7 +63,7 @@ def words(n: int, start: str = "This verse") -> str:
 
 WRITTEN = {
     "id": "JHN.3.16",
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "contentVersion": "0123456789ab",
     "originalLanguage": {
         "language": "greek",
@@ -116,3 +116,15 @@ def skeleton(study_id: str) -> dict:
         s[f] = ""
     s["meta"] = {"model": None, "generatedAt": "2026-11-18T00:00:00+00:00"}
     return s
+
+
+@pytest.fixture(autouse=True)
+def no_real_studies(tmp_path_factory, monkeypatch):
+    """Devotional related passages read out/studies; tests use a tiny stand-in, not this machine's output."""
+    import json
+    from pipeline.devotionals import store
+    studies = tmp_path_factory.mktemp("devotional-related-studies")
+    for v in range(16, 21):  # the devotional fixture's passage, John 3:16-20
+        (studies / f"JHN.3.{v}.json").write_text(json.dumps(
+            {"crossReferences": [{"ref": "ROM.5.8", "source": "OpenBible"}, {"ref": "1JN.4.9-1JN.4.10", "source": "TSK"}]}))
+    monkeypatch.setattr(store, "STUDIES_DIR", studies)

@@ -27,7 +27,7 @@
       "$ref": "#/$defs/verseKey"
     },
     "schemaVersion": {
-      "const": 2
+      "const": 3
     },
     "contentVersion": {
       "description": "Changes whenever the inputs (source files, builder rules) or the prose change.",
@@ -102,11 +102,12 @@
       }
     },
     "status": {
-      "description": "generated: built (prose may still be empty); auto_checked: passed automatic checks; flagged: needs a human; reviewed: approved by a human.",
+      "description": "generated: built (prose may still be empty); auto_checked: passed automatic checks; flagged: needs a human; failed: the batch writer failed or was flagged twice (never published); reviewed: approved by a human.",
       "enum": [
         "generated",
         "auto_checked",
         "flagged",
+        "failed",
         "reviewed"
       ]
     },
@@ -126,10 +127,35 @@
           ],
           "minLength": 1
         },
+        "effort": {
+          "description": "Effort setting the prose was written with (optional; not published).",
+          "type": "string",
+          "minLength": 1
+        },
+        "maxTokens": {
+          "description": "max_tokens of the request that wrote the prose (optional; not published).",
+          "type": "integer",
+          "minimum": 1
+        },
         "generatedAt": {
           "type": "string",
           "format": "date-time",
           "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "promptVersion": {
+          "description": "sha256(prompts/study.md)[:12] at generation time.",
+          "type": "string",
+          "pattern": "^[0-9a-f]{12}$"
+        },
+        "batchId": {
+          "description": "Message Batch that wrote the prose (batch mode only).",
+          "type": "string",
+          "minLength": 1
+        },
+        "attempts": {
+          "description": "Batch-mode generation attempts so far (1 or 2).",
+          "type": "integer",
+          "minimum": 1
         },
         "reviewedBy": {
           "type": "string",
@@ -247,11 +273,11 @@
       }
     },
     {
-      "description": "A flagged study says why.",
+      "description": "A flagged or failed study says why.",
       "if": {
         "properties": {
           "status": {
-            "const": "flagged"
+            "enum": ["flagged", "failed"]
           }
         }
       },
@@ -384,9 +410,12 @@
             "reference",
             "original_language",
             "banned_phrase",
+            "pipeline_wording",
+            "reference_not_allowed",
             "rubric",
             "reviewer",
-            "regenerate"
+            "regenerate",
+            "generation"
           ]
         },
         "message": {
@@ -439,6 +468,18 @@
             },
             "reason": {
               "type": "string"
+            },
+            "section": {
+              "description": "Prose section the judgment rests on.",
+              "type": "string"
+            },
+            "quote": {
+              "description": "Short exact quote from that section that the judgment rests on.",
+              "type": "string"
+            },
+            "verified": {
+              "description": "True if the quote appears verbatim (whitespace-normalised) in that section.",
+              "type": "boolean"
             }
           }
         },
@@ -457,6 +498,18 @@
             },
             "reason": {
               "type": "string"
+            },
+            "section": {
+              "description": "Prose section the judgment rests on.",
+              "type": "string"
+            },
+            "quote": {
+              "description": "Short exact quote from that section that the judgment rests on.",
+              "type": "string"
+            },
+            "verified": {
+              "description": "True if the quote appears verbatim (whitespace-normalised) in that section.",
+              "type": "boolean"
             }
           }
         },
@@ -475,6 +528,18 @@
             },
             "reason": {
               "type": "string"
+            },
+            "section": {
+              "description": "Prose section the judgment rests on.",
+              "type": "string"
+            },
+            "quote": {
+              "description": "Short exact quote from that section that the judgment rests on.",
+              "type": "string"
+            },
+            "verified": {
+              "description": "True if the quote appears verbatim (whitespace-normalised) in that section.",
+              "type": "boolean"
             }
           }
         }

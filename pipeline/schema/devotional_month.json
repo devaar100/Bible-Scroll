@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://biblescroll.invalid/schema/devotional_month.json",
+  "title": "Published devotionals for one month",
+  "description": "devotionals/v{hash}/{MM}.json.gz on the CDN (and in app assets for the bundled months). February includes 02-29.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formatVersion",
+    "schemaVersion",
+    "month",
+    "devotionals"
+  ],
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "schemaVersion": {
+      "const": 1
+    },
+    "month": {
+      "type": "string",
+      "pattern": "^(0[1-9]|1[0-2])$"
+    },
+    "devotionals": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "contentVersion",
+          "date",
+          "dayOfYear",
+          "title",
+          "theme",
+          "series",
+          "coverStyle",
+          "verses",
+          "context",
+          "reflect",
+          "applyIt",
+          "reviewed",
+          "model"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^devotional-\\d{2}-\\d{2}$"
+          },
+          "contentVersion": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "pattern": "^\\d{2}-\\d{2}$"
+          },
+          "dayOfYear": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 366
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "theme": {
+            "type": "string",
+            "minLength": 1
+          },
+          "series": {
+            "$ref": "devotional.json#/properties/series"
+          },
+          "coverStyle": {
+            "$ref": "devotional.json#/properties/coverStyle"
+          },
+          "verses": {
+            "$ref": "devotional.json#/properties/verses"
+          },
+          "context": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reflect": {
+            "type": "string",
+            "minLength": 1
+          },
+          "applyIt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prayer": {
+            "type": "string",
+            "minLength": 1
+          },
+          "reviewed": {
+            "type": "boolean"
+          },
+          "model": {
+            "type": "string"
+          },
+          "i18n": {
+            "description": "Publishable translations only (auto_checked or reviewed, not stale), without status or review data.",
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "pattern": "^[a-z]{2}$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "title",
+                "theme",
+                "seriesTitle",
+                "context",
+                "reflect",
+                "applyIt"
+              ],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "theme": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "seriesTitle": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "context": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "reflect": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "applyIt": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "prayer": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

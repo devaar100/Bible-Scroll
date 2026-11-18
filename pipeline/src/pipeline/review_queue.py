@@ -7,7 +7,7 @@ from .paths import PIPELINE
 from .store import parse_id
 
 PRIORITY_FILE = PIPELINE / "priority.txt"
-REVIEWABLE = ("flagged", "auto_checked")
+REVIEWABLE = ("flagged", "failed", "auto_checked")
 
 
 def load_priority(path: Path = PRIORITY_FILE, discover_path: Path | None = None) -> list[tuple]:
@@ -36,6 +36,6 @@ def queue_order(studies: list[dict], priority: list[tuple]) -> list[dict]:
     def rank(study: dict) -> tuple:
         key = parse_id(study["id"])
         position = next((i for i, prefix in enumerate(priority) if key[:len(prefix)] == prefix), len(priority))
-        return (0 if study["status"] == "flagged" else 1, position, key)
+        return (0 if study["status"] in ("flagged", "failed") else 1, position, key)
 
     return sorted((s for s in studies if s.get("status") in REVIEWABLE), key=rank)

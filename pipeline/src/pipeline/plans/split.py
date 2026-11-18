@@ -1,48 +1,41 @@
 """Split a reading sequence into N days of about equal length, preferring to cut at chapter ends."""
 from __future__ import annotations
 
-from itertools import accumulate
-
 from ..books import BOOKS
+from . import splitting
 from .bible import Verse
 
 # A chapter end is used when it's within this fraction of a day's length of the ideal cut.
 SNAP_TOLERANCE = 0.35
 
 
-def split_days(sequence: list[Verse], days: int, chapter_ends: set, tolerance: float = SNAP_TOLERANCE) -> list[list[Verse]]:
+def split_days(sequence: list[Verse], days: int, chapter_ends: set, tolerance: float = SNAP_TOLERANCE,
+               paragraph_ends: frozenset = frozenset(), sentence_ends: frozenset = frozenset()) -> list[list[Verse]]:
     """
-    Contiguous, non-empty, covering every verse once. Cut k aims at total*k/days words; the nearest chapter
-    end is taken if it's within SNAP_TOLERANCE of a day's length, otherwise the nearest verse end. Works on
-    any order of verses (also the chronological plan's reordered sequence).
+    Contiguous, non-empty, covering every verse once. The cut rules live in splitting.split_cuts (shared with
+    the app). Chapter ends are [chapter_ends] plus any change of chapter in the sequence, so this works on any
+    order of verses (also the chronological plan's reordered sequence).
     """
-    if days < 1:
-        raise ValueError("days must be >= 1")
-    if days > len(sequence):
-        raise ValueError(f"Can't split {len(sequence)} verses into {days} days")
-    cumulative = list(accumulate(v.words for v in sequence))
-    total = cumulative[-1]
-    per_day = total / days
-    ends_at_chapter = [i for i, v in enumerate(sequence)
-                       if v.key in chapter_ends or (i + 1 < len(sequence) and sequence[i + 1].key[:2] != v.key[:2])]
-
-    cuts: list[int] = []  # index of the last verse of each day except the final one
-    previous = -1
-    for k in range(1, days):
-        target = total * k / days
-        remaining_days = days - k
-        latest = len(sequence) - 1 - remaining_days  # leave at least one verse per remaining day
-        candidates = [i for i in ends_at_chapter if previous < i <= latest]
-        best_chapter = min(candidates, key=lambda i: abs(cumulative[i] - target), default=None)
-        if best_chapter is not None and abs(cumulative[best_chapter] - target) <= tolerance * per_day:
-            cut = best_chapter
-        else:
-            cut = min(range(previous + 1, latest + 1), key=lambda i: abs(cumulative[i] - target))
-        cuts.append(cut)
-        previous = cut
-
+    words = [v.words for v in sequence]
+    tiers = boundary_tiers(sequence, chapter_ends, paragraph_ends, sentence_ends)
+    cuts = splitting.split_cuts(words, tiers, days, tolerance)
     bounds = [-1, *cuts, len(sequence) - 1]
     return [sequence[bounds[i] + 1: bounds[i + 1] + 1] for i in range(days)]
+
+
+def boundary_tiers(sequence: list[Verse], chapter_ends: set, paragraph_ends: frozenset = frozenset(),
+                   sentence_ends: frozenset = frozenset()) -> list[int]:
+    tiers = []
+    for i, v in enumerate(sequence):
+        if v.key in chapter_ends or (i + 1 < len(sequence) and sequence[i + 1].key[:2] != v.key[:2]):
+            tiers.append(splitting.CHAPTER)
+        elif v.key in paragraph_ends:
+            tiers.append(splitting.PARAGRAPH)
+        elif v.key in sentence_ends:
+            tiers.append(splitting.SENTENCE)
+        else:
+            tiers.append(splitting.NONE)
+    return tiers
 
 
 def to_passages(day: list[Verse], position: dict) -> list[dict]:

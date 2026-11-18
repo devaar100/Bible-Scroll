@@ -5,11 +5,22 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
 - Runtime deps (requirements.txt): standard library + jsonschema, anthropic (rubric), fastapi + uvicorn
   (review tool). No pandas/requests. Python 3.11+.
   Tests: `.venv/bin/python -m pytest` (output tests skip until `build` and `studies` have run).
-- Run: `PYTHONPATH=src .venv/bin/python -m pipeline download|build|studies|check|review|progress|all`
+- Run: `PYTHONPATH=src .venv/bin/python -m pipeline download|build|studies|generate|check|review|progress|all`
   from `pipeline/`.
 - `studies` must never lose work: it merges (keeps prose, status, meta, checks) and only refreshes data
   sections. Reviewed/edited studies live only in out/studies (gitignored): back them up.
-- Checks: rules in `checks/` (banned.txt, limits.json); bump `CHECKER_VERSION` in checks.py when a check
+- Prose: `generate <ids> --model --effort --out --force --workers` (generate.py, prompts/study.md), direct
+  Messages API, one request per verse; writes only the six prose sections, status `generated`. `--out` keeps
+  test runs out of out/studies; `check --out` checks them. Prices for cost reports live in usage.py.
+- Batch prose: `batch estimate|submit|status|collect` (batch.py): Haiku 5.5, effort medium, cached 1h system
+  block (study.md System + the Request's fixed tail; keep `FIXED_TAIL_MARKER` in step with study.md). max_tokens 16,000;
+  a max_tokens stop is a failed attempt. Per-request token logs and output stats go in state/ and the summaries. One retry
+  batch; a second failure -> status `failed` (never published). Batch ids live in state/ (gitignored):
+  `backup` zips out/ + state/ before collecting.
+- Discover: discover.txt (one id per line, display order) feeds both `batch --wave discover` and publish's
+  discover.json through publish.load_discover. Keep it the single loader so the order can't diverge.
+  `python -m pipeline discover` audits it; never edit discover.txt for the user.
+- Checks: rules in `checks/` (banned.txt, pipeline_wording.txt, limits.json; lengths pass up to 20% over max); bump `CHECKER_VERSION` in checks.py when a check
   changes. The AI rubric (rubric.py, claude-haiku-5-5) runs only after the free checks pass; API outages
   must leave a study unchanged, never flag it. Tests never call the API (fake clients).
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
@@ -17,11 +28,46 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   schema/plan.json. Structural plans come from `plans/catalogue.py` and ship once they validate; AI-drafted
   plans (topical, chronological) ship only when status is "reviewed". Never overwrite a reviewed plan without
   --force. Day lengths use WEB word counts at 200 wpm; no day may exceed 1.5x estimatedMinutesPerDay.
+- Plan splitting is shared with the app: `plans/splitting.py` is the reference, `core/plans/.../PlanSplitter.kt`
+  its line-for-line port. Change either → change both, run `python -m pipeline plans vectors` (rewrites
+  app assets/plans/verses.bin + core/plans splitting_vectors.json), and run both test suites. Paragraph
+  ends = Masoretic marks (OT only); don't use TAGNT (NA28) paragraphing without a licence check.
+- Devotionals (`python -m pipeline devotionals calendar|redraft-series|draft|check|bundle`): calendar in
+  devotionals/calendar.csv (366 rows, MM-DD, 02-29 bonus; must validate), schema/devotional.json, prompt in
+  prompts/devotional.md, limits in checks/devotional_limits.json. Calendar fields and passage data come from
+  the CSV/source.db, never from AI. Never overwrite a reviewed or edited devotional without --force. Bump
+  devotionals/checks.py CHECKER_VERSION when a devotional check changes. Published per month with the studies
+  release; `devotionals bundle` puts the current + next month in app assets.
+  Each devotional stands alone and is date-independent: the request carries no date and no "day X of Y"; checks
+  (devotionals-3) block "yesterday/tomorrow/this week/as we saw", Easter/Lent/Advent date words, Paul-wrote-Hebrews,
+  faith-instead-of-medical-help and pipeline wording ("the theme", "related passages", "listed"). The model may cite
+  only the passage's chapter and up to 6 related passages taken from out/studies crossReferences (store.
+  related_passages; `draft` refuses to run without out/studies); extraVerses must come from that list. Reviewer:
+  the Haiku rubric (rubric.DEVOTIONAL_SYSTEM_PROMPT adds the health/Hebrews rules). Calendar seasons for "The cross"
+  and "Living hope" are "The cross"/"Resurrection" (Easter moves; no Easter-date assumptions).
+- Translations (`python -m pipeline translate plans|devotionals|estimate|status|flagged|approve --lang es`,
+  translate/): claude-opus-5-5 translates, claude-sonnet-5-5 (a different model on purpose) checks meaning drift,
+  both with structured output and server-side refusal fallback; the model that actually answered is recorded in
+  meta with promptHash/driftPromptHash (SHA-256 of the system prompts sent). Free checks (keys, lengths,
+  numbers/reference numbers, quoted Scripture = target Bible text) run before the drift call. Blocking = a failed
+  free check or drift in engine.BLOCKING (meaning_changed, claim_added/dropped, reference/name/number_changed,
+  theology_term): one retry with the problems fed back, then flagged (the app shows English). Everything else
+  (tone, nuance, quotation, style, other) is logged in checks.minor and counted, never blocks. `translate plans|
+  devotionals` print the estimate and ask before spending (`--yes` to skip the question). Results live in the doc: `i18n.<lang>` {status, sourceVersion, texts, meta, checks}; category titles
+  in out/plans/categories.i18n.json. Only auto_checked/reviewed with sourceVersion == contentVersion ship (bundle,
+  index.json, month files strip status/meta/checks). Rebuilding English marks old translations `stale`, never
+  deletes them. Never overwrite reviewed without --force; flagged only with --retry-flagged. Devotional translation
+  refuses to run without the target Bible's text (RV1909, Session 30a). Prompts: prompts/translate.md, drift.md.
+  Bump engine.CHECKER_VERSION when a translation check changes. Tests use fake clients.
+- Bundled files in app assets are `*.json.gzip`, never `*.gz`: AAPT gunzips `.gz` assets and drops the suffix, so
+  the app wouldn't find them (bundle.BUNDLED_SUFFIX; CDN files stay `.json.gz`).
 - Publishing: only auto_checked/reviewed studies go public, never check reasons or reviewer/editor names.
   Book files must stay byte-deterministic (canonical_gzip) so unchanged books keep their URL and hash.
   Always `publish --dry-run` first; `publish` deploys to Firebase project biblescroll-content
   (publish.json) and must never enable Google Analytics. `bundle` copies MAT/MRK/LUK/JHN/PSA into the app.
-- Study format: `schema/study.json` (schemaVersion 1). Change the schema → bump `schemaVersion`;
+- Study format: `schema/study.json` (schemaVersion 3). Bump `schemaVersion` only when the published shape changes
+  (a bump changes every book file's hash/URL); optional pipeline-only fields (meta, checks) don't bump it, but get a
+  line in README's schema changelog;
   change a selection rule in `studies.py` → update `BUILDER_RULES` (it feeds `contentVersion`).
 - Study data sections (originalLanguage, crossReferences, citations) come only from source.db, never from AI.
   Glosses are the per-word in-context glosses from TAHOT/TAGNT, not TBESH definitions.

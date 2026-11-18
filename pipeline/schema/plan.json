@@ -24,6 +24,7 @@
       "enum": ["structural", "ai_drafted"]
     },
     "credits": {"description": "Shown on the plan detail page.", "type": "string", "minLength": 1, "maxLength": 300},
+    "i18n": {"description": "Translations by language code (e.g. \"es\"). English stays in the top-level fields.", "type": "object", "propertyNames": {"type": "string", "pattern": "^[a-z]{2}$"}, "additionalProperties": {"$ref": "#/$defs/planLocale"}},
     "meta": {
       "type": "object",
       "additionalProperties": false,
@@ -80,6 +81,31 @@
     }
   ],
   "$defs": {
+    "planLocale": {
+      "description": "One language's text for this plan (pipeline `translate plans`). Limits are about 25% above English.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "sourceVersion", "title", "shortDescription", "description", "meta"],
+      "properties": {
+        "status": {"description": "translated: written, not yet checked. auto_checked: free checks and the drift check passed. flagged: needs a person (see checks). reviewed: a person approved it. stale: the English changed since (sourceVersion != contentVersion); not shipped until retranslated.", "enum": ["translated", "auto_checked", "flagged", "reviewed", "stale"]},
+        "sourceVersion": {"description": "contentVersion of the English this was translated from.", "type": "string"},
+        "title": {"type": "string", "minLength": 1, "maxLength": 75},
+        "shortDescription": {"type": "string", "minLength": 1, "maxLength": 150},
+        "description": {"type": "string", "minLength": 1, "maxLength": 1000},
+        "credits": {"type": "string", "minLength": 1, "maxLength": 375},
+        "days": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["dayNumber"],
+                 "properties": {"dayNumber": {"type": "integer", "minimum": 1}, "title": {"type": "string", "minLength": 1, "maxLength": 100}, "intro": {"type": "string", "minLength": 1, "maxLength": 750}}}},
+        "meta": {"description": "Models, times and reviewer. Never published.", "type": "object", "additionalProperties": false,
+                 "properties": {"model": {"type": "string"}, "driftModel": {"type": "string"}, "translatedAt": {"type": "string"}, "checkedAt": {"type": "string"},
+                                "reviewedBy": {"type": "string"}, "reviewedAt": {"type": "string"}, "usage": {"type": "object"},
+                                "promptHash": {"description": "SHA-256 of the translation system prompt sent.", "type": "string"},
+                                "driftPromptHash": {"description": "SHA-256 of the drift-check system prompt sent.", "type": "string"},
+                                "retried": {"description": "A blocking problem was found and the one retry was used.", "type": "boolean"}}},
+        "checks": {"description": "Why it was flagged. Never published.", "type": "object", "additionalProperties": false,
+                   "properties": {"checkerVersion": {"type": "string"}, "reasons": {"type": "array", "items": {"type": "object"}}, "drift": {"type": "object"},
+                                  "minor": {"description": "Non-blocking drift notes (tone, nuance, quotation, style, other).", "type": "array", "items": {"type": "object"}}}}
+      }
+    },
     "category": {
       "description": "H8 carousels. 'Start here' is a featured list in index.json, not a category of its own.",
       "enum": ["topics-and-seasons", "gospels-and-acts", "letters-and-revelation", "old-testament-stories", "year-round-habits"]

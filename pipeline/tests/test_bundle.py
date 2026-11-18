@@ -26,12 +26,12 @@ def test_copies_gospels_and_psalms_only(site, tmp_path):
     result = bundle(site_dir, assets)
     assert result.copied == ["JHN", "PSA"] and result.missing == ["MAT", "MRK", "LUK"]
     assert result.removed == ["OLD.json.gz"]
-    assert sorted(f.name for f in assets.iterdir()) == ["JHN.json.gz", "PSA.json.gz", "manifest.json"]
+    assert sorted(f.name for f in assets.iterdir()) == ["JHN.json.gzip", "PSA.json.gzip", "manifest.json"]
     bundled = json.loads((assets / "manifest.json").read_text())
     assert bundled["release"] == release.manifest["release"]
-    assert [(b["book"], b["url"]) for b in bundled["books"]] == [("JHN", "JHN.json.gz"), ("PSA", "PSA.json.gz")]
+    assert [(b["book"], b["url"]) for b in bundled["books"]] == [("JHN", "JHN.json.gzip"), ("PSA", "PSA.json.gzip")]
     live_jhn = next(b for b in release.manifest["books"] if b["book"] == "JHN")
-    assert (assets / "JHN.json.gz").read_bytes() == release.files[p._site_path(live_jhn["url"])]
+    assert (assets / "JHN.json.gzip").read_bytes() == release.files[p._site_path(live_jhn["url"])]
 
 
 def test_refuses_corrupt_release(site, tmp_path):

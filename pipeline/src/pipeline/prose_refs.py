@@ -3,7 +3,8 @@ Find Bible references in English prose and check they exist in the KJV verse lis
 
 Handles: "John 3:16", "Jn 3:16-18", "1 Cor. 13:4–7", "Psalm 23" (chapter), "Romans 5:8; 8:32" (list
 continuing the same book), "Gen 1:1-2:3" (cross-chapter), "v. 17" / "verses 15–17" (relative to the
-study's own chapter). A capitalised word that isn't a book name, directly followed by chapter:verse
+study's own chapter), and "In 1:12" / "See 2:5" (a sentence-opening word + chapter:verse = the study's own
+book). A capitalised word that isn't a book name, directly followed by chapter:verse
 (e.g. "Hezekiah 3:5"), is reported as an unrecognised reference.
 """
 from __future__ import annotations
@@ -65,9 +66,14 @@ _DASH = r"\s*[-–—]\s*"
 # Book + chapter[:verse[-[chapter:]verse]], then optional ", v" / "; c:v" continuations.
 _REF = re.compile(
     rf"(?<![\w])(?P<book>{_NAMES})\.?\s+(?P<body>\d+(?::\d+)?(?:{_DASH}\d+(?::\d+)?)?"
-    rf"(?:\s*[,;]\s*\d+(?::\d+)?(?:{_DASH}\d+(?::\d+)?)?)*)"
-)
+    rf"(?:\s*[,;]\s*(?!(?:{_NAMES})\b)\d+(?::\d+)?(?:{_DASH}\d+(?::\d+)?)?)*)"
+)  # a continuation number that starts the next book ("Romans 5:8, 1 John 4:9") isn't part of this reference
 _UNKNOWN = re.compile(r"(?<![\w.])(?P<name>(?:[1-3]\s?)?[A-Z][a-z]+)\.?\s+(?P<cv>\d+:\d+)")
+# Sentence-opening words that precede a same-book "chapter:verse" ("In 1:12", "Compare 2:5").
+_SAME_BOOK_LEADS = frozenset("""
+    In See Compare Cf At From By And Also As Like Unlike Then Later Earlier Before After With Since Until
+    Through Throughout Back Here There Elsewhere Chapter Verse Verses
+""".split())
 _RELATIVE = re.compile(rf"\b(?:verses?|vv?\.)\s*(?P<a>\d+)(?:{_DASH}(?P<b>\d+))?")
 _ITEM = re.compile(rf"^(\d+)(?::(\d+))?(?:{_DASH}(\d+)(?::(\d+))?)?$")
 
@@ -111,7 +117,10 @@ def find_references(prose: str, here: tuple[int, int, int]) -> list[Found]:
     for m in _UNKNOWN.finditer(prose):
         if any(s <= m.start() < e for s, e in covered):
             continue
-        if m["name"] not in BOOK_BY_ALIAS:
+        if m["name"] in _SAME_BOOK_LEADS:
+            c, v = (int(x) for x in m["cv"].split(":"))
+            found.append(Found(m.group(0), here[0], (c, v), (c, v)))
+        elif m["name"] not in BOOK_BY_ALIAS:
             found.append(Found(m.group(0), None, None, None, f"unrecognised book name {m['name']!r}"))
 
     for m in _RELATIVE.finditer(prose):

@@ -49,3 +49,17 @@ def test_existence(bible):
     assert "no chapter" in problem("Psalm 151")
     assert "does not exist" in problem("Romans 8:28-40")
     assert problem("Romans 8:39-28") == "range runs backwards"
+
+
+def test_sentence_opening_word_before_chapter_verse_means_same_book():
+    (found,) = find_references("In 1:12 Paul says his chains helped.", HERE)
+    assert found.problem is None and found.book_id == HERE[0] and found.start == (1, 12)
+    (found,) = find_references("See 99:1 for more.", HERE)
+    assert found.book_id == HERE[0] and found.start == (99, 1)  # still checked for existence
+
+
+def test_list_continuation_stops_at_a_numbered_book():
+    from pipeline.prose_refs import find_references
+    found = find_references("See Romans 5:8, 1 John 4:9-10 and John 3:16, 18, 2 Cor 5:17; 1 Pet 2:9.", (43, 3, 16))
+    assert [(r.book_id, r.start) for r in found] == [(45, (5, 8)), (62, (4, 9)), (43, (3, 16)), (43, (3, 18)),
+                                                     (47, (5, 17)), (60, (2, 9))]

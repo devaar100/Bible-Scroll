@@ -6,7 +6,7 @@ from collections import Counter, defaultdict
 from .books import BOOKS
 from .store import StudyStore, is_written, parse_id
 
-STAGES = ("not_written", "generated", "auto_checked", "flagged", "reviewed")
+STAGES = ("not_written", "generated", "auto_checked", "flagged", "failed", "reviewed")
 
 
 def stage(study: dict) -> str:

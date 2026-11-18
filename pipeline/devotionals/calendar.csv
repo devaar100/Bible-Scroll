@@ -1,0 +1,367 @@
+date,season,series,series_day,series_length,cover_style,theme,anchor
+01-01,Christmastide,New mercies,1,7,dawn,Mercies new every morning,LAM.3.22-LAM.3.26
+01-02,Christmastide,New mercies,2,7,dawn,A God who makes things new,ISA.43.18-ISA.43.21
+01-03,Christmastide,New mercies,3,7,dawn,The Word who became flesh,JHN.1.1-JHN.1.14
+01-04,Christmastide,New mercies,4,7,dawn,Simeon sees the promise kept,LUK.2.25-LUK.2.32
+01-05,Christmastide,New mercies,5,7,dawn,Teach us to number our days,PSA.90.1-PSA.90.12
+01-06,Christmastide,New mercies,6,7,dawn,Wise men follow the star,MAT.2.1-MAT.2.12
+01-07,Christmastide,New mercies,7,7,dawn,Light for every nation,ISA.60.1-ISA.60.6
+01-08,Epiphany,Called by name,1,14,meadow,The voice from heaven at the Jordan,MAT.3.13-MAT.3.17
+01-09,Epiphany,Called by name,2,14,meadow,Abram hears and goes,GEN.12.1-GEN.12.9
+01-10,Epiphany,Called by name,3,14,meadow,Moses at the burning bush,EXO.3.1-EXO.3.12
+01-11,Epiphany,Called by name,4,14,meadow,"Samuel: speak, for I'm listening",1SA.3.1-1SA.3.10
+01-12,Epiphany,Called by name,5,14,meadow,"Isaiah: here am I, send me",ISA.6.1-ISA.6.8
+01-13,Epiphany,Called by name,6,14,meadow,Jeremiah: known before birth,JER.1.4-JER.1.10
+01-14,Epiphany,Called by name,7,14,meadow,Fishers of people,MRK.1.14-MRK.1.20
+01-15,Epiphany,Called by name,8,14,meadow,Come and see,JHN.1.35-JHN.1.51
+01-16,Epiphany,Called by name,9,14,meadow,Levi leaves his tax booth,LUK.5.27-LUK.5.32
+01-17,Epiphany,Called by name,10,14,meadow,Zacchaeus comes down,LUK.19.1-LUK.19.10
+01-18,Epiphany,Called by name,11,14,meadow,Mary Magdalene hears her name,JHN.20.11-JHN.20.18
+01-19,Epiphany,Called by name,12,14,meadow,Saul meets the risen Jesus,ACT.9.1-ACT.9.19
+01-20,Epiphany,Called by name,13,14,meadow,"Not many wise, but chosen",1CO.1.26-1CO.1.31
+01-21,Epiphany,Called by name,14,14,meadow,Called to be God's people,1PE.2.9-1PE.2.10
+01-22,Ordinary time,The Sermon on the Mount,1,14,ocean,Blessed are the poor in spirit,MAT.5.1-MAT.5.6
+01-23,Ordinary time,The Sermon on the Mount,2,14,ocean,Blessed are the merciful,MAT.5.7-MAT.5.12
+01-24,Ordinary time,The Sermon on the Mount,3,14,ocean,Salt and light,MAT.5.13-MAT.5.16
+01-25,Ordinary time,The Sermon on the Mount,4,14,ocean,Anger and making peace,MAT.5.21-MAT.5.26
+01-26,Ordinary time,The Sermon on the Mount,5,14,ocean,Let your yes be yes,MAT.5.33-MAT.5.37
+01-27,Ordinary time,The Sermon on the Mount,6,14,ocean,Love your enemies,MAT.5.38-MAT.5.48
+01-28,Ordinary time,The Sermon on the Mount,7,14,ocean,Giving in secret,MAT.6.1-MAT.6.4
+01-29,Ordinary time,The Sermon on the Mount,8,14,ocean,The Lord's Prayer,MAT.6.5-MAT.6.15
+01-30,Ordinary time,The Sermon on the Mount,9,14,ocean,Treasure in heaven,MAT.6.19-MAT.6.24
+01-31,Ordinary time,The Sermon on the Mount,10,14,ocean,Don't worry about tomorrow,MAT.6.25-MAT.6.34
+02-01,Ordinary time,The Sermon on the Mount,11,14,ocean,The log and the speck,MAT.7.1-MAT.7.6
+02-02,Ordinary time,The Sermon on the Mount,12,14,ocean,"Ask, seek, knock",MAT.7.7-MAT.7.12
+02-03,Ordinary time,The Sermon on the Mount,13,14,ocean,The narrow gate and good fruit,MAT.7.13-MAT.7.20
+02-04,Ordinary time,The Sermon on the Mount,14,14,ocean,Building on the rock,MAT.7.24-MAT.7.29
+02-05,Ordinary time,Psalms for every season,1,14,ember,The tree by the water,PSA.1.1-PSA.1.6
+02-06,Ordinary time,Psalms for every season,2,14,ember,Sleeping in peace,PSA.4.1-PSA.4.8
+02-07,Ordinary time,Psalms for every season,3,14,ember,"What are we, that you think of us?",PSA.8.1-PSA.8.9
+02-08,Ordinary time,Psalms for every season,4,14,ember,"How long, Lord?",PSA.13.1-PSA.13.6
+02-09,Ordinary time,Psalms for every season,5,14,ember,The heavens tell God's glory,PSA.19.1-PSA.19.14
+02-10,Ordinary time,Psalms for every season,6,14,ember,The Lord is my shepherd,PSA.23.1-PSA.23.6
+02-11,Ordinary time,Psalms for every season,7,14,ember,Wait for the Lord,PSA.27.1-PSA.27.14
+02-12,Ordinary time,Psalms for every season,8,14,ember,Forgiven and free,PSA.32.1-PSA.32.11
+02-13,Ordinary time,Psalms for every season,9,14,ember,Taste and see,PSA.34.1-PSA.34.10
+02-14,Ordinary time,Psalms for every season,10,14,ember,"Why so downcast, my soul?",PSA.42.1-PSA.42.11
+02-15,Ordinary time,Psalms for every season,11,14,ember,Be still and know,PSA.46.1-PSA.46.11
+02-16,Ordinary time,Psalms for every season,12,14,ember,A clean heart,PSA.51.1-PSA.51.12
+02-17,Ordinary time,Psalms for every season,13,14,ember,My soul thirsts for you,PSA.63.1-PSA.63.8
+02-18,Ordinary time,Psalms for every season,14,14,ember,Shelter of the Most High,PSA.91.1-PSA.91.16
+02-19,Before Lent,Into the wilderness,1,14,dusk,Jesus tested in the desert,MAT.4.1-MAT.4.11
+02-20,Before Lent,Into the wilderness,2,14,dusk,Hagar and the God who sees,GEN.16.7-GEN.16.14
+02-21,Before Lent,Into the wilderness,3,14,dusk,"Manna, one day at a time",EXO.16.1-EXO.16.21
+02-22,Before Lent,Into the wilderness,4,14,dusk,Water from the rock,EXO.17.1-EXO.17.7
+02-23,Before Lent,Into the wilderness,5,14,dusk,Forty years remembered,DEU.8.1-DEU.8.10
+02-24,Before Lent,Into the wilderness,6,14,dusk,Elijah under the broom tree,1KI.19.1-1KI.19.8
+02-25,Before Lent,Into the wilderness,7,14,dusk,The still small voice,1KI.19.9-1KI.19.18
+02-26,Before Lent,Into the wilderness,8,14,dusk,A voice in the wilderness,ISA.40.1-ISA.40.11
+02-27,Before Lent,Into the wilderness,9,14,dusk,Streams in the desert,ISA.35.1-ISA.35.10
+02-28,Before Lent,Into the wilderness,10,14,dusk,Hosea: I will speak tenderly,HOS.2.14-HOS.2.20
+02-29,Leap day,A day to rest,1,1,linen,"Sabbath rest: a gift, not a test",MRK.2.23-MRK.2.28
+03-01,Before Lent,Into the wilderness,11,14,dusk,John the Baptist prepares the way,MRK.1.1-MRK.1.8
+03-02,Before Lent,Into the wilderness,12,14,dusk,Jesus withdraws to pray,LUK.5.12-LUK.5.16
+03-03,Before Lent,Into the wilderness,13,14,dusk,A tested high priest,HEB.4.14-HEB.4.16
+03-04,Before Lent,Into the wilderness,14,14,dusk,Joy in trials,JAS.1.2-JAS.1.12
+03-05,Lent,Return to me,1,14,stone,Return to me with all your heart,JOL.2.12-JOL.2.17
+03-06,Lent,Return to me,2,14,stone,The fast God chooses,ISA.58.6-ISA.58.11
+03-07,Lent,Return to me,3,14,stone,Search me and know me,PSA.139.1-PSA.139.12
+03-08,Lent,Return to me,4,14,stone,David hears 'You are the man',2SA.12.1-2SA.12.13
+03-09,Lent,Return to me,5,14,stone,The lost sheep and the lost coin,LUK.15.1-LUK.15.10
+03-10,Lent,Return to me,6,14,stone,The father who runs,LUK.15.11-LUK.15.24
+03-11,Lent,Return to me,7,14,stone,The older brother,LUK.15.25-LUK.15.32
+03-12,Lent,Return to me,8,14,stone,Two men praying,LUK.18.9-LUK.18.14
+03-13,Lent,Return to me,9,14,stone,"Jonah runs, God pursues",JON.1.1-JON.1.17
+03-14,Lent,Return to me,10,14,stone,Mercy for Nineveh,JON.3.1-JON.3.10
+03-15,Lent,Return to me,11,14,stone,"Do justice, love mercy, walk humbly",MIC.6.6-MIC.6.8
+03-16,Lent,Return to me,12,14,stone,If we confess,1JN.1.5-1JN.1.10
+03-17,Lent,Return to me,13,14,stone,Godly sorrow,2CO.7.8-2CO.7.11
+03-18,Lent,Return to me,14,14,stone,A new heart and a new spirit,EZK.36.24-EZK.36.28
+03-19,The cross,The cross,1,21,linen,The Son of Man must suffer,MRK.8.31-MRK.8.38
+03-20,The cross,The cross,2,21,linen,Set his face toward Jerusalem,LUK.9.51-LUK.9.62
+03-21,The cross,The cross,3,21,linen,A grain of wheat,JHN.12.20-JHN.12.33
+03-22,The cross,The cross,4,21,linen,Mary pours out her perfume,JHN.12.1-JHN.12.8
+03-23,The cross,The cross,5,21,linen,The king rides a donkey,ZEC.9.9-ZEC.9.10
+03-24,The cross,The cross,6,21,linen,Jesus washes feet,JHN.13.1-JHN.13.17
+03-25,The cross,The cross,7,21,linen,The last supper,LUK.22.14-LUK.22.23
+03-26,The cross,The cross,8,21,linen,Not my will but yours,LUK.22.39-LUK.22.46
+03-27,The cross,The cross,9,21,linen,Peter's denial,LUK.22.54-LUK.22.62
+03-28,The cross,The cross,10,21,linen,The suffering servant,ISA.53.1-ISA.53.6
+03-29,The cross,The cross,11,21,linen,He was pierced for us,ISA.53.7-ISA.53.12
+03-30,The cross,The cross,12,21,linen,"Father, forgive them",LUK.23.32-LUK.23.43
+03-31,The cross,The cross,13,21,linen,"My God, why have you forsaken me?",PSA.22.1-PSA.22.11
+04-01,The cross,The cross,14,21,linen,It is finished,JHN.19.25-JHN.19.30
+04-02,The cross,The cross,15,21,linen,Laid in the tomb,LUK.23.50-LUK.23.56
+04-03,The cross,The cross,16,21,linen,The Passover lamb,EXO.12.1-EXO.12.13
+04-04,The cross,The cross,17,21,linen,Love that went all the way,ROM.5.6-ROM.5.11
+04-05,The cross,The cross,18,21,linen,Christ emptied himself,PHP.2.5-PHP.2.11
+04-06,The cross,The cross,19,21,linen,The message of the cross,1CO.1.18-1CO.1.25
+04-07,The cross,The cross,20,21,linen,Nothing but Christ crucified,1CO.2.1-1CO.2.5
+04-08,The cross,The cross,21,21,linen,Crucified with Christ,GAL.2.19-GAL.2.21
+04-09,Resurrection,Living hope,1,21,night,He is not here; he is risen,MRK.16.1-MRK.16.8
+04-10,Resurrection,Living hope,2,21,night,Running to the tomb,JHN.20.1-JHN.20.10
+04-11,Resurrection,Living hope,3,21,night,The road to Emmaus,LUK.24.13-LUK.24.27
+04-12,Resurrection,Living hope,4,21,night,Known in the breaking of bread,LUK.24.28-LUK.24.35
+04-13,Resurrection,Living hope,5,21,night,Peace be with you,JHN.20.19-JHN.20.23
+04-14,Resurrection,Living hope,6,21,night,Thomas: my Lord and my God,JHN.20.24-JHN.20.31
+04-15,Resurrection,Living hope,7,21,night,Breakfast on the beach,JHN.21.1-JHN.21.14
+04-16,Resurrection,Living hope,8,21,night,Do you love me?,JHN.21.15-JHN.21.19
+04-17,Resurrection,Living hope,9,21,night,"Raised first, of many",1CO.15.12-1CO.15.22
+04-18,Resurrection,Living hope,10,21,night,"Death, where is your sting?",1CO.15.50-1CO.15.58
+04-19,Resurrection,Living hope,11,21,night,A living hope,1PE.1.3-1PE.1.9
+04-20,Resurrection,Living hope,12,21,night,The resurrection and the life,JHN.11.17-JHN.11.27
+04-21,Resurrection,Living hope,13,21,night,Dry bones live,EZK.37.1-EZK.37.14
+04-22,Resurrection,Living hope,14,21,night,I know my redeemer lives,JOB.19.23-JOB.19.27
+04-23,Resurrection,Living hope,15,21,night,Joy comes in the morning,PSA.30.1-PSA.30.12
+04-24,Resurrection,Living hope,16,21,night,Swallowed up forever,ISA.25.6-ISA.25.9
+04-25,Resurrection,Living hope,17,21,night,New creation,2CO.5.14-2CO.5.21
+04-26,Resurrection,Living hope,18,21,night,Raised to walk in newness,ROM.6.1-ROM.6.11
+04-27,Resurrection,Living hope,19,21,night,Seek the things above,COL.3.1-COL.3.4
+04-28,Resurrection,Living hope,20,21,night,Go and make disciples,MAT.28.16-MAT.28.20
+04-29,Resurrection,Living hope,21,21,night,"Taken up, coming again",ACT.1.6-ACT.1.11
+04-30,Eastertide,Life together,1,14,dawn,They devoted themselves,ACT.2.42-ACT.2.47
+05-01,Eastertide,Life together,2,14,dawn,One heart and soul,ACT.4.32-ACT.4.37
+05-02,Eastertide,Life together,3,14,dawn,Choosing servants,ACT.6.1-ACT.6.7
+05-03,Eastertide,Life together,4,14,dawn,Philip and the traveller,ACT.8.26-ACT.8.40
+05-04,Eastertide,Life together,5,14,dawn,God shows no favouritism,ACT.10.34-ACT.10.48
+05-05,Eastertide,Life together,6,14,dawn,"One body, many parts",1CO.12.12-1CO.12.27
+05-06,Eastertide,Life together,7,14,dawn,Love is patient,1CO.13.1-1CO.13.13
+05-07,Eastertide,Life together,8,14,dawn,Bear one another's burdens,GAL.6.1-GAL.6.10
+05-08,Eastertide,Life together,9,14,dawn,Keep the unity,EPH.4.1-EPH.4.16
+05-09,Eastertide,Life together,10,14,dawn,Welcome one another,ROM.15.1-ROM.15.7
+05-10,Eastertide,Life together,11,14,dawn,How good when we live in unity,PSA.133.1-PSA.133.3
+05-11,Eastertide,Life together,12,14,dawn,Two are better than one,ECC.4.9-ECC.4.12
+05-12,Eastertide,Life together,13,14,dawn,"Ruth: where you go, I will go",RUT.1.6-RUT.1.18
+05-13,Eastertide,Life together,14,14,dawn,Don't give up meeting together,HEB.10.19-HEB.10.25
+05-14,Toward Pentecost,The Spirit who helps,1,21,meadow,Another helper,JHN.14.15-JHN.14.27
+05-15,Toward Pentecost,The Spirit who helps,2,21,meadow,The Spirit of truth,JHN.16.5-JHN.16.15
+05-16,Toward Pentecost,The Spirit who helps,3,21,meadow,Wind and fire at Pentecost,ACT.2.1-ACT.2.13
+05-17,Toward Pentecost,The Spirit who helps,4,21,meadow,I will pour out my Spirit,JOL.2.28-JOL.2.32
+05-18,Toward Pentecost,The Spirit who helps,5,21,meadow,"Not by might, but by my Spirit",ZEC.4.1-ZEC.4.6
+05-19,Toward Pentecost,The Spirit who helps,6,21,meadow,The Spirit hovering over the waters,GEN.1.1-GEN.1.5
+05-20,Toward Pentecost,The Spirit who helps,7,21,meadow,Breath into dust,GEN.2.4-GEN.2.7
+05-21,Toward Pentecost,The Spirit who helps,8,21,meadow,Born of water and the Spirit,JHN.3.1-JHN.3.8
+05-22,Toward Pentecost,The Spirit who helps,9,21,meadow,Rivers of living water,JHN.7.37-JHN.7.39
+05-23,Toward Pentecost,The Spirit who helps,10,21,meadow,Life in the Spirit,ROM.8.1-ROM.8.11
+05-24,Toward Pentecost,The Spirit who helps,11,21,meadow,Children of God,ROM.8.12-ROM.8.17
+05-25,Toward Pentecost,The Spirit who helps,12,21,meadow,The Spirit helps us pray,ROM.8.26-ROM.8.28
+05-26,Toward Pentecost,The Spirit who helps,13,21,meadow,The fruit of the Spirit,GAL.5.16-GAL.5.26
+05-27,Toward Pentecost,The Spirit who helps,14,21,meadow,Gifts for the common good,1CO.12.1-1CO.12.11
+05-28,Toward Pentecost,The Spirit who helps,15,21,meadow,"Where the Spirit is, there is freedom",2CO.3.12-2CO.3.18
+05-29,Toward Pentecost,The Spirit who helps,16,21,meadow,Sealed with the Spirit,EPH.1.11-EPH.1.14
+05-30,Toward Pentecost,The Spirit who helps,17,21,meadow,Be filled with the Spirit,EPH.5.15-EPH.5.21
+05-31,Toward Pentecost,The Spirit who helps,18,21,meadow,The anointing on the servant,ISA.61.1-ISA.61.3
+06-01,Toward Pentecost,The Spirit who helps,19,21,meadow,Jesus reads in Nazareth,LUK.4.14-LUK.4.21
+06-02,Toward Pentecost,The Spirit who helps,20,21,meadow,Do not quench the Spirit,1TH.5.16-1TH.5.24
+06-03,Toward Pentecost,The Spirit who helps,21,21,meadow,Spirit and bride say come,REV.22.16-REV.22.21
+06-04,Ordinary time,Wisdom for ordinary days,1,14,ocean,The fear of the Lord,PRO.1.1-PRO.1.7
+06-05,Ordinary time,Wisdom for ordinary days,2,14,ocean,Trust with all your heart,PRO.3.1-PRO.3.12
+06-06,Ordinary time,Wisdom for ordinary days,3,14,ocean,Guard your heart,PRO.4.20-PRO.4.27
+06-07,Ordinary time,Wisdom for ordinary days,4,14,ocean,Learn from the ant,PRO.6.6-PRO.6.11
+06-08,Ordinary time,Wisdom for ordinary days,5,14,ocean,Words that heal,PRO.15.1-PRO.15.7
+06-09,Ordinary time,Wisdom for ordinary days,6,14,ocean,Plans and the Lord's purpose,PRO.16.1-PRO.16.9
+06-10,Ordinary time,Wisdom for ordinary days,7,14,ocean,A friend loves at all times,PRO.17.17-PRO.17.22
+06-11,Ordinary time,Wisdom for ordinary days,8,14,ocean,Solomon asks for wisdom,1KI.3.5-1KI.3.14
+06-12,Ordinary time,Wisdom for ordinary days,9,14,ocean,A time for everything,ECC.3.1-ECC.3.13
+06-13,Ordinary time,Wisdom for ordinary days,10,14,ocean,Ask God for wisdom,JAS.1.5-JAS.1.8
+06-14,Ordinary time,Wisdom for ordinary days,11,14,ocean,Quick to listen,JAS.1.19-JAS.1.27
+06-15,Ordinary time,Wisdom for ordinary days,12,14,ocean,Taming the tongue,JAS.3.1-JAS.3.12
+06-16,Ordinary time,Wisdom for ordinary days,13,14,ocean,Wisdom from above,JAS.3.13-JAS.3.18
+06-17,Ordinary time,Wisdom for ordinary days,14,14,ocean,If the Lord wills,JAS.4.13-JAS.4.17
+06-18,Ordinary time,Stories of faith,1,14,ember,What faith is,HEB.11.1-HEB.11.6
+06-19,Ordinary time,Stories of faith,2,14,ember,Noah builds in the dry,GEN.6.9-GEN.6.22
+06-20,Ordinary time,Stories of faith,3,14,ember,Abraham and the stars,GEN.15.1-GEN.15.6
+06-21,Ordinary time,Stories of faith,4,14,ember,Sarah laughs,GEN.18.1-GEN.18.15
+06-22,Ordinary time,Stories of faith,5,14,ember,Joseph: God meant it for good,GEN.50.15-GEN.50.21
+06-23,Ordinary time,Stories of faith,6,14,ember,Crossing the sea,EXO.14.10-EXO.14.22
+06-24,Ordinary time,Stories of faith,7,14,ember,Rahab's scarlet cord,JOS.2.1-JOS.2.14
+06-25,Ordinary time,Stories of faith,8,14,ember,Be strong and courageous,JOS.1.1-JOS.1.9
+06-26,Ordinary time,Stories of faith,9,14,ember,"Gideon, the least",JDG.6.11-JDG.6.16
+06-27,Ordinary time,Stories of faith,10,14,ember,David and Goliath,1SA.17.32-1SA.17.50
+06-28,Ordinary time,Stories of faith,11,14,ember,Three friends in the fire,DAN.3.13-DAN.3.28
+06-29,Ordinary time,Stories of faith,12,14,ember,Daniel prays anyway,DAN.6.10-DAN.6.23
+06-30,Ordinary time,Stories of faith,13,14,ember,A great cloud of witnesses,HEB.12.1-HEB.12.3
+07-01,Ordinary time,Stories of faith,14,14,ember,The centurion's faith,LUK.7.1-LUK.7.10
+07-02,Ordinary time,Prayers of the Bible,1,14,dusk,Abraham pleads for a city,GEN.18.22-GEN.18.33
+07-03,Ordinary time,Prayers of the Bible,2,14,dusk,Hannah pours out her heart,1SA.1.9-1SA.1.20
+07-04,Ordinary time,Prayers of the Bible,3,14,dusk,Hannah's song,1SA.2.1-1SA.2.10
+07-05,Ordinary time,Prayers of the Bible,4,14,dusk,David: who am I?,2SA.7.18-2SA.7.29
+07-06,Ordinary time,Prayers of the Bible,5,14,dusk,Solomon dedicates the temple,1KI.8.22-1KI.8.30
+07-07,Ordinary time,Prayers of the Bible,6,14,dusk,Jabez asks,1CH.4.9-1CH.4.10
+07-08,Ordinary time,Prayers of the Bible,7,14,dusk,Nehemiah prays and plans,NEH.1.4-NEH.1.11
+07-09,Ordinary time,Prayers of the Bible,8,14,dusk,Daniel's confession,DAN.9.3-DAN.9.19
+07-10,Ordinary time,Prayers of the Bible,9,14,dusk,Habakkuk: even though,HAB.3.17-HAB.3.19
+07-11,Ordinary time,Prayers of the Bible,10,14,dusk,Mary's song,LUK.1.46-LUK.1.55
+07-12,Ordinary time,Prayers of the Bible,11,14,dusk,Jesus prays for us,JHN.17.20-JHN.17.26
+07-13,Ordinary time,Prayers of the Bible,12,14,dusk,The church prays for boldness,ACT.4.23-ACT.4.31
+07-14,Ordinary time,Prayers of the Bible,13,14,dusk,Paul: rooted and grounded in love,EPH.3.14-EPH.3.21
+07-15,Ordinary time,Prayers of the Bible,14,14,dusk,Pray about everything,PHP.4.4-PHP.4.7
+07-16,Ordinary time,Parables of the kingdom,1,14,stone,The sower,MAT.13.1-MAT.13.9
+07-17,Ordinary time,Parables of the kingdom,2,14,stone,Seeds that grow by themselves,MRK.4.26-MRK.4.29
+07-18,Ordinary time,Parables of the kingdom,3,14,stone,The mustard seed and the yeast,MAT.13.31-MAT.13.33
+07-19,Ordinary time,Parables of the kingdom,4,14,stone,Treasure and the pearl,MAT.13.44-MAT.13.46
+07-20,Ordinary time,Parables of the kingdom,5,14,stone,The good Samaritan,LUK.10.25-LUK.10.37
+07-21,Ordinary time,Parables of the kingdom,6,14,stone,The friend at midnight,LUK.11.5-LUK.11.13
+07-22,Ordinary time,Parables of the kingdom,7,14,stone,The rich fool,LUK.12.13-LUK.12.21
+07-23,Ordinary time,Parables of the kingdom,8,14,stone,The great banquet,LUK.14.15-LUK.14.24
+07-24,Ordinary time,Parables of the kingdom,9,14,stone,The persistent widow,LUK.18.1-LUK.18.8
+07-25,Ordinary time,Parables of the kingdom,10,14,stone,The unforgiving servant,MAT.18.21-MAT.18.35
+07-26,Ordinary time,Parables of the kingdom,11,14,stone,Workers in the vineyard,MAT.20.1-MAT.20.16
+07-27,Ordinary time,Parables of the kingdom,12,14,stone,Two sons,MAT.21.28-MAT.21.32
+07-28,Ordinary time,Parables of the kingdom,13,14,stone,The talents,MAT.25.14-MAT.25.30
+07-29,Ordinary time,Parables of the kingdom,14,14,stone,The least of these,MAT.25.31-MAT.25.40
+07-30,Ordinary time,Rest and restoration,1,14,linen,God rested,GEN.2.1-GEN.2.3
+07-31,Ordinary time,Rest and restoration,2,14,linen,Remember the Sabbath,EXO.20.8-EXO.20.11
+08-01,Ordinary time,Rest and restoration,3,14,linen,"Come to me, all who are weary",MAT.11.25-MAT.11.30
+08-02,Ordinary time,Rest and restoration,4,14,linen,Come away and rest a while,MRK.6.30-MRK.6.34
+08-03,Ordinary time,Rest and restoration,5,14,linen,Mary and Martha,LUK.10.38-LUK.10.42
+08-04,Ordinary time,Rest and restoration,6,14,linen,He gives to his beloved sleep,PSA.127.1-PSA.127.2
+08-05,Ordinary time,Rest and restoration,7,14,linen,A weaned child,PSA.131.1-PSA.131.3
+08-06,Ordinary time,Rest and restoration,8,14,linen,In returning and rest,ISA.30.15-ISA.30.18
+08-07,Ordinary time,Rest and restoration,9,14,linen,Wings like eagles,ISA.40.27-ISA.40.31
+08-08,Ordinary time,Rest and restoration,10,14,linen,Cast your cares,1PE.5.6-1PE.5.11
+08-09,Ordinary time,Rest and restoration,11,14,linen,A rest that remains,HEB.4.1-HEB.4.11
+08-10,Ordinary time,Rest and restoration,12,14,linen,Jesus sleeps in the storm,MRK.4.35-MRK.4.41
+08-11,Ordinary time,Rest and restoration,13,14,linen,Restored by the sea,PSA.107.23-PSA.107.32
+08-12,Ordinary time,Rest and restoration,14,14,linen,Grace enough,2CO.12.7-2CO.12.10
+08-13,Ordinary time,Quiet courage: Ruth and Esther,1,14,night,Naomi comes home empty,RUT.1.1-RUT.1.5
+08-14,Ordinary time,Quiet courage: Ruth and Esther,2,14,night,Gleaning in Boaz's field,RUT.2.1-RUT.2.13
+08-15,Ordinary time,Quiet courage: Ruth and Esther,3,14,night,Under his wings,RUT.2.14-RUT.2.23
+08-16,Ordinary time,Quiet courage: Ruth and Esther,4,14,night,A night at the threshing floor,RUT.3.1-RUT.3.18
+08-17,Ordinary time,Quiet courage: Ruth and Esther,5,14,night,The redeemer at the gate,RUT.4.1-RUT.4.12
+08-18,Ordinary time,Quiet courage: Ruth and Esther,6,14,night,A grandson for Naomi,RUT.4.13-RUT.4.22
+08-19,Ordinary time,Quiet courage: Ruth and Esther,7,14,night,A girl becomes queen,EST.2.5-EST.2.18
+08-20,Ordinary time,Quiet courage: Ruth and Esther,8,14,night,Mordecai refuses to bow,EST.3.1-EST.3.11
+08-21,Ordinary time,Quiet courage: Ruth and Esther,9,14,night,For such a time as this,EST.4.1-EST.4.17
+08-22,Ordinary time,Quiet courage: Ruth and Esther,10,14,night,Esther goes to the king,EST.5.1-EST.5.8
+08-23,Ordinary time,Quiet courage: Ruth and Esther,11,14,night,A sleepless king remembers,EST.6.1-EST.6.11
+08-24,Ordinary time,Quiet courage: Ruth and Esther,12,14,night,Esther speaks up,EST.7.1-EST.7.10
+08-25,Ordinary time,Quiet courage: Ruth and Esther,13,14,night,Sorrow turned to joy,EST.9.20-EST.9.28
+08-26,Ordinary time,Quiet courage: Ruth and Esther,14,14,night,Abigail makes peace,1SA.25.14-1SA.25.35
+08-27,Ordinary time,Joy in hard places,1,14,dawn,Thankful every time I remember you,PHP.1.1-PHP.1.11
+08-28,Ordinary time,Joy in hard places,2,14,dawn,Chains that spread the news,PHP.1.12-PHP.1.26
+08-29,Ordinary time,Joy in hard places,3,14,dawn,Shining like stars,PHP.2.12-PHP.2.18
+08-30,Ordinary time,Joy in hard places,4,14,dawn,Pressing on,PHP.3.7-PHP.3.14
+08-31,Ordinary time,Joy in hard places,5,14,dawn,Whatever is lovely,PHP.4.8-PHP.4.9
+09-01,Ordinary time,Joy in hard places,6,14,dawn,Content in all things,PHP.4.10-PHP.4.20
+09-02,Ordinary time,Joy in hard places,7,14,dawn,Singing in prison,ACT.16.22-ACT.16.34
+09-03,Ordinary time,Joy in hard places,8,14,dawn,Joseph in prison,GEN.39.19-GEN.40.8
+09-04,Ordinary time,Joy in hard places,9,14,dawn,Weeping may last for the night,LAM.3.19-LAM.3.33
+09-05,Ordinary time,Joy in hard places,10,14,dawn,Treasure in clay jars,2CO.4.7-2CO.4.18
+09-06,Ordinary time,Joy in hard places,11,14,dawn,Comfort to comfort others,2CO.1.3-2CO.1.7
+09-07,Ordinary time,Joy in hard places,12,14,dawn,Suffering produces hope,ROM.5.1-ROM.5.5
+09-08,Ordinary time,Joy in hard places,13,14,dawn,All things work together,ROM.8.28-ROM.8.39
+09-09,Ordinary time,Joy in hard places,14,14,dawn,Joy set before him,HEB.12.1-HEB.12.13
+09-10,Ordinary time,Creation and the Creator,1,14,meadow,In the beginning,GEN.1.1-GEN.1.19
+09-11,Ordinary time,Creation and the Creator,2,14,meadow,Very good,GEN.1.20-GEN.1.31
+09-12,Ordinary time,Creation and the Creator,3,14,meadow,Tending the garden,GEN.2.8-GEN.2.17
+09-13,Ordinary time,Creation and the Creator,4,14,meadow,Not good to be alone,GEN.2.18-GEN.2.25
+09-14,Ordinary time,Creation and the Creator,5,14,meadow,A rainbow promise,GEN.9.8-GEN.9.17
+09-15,Ordinary time,Creation and the Creator,6,14,meadow,Where were you?,JOB.38.1-JOB.38.18
+09-16,Ordinary time,Creation and the Creator,7,14,meadow,Wonderfully made,PSA.139.13-PSA.139.18
+09-17,Ordinary time,Creation and the Creator,8,14,meadow,How many are your works,PSA.104.10-PSA.104.24
+09-18,Ordinary time,Creation and the Creator,9,14,meadow,Let everything praise,PSA.148.1-PSA.148.14
+09-19,Ordinary time,Creation and the Creator,10,14,meadow,Consider the lilies,LUK.12.22-LUK.12.31
+09-20,Ordinary time,Creation and the Creator,11,14,meadow,All things hold together,COL.1.15-COL.1.20
+09-21,Ordinary time,Creation and the Creator,12,14,meadow,Creation groans and waits,ROM.8.18-ROM.8.25
+09-22,Ordinary time,Creation and the Creator,13,14,meadow,Seen in what is made,ROM.1.18-ROM.1.20
+09-23,Ordinary time,Creation and the Creator,14,14,meadow,A new heaven and earth,REV.21.1-REV.21.7
+09-24,Ordinary time,"The ""I am"" sayings",1,14,ocean,I am who I am,EXO.3.13-EXO.3.15
+09-25,Ordinary time,"The ""I am"" sayings",2,14,ocean,The bread of life,JHN.6.30-JHN.6.40
+09-26,Ordinary time,"The ""I am"" sayings",3,14,ocean,The light of the world,JHN.8.12-JHN.8.20
+09-27,Ordinary time,"The ""I am"" sayings",4,14,ocean,"Before Abraham was, I am",JHN.8.48-JHN.8.59
+09-28,Ordinary time,"The ""I am"" sayings",5,14,ocean,The gate,JHN.10.1-JHN.10.10
+09-29,Ordinary time,"The ""I am"" sayings",6,14,ocean,The good shepherd,JHN.10.11-JHN.10.18
+09-30,Ordinary time,"The ""I am"" sayings",7,14,ocean,My sheep hear my voice,JHN.10.22-JHN.10.30
+10-01,Ordinary time,"The ""I am"" sayings",8,14,ocean,"Lazarus, come out",JHN.11.38-JHN.11.44
+10-02,Ordinary time,"The ""I am"" sayings",9,14,ocean,"The way, the truth and the life",JHN.14.1-JHN.14.14
+10-03,Ordinary time,"The ""I am"" sayings",10,14,ocean,The true vine,JHN.15.1-JHN.15.11
+10-04,Ordinary time,"The ""I am"" sayings",11,14,ocean,"Friends, not servants",JHN.15.12-JHN.15.17
+10-05,Ordinary time,"The ""I am"" sayings",12,14,ocean,I am he,JHN.18.1-JHN.18.11
+10-06,Ordinary time,"The ""I am"" sayings",13,14,ocean,The water he gives,JHN.4.7-JHN.4.26
+10-07,Ordinary time,"The ""I am"" sayings",14,14,ocean,The Alpha and the Omega,REV.1.4-REV.1.8
+10-08,Ordinary time,Prophets of hope,1,14,ember,Comfort my people,ISA.40.1-ISA.40.5
+10-09,Ordinary time,Prophets of hope,2,14,ember,Swords into ploughshares,ISA.2.1-ISA.2.5
+10-10,Ordinary time,Prophets of hope,3,14,ember,"Do not fear, I am with you",ISA.41.8-ISA.41.13
+10-11,Ordinary time,Prophets of hope,4,14,ember,"Come, all who are thirsty",ISA.55.1-ISA.55.13
+10-12,Ordinary time,Prophets of hope,5,14,ember,Plans for a future and a hope,JER.29.4-JER.29.14
+10-13,Ordinary time,Prophets of hope,6,14,ember,The potter and the clay,JER.18.1-JER.18.6
+10-14,Ordinary time,Prophets of hope,7,14,ember,A new covenant,JER.31.31-JER.31.34
+10-15,Ordinary time,Prophets of hope,8,14,ember,A river from the temple,EZK.47.1-EZK.47.12
+10-16,Ordinary time,Prophets of hope,9,14,ember,I will heal their faithlessness,HOS.14.1-HOS.14.9
+10-17,Ordinary time,Prophets of hope,10,14,ember,The years the locust ate,JOL.2.21-JOL.2.27
+10-18,Ordinary time,Prophets of hope,11,14,ember,Let justice roll,AMO.5.21-AMO.5.24
+10-19,Ordinary time,Prophets of hope,12,14,ember,Who is a God like you?,MIC.7.18-MIC.7.20
+10-20,Ordinary time,Prophets of hope,13,14,ember,He will rejoice over you,ZEP.3.14-ZEP.3.20
+10-21,Ordinary time,Prophets of hope,14,14,ember,The sun of righteousness,MAL.4.1-MAL.4.6
+10-22,Ordinary time,Gratitude,1,14,dusk,Enter with thanksgiving,PSA.100.1-PSA.100.5
+10-23,Ordinary time,Gratitude,2,14,dusk,Forget not his benefits,PSA.103.1-PSA.103.14
+10-24,Ordinary time,Gratitude,3,14,dusk,His love endures forever,PSA.136.1-PSA.136.9
+10-25,Ordinary time,Gratitude,4,14,dusk,One leper returns,LUK.17.11-LUK.17.19
+10-26,Ordinary time,Gratitude,5,14,dusk,Give thanks in everything,1TH.5.12-1TH.5.18
+10-27,Ordinary time,Gratitude,6,14,dusk,Thankful hearts,COL.3.12-COL.3.17
+10-28,Ordinary time,Gratitude,7,14,dusk,Every good gift,JAS.1.16-JAS.1.18
+10-29,Ordinary time,Gratitude,8,14,dusk,When you have eaten and are full,DEU.8.11-DEU.8.18
+10-30,Ordinary time,Gratitude,9,14,dusk,David gives back what was given,1CH.29.10-1CH.29.18
+10-31,Ordinary time,Gratitude,10,14,dusk,"Five loaves, given thanks for",JHN.6.1-JHN.6.14
+11-01,Ordinary time,Gratitude,11,14,dusk,The widow's two coins,MRK.12.41-MRK.12.44
+11-02,Ordinary time,Gratitude,12,14,dusk,A cheerful giver,2CO.9.6-2CO.9.15
+11-03,Ordinary time,Gratitude,13,14,dusk,Thanks for each other,1TH.1.2-1TH.1.10
+11-04,Ordinary time,Gratitude,14,14,dusk,Count it all as gift,1CO.4.6-1CO.4.7
+11-05,Ordinary time,Love one another,1,14,stone,Love the Lord your God,DEU.6.4-DEU.6.9
+11-06,Ordinary time,Love one another,2,14,stone,The greatest commandment,MRK.12.28-MRK.12.34
+11-07,Ordinary time,Love one another,3,14,stone,Love your neighbour,LEV.19.9-LEV.19.18
+11-08,Ordinary time,Love one another,4,14,stone,A new commandment,JHN.13.31-JHN.13.35
+11-09,Ordinary time,Love one another,5,14,stone,God is love,1JN.4.7-1JN.4.12
+11-10,Ordinary time,Love one another,6,14,stone,Perfect love casts out fear,1JN.4.16-1JN.4.21
+11-11,Ordinary time,Love one another,7,14,stone,Love in action,1JN.3.16-1JN.3.24
+11-12,Ordinary time,Love one another,8,14,stone,Let love be genuine,ROM.12.9-ROM.12.21
+11-13,Ordinary time,Love one another,9,14,stone,Love fulfils the law,ROM.13.8-ROM.13.10
+11-14,Ordinary time,Love one another,10,14,stone,Forgive as you've been forgiven,EPH.4.25-EPH.4.32
+11-15,Ordinary time,Love one another,11,14,stone,Jonathan and David,1SA.18.1-1SA.18.4
+11-16,Ordinary time,Love one another,12,14,stone,Many waters can't quench love,SNG.8.6-SNG.8.7
+11-17,Ordinary time,Love one another,13,14,stone,How wide and long,EPH.3.16-EPH.3.19
+11-18,Ordinary time,Love one another,14,14,stone,Love covers a multitude,1PE.4.7-1PE.4.11
+11-19,Before Advent,Waiting well,1,12,linen,I wait for the Lord,PSA.130.1-PSA.130.8
+11-20,Before Advent,Waiting well,2,12,linen,Those who wait will renew,ISA.40.21-ISA.40.26
+11-21,Before Advent,Waiting well,3,12,linen,Abraham waits for a son,GEN.21.1-GEN.21.7
+11-22,Before Advent,Waiting well,4,12,linen,Joseph waits in Egypt,GEN.41.9-GEN.41.16
+11-23,Before Advent,Waiting well,5,12,linen,Simeon and Anna wait,LUK.2.36-LUK.2.38
+11-24,Before Advent,Waiting well,6,12,linen,The vision waits for its time,HAB.2.1-HAB.2.4
+11-25,Before Advent,Waiting well,7,12,linen,Patient as a farmer,JAS.5.7-JAS.5.11
+11-26,Before Advent,Waiting well,8,12,linen,"Not slow, but patient",2PE.3.8-2PE.3.13
+11-27,Before Advent,Waiting well,9,12,linen,Keep watch,MRK.13.32-MRK.13.37
+11-28,Before Advent,Waiting well,10,12,linen,Lamps ready,MAT.25.1-MAT.25.13
+11-29,Before Advent,Waiting well,11,12,linen,Waiting in silence,PSA.62.1-PSA.62.8
+11-30,Before Advent,Waiting well,12,12,linen,"Come, Lord Jesus",1TH.4.13-1TH.4.18
+12-01,Advent,The light is coming,1,24,night,A people in darkness see light,ISA.9.1-ISA.9.7
+12-02,Advent,The light is coming,2,24,night,A shoot from Jesse's stump,ISA.11.1-ISA.11.9
+12-03,Advent,The light is coming,3,24,night,Prepare the way,LUK.3.1-LUK.3.6
+12-04,Advent,The light is coming,4,24,night,The one who comes after me,JHN.1.19-JHN.1.28
+12-05,Advent,The light is coming,5,24,night,A promise to Abraham,GEN.22.15-GEN.22.18
+12-06,Advent,The light is coming,6,24,night,A star out of Jacob,NUM.24.15-NUM.24.19
+12-07,Advent,The light is coming,7,24,night,A king like David,2SA.7.8-2SA.7.16
+12-08,Advent,The light is coming,8,24,night,"Bethlehem, small among clans",MIC.5.2-MIC.5.5
+12-09,Advent,The light is coming,9,24,night,The virgin will conceive,ISA.7.10-ISA.7.14
+12-10,Advent,The light is coming,10,24,night,Zechariah in the temple,LUK.1.5-LUK.1.17
+12-11,Advent,The light is coming,11,24,night,Zechariah falls silent,LUK.1.18-LUK.1.25
+12-12,Advent,The light is coming,12,24,night,The angel comes to Mary,LUK.1.26-LUK.1.38
+12-13,Advent,The light is coming,13,24,night,Mary visits Elizabeth,LUK.1.39-LUK.1.45
+12-14,Advent,The light is coming,14,24,night,John is born,LUK.1.57-LUK.1.66
+12-15,Advent,The light is coming,15,24,night,Zechariah's song,LUK.1.67-LUK.1.79
+12-16,Advent,The light is coming,16,24,night,Joseph's dream,MAT.1.18-MAT.1.25
+12-17,Advent,The light is coming,17,24,night,The family line of Jesus,MAT.1.1-MAT.1.17
+12-18,Advent,The light is coming,18,24,night,A branch of righteousness,JER.33.14-JER.33.16
+12-19,Advent,The light is coming,19,24,night,The messenger before the Lord,MAL.3.1-MAL.3.4
+12-20,Advent,The light is coming,20,24,night,How beautiful are the feet,ISA.52.7-ISA.52.10
+12-21,Advent,The light is coming,21,24,night,"Arise, shine",ISA.60.19-ISA.60.22
+12-22,Advent,The light is coming,22,24,night,"Lift up your heads, O gates",PSA.24.1-PSA.24.10
+12-23,Advent,The light is coming,23,24,night,The road to Bethlehem,LUK.2.1-LUK.2.5
+12-24,Advent,The light is coming,24,24,night,No room at the inn,LUK.2.6-LUK.2.7
+12-25,Christmas,Word made flesh,1,7,dawn,Good news of great joy,LUK.2.8-LUK.2.20
+12-26,Christmas,Word made flesh,2,7,dawn,God with us,MAT.1.22-MAT.1.23
+12-27,Christmas,Word made flesh,3,7,dawn,The fullness of time,GAL.4.4-GAL.4.7
+12-28,Christmas,Word made flesh,4,7,dawn,He made his home among us,JHN.1.14-JHN.1.18
+12-29,Christmas,Word made flesh,5,7,dawn,Escape to Egypt,MAT.2.13-MAT.2.18
+12-30,Christmas,Word made flesh,6,7,dawn,Jesus grows in wisdom,LUK.2.41-LUK.2.52
+12-31,Christmas,Word made flesh,7,7,dawn,The kindness of God appeared,TIT.3.4-TIT.3.7

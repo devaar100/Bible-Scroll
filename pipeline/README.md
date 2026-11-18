@@ -23,6 +23,7 @@ cd pipeline
 PYTHONPATH=src .venv/bin/python -m pipeline download   # ~140 MB into data/raw/, records SHA-256s
 PYTHONPATH=src .venv/bin/python -m pipeline build      # ~10 s: data/source.db + out/versification_report.md
 PYTHONPATH=src .venv/bin/python -m pipeline studies    # ~30 s: out/studies/*.json (31,102 files, ~190 MB)
+PYTHONPATH=src .venv/bin/python -m pipeline generate PHP --model claude-haiku-5-5 --out out/test_haiku  # write prose
 PYTHONPATH=src .venv/bin/python -m pipeline check      # auto-check written studies (see below)
 PYTHONPATH=src .venv/bin/python -m pipeline review     # review tool on http://127.0.0.1:8765
 PYTHONPATH=src .venv/bin/python -m pipeline progress   # counts by status per book
@@ -131,23 +132,99 @@ checked again (its review fields stay in `meta` as history).
 **Where the work lives.** Studies with prose and reviews are stored only in `out/studies/`, which is
 gitignored. Back that folder up, or decide on a durable home, before reviewing at scale.
 
+**Schema changelog.** `schemaVersion` is bumped only when the published shape changes (the fields that reach
+the CDN book files and app bundle). Pipeline-only fields (`meta`, `checks`) can grow optional fields without a
+bump, since a bump changes every published book's hash and URL.
+- 3: current published shape.
+- 3, 2026-11-18 (no bump): optional unpublished `meta.effort`, `meta.maxTokens` (with `meta.promptVersion` =
+  sha256(prompts/study.md)[:12]); rubric judgments gain `section`, `quote` and `verified`.
+
+## Generating prose (`generate`)
+
+`python -m pipeline generate <ids> [--model M] [--effort E] [--out DIR] [--force] [--workers N]` writes the six
+prose sections with Claude, one direct Messages API request per verse (`src/pipeline/generate.py`, prompt in
+[`prompts/study.md`](prompts/study.md)).
+
+- `ids`: books, chapters or verses (`PHP`, `PHP.4`, `PHP.4.13`). Run `studies` first: the data sections are copied
+  from `out/studies`, and the prompt gets the KJV and WEB verse, three verses either side, the verse's original
+  words and its chosen cross references. Claude never supplies data sections.
+- `--model` (default `claude-opus-5-5`), `--effort` (default `high`). The server-side refusal fallback is on for
+  models that have one (not Haiku 5.5).
+- `--out DIR` writes to another folder (relative to `pipeline/`) so models can be compared without touching
+  `out/studies`; `check --out DIR` checks that folder.
+- Studies that already have prose are skipped unless `--force`; reviewed or edited ones are never overwritten.
+  Refusals and unusable responses are listed and the run carries on; re-run to retry.
+- Token use, cost (USD, from the price table in `usage.py`), run time and failures go to
+  `<out>/generate_summary.json`. `check` adds the rubric's token use and cost to its summary.
+
+## Batch generation (`batch`)
+
+`python -m pipeline batch estimate|submit [ids | --wave discover] [--limit N] [--out DIR] [--force]`, then `batch status` and
+`batch collect`, writes prose through the Message Batches API (`src/pipeline/batch.py`): `claude-haiku-5-5`, effort
+`medium`, `max_tokens` 16,000, one request per verse, half the direct price. `--wave discover` takes the verses
+from `discover.txt` in file order. It uses the same loader as `publish`, so `discover.json` lists the same verses
+in the same order (minus any not yet auto_checked/reviewed).
+
+`python -m pipeline discover` audits `discover.txt` (one id per line, e.g. `PHP.4.13`; `#` comments allowed). It
+reports malformed ids, verses missing from source.db or the app's KJV/WEB text, duplicates, and verses whose
+Hebrew/Greek source numbers them differently or splits or merges their words (e.g. PSA.46.10 is Hebrew Ps 46:11).
+It never edits the file. Malformed ids or duplicates stop `--wave discover` and `publish`.
+
+- **Caching:** every request starts with the same system block, which is study.md's System section plus the
+  Request section's fixed output instructions ("Return JSON with these sections" onward, filled with the word
+  limits). It carries `cache_control` with the 1-hour TTL, because a batch can take more than 5 minutes between
+  requests. The verse data follows as the user message. The prompt's wording is unchanged; only the order differs
+  from `generate`. `submit` counts the block's tokens first (free endpoint) and refuses if it is under 512, Haiku
+  5.5's cache minimum.
+- `estimate`: verse count, the fixed block's size, and projected cost (best case all cache hits, worst case no
+  hits, plus expected retries and the rubric). The projection is calibrated from the newest `out/*/` direct run
+  with the same model and effort. Sends nothing; `--count-tokens` measures the block exactly (free).
+- `submit`: attempt 1. `custom_id` is the verse id with `.` → `_` (`PHP_2_17`), since the API allows only
+  `[A-Za-z0-9_-]`.
+- `status`: polls open batches.
+- `collect`: writes ended batches (never over a reviewed or edited study), runs the free checks and the Haiku
+  rubric, then submits **one** retry batch for verses that were flagged or produced nothing usable. That covers
+  `max_tokens`, refusal, bad JSON, errored and expired results. A second failure sets status `failed`, which is
+  never published and goes into the review queue with `flagged`. Use `--no-retry` to hold the retry and `--no-ai`
+  to run free checks only.
+- Every step prints a summary: counts by status, each batch's `cacheWriteTokens`/`cacheReadTokens`, cost so far
+  (batch + rubric), the `meta.promptVersion` hashes found in the studies, output tokens (max, median, number of
+  requests above 8,000, max/median thinking, `max_tokens` stops), sections over their maximum by band (up to 20%,
+  20-50%, more than 50% over) and the number of rubric reviews with an unverified quote.
+- Each collected batch keeps a per-request log in the state file: stop reason, thinking tokens, written tokens
+  (output minus thinking), cache reads and writes. Direct-mode `generate` writes the same log and stats to
+  `generate_summary.json`.
+- Each study's `meta` records model, effort, maxTokens and promptVersion (the prompt hash).
+- State lives in `state/batches.json` (gitignored). It holds batch ids, attempts per verse, failures and usage, and
+  is saved before and right after every API call.
+
+`python -m pipeline backup [--dest DIR]` zips `out/` and `state/` into `backups/biblescroll-pipeline-<UTC>.zip`
+(gitignored). Run it before every `collect`.
+
 ## Checking (`check`)
 
 Only studies with prose (`meta.model` set) and status `generated` are checked; `--recheck` also re-checks
 `auto_checked` and `flagged`. Each gets `status` `auto_checked` or `flagged`, plus a `checks` block (schema
-v2) listing every reason with its check name and section.
+v3) listing every reason with its check name and section.
 
 | Check | What fails |
 |---|---|
 | schema | anything `schema/study.json` rejects |
-| length | a section outside its word limits in `checks/limits.json` |
+| length | a section under its minimum, or more than 20% over its maximum, in `checks/limits.json` (up to 20% over passes) |
 | reference | a Bible reference in the prose that doesn't parse or isn't a KJV verse (e.g. "John 3:99", "Hezekiah 3:5", a backwards range). Relative "v. 17" is checked against the study's own chapter |
+| reference_not_allowed | a real reference outside the verse's own chapter (which holds the context verses) and its listed cross references. A whole-chapter reference passes if it is the verse's chapter or contains a listed reference |
 | original_language | a Strong's number, a Hebrew/Greek word, or a "Greek word *x*" transliteration that isn't in this verse's word list (points, accents and leading zeros ignored) |
-| banned_phrase | any line of `checks/banned.txt` (plain phrases, or `re:` regexes) |
+| banned_phrase | any line of `checks/banned.txt` (plain phrases, or `re:` regexes), unless negated: "not", "no", "never", "nor", "without" or "n't" within the 4 words before it in the same clause |
+| pipeline_wording | any line of `checks/pipeline_wording.txt` ("cross references", "supplied", "the data", "this version"); never excused by negation |
 | rubric | the AI second opinion scores factual risk, one-sided theology or tone at 2 or more out of 3, or declines to answer |
 
 About the rubric (`rubric.py`):
 - It uses Claude Haiku 5.5 with a fixed prompt and a JSON-schema answer.
+- Input: the rubric system prompt, then the verse id, the KJV verse text and the six prose sections. Nothing else
+  (no original-language words, cross references, context verses, WEB text or books.json).
+- Each judgment names the section it rests on and gives a short exact quote from it. Code checks the quote appears
+  verbatim in that section (whitespace normalised) and stores `verified`; unverified reviews are counted in the
+  summaries but don't change a study's status yet.
 - To save money it runs only when the free checks pass. `--rubric-always` runs it anyway; `--no-ai` skips it.
 - Rate limits, outages and unusable answers leave the study unchanged for the next run. They're listed in
   `out/check_summary.json`.
@@ -166,8 +243,8 @@ cross references with their verse text, and every candidate cross reference with
 - **Edit:** inline. Saving re-runs the free checks, records `editedBy`/`editedAt`, and bumps
   `contentVersion` (`<hash>.1`, `.2`, …). Approving is still a separate step.
 - **Flag with note:** status `flagged`, with your note as the reason.
-- **Regenerate:** the prose generator doesn't exist yet. This appends the request to
-  `out/regenerate_queue.jsonl` and flags the study until the generator runs.
+- **Regenerate:** appends the request to `out/regenerate_queue.jsonl` and flags the study. The queue isn't read
+  by `generate` yet; regenerate those verses with `generate <id> --force`.
 
 **Queue order:** flagged first, then `priority.txt` (verse, chapter or whole-book lines, top first), then
 Bible order. Every write is checked against the schema and saved atomically. Use **Reload** after running
@@ -189,6 +266,7 @@ enabled on the project, and nothing here may enable it.
 | `manifest.json` | per book: `url`, `contentVersion`, `verseCount`, `reviewedCount`, `sha256`, `bytes`; plus `release` and the discover file's hash | 5 min |
 | `discover.json` | the Discover feed's verses, in `discover.txt` order | 5 min |
 | `studies/v{contentVersion}/{BOOK}.json.gz` | one gzip JSON per book (`schema/book.json`) | 1 year, immutable |
+| `devotionals/v{contentVersion}/{MM}.json.gz` | one gzip JSON per month (`schema/devotional_month.json`); listed under `devotionals.months` in the manifest | 1 year, immutable |
 
 How it works:
 - **What's published:** only studies whose status is `auto_checked` or `reviewed`. Flagged, unchecked and
@@ -260,5 +338,72 @@ Plans follow [`schema/plan.json`](schema/plan.json). They're written to `out/pla
 - No day exceeds 1.5× `estimatedMinutesPerDay`.
 - Whole-Bible plans read every verse exactly once.
 
+**Shared with the app (custom plans, H13/H14):** `plans/splitting.py` holds the splitting rules; the app's
+`core/plans` module is a line-for-line Kotlin port. `plans vectors` (also run by `plans bundle`) writes
+`app/src/main/assets/plans/verses.bin` (every KJV verse's word count and boundary tier: chapter end,
+Masoretic paragraph end in the Old Testament, sentence end) and `core/plans/src/test/resources/splitting_vectors.json`
+(real and synthetic cases). Tests on both sides must agree with the vectors.
+
 `plans bundle` copies the publishable plans (without review notes or reviewer names) and `index.json` into
 `app/src/main/assets/plans/`, about 370 KB for the 29 structural plans. Run it before release builds.
+
+## Devotionals (`devotionals`)
+
+```sh
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals calendar             # validate calendar.csv, OT/NT balance
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals draft [03 | 03-14]  # draft with Claude (needs a key)
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals draft --stale       # redraft rows/prompt that changed
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals check [--no-ai]     # auto_checked or flagged
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals redraft-series 07-16 --guidance "..."
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals bundle [--date 2027-03-01]
+```
+
+**Calendar** ([`devotionals/calendar.csv`](devotionals/calendar.csv), edit freely): one row per day of a leap
+year, keyed by `MM-DD`, with columns `date, season, series, series_day, series_length, cover_style, theme,
+anchor`. There are 365 days in 25 series, plus a standalone bonus on 02-29 (366 in total). It was drafted
+with Claude and is checked by `devotionals calendar`. That check confirms every date appears once, anchors
+exist in KJV numbering within one book, series count 1..n with one cover style each, and no anchor repeats.
+Easter moves (22 March to 25 April), so the seasons use fixed dates:
+- Lent-friendly series from mid-February.
+- "The cross" from 19 March to 8 April, then "Living hope" from 9 to 29 April. Both work in the weeks
+  either side of Easter.
+- Pentecost themes in May and early June.
+- Advent from 1 December, Christmas from 25 December.
+
+`redraft-series` asks Claude for new themes and anchors for one series (same dates). It writes the
+calendar only if the whole file still validates, and refuses when a devotional in that series is
+reviewed (unless `--force`).
+
+**Format** ([`schema/devotional.json`](schema/devotional.json)):
+- Files are `out/devotionals/devotional-MM-DD.json`. `dayOfYear` uses leap-year numbering (02-29 = 60); the
+  app looks devotionals up by month and day.
+- From the calendar: `date`, `theme`, `series`, `coverStyle` and `verses[0]` (the anchor). Cover styles are a
+  fixed set of typographic/gradient designs: dawn, meadow, ocean, ember, dusk, stone, linen, night.
+- From Claude: `title`, `context` (60-110 words), `reflect` (120-180), `applyIt` (40-80), optional `prayer`
+  (25-60), and up to two extra `verses`.
+
+**Drafting** (`devotionals/generate.py`, prompt in [`prompts/devotional.md`](prompts/devotional.md)):
+- Model: Claude Opus 5.5 with structured output and the refusal fallback.
+- The prompt gets the passage text (WEB, from the app's Bible) and the passage's Hebrew/Greek words (from
+  source.db), so nothing is recalled from memory. The rules are the same as for studies: no invented facts,
+  fair on disputed views, warm and plain, fixed lengths.
+- Editing the prompt or a calendar row changes `contentVersion`. `draft --stale` then redrafts those days,
+  but never reviewed or hand-edited ones; only `--force` touches those. Word limits live in
+  `checks/devotional_limits.json`.
+
+**Checks** (`devotionals/checks.py`, `CHECKER_VERSION` `devotionals-2`):
+- The study checks, applied to the devotional's sections: schema, lengths, Bible references, original-language
+  mentions (against the passage's words), banned phrases, then the Haiku rubric with a devotional prompt.
+- A calendar check: date, theme, series, cover and anchor still match the CSV.
+- An API outage leaves a devotional unchanged.
+
+**Review**: the Devotionals tab in `review` shows each devotional beside its passages and calendar row, with
+live word counts. Approval is blocked while a schema, length, reference, original-language, banned-phrase
+or calendar problem remains. Edits re-run the free checks.
+
+**Publishing**:
+- `publish` adds one immutable file per month. Only `auto_checked` and `reviewed` devotionals are included,
+  without check reasons or names, and February includes 02-29.
+- `devotionals bundle` copies the current and next month (December wraps to January) from `out/site/` into
+  `app/src/main/assets/devotionals/`, with a small `manifest.json`. Run it after `publish`, before each
+  release build.

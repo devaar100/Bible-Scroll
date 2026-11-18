@@ -1,9 +1,19 @@
-"""python -m pipeline download|build|studies|check|review|progress|publish|bundle|all  (from pipeline/, with src on the path)."""
+"""python -m pipeline download|build|studies|generate|check|review|progress|publish|bundle|plans|devotionals|all  (from pipeline/, with src on the path)."""
 from __future__ import annotations
 
 import argparse
 import json
 import os
+from pathlib import Path
+
+
+def _discover_wave() -> list[str]:
+    from .publish import load_discover
+    return load_discover()  # the same strict loader publish uses for discover.json, so the order matches
+
+
+#: Named verse sets for `batch estimate|submit --wave NAME`. Each returns study ids in display order.
+WAVES = {"discover": _discover_wave}
 
 
 def main() -> None:
@@ -20,6 +30,16 @@ def main() -> None:
     check.add_argument("--rubric-always", action="store_true", help="run the rubric even when a free check failed")
     check.add_argument("--recheck", action="store_true", help="also re-check auto_checked and flagged studies")
     check.add_argument("--limit", type=int, help="stop after checking this many studies")
+    check.add_argument("--out", help="check studies in this folder instead of out/studies (e.g. out/test_haiku)")
+
+    gen = sub.add_parser("generate", help="write study prose with Claude, one direct request per verse (status generated)")
+    gen.add_argument("ids", nargs="+", help="books, chapters or verses: PHP, PHP.4, PHP.4.13")
+    gen.add_argument("--model", default=None, help="Claude model id (default claude-opus-5-5)")
+    gen.add_argument("--effort", default=None, choices=["low", "medium", "high", "xhigh", "max"],
+                     help="output effort (default high)")
+    gen.add_argument("--out", help="write to this folder instead of out/studies (e.g. out/test_haiku)")
+    gen.add_argument("--force", action="store_true", help="rewrite studies that already have prose (never reviewed/edited ones)")
+    gen.add_argument("--workers", type=int, default=4, help="parallel requests (default 4)")
 
     review = sub.add_parser("review", help="local review tool on http://127.0.0.1:8765")
     review.add_argument("--reviewer", default=os.environ.get("PIPELINE_REVIEWER"),
@@ -48,6 +68,49 @@ def main() -> None:
     chrono.add_argument("--force", action="store_true")
     plans_sub.add_parser("validate", help="re-check every plan and rewrite index.json")
     plans_sub.add_parser("bundle", help="copy publishable plans + index.json into app/src/main/assets/plans/")
+    plans_sub.add_parser("vectors", help="write assets/plans/verses.bin and core/plans splitting vectors (custom plans)")
+    devo = sub.add_parser("devotionals", help="daily devotionals: calendar | redraft-series | draft | check | bundle")
+    devo_sub = devo.add_subparsers(dest="devotionals_command", required=True)
+    devo_sub.add_parser("calendar", help="validate devotionals/calendar.csv and show the OT/NT balance")
+    redraft = devo_sub.add_parser("redraft-series", help="replace one calendar series' themes and anchors with Claude")
+    redraft.add_argument("first_date", help="MM-DD of the series' first day")
+    redraft.add_argument("--title", help="new series title")
+    redraft.add_argument("--guidance", default="", help="what you want instead")
+    redraft.add_argument("--force", action="store_true", help="even if devotionals in the series are reviewed")
+    draft = devo_sub.add_parser("draft", help="draft devotionals with Claude (status generated)")
+    draft.add_argument("dates", nargs="*", help="MM-DD dates or MM months (default: all 366)")
+    draft.add_argument("--stale", action="store_true", help="redraft unreviewed, unedited ones whose calendar row or prompt changed")
+    draft.add_argument("--force", action="store_true", help="redraft even reviewed or edited ones")
+    draft.add_argument("--limit", type=int, help="stop after this many days")
+    dcheck = devo_sub.add_parser("check", help="auto-check drafted devotionals: status -> auto_checked or flagged")
+    dcheck.add_argument("ids", nargs="*", help="only these (devotional-MM-DD)")
+    dcheck.add_argument("--no-ai", action="store_true")
+    dcheck.add_argument("--rubric-always", action="store_true")
+    dcheck.add_argument("--recheck", action="store_true")
+    dcheck.add_argument("--limit", type=int)
+    dbundle = devo_sub.add_parser("bundle", help="copy the current and next month from out/site/ into the app's assets")
+    dbundle.add_argument("--date", help="YYYY-MM-DD release date (default: today)")
+    batch = sub.add_parser("batch", help="study prose via the Message Batches API (claude-haiku-5-5, effort medium)")
+    batch_sub = batch.add_subparsers(dest="batch_command", required=True)
+    for name, text in (("estimate", "verse count and projected cost; sends nothing"),
+                       ("submit", "submit attempt 1 for the verses")):
+        b = batch_sub.add_parser(name, help=text)
+        b.add_argument("ids", nargs="*", help="books, chapters or verses (PHP, PHP.4, PHP.4.13)")
+        b.add_argument("--wave", choices=sorted(WAVES), help="a named set of verses instead of ids (discover = discover.txt, in order)")
+        b.add_argument("--out", help="write studies to this folder instead of out/studies")
+        b.add_argument("--force", action="store_true", help="include verses that already have prose (never reviewed/edited)")
+        b.add_argument("--limit", type=int, help="only the first N verses still to send, in list order")
+    batch_sub.choices["estimate"].add_argument("--count-tokens", action="store_true",
+                                               help="measure the fixed block with the free token-counting endpoint")
+    batch_sub.add_parser("status", help="poll open batches and print the summary")
+    collect = batch_sub.add_parser("collect", help="write ended batches, run checks + Haiku rubric, submit one retry batch")
+    collect.add_argument("--no-retry", action="store_true", help="don't submit the retry batch")
+    collect.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    sub.add_parser("discover", help="audit discover.txt: bad ids, duplicates, verses whose Hebrew/Greek numbering differs")
+    bk = sub.add_parser("backup", help="zip out/ and state/ into backups/")
+    bk.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
+    from .translate.cli import add_parser as add_translate
+    add_translate(sub)
     sub.add_parser("all", help="download, build, then studies")
     args = parser.parse_args()
 
@@ -62,6 +125,22 @@ def main() -> None:
         build_studies()
     if args.command == "check":
         run_check(args)
+    if args.command == "generate":
+        run_generate(args)
+    if args.command == "batch":
+        run_batch(args)
+    if args.command == "discover":
+        from .discover import audit, render
+        report = audit()
+        print(render(report))
+        if not report.clean:
+            raise SystemExit("discover.txt has problems (above); fix them before submitting or publishing.")
+    if args.command == "backup":
+        from . import batch as bt
+        from .paths import PIPELINE
+        dest = Path(args.dest) if args.dest else PIPELINE / "backups"
+        target = bt.backup(dest)
+        print(f"Backup: {target} ({target.stat().st_size / 1e6:.1f} MB)")
     if args.command == "review":
         from .paths import APP_BIBLE_DB, SOURCE_DB
         from .review.app import serve
@@ -74,6 +153,11 @@ def main() -> None:
         run_bundle()
     if args.command == "plans":
         run_plans(args)
+    if args.command == "devotionals":
+        run_devotionals(args)
+    if args.command == "translate":
+        from .translate.cli import run as run_translate
+        run_translate(args)
     if args.command == "progress":
         from .paths import OUT
         from .progress import count, render
@@ -96,7 +180,8 @@ def run_publish(args) -> None:
     deploying = not (args.dry_run or args.local)
     if deploying and not (config["firebaseProject"] and base_url):
         sys.exit("Set firebaseProject and baseUrl in pipeline/publish.json before deploying (see README).")
-    release = p.build_release(StudyStore(STUDIES_DIR), base_url)
+    from .devotionals.store import DevotionalStore
+    release = p.build_release(StudyStore(STUDIES_DIR), base_url, devotionals=DevotionalStore())
     live = p.fetch_live_manifest(base_url) if base_url else None
     live_discover = p.fetch_live_discover(base_url) if live else []
     d = p.diff(release, live, live_discover)
@@ -154,6 +239,81 @@ def run_plans(args) -> None:
     elif args.plans_command == "bundle":
         shipped = plan_build.bundle()
         print(f"Bundled {len(shipped)} plans into {plan_build.APP_ASSETS}")
+        from .plans.verse_data import write_all
+        data, vectors = write_all(index)
+        print(f"Wrote {data} ({data.stat().st_size:,} bytes) and {vectors}")
+    elif args.plans_command == "vectors":
+        from .plans.verse_data import write_all
+        data, vectors = write_all(index)
+        print(f"Wrote {data} ({data.stat().st_size:,} bytes) and {vectors}")
+
+
+def select_days(days, wanted: list[str]):
+    """'03-14' picks a day, '03' a month; nothing picks every day."""
+    if not wanted:
+        return days
+    unknown = [w for w in wanted if not any(d.date == w or d.date[:2] == w for d in days)]
+    if unknown:
+        raise SystemExit(f"Not a calendar date (MM-DD) or month (MM): {', '.join(unknown)}")
+    return [d for d in days if d.date in wanted or d.date[:2] in wanted]
+
+
+def run_devotionals(args) -> None:
+    from datetime import date
+
+    from .devotionals import calendar as cal
+    from .devotionals.store import DevotionalStore
+    from .paths import APP_BIBLE_DB, OUT, SOURCE_DB
+    from .store import Bible
+
+    bible = Bible(SOURCE_DB, APP_BIBLE_DB)
+    command = args.devotionals_command
+    try:
+        days = cal.load(verses=bible.verses)
+    except cal.CalendarError as error:
+        raise SystemExit(str(error))
+    if command == "calendar":
+        print(f"{cal.CALENDAR}: ok")
+        print(json.dumps(cal.balance(days), indent=2))
+    elif command == "redraft-series":
+        from .devotionals.calendar_ai import redraft_series
+        from .plans.ai import AnthropicDrafter
+        for d in redraft_series(args.first_date, AnthropicDrafter(), title=args.title, guidance=args.guidance,
+                                verses=bible.verses, store=DevotionalStore(), force=args.force):
+            print(f"{d.date}  {d.theme}  ({d.anchor.text})")
+        print("Calendar updated. Draft these days again with: devotionals draft --stale")
+    elif command == "draft":
+        from .devotionals.generate import default_drafter, draft_days
+        from .devotionals.store import require_studies
+        try:
+            require_studies()
+        except FileNotFoundError as error:
+            raise SystemExit(str(error))
+        chosen = select_days(days, args.dates)[: args.limit]
+        for line in draft_days(chosen, default_drafter(), DevotionalStore(), force=args.force, stale=args.stale):
+            print(line)
+    elif command == "check":
+        from .devotionals.checks import run
+        judge = None
+        if not args.no_ai:
+            from .rubric import AnthropicJudge
+            judge = AnthropicJudge()
+        summary = run(DevotionalStore(), days, bible, judge, recheck=args.recheck,
+                      rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit)
+        report = {"checked": summary.checked, "statuses": dict(summary.statuses), "reasons": dict(summary.reasons),
+                  "skipped": summary.skipped, "rubric_unavailable": summary.rubric_unavailable}
+        (OUT / "devotionals_check_summary.json").write_text(json.dumps(report, indent=2) + "\n")
+        print(json.dumps(report, indent=2))
+    elif command == "bundle":
+        from . import publish as p
+        from .devotionals.publish import ASSETS, bundle
+        today = date.fromisoformat(args.date) if args.date else date.today()
+        result = bundle(p.SITE, today)
+        print(f"Bundled month(s) {', '.join(result.copied) or 'none'} into {ASSETS} ({result.bytes:,} bytes)")
+        if result.missing:
+            print(f"Nothing publishable yet for month(s): {', '.join(result.missing)}")
+        if result.removed:
+            print(f"Removed stale: {', '.join(result.removed)}")
 
 
 def run_bundle() -> None:
@@ -174,24 +334,153 @@ def run_bundle() -> None:
         print(f"Removed stale: {', '.join(result.removed)}")
 
 
+def out_dir(value: str | None):
+    """--out: a folder for test runs; relative paths are taken from pipeline/. None -> out/studies."""
+    from pathlib import Path
+
+    from .paths import PIPELINE
+    from .studies import STUDIES_DIR
+    if not value:
+        return STUDIES_DIR
+    path = Path(value)
+    return path if path.is_absolute() else PIPELINE / path
+
+
+def run_generate(args) -> None:
+    from . import generate as g
+
+    writer = g.StudyWriter(model=args.model or g.DEFAULT_MODEL, effort=args.effort or g.DEFAULT_EFFORT)
+    target = out_dir(args.out)
+    ids = g.select_ids(g.StudyStore(g.STUDIES_DIR), args.ids)
+    print(f"Generating {len(ids)} studies with {writer.model} (effort {writer.effort}, direct) into {target}")
+    result = g.generate(ids, writer, target, force=args.force, workers=args.workers)
+    print(json.dumps(json.loads((target / "generate_summary.json").read_text()), indent=2))
+    if result.stopped:
+        raise SystemExit(f"Stopped early ({result.stopped}). Fix that, then re-run: written studies are skipped.")
+    if result.failed:
+        raise SystemExit(f"{len(result.failed)} failed; re-run the same command to retry them.")
+
+
+def run_batch(args) -> None:
+    from . import batch as bt
+    from . import generate as g
+    from .paths import APP_BIBLE_DB, SOURCE_DB
+    from .publish import DISCOVER_FILE
+    from .store import Bible, StudyStore
+
+    state = bt.State()
+    source = StudyStore(g.STUDIES_DIR)
+
+    def show(step: str) -> None:
+        print(f"\n== {step} summary")
+        print(json.dumps(bt.summary(state), indent=2))
+
+    def chosen() -> list[str]:
+        if bool(args.ids) == bool(args.wave):
+            raise SystemExit("Give either verse ids or --wave (e.g. --wave discover).")
+        if args.ids:
+            return g.select_ids(source, args.ids)
+        try:
+            ids = WAVES[args.wave]()
+        except ValueError as error:
+            raise SystemExit(f"{error}. Run `python -m pipeline discover` for the full list of problems.")
+        if not ids:
+            raise SystemExit(f"The {args.wave} wave has no verses ({DISCOVER_FILE.name} is empty).")
+        return ids
+
+    if args.batch_command in ("estimate", "submit"):
+        target = StudyStore(out_dir(args.out))
+        ids = chosen()
+        todo, skipped = bt.plan(ids, target, state, force=args.force)
+        if args.limit is not None:
+            if args.limit < 1:
+                raise SystemExit("--limit must be at least 1")
+            if len(todo) > args.limit:
+                skipped[f"beyond --limit {args.limit}"] = len(todo) - args.limit
+                todo = todo[:args.limit]
+        fixed = bt.load_fixed()
+    if args.batch_command == "estimate":
+        cal = bt.find_calibration()
+        if args.count_tokens:
+            import anthropic
+            fixed_tokens, how = bt.count_fixed_tokens(anthropic.Anthropic(), fixed), "counted"
+        else:
+            # English prose runs about 4 characters per token. A measured per-request ratio would overstate it
+            # (requests carry fixed overhead that isn't prompt text), so the plain estimate is the safer one.
+            fixed_tokens, how = round(len(fixed.system) / 4), "approx (chars/4; --count-tokens for exact)"
+        report = {
+            "model": bt.MODEL, "effort": bt.EFFORT, "maxTokens": bt.MAX_TOKENS, "cacheTtl": bt.CACHE_TTL,
+            "requested": len(ids), "toSend": len(todo), "skipped": dict(skipped),
+            "fixedBlock": {"tokens": fixed_tokens, "how": how, "chars": len(fixed.system),
+                           "minimum": bt.MIN_CACHE_TOKENS, "ok": fixed_tokens >= bt.MIN_CACHE_TOKENS,
+                           "systemHash": fixed.system_hash},
+            "promptVersion": fixed.prompt_version,
+        }
+        if cal:
+            report["calibration"] = {"from": str(cal.folder.relative_to(g.PIPELINE)), "verses": cal.verses,
+                                     "inputPerVerse": round(cal.input_per_verse), "outputPerVerse": round(cal.output_per_verse),
+                                     "flaggedShare": None if cal.retry_rate is None else round(cal.retry_rate, 3)}
+            report["projection"] = bt.project(len(todo), fixed_tokens, cal)
+            report["per100Verses"] = bt.project(100, fixed_tokens, cal)
+        print(json.dumps(report, indent=2))
+        print("Nothing was sent." if not args.count_tokens else "Only token counting was called (free).")
+        return
+    import anthropic
+    client = anthropic.Anthropic()
+    if args.batch_command == "submit":
+        target.directory.mkdir(parents=True, exist_ok=True)
+        print(f"{len(todo)} to send; skipped {dict(skipped)}")
+        bt.submit(client, todo, 1, target, state, fixed, source, APP_BIBLE_DB)
+        show("submit")
+    elif args.batch_command == "status":
+        bt.refresh(client, state)
+        show("status")
+    elif args.batch_command == "collect":
+        bt.refresh(client, state)
+        judge = None
+        if not args.no_ai:
+            from .rubric import AnthropicJudge
+            judge = AnthropicJudge()
+        retry = bt.collect(client, state, source, Bible(SOURCE_DB, APP_BIBLE_DB), judge)
+        show("collect")
+        if retry and not args.no_retry:
+            by_dir: dict[str, list[str]] = {}
+            for record in state.batches:
+                for i in record["ids"]:
+                    if i in retry and i not in sum(by_dir.values(), []):
+                        by_dir.setdefault(record["outDir"], []).append(i)
+            for folder, ids in by_dir.items():
+                print(f"Retrying {len(ids)} verses (attempt 2): {', '.join(ids)}")
+                bt.submit(client, ids, 2, StudyStore(Path(folder)), state, bt.load_fixed(), source, APP_BIBLE_DB)
+            show("retry submit")
+        elif retry:
+            print(f"{len(retry)} verses need a retry; run collect without --no-retry to submit them.")
+
+
 def run_check(args) -> None:
+    import time
+
     from .checks import run
     from .paths import APP_BIBLE_DB, OUT, SOURCE_DB
     from .store import Bible, StudyStore
-    from .studies import STUDIES_DIR
 
     judge = None
     if not args.no_ai:
         from .rubric import AnthropicJudge
         judge = AnthropicJudge()
-    summary = run(StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB), judge,
+    folder = out_dir(args.out)
+    started = time.monotonic()
+    summary = run(StudyStore(folder), Bible(SOURCE_DB, APP_BIBLE_DB), judge,
                   recheck=args.recheck, rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit)
     report = {
         "checked": summary.checked, "statuses": dict(summary.statuses), "reasons": dict(summary.reasons),
         "skipped_not_written": summary.skipped_not_written, "skipped_already_done": summary.skipped_already_done,
-        "rubric_unavailable": summary.rubric_unavailable,
+        "rubric_unavailable": summary.rubric_unavailable, "seconds": round(time.monotonic() - started, 1),
     }
-    (OUT / "check_summary.json").write_text(json.dumps(report, indent=2) + "\n")
+    if judge is not None:
+        report["rubric_usage"] = judge.usage.as_dict(judge.model)
+    summary_file = OUT / "check_summary.json" if not args.out else folder / "check_summary.json"
+    summary_file.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
 
 

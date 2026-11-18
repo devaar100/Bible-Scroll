@@ -13,6 +13,6 @@ def test_counts_by_book_and_stage(store, written):
     assert dict(by_book[1]) == {"not_written": 1}
     assert dict(by_book[43]) == {"reviewed": 1, "flagged": 1, "generated": 1}
     table = render(by_book)
-    assert "| Genesis | 1 | 0 | 0 | 0 | 0 | 1 | 0.0 |" in table
-    assert "| John | 0 | 1 | 0 | 1 | 1 | 3 | 33.3 |" in table
-    assert "| **Total** | 1 | 1 | 0 | 1 | 1 | 4 | 25.0 |" in table
+    assert "| Genesis | 1 | 0 | 0 | 0 | 0 | 0 | 1 | 0.0 |" in table
+    assert "| John | 0 | 1 | 0 | 1 | 0 | 1 | 3 | 33.3 |" in table
+    assert "| **Total** | 1 | 1 | 0 | 1 | 0 | 1 | 4 | 25.0 |" in table

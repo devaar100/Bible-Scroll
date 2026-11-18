@@ -7,6 +7,15 @@ def s(study_id, status):
     return {"id": study_id, "status": status}
 
 
+@pytest.fixture(autouse=True)
+def no_discover(tmp_path, monkeypatch):
+    """Keep the real discover.txt out of these tests (load_priority puts Discover verses first)."""
+    empty = tmp_path / "discover.txt"
+    empty.write_text("")
+    from pipeline import publish
+    monkeypatch.setattr(publish, "DISCOVER_FILE", empty)
+
+
 def test_order_flagged_then_priority_then_bible_order(tmp_path):
     priority = tmp_path / "priority.txt"
     priority.write_text("# Discover\nROM.8.28\n\nJHN.3   # chapter\nPSA\n")

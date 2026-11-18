@@ -1,7 +1,7 @@
 import pytest
 
 from conftest import put, skeleton, words
-from pipeline.checks import Rules, check_study, run
+from pipeline.checks import Rules, check_study, length_band, run
 from pipeline.rubric import RubricResult, RubricUnavailable
 from pipeline.studies import validator
 
@@ -129,3 +129,54 @@ def test_recheck_keeps_reviewer_flags(written, bible, store):
 
 def test_banned_file_and_limits_load():
     assert RULES.banned and set(RULES.limits) >= {"meaning", "applyIt"}
+
+
+def test_english_word_after_greek_word_is_not_a_transliteration(written, bible):
+    written["meaning"] = words(60, "The Greek word for loved is ēgapēsen, and the Greek word behind world is kosmon.")
+    assert outcome(written, bible).reasons == []
+    written["meaning"] = words(60, "The Greek word for love here is phileo.")
+    assert outcome(written, bible).reasons == []  # only the word right after "Greek word" is checked
+    written["meaning"] = words(60, "The Greek word phileo is not in this verse.")
+    assert [r["check"] for r in outcome(written, bible).reasons] == ["original_language"]
+
+
+# ---- Checker version 3 ----------------------------------------------------------------------------------
+
+def test_length_tolerance_passes_up_to_20_percent_over(written, bible):
+    written["meaning"] = words(216)  # max 180, exactly 20% over
+    assert outcome(written, bible).reasons == []
+    written["meaning"] = words(217)
+    assert [(r["check"], r["section"]) for r in outcome(written, bible).reasons] == [("length", "meaning")]
+    written["meaning"] = words(39)  # under the minimum still flags
+    assert checks_named(outcome(written, bible)) == ["length"]
+
+
+@pytest.mark.parametrize("n, band", [(180, None), (181, "up to 20% over"), (216, "up to 20% over"),
+                                     (217, "20-50% over"), (270, "20-50% over"), (271, "more than 50% over")])
+def test_length_band(n, band):
+    assert length_band(n, 180) == band
+
+
+def test_references_must_stay_in_the_allowed_set(written, bible):
+    # Own chapter (any verse), listed cross references and a chapter holding one are allowed.
+    written["theology"] = words(60, "See John 3:2, John 3, Romans 5:8, 1 John 4:9-10, Romans 5.")
+    assert outcome(written, bible).reasons == []
+    written["theology"] = words(60, "Compare Romans 8:28, John 1:12 and Genesis 1.")
+    msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "reference_not_allowed"]
+    assert len(msgs) == 3 and any("Romans 8:28" in m for m in msgs) and any("Genesis 1" in m for m in msgs)
+    written["theology"] = words(60, "Romans 5:8-9 goes one verse past the listed reference.")
+    assert checks_named(outcome(written, bible)) == ["reference_not_allowed"]
+
+
+def test_negated_banned_phrases_are_ignored(written, bible):
+    written["applyIt"] = words(40, "This is not for guaranteed success, and there is no right answer you must reach.")
+    assert outcome(written, bible).reasons == []
+    written["applyIt"] = words(40, "God will not fail; you must pray more.")  # the ; ends the negated clause
+    assert checks_named(outcome(written, bible)) == ["banned_phrase"]
+
+
+def test_pipeline_wording_flags_even_when_negated(written, bible):
+    for text in ("The cross references show this.", "The cross-reference in Romans helps.",
+                 "Not in the data given.", "This version says so.", "The words supplied here."):
+        written["didYouKnow"] = words(30, text)
+        assert "pipeline_wording" in checks_named(outcome(written, bible)), text

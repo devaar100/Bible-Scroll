@@ -54,6 +54,7 @@
   <div role="tablist" aria-label="What to review">
     <button role="tab" id="mode-studies" aria-selected="true">Studies</button>
     <button role="tab" id="mode-plans" aria-selected="false">Plans</button>
+    <button role="tab" id="mode-devotionals" aria-selected="false">Devotionals</button>
   </div>
   <span class="counts" id="counts"></span>
   <span class="spacer"></span>
@@ -198,6 +199,7 @@ async function saveEdit() {
 
 $("#reload").addEventListener("click", async () => {
   if (mode === "plans") { await loadPlans(); toast("Reloaded"); return; }
+  if (mode === "devotionals") { await loadDevotionals(); toast("Reloaded"); return; }
   await api("/api/reload", {}); await loadQueue(); toast("Reloaded");
 });
 
@@ -205,13 +207,13 @@ $("#reload").addEventListener("click", async () => {
 let mode = "studies", currentPlan = null, editingPlan = false;
 function setMode(next) {
   mode = next;
-  $("#mode-studies").setAttribute("aria-selected", String(next === "studies"));
-  $("#mode-plans").setAttribute("aria-selected", String(next === "plans"));
+  for (const m of ["studies", "plans", "devotionals"]) $(`#mode-${m}`).setAttribute("aria-selected", String(next === m));
   $("#study").replaceChildren(); $("#source").replaceChildren();
-  if (next === "plans") loadPlans(); else { current = null; loadQueue(); }
+  if (next === "plans") loadPlans(); else if (next === "devotionals") loadDevotionals(); else { current = null; loadQueue(); }
 }
 $("#mode-studies").addEventListener("click", () => setMode("studies"));
 $("#mode-plans").addEventListener("click", () => setMode("plans"));
+$("#mode-devotionals").addEventListener("click", () => setMode("devotionals"));
 
 async function loadPlans() {
   const data = await api("/api/plans");
@@ -298,6 +300,94 @@ async function savePlanEdit() {
     await loadPlans(); openPlan(currentPlan);
   } catch (e) { toast(e.message); }
 }
+// ---- Devotionals -----------------------------------------------------------------------------------
+const DEVO_SECTIONS = [["context", "Context"], ["reflect", "Reflect"], ["applyIt", "Apply it"], ["prayer", "Prayer (optional)"]];
+let currentDevo = null, editingDevo = false;
+
+async function loadDevotionals() {
+  const data = await api("/api/devotionals");
+  $("#counts").textContent = `${data.toReview} devotional(s) to review · ` +
+    Object.entries(data.counts).map(([s, n]) => `${s.replace("_", " ")} ${n}`).join(" · ");
+  const list = $("#queue"); list.replaceChildren();
+  for (const d of data.devotionals) {
+    const written = d.status !== "not_written";
+    list.append(el("button", { "data-id": d.id, "aria-current": String(d.id === currentDevo),
+        ...(written ? { onclick: () => openDevotional(d.id) } : { disabled: "", title: "Not drafted yet" }) },
+      `${d.date} · ${d.title ?? d.theme}`, " ", el("span", { class: `pill ${d.status}` }, d.status.replace("_", " "))));
+  }
+  const first = data.devotionals.find(d => d.status !== "not_written");
+  if (!currentDevo && first) openDevotional(first.id);
+  if (!first) $("#study").replaceChildren(el("p", { class: "muted" }, "No devotionals drafted yet. Run: python -m pipeline devotionals draft"));
+}
+
+async function openDevotional(id) {
+  const data = await api(`/api/devotional/${encodeURIComponent(id)}`);
+  currentDevo = id; editingDevo = false;
+  renderDevotional(data);
+  document.querySelectorAll("#queue button").forEach(b => b.setAttribute("aria-current", String(b.dataset.id === id)));
+}
+
+function renderDevotional(data) {
+  const d = data.devotional, c = data.calendar;
+  const body = [
+    el("p", {}, el("strong", {}, `${d.date} · ${d.series.title}, day ${d.series.day} of ${d.series.length}`), " ",
+      el("span", { class: `pill ${d.status}` }, d.status.replace("_", " ")),
+      el("span", { class: "muted" }, ` · cover ${d.coverStyle} · drafted by ${d.meta.model}`),
+      d.meta.editedBy ? el("span", { class: "muted" }, ` · edited by ${d.meta.editedBy}`) : "",
+      d.meta.reviewedBy ? el("span", { class: "muted" }, ` · reviewed by ${d.meta.reviewedBy}`) : "",
+      data.published ? el("span", { class: "muted" }, " · will publish") : ""),
+    el("p", {}, el("span", { class: "muted" }, "Theme: "), d.theme),
+  ];
+  const reasons = d.checks?.reasons ?? [];
+  if (reasons.length) body.push(el("h2", {}, "Why it was flagged ", el("span", { class: "count" }, `(${reasons.length})`)),
+    el("ul", { class: "reasons" }, reasons.map(r => el("li", {}, el("span", { class: "check" }, r.check), r.section ? ` · ${r.section}` : "",
+      `: ${r.message}`, r.by ? el("span", { class: "muted" }, ` (${r.by})`) : ""))));
+  if (data.problems.length) body.push(el("h2", { class: "error" }, "Current problems"),
+    el("ul", {}, data.problems.map(r => el("li", { class: "error" }, r.section ? `${r.section}: ` : "", r.message))));
+  if (d.checks?.rubric) {
+    const r = d.checks.rubric;
+    body.push(el("p", { class: "muted" }, `AI rubric (${r.model}): factual ${r.factualRisk.score}/3 · theology ${r.oneSidedTheology.score}/3 · tone ${r.tone.score}/3`));
+  }
+  body.push(el("h2", {}, "Title"), editingDevo ? el("input", { class: "wide", "data-field": "title", value: d.title }) : el("div", { class: "prose" }, d.title));
+  for (const [key, title] of DEVO_SECTIONS) {
+    const words = (d[key] || "").split(/\s+/).filter(Boolean).length, lim = data.limits[key];
+    const out = lim && d[key] && (words < lim.min || words > lim.max);
+    body.push(el("h2", {}, title, " ", el("span", { class: out ? "over" : "count" }, `${words} words (${lim.min}-${lim.max})`)));
+    body.push(editingDevo ? el("textarea", { "data-field": key, "aria-label": title }, d[key] ?? "") : el("div", { class: "prose" }, d[key] || "—"));
+  }
+  const actions = editingDevo
+    ? [el("button", { class: "primary", onclick: saveDevoEdit }, "Save edits"), el("button", { onclick: () => { editingDevo = false; renderDevotional(data); } }, "Cancel")]
+    : [el("button", { class: "primary", onclick: () => devoAct("approve"), ...(data.canApprove ? {} : { disabled: "", title: "Fix the current problems first" }) }, "Approve"),
+       el("button", { onclick: () => { editingDevo = true; renderDevotional(data); } }, "Edit"),
+       el("button", { class: "danger", onclick: () => devoAct("flag", prompt("Why flag this devotional?")) }, "Flag with note"),
+       el("button", { onclick: () => devoAct("regenerate", prompt("What should change? (optional)") ?? "") }, "Regenerate")];
+  body.push(el("div", { class: "actions" }, actions));
+  $("#study").replaceChildren(...body);
+  $("#source").replaceChildren(
+    el("h2", {}, "Passages (WEB)"), ...data.passages.map(p => el("div", { class: "verse", style: "margin-bottom:8px" }, p.text ?? "(text unavailable)", el("small", {}, p.label))),
+    el("h2", {}, "Calendar row"), c ? el("ul", {}, [`${c.date} · ${c.season}`, `${c.series}, day ${c.seriesDay} of ${c.seriesLength}`, `Theme: ${c.theme}`, `Anchor: ${c.anchor}`].map(t => el("li", {}, t)))
+      : el("p", { class: "error" }, "Not in the calendar"));
+}
+
+async function devoAct(kind, note) {
+  if (note === null) return;
+  try {
+    await api(`/api/devotional/${encodeURIComponent(currentDevo)}/${kind}`, { reviewer: reviewer(), note });
+    toast({ approve: "Approved", flag: "Flagged", regenerate: "Regeneration requested" }[kind]);
+    await loadDevotionals(); openDevotional(currentDevo);
+  } catch (e) { toast(e.message); }
+}
+
+async function saveDevoEdit() {
+  const fields = {};
+  document.querySelectorAll("#study [data-field]").forEach(f => fields[f.dataset.field] = f.value);
+  try {
+    const d = await api(`/api/devotional/${encodeURIComponent(currentDevo)}/edit`, { reviewer: reviewer(), fields });
+    toast(d.status === "flagged" ? "Saved, but the checks flagged something" : "Saved; checks passed");
+    await loadDevotionals(); openDevotional(currentDevo);
+  } catch (e) { toast(e.message); }
+}
+
 (async () => {
   const cfg = await api("/api/config");
   let saved = ""; try { saved = localStorage.getItem("reviewer") || ""; } catch {}

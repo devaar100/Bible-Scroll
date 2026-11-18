@@ -19,6 +19,7 @@ from ..store import Bible, StudyStore, is_written, now, parse_id
 from ..plans.bible import VerseIndex
 from ..plans.build import PLANS_DIR
 from ..studies import validator as make_validator
+from .devotionals_api import add_devotional_routes
 from .plans_api import add_plan_routes
 
 STATIC = Path(__file__).parent / "static"
@@ -38,7 +39,8 @@ class Edit(BaseModel):
 def create_app(store: StudyStore, bible: Bible, *, reviewer: str | None = None,
                priority_path: Path = PRIORITY_FILE, regenerate_log: Path | None = None,
                rules: Rules | None = None, plans_dir: Path | None = None,
-               verse_index: VerseIndex | None = None) -> FastAPI:
+               verse_index: VerseIndex | None = None, devotionals_dir: Path | None = None,
+               calendar_path: Path | None = None) -> FastAPI:
     app = FastAPI(title="Study review", docs_url=None, redoc_url=None)
     validator = make_validator()
     rules = rules or Rules.load()
@@ -201,6 +203,19 @@ def create_app(store: StudyStore, bible: Bible, *, reviewer: str | None = None,
         return loaded[0]
 
     add_plan_routes(app, plans_dir or PLANS_DIR, index, who, regenerate_log)
+
+    # Devotionals (H15-H17). The calendar is re-read on each request so CSV edits show up without a restart.
+    from ..devotionals import calendar as cal
+    from ..devotionals.store import DEVOTIONALS_DIR, DevotionalStore
+
+    def calendar() -> list:
+        try:
+            return cal.load(calendar_path or cal.CALENDAR)
+        except cal.CalendarError as error:
+            raise HTTPException(500, {"message": "calendar.csv has problems", "errors": error.problems})
+
+    add_devotional_routes(app, DevotionalStore(devotionals_dir or DEVOTIONALS_DIR), calendar, bible, who,
+                          regenerate_log)
     return app
 
 
