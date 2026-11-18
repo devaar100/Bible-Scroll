@@ -1,0 +1,7 @@
+# Wording that leaks the generation pipeline into a study. Same format as banned.txt (one phrase per line,
+# case-insensitive, whole words; "re:" lines are regular expressions). Unlike banned.txt, a match is never
+# excused by a nearby "not"/"no": these words shouldn't appear at all.
+re: \bcross[- ]?references?\b
+supplied
+the data
+this version
