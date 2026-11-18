@@ -1,0 +1,305 @@
+{
+  "id": "luke-24-days",
+  "schemaVersion": 1,
+  "contentVersion": "dd3a4ec3839e",
+  "title": "Luke in 24 days",
+  "shortDescription": "A careful account with a heart for outsiders.",
+  "description": "Luke set out to write an orderly account. His Gospel gives special attention to the poor, women, outsiders and prayer, and includes parables found nowhere else, like the prodigal son.",
+  "category": "gospels-and-acts",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 80
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 52
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 44
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 49
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 50
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 56
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 62
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 42
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 54
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 59
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 37
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 48
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 47
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 71
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 56
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 53
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 6,
+  "difficulty": "easy",
+  "reviewed": false
+}

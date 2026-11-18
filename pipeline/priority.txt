@@ -1,0 +1,21 @@
+# Review order after flagged studies. One entry per line, highest priority first:
+#   JHN.3.16  a verse      JHN.3  a chapter      JHN  a whole book
+# A study takes the position of the first line that matches it. Everything else follows in Bible order.
+#
+# Discover verses: add the D1 feed's verses here once that list exists (not built yet).
+#
+# Most-read books. The app collects no reading statistics, so this is an editorial guess; edit freely.
+JHN
+PSA
+MAT
+MRK
+LUK
+ROM
+PRO
+GEN
+PHP
+EPH
+ISA
+ACT
+JAS
+HEB

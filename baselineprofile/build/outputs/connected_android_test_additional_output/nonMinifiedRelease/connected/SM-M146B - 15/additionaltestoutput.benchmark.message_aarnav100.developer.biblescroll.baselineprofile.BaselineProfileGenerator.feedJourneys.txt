@@ -1,0 +1,6 @@
+BaselineProfileGenerator_feedJourneys
+Total run time Ns: 956119964854.
+Baseline profile [results](file://BaselineProfileGenerator_feedJourneys-baseline-prof-2026-11-18-03-03-55.txt)
+
+To copy the profile use:
+adb -s RZCW504PYVZ pull "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/BaselineProfileGenerator_feedJourneys-baseline-prof.txt" .

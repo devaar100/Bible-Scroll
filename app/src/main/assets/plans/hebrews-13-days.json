@@ -1,0 +1,173 @@
+{
+  "id": "hebrews-13-days",
+  "schemaVersion": 1,
+  "contentVersion": "4e38f8718e89",
+  "title": "Hebrews in 13 days",
+  "shortDescription": "Jesus, the better hope, and the call to keep going.",
+  "description": "Hebrews shows how Jesus fulfils the Old Testament's priests and sacrifices, and encourages tired believers not to give up. It includes the great chapter on faith.",
+  "category": "letters-and-revelation",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 8
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 2,
+          "startVerse": 9,
+          "endChapter": 3,
+          "endVerse": 19
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 7,
+          "startVerse": 18,
+          "endChapter": 8,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 9,
+          "startVerse": 18,
+          "endChapter": 10,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 10,
+          "startVerse": 13,
+          "endChapter": 10,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 11,
+          "startVerse": 22,
+          "endChapter": 11,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 25
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 3,
+  "difficulty": "easy",
+  "reviewed": false
+}

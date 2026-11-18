@@ -1,0 +1,33 @@
+# Phrases that flag a study. One per line, case-insensitive, matched as whole words.
+# Lines starting "re:" are regular expressions. Edit freely; the checker reloads this file each run.
+
+# Overclaiming certainty or consensus
+scholars all agree
+all scholars agree
+everyone agrees
+it is certain that
+there is no doubt
+without a doubt
+undoubtedly
+unquestionably
+beyond dispute
+proves that
+this proves
+the only correct interpretation
+the only correct reading
+the only way to read
+clearly teaches that
+re: \b(all|every) (christians|believers|denominations) (believe|agree|accept)\b
+
+# Pressure, guilt and promises the text doesn't make
+if you don't
+you must
+you need to
+God will bless you if
+God wants you to be rich
+guaranteed
+re: \byou (should|ought to) feel (guilty|ashamed)\b
+
+# Dismissive words (not "literally": study notes use it correctly, e.g. "the Hebrew literally means")
+obviously
+re: \b(simply|just) (believe|pray|trust) and\b

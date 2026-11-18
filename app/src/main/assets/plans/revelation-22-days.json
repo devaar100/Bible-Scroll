@@ -1,0 +1,281 @@
+{
+  "id": "revelation-22-days",
+  "schemaVersion": 1,
+  "contentVersion": "2e6a5e5058b3",
+  "title": "Revelation in 22 days",
+  "shortDescription": "A vision of Christ's victory and all things made new.",
+  "description": "Revelation uses vivid images to encourage churches under pressure: the Lamb has won, evil will end, and God will make all things new. Read it as hope, not a puzzle.",
+  "category": "letters-and-revelation",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 11
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 11
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 19
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 8
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 21
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 3,
+  "difficulty": "easy",
+  "reviewed": false
+}

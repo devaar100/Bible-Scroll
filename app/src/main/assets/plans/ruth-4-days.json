@@ -1,0 +1,65 @@
+{
+  "id": "ruth-4-days",
+  "schemaVersion": 1,
+  "contentVersion": "b48eb7048cf0",
+  "title": "Ruth in 4 days",
+  "shortDescription": "Loyalty, kindness and a quiet story of redemption.",
+  "description": "A short, beautiful story of a grieving widow, a loyal daughter-in-law, and the kindness that changes everything. Four days.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "RUT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "RUT",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "RUT",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "RUT",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 22
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 4,
+  "difficulty": "easy",
+  "reviewed": false
+}

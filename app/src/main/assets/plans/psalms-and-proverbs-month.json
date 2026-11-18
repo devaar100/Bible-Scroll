@@ -1,0 +1,606 @@
+{
+  "id": "psalms-and-proverbs-month",
+  "schemaVersion": 1,
+  "contentVersion": "77c5e6178596",
+  "title": "Psalms and Proverbs in a month",
+  "shortDescription": "Prayers and practical wisdom, side by side, for 31 days.",
+  "description": "Each day brings a few psalms and a chapter-sized portion of Proverbs. The psalms give words for praise, sorrow and trust; Proverbs gives plain advice for ordinary days. Read them together for a month.",
+  "category": "year-round-habits",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 17
+        },
+        {
+          "book": "PRO",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 7
+        },
+        {
+          "book": "PRO",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 50
+        },
+        {
+          "book": "PRO",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 31
+        },
+        {
+          "book": "PRO",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 9
+        },
+        {
+          "book": "PRO",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 29,
+          "startVerse": 1,
+          "endChapter": 32,
+          "endVerse": 11
+        },
+        {
+          "book": "PRO",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 33,
+          "startVerse": 1,
+          "endChapter": 36,
+          "endVerse": 12
+        },
+        {
+          "book": "PRO",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 37,
+          "startVerse": 1,
+          "endChapter": 39,
+          "endVerse": 13
+        },
+        {
+          "book": "PRO",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 40,
+          "startVerse": 1,
+          "endChapter": 44,
+          "endVerse": 26
+        },
+        {
+          "book": "PRO",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 45,
+          "startVerse": 1,
+          "endChapter": 49,
+          "endVerse": 20
+        },
+        {
+          "book": "PRO",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 50,
+          "startVerse": 1,
+          "endChapter": 55,
+          "endVerse": 23
+        },
+        {
+          "book": "PRO",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 56,
+          "startVerse": 1,
+          "endChapter": 60,
+          "endVerse": 12
+        },
+        {
+          "book": "PRO",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 61,
+          "startVerse": 1,
+          "endChapter": 67,
+          "endVerse": 7
+        },
+        {
+          "book": "PRO",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 68,
+          "startVerse": 1,
+          "endChapter": 69,
+          "endVerse": 36
+        },
+        {
+          "book": "PRO",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 70,
+          "startVerse": 1,
+          "endChapter": 73,
+          "endVerse": 28
+        },
+        {
+          "book": "PRO",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 74,
+          "startVerse": 1,
+          "endChapter": 77,
+          "endVerse": 20
+        },
+        {
+          "book": "PRO",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 78,
+          "startVerse": 1,
+          "endChapter": 80,
+          "endVerse": 19
+        },
+        {
+          "book": "PRO",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 81,
+          "startVerse": 1,
+          "endChapter": 86,
+          "endVerse": 17
+        },
+        {
+          "book": "PRO",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 87,
+          "startVerse": 1,
+          "endChapter": 89,
+          "endVerse": 52
+        },
+        {
+          "book": "PRO",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 90,
+          "startVerse": 1,
+          "endChapter": 94,
+          "endVerse": 23
+        },
+        {
+          "book": "PRO",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 95,
+          "startVerse": 1,
+          "endChapter": 101,
+          "endVerse": 8
+        },
+        {
+          "book": "PRO",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 102,
+          "startVerse": 1,
+          "endChapter": 104,
+          "endVerse": 35
+        },
+        {
+          "book": "PRO",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 105,
+          "startVerse": 1,
+          "endChapter": 106,
+          "endVerse": 48
+        },
+        {
+          "book": "PRO",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 107,
+          "startVerse": 1,
+          "endChapter": 110,
+          "endVerse": 7
+        },
+        {
+          "book": "PRO",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 111,
+          "startVerse": 1,
+          "endChapter": 117,
+          "endVerse": 2
+        },
+        {
+          "book": "PRO",
+          "startChapter": 25,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 118,
+          "startVerse": 1,
+          "endChapter": 119,
+          "endVerse": 76
+        },
+        {
+          "book": "PRO",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 119,
+          "startVerse": 77,
+          "endChapter": 119,
+          "endVerse": 176
+        },
+        {
+          "book": "PRO",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 120,
+          "startVerse": 1,
+          "endChapter": 131,
+          "endVerse": 3
+        },
+        {
+          "book": "PRO",
+          "startChapter": 28,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 132,
+          "startVerse": 1,
+          "endChapter": 138,
+          "endVerse": 8
+        },
+        {
+          "book": "PRO",
+          "startChapter": 29,
+          "startVerse": 1,
+          "endChapter": 29,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 139,
+          "startVerse": 1,
+          "endChapter": 144,
+          "endVerse": 15
+        },
+        {
+          "book": "PRO",
+          "startChapter": 30,
+          "startVerse": 1,
+          "endChapter": 30,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "PSA",
+          "startChapter": 145,
+          "startVerse": 1,
+          "endChapter": 150,
+          "endVerse": 6
+        },
+        {
+          "book": "PRO",
+          "startChapter": 31,
+          "startVerse": 1,
+          "endChapter": 31,
+          "endVerse": 31
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 9,
+  "difficulty": "medium",
+  "reviewed": false
+}

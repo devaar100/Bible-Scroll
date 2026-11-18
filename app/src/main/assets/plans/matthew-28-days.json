@@ -1,0 +1,353 @@
+{
+  "id": "matthew-28-days",
+  "schemaVersion": 1,
+  "contentVersion": "bb7899a985ae",
+  "title": "Matthew in 28 days",
+  "shortDescription": "Jesus the promised King, and the Sermon on the Mount.",
+  "description": "Matthew writes for readers who knew the Hebrew Scriptures, showing how Jesus fulfils their hopes. It holds the Sermon on the Mount and many of Jesus' best-known parables.",
+  "category": "gospels-and-acts",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 5,
+          "startVerse": 22,
+          "endChapter": 5,
+          "endVerse": 48
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 10,
+          "startVerse": 29,
+          "endChapter": 11,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 12,
+          "startVerse": 34,
+          "endChapter": 13,
+          "endVerse": 19
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 13,
+          "startVerse": 20,
+          "endChapter": 13,
+          "endVerse": 58
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 19
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 18,
+          "startVerse": 20,
+          "endChapter": 19,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 21,
+          "startVerse": 29,
+          "endChapter": 22,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 22,
+          "startVerse": 22,
+          "endChapter": 23,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 23,
+          "startVerse": 23,
+          "endChapter": 24,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 24,
+          "startVerse": 23,
+          "endChapter": 24,
+          "endVerse": 51
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 25,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 41
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 26,
+          "startVerse": 42,
+          "endChapter": 26,
+          "endVerse": 75
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 27,
+          "startVerse": 47,
+          "endChapter": 28,
+          "endVerse": 20
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 5,
+  "difficulty": "easy",
+  "reviewed": false
+}

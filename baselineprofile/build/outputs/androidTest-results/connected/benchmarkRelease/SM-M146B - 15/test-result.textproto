@@ -1,0 +1,1095 @@
+# proto-message: google.testing.platform.proto.api.core.TestSuiteResult
+# 2026-11-18T03:29:46.632895Z:
+test_suite_meta_data {
+  scheduled_test_case_count: 2
+  device {
+    id: "RZCW504PYVZ"
+    friendly_name: "primary"
+  }
+}
+test_status: PASSED
+test_result {
+  test_case {
+    test_class: "ScrollBenchmarks"
+    test_package: "aarnav100.developer.biblescroll.baselineprofile"
+    test_method: "feedScrollBaselineProfile"
+    start_time {
+      seconds: 1794971421
+      nanos: 936000000
+    }
+    end_time {
+      seconds: 1794972001
+      nanos: 531000000
+    }
+    device {
+      id: "RZCW504PYVZ"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.message"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/additionaltestoutput.benchmark.message_aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks.feedScrollBaselineProfile.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/logcat-aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks-feedScrollBaselineProfile.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/cpuinfo"
+    }
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "670.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "664.5"
+  }
+  details {
+    key: "frame_count_min"
+    value: "623.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "15.733835242196081"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "3.745884"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.5764766"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "7.6887652999999965"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "10.937001560000006"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.825676"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "0.8009104"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "2.0767403"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "5.602919420000006"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "670.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "664.5"
+  }
+  details {
+    key: "frame_count_min"
+    value: "623.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "15.733835242196081"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "3.745884"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.5764766"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "7.6887652999999965"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "10.937001560000006"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.825676"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "0.8009104"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "2.0767403"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "5.602919420000006"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "670.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "664.5"
+  }
+  details {
+    key: "frame_count_min"
+    value: "623.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "15.733835242196081"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "3.745884"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.5764766"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "7.6887652999999965"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "10.937001560000006"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.825676"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "0.8009104"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "2.0767403"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "5.602919420000006"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollBaselineProfile\nframeCount           [min 623.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace),   [median 664.5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace),   [max 670.0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace)\nframeDurationCpuMs   P50    3.7,   P90    6.6,   P95    7.7,   P99   10.9\nframeOverrunMs       P50   -1.8,   P90    0.8,   P95    2.1,   P99    5.6\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollBaselineProfile_iter000_2026-11-18-03-11-38.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollBaselineProfile_iter001_2026-11-18-03-12-49.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollBaselineProfile_iter002_2026-11-18-03-14-01.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollBaselineProfile_iter003_2026-11-18-03-15-13.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollBaselineProfile_iter004_2026-11-18-03-16-24.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollBaselineProfile_iter005_2026-11-18-03-17-35.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollBaselineProfile_iter006_2026-11-18-03-18-44.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollBaselineProfile_iter007_2026-11-18-03-19-56.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "670.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "664.5"
+  }
+  details {
+    key: "frame_count_min"
+    value: "623.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "15.733835242196081"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "3.745884"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.5764766"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "7.6887652999999965"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "10.937001560000006"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.825676"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "0.8009104"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "2.0767403"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "5.602919420000006"
+  }
+}
+test_result {
+  test_case {
+    test_class: "ScrollBenchmarks"
+    test_package: "aarnav100.developer.biblescroll.baselineprofile"
+    test_method: "feedScrollNoCompilation"
+    start_time {
+      seconds: 1794972005
+      nanos: 194000000
+    }
+    end_time {
+      seconds: 1794972573
+      nanos: 323000000
+    }
+    device {
+      id: "RZCW504PYVZ"
+      friendly_name: "primary"
+    }
+  }
+  test_status: PASSED
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.message"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/additionaltestoutput.benchmark.message_aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks.feedScrollNoCompilation.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "additionaltestoutput.benchmark.trace"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/connected_android_test_additional_output/benchmarkRelease/connected/SM-M146B - 15/ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+    }
+  }
+  output_artifact {
+    label {
+      label: "logcat"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/logcat-aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks-feedScrollNoCompilation.txt"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/device-info.pb"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.meminfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/meminfo"
+    }
+  }
+  output_artifact {
+    label {
+      label: "device-info.cpuinfo"
+      namespace: "android"
+    }
+    source_path {
+      path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/cpuinfo"
+    }
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "666.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "656.0"
+  }
+  details {
+    key: "frame_count_min"
+    value: "648.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "6.2091522310675735"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "4.019346"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.908462"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "8.313423499999999"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "13.616634000000001"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.477721"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "1.324277"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "4.404716499999999"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "8.274773499999998"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "666.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "656.0"
+  }
+  details {
+    key: "frame_count_min"
+    value: "648.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "6.2091522310675735"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "4.019346"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.908462"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "8.313423499999999"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "13.616634000000001"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.477721"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "1.324277"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "4.404716499999999"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "8.274773499999998"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "666.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "656.0"
+  }
+  details {
+    key: "frame_count_min"
+    value: "648.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "6.2091522310675735"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "4.019346"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.908462"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "8.313423499999999"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "13.616634000000001"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.477721"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "1.324277"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "4.404716499999999"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "8.274773499999998"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace"
+  }
+  details {
+    key: "additionalTestOutputFile_ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace"
+  }
+  details {
+    key: "android.studio.display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v2display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "android.studio.v3display.benchmark"
+    value: "ScrollBenchmarks_feedScrollNoCompilation\nframeCount           [min 648.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace),   [median 656.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace),   [max 666.0](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace)\nframeDurationCpuMs   P50    4.0,   P90    6.9,   P95    8.3,   P99   13.6\nframeOverrunMs       P50   -1.5,   P90    1.3,   P95    4.4,   P99    8.3\nTraces: Iteration [0](file://ScrollBenchmarks_feedScrollNoCompilation_iter000_2026-11-18-03-21-12.perfetto-trace) [1](file://ScrollBenchmarks_feedScrollNoCompilation_iter001_2026-11-18-03-22-23.perfetto-trace) [2](file://ScrollBenchmarks_feedScrollNoCompilation_iter002_2026-11-18-03-23-34.perfetto-trace) [3](file://ScrollBenchmarks_feedScrollNoCompilation_iter003_2026-11-18-03-24-46.perfetto-trace) [4](file://ScrollBenchmarks_feedScrollNoCompilation_iter004_2026-11-18-03-25-56.perfetto-trace) [5](file://ScrollBenchmarks_feedScrollNoCompilation_iter005_2026-11-18-03-27-08.perfetto-trace) [6](file://ScrollBenchmarks_feedScrollNoCompilation_iter006_2026-11-18-03-28-19.perfetto-trace) [7](file://ScrollBenchmarks_feedScrollNoCompilation_iter007_2026-11-18-03-29-30.perfetto-trace)\n"
+  }
+  details {
+    key: "android.studio.v3display.benchmark.outputDirPath"
+    value: "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output"
+  }
+  details {
+    key: "frame_count_max"
+    value: "666.0"
+  }
+  details {
+    key: "frame_count_median"
+    value: "656.0"
+  }
+  details {
+    key: "frame_count_min"
+    value: "648.0"
+  }
+  details {
+    key: "frame_count_stddev"
+    value: "6.2091522310675735"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p50"
+    value: "4.019346"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p90"
+    value: "6.908462"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p95"
+    value: "8.313423499999999"
+  }
+  details {
+    key: "frame_duration_cpu_millis_p99"
+    value: "13.616634000000001"
+  }
+  details {
+    key: "frame_overrun_millis_p50"
+    value: "-1.477721"
+  }
+  details {
+    key: "frame_overrun_millis_p90"
+    value: "1.324277"
+  }
+  details {
+    key: "frame_overrun_millis_p95"
+    value: "4.404716499999999"
+  }
+  details {
+    key: "frame_overrun_millis_p99"
+    value: "8.274773499999998"
+  }
+}
+output_artifact {
+  label {
+    label: "test-results.log"
+    namespace: "com.google.testing.platform.runtime.android.driver.AndroidInstrumentationDriver"
+  }
+  source_path {
+    path: "/Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/outputs/androidTest-results/connected/benchmarkRelease/SM-M146B - 15/testlog/test-results.log"
+  }
+  type: TEST_DATA
+  mime_type: "text/plain"
+}

@@ -1,0 +1,389 @@
+{
+  "id": "proverbs-31-days",
+  "schemaVersion": 1,
+  "contentVersion": "2c382c2f0929",
+  "title": "Proverbs in 31 days",
+  "shortDescription": "A chapter of wisdom for every day of the month.",
+  "description": "Proverbs has 31 chapters, one for each day of a long month. Short sayings about work, words, money, friendship and character, meant to be read slowly and come back to.",
+  "category": "year-round-habits",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 25,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 28,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 29,
+          "startVerse": 1,
+          "endChapter": 29,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 30,
+          "startVerse": 1,
+          "endChapter": 30,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "PRO",
+          "startChapter": 31,
+          "startVerse": 1,
+          "endChapter": 31,
+          "endVerse": 31
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 3,
+  "difficulty": "easy",
+  "reviewed": false
+}

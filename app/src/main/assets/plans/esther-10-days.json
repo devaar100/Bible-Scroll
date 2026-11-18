@@ -1,0 +1,137 @@
+{
+  "id": "esther-10-days",
+  "schemaVersion": 1,
+  "contentVersion": "5939e373565d",
+  "title": "Esther in 10 days",
+  "shortDescription": "Courage at just the right moment.",
+  "description": "A Jewish woman becomes queen of Persia and risks her life to save her people. God is never named, yet his care runs through every turn of the story.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 2,
+          "startVerse": 14,
+          "endChapter": 3,
+          "endVerse": 7
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 3,
+          "startVerse": 8,
+          "endChapter": 3,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 7
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 5,
+          "startVerse": 8,
+          "endChapter": 6,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "EST",
+          "startChapter": 9,
+          "startVerse": 19,
+          "endChapter": 10,
+          "endVerse": 3
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 3,
+  "difficulty": "easy",
+  "reviewed": false
+}

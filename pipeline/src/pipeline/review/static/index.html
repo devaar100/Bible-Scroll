@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Study review</title>
+<style>
+  :root { --bg:#faf8f4; --panel:#fff; --ink:#1f1d1a; --muted:#6b665e; --line:#e4dfd6; --accent:#8a1c2b;
+          --ok:#2e6b3a; --warn:#9a5b00; --bad:#a3241b; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:15px/1.5 system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+  header { display:flex; gap:16px; align-items:center; padding:10px 16px; border-bottom:1px solid var(--line); background:var(--panel); }
+  header h1 { font-size:16px; margin:0; }
+  header .counts { color:var(--muted); font-size:13px; }
+  header .spacer { flex:1; }
+  main { display:grid; grid-template-columns: 220px minmax(0,1fr) 380px; height: calc(100vh - 49px); }
+  aside, section { overflow:auto; padding:12px 16px; }
+  aside#queue { border-right:1px solid var(--line); padding:0; }
+  aside#queue button { display:block; width:100%; text-align:left; padding:6px 12px; border:0; border-bottom:1px solid var(--line);
+                       background:none; font:inherit; cursor:pointer; }
+  aside#queue button[aria-current="true"] { background:#f0e9de; font-weight:600; }
+  aside#source { border-left:1px solid var(--line); background:var(--panel); }
+  .pill { display:inline-block; font-size:12px; padding:1px 8px; border-radius:99px; border:1px solid currentColor; }
+  .flagged { color:var(--bad); } .auto_checked { color:var(--warn); } .reviewed { color:var(--ok); } .generated { color:var(--muted); }
+  .verse { font-family: Georgia, serif; font-size:18px; background:var(--panel); border:1px solid var(--line); padding:12px 14px; border-radius:8px; }
+  .verse small { display:block; color:var(--muted); font:12px system-ui, sans-serif; margin-top:6px; }
+  h2 { font-size:15px; margin:18px 0 6px; }
+  h2 .count { color:var(--muted); font-weight:normal; font-size:12px; }
+  .prose { white-space:pre-wrap; }
+  textarea { width:100%; min-height:110px; font:inherit; padding:8px; border:1px solid var(--line); border-radius:6px; }
+  .reasons li { margin-bottom:4px; } .reasons .check { font-weight:600; }
+  .actions { position:sticky; bottom:0; background:var(--bg); padding:10px 0; display:flex; gap:8px; flex-wrap:wrap; border-top:1px solid var(--line); }
+  .actions button { font:inherit; padding:6px 14px; border-radius:6px; border:1px solid var(--line); background:var(--panel); cursor:pointer; }
+  .actions .primary { background:var(--ok); color:#fff; border-color:var(--ok); }
+  .actions .danger { color:var(--bad); }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  td, th { text-align:left; padding:3px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .orig { font-size:17px; font-family: "SBL Hebrew", "SBL Greek", "Times New Roman", serif; }
+  .rtl { direction:rtl; }
+  .muted { color:var(--muted); }
+  .error { color:var(--bad); }
+  [role=tab] { font:inherit; padding:4px 12px; border:1px solid var(--line); background:var(--panel); border-radius:6px; cursor:pointer; }
+  [role=tab][aria-selected=true] { background:var(--ink); color:#fff; }
+  .day { border-top:1px solid var(--line); padding:10px 0; }
+  .day h3 { font-size:14px; margin:0 0 4px; }
+  .over { color:var(--bad); font-weight:600; }
+  input.wide { width:100%; font:inherit; padding:6px 8px; border:1px solid var(--line); border-radius:6px; }
+  #toast { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); background:var(--ink); color:#fff; padding:8px 14px; border-radius:6px; display:none; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Review</h1>
+  <div role="tablist" aria-label="What to review">
+    <button role="tab" id="mode-studies" aria-selected="true">Studies</button>
+    <button role="tab" id="mode-plans" aria-selected="false">Plans</button>
+  </div>
+  <span class="counts" id="counts"></span>
+  <span class="spacer"></span>
+  <label>Reviewer <input id="reviewer" size="16" autocomplete="name"></label>
+  <button id="reload" title="Re-read study files changed by the checker">Reload</button>
+</header>
+<main>
+  <aside id="queue" aria-label="Review queue"></aside>
+  <section id="study" aria-live="polite"><p class="muted">Loading…</p></section>
+  <aside id="source" aria-label="Source data"></aside>
+</main>
+<div id="toast" role="status"></div>
+<script>
+const SECTIONS = [["meaning","Meaning"],["historicalContext","Historical context"],["lifeInBibleTimes","Life in Bible times"],
+                  ["theology","Theology"],["didYouKnow","Did you know?"],["applyIt","Apply it"]];
+const $ = (sel) => document.querySelector(sel);
+let current = null, editing = false;
+
+function el(tag, attrs = {}, ...children) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") node.className = v; else if (k.startsWith("on")) node.addEventListener(k.slice(2), v); else node.setAttribute(k, v);
+  }
+  for (const c of children.flat()) node.append(c instanceof Node ? c : document.createTextNode(c ?? ""));
+  return node;
+}
+function toast(msg) { const t = $("#toast"); t.textContent = msg; t.style.display = "block"; setTimeout(() => t.style.display = "none", 3000); }
+async function api(path, body) {
+  const res = await fetch(path, body === undefined ? {} :
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const d = data.detail;
+    throw new Error(typeof d === "string" ? d : (d?.message ? `${d.message}: ${(d.errors || []).join("; ")}` : res.statusText));
+  }
+  return data;
+}
+function reviewer() {
+  const name = $("#reviewer").value.trim();
+  try { localStorage.setItem("reviewer", name); } catch {}
+  if (!name) { $("#reviewer").focus(); throw new Error("Enter your name as reviewer first"); }
+  return name;
+}
+
+async function loadQueue() {
+  const q = await api("/api/queue");
+  $("#counts").textContent = `${q.total} to review · ` +
+    Object.entries(q.counts).map(([s, n]) => `${s.replace("_", " ")} ${n}`).join(" · ");
+  const list = $("#queue"); list.replaceChildren();
+  for (const item of q.items) {
+    list.append(el("button", { "data-id": item.id, "aria-current": String(item.id === current), onclick: () => open(item.id) },
+      item.id, " ", el("span", { class: `pill ${item.status}` }, item.status.replace("_", " "))));
+  }
+  if (!current && q.items.length) open(q.items[0].id);
+  if (!q.items.length && !current) $("#study").replaceChildren(el("p", { class: "muted" }, "Nothing to review."));
+}
+
+async function open(id) {
+  const data = await api(`/api/study/${encodeURIComponent(id)}`);
+  current = id; editing = false;
+  render(data);
+  document.querySelectorAll("#queue button").forEach(b => b.setAttribute("aria-current", String(b.dataset.id === id)));
+  history.replaceState(null, "", `#${id}`);
+}
+
+function render(data) {
+  const s = data.study;
+  const body = [
+    el("p", {}, el("strong", {}, s.id), " ", el("span", { class: `pill ${s.status}` }, s.status.replace("_", " ")),
+      data.queue.position !== null ? el("span", { class: "muted" }, ` · ${data.queue.position + 1} of ${data.queue.total}`) : "",
+      s.meta.reviewedBy ? el("span", { class: "muted" }, ` · reviewed by ${s.meta.reviewedBy}`) : "",
+      s.meta.editedBy ? el("span", { class: "muted" }, ` · edited by ${s.meta.editedBy}`) : ""),
+    el("div", { class: "verse" }, data.verse.KJV ?? "(verse text unavailable)", el("small", {}, "KJV")),
+    data.verse.WEB ? el("div", { class: "verse", style: "margin-top:6px" }, data.verse.WEB, el("small", {}, "WEB")) : "",
+  ];
+  if (data.schemaErrors.length) body.push(el("h2", { class: "error" }, "Schema errors"), el("ul", {}, data.schemaErrors.map(e => el("li", { class: "error" }, e))));
+  const reasons = s.checks?.reasons ?? [];
+  if (reasons.length) {
+    body.push(el("h2", {}, "Why it was flagged ", el("span", { class: "count" }, `(${reasons.length})`)),
+      el("ul", { class: "reasons" }, reasons.map(r => el("li", {}, el("span", { class: "check" }, r.check), r.section ? ` · ${r.section}` : "",
+        `: ${r.message}`, r.by ? el("span", { class: "muted" }, ` (${r.by})`) : ""))));
+  }
+  if (s.checks?.rubric) {
+    const r = s.checks.rubric;
+    body.push(el("p", { class: "muted" }, `AI rubric (${r.model}): factual ${r.factualRisk.score}/3 · theology ${r.oneSidedTheology.score}/3 · tone ${r.tone.score}/3`));
+  }
+  for (const [key, title] of SECTIONS) {
+    const words = (s[key] || "").split(/\s+/).filter(Boolean).length;
+    body.push(el("h2", {}, title, " ", el("span", { class: "count" }, `${words} words`)));
+    body.push(editing ? el("textarea", { "data-field": key, "aria-label": title }, s[key]) : el("div", { class: "prose" }, s[key] || "—"));
+  }
+  const actions = editing
+    ? [el("button", { class: "primary", onclick: saveEdit }, "Save edits"), el("button", { onclick: () => { editing = false; render(data); } }, "Cancel")]
+    : [el("button", { class: "primary", onclick: () => act("approve") }, "Approve"),
+       el("button", { onclick: () => { editing = true; render(data); } }, "Edit"),
+       el("button", { class: "danger", onclick: () => act("flag", prompt("Why flag this study?")) }, "Flag with note"),
+       el("button", { onclick: () => act("regenerate", prompt("What should change? (optional)") ?? "") }, "Regenerate"),
+       data.queue.next ? el("button", { onclick: () => open(data.queue.next) }, "Skip →") : ""];
+  body.push(el("div", { class: "actions" }, actions));
+  $("#study").replaceChildren(...body);
+  renderSource(data);
+}
+
+function renderSource(data) {
+  const s = data.study, ol = s.originalLanguage;
+  const rtl = ol.language !== "greek";
+  const words = el("table", {}, el("tr", {}, ["Word", "Lemma", "Translit.", "Strong's", "Gloss", "Morph."].map(h => el("th", {}, h))),
+    ol.words.map(w => el("tr", {}, el("td", { class: `orig ${rtl ? "rtl" : ""}` }, w.surface), el("td", { class: `orig ${rtl ? "rtl" : ""}` }, w.lemma),
+      el("td", {}, w.transliteration), el("td", {}, w.strongs), el("td", {}, w.gloss), el("td", { class: "muted" }, w.morphology))));
+  const chosen = el("ol", {}, s.crossReferences.map(x => el("li", {}, el("strong", {}, x.ref), ` · ${x.source}`, x.note ? ` · “${x.note}”` : "",
+    el("div", { class: "muted" }, data.crossReferenceText[x.ref] ?? ""))));
+  const candidates = el("table", {}, el("tr", {}, ["Source", "Ref", "Votes / keyword"].map(h => el("th", {}, h))),
+    data.candidates.slice(0, 60).map(c => el("tr", {}, el("td", {}, c.dataset), el("td", {}, c.end && c.end !== c.start ? `${c.start}–${c.end}` : c.start),
+      el("td", { class: "muted" }, c.votes ?? c.keyword ?? ""))));
+  $("#source").replaceChildren(
+    el("h2", {}, `Original language · ${ol.language} · ${ol.textBasis.replace("_", " ")}`), words,
+    el("h2", {}, "Cross references in the study"), chosen,
+    el("h2", {}, "All candidates ", el("span", { class: "count" }, `(${data.candidates.length}${data.candidates.length > 60 ? ", first 60" : ""})`)), candidates,
+    el("h2", {}, "Sources"), el("ul", {}, s.citations.map(c => el("li", {}, `${c.source} (${c.licence})`))));
+}
+
+async function act(kind, note) {
+  if (note === null) return; // prompt cancelled
+  try {
+    await api(`/api/study/${encodeURIComponent(current)}/${kind}`, { reviewer: reviewer(), note });
+    toast({ approve: "Approved", flag: "Flagged", regenerate: "Regeneration requested" }[kind]);
+    const data = await api(`/api/study/${encodeURIComponent(current)}`);
+    await loadQueue();
+    if (kind === "approve" && data.queue.next) open(data.queue.next); else open(current);
+  } catch (e) { toast(e.message); }
+}
+
+async function saveEdit() {
+  const fields = {};
+  document.querySelectorAll("textarea[data-field]").forEach(t => fields[t.dataset.field] = t.value);
+  try {
+    const study = await api(`/api/study/${encodeURIComponent(current)}/edit`, { reviewer: reviewer(), fields });
+    toast(study.status === "flagged" ? "Saved, but the checks flagged something" : "Saved; checks passed");
+    await loadQueue(); open(current);
+  } catch (e) { toast(e.message); }
+}
+
+$("#reload").addEventListener("click", async () => {
+  if (mode === "plans") { await loadPlans(); toast("Reloaded"); return; }
+  await api("/api/reload", {}); await loadQueue(); toast("Reloaded");
+});
+
+// ---- Plans -----------------------------------------------------------------------------------------
+let mode = "studies", currentPlan = null, editingPlan = false;
+function setMode(next) {
+  mode = next;
+  $("#mode-studies").setAttribute("aria-selected", String(next === "studies"));
+  $("#mode-plans").setAttribute("aria-selected", String(next === "plans"));
+  $("#study").replaceChildren(); $("#source").replaceChildren();
+  if (next === "plans") loadPlans(); else { current = null; loadQueue(); }
+}
+$("#mode-studies").addEventListener("click", () => setMode("studies"));
+$("#mode-plans").addEventListener("click", () => setMode("plans"));
+
+async function loadPlans() {
+  const data = await api("/api/plans");
+  $("#counts").textContent = `${data.toReview} plan(s) to review · ${data.plans.length} in total`;
+  const list = $("#queue"); list.replaceChildren();
+  for (const p of data.plans) {
+    list.append(el("button", { "data-id": p.id, "aria-current": String(p.id === currentPlan), onclick: () => openPlan(p.id) },
+      p.title, " ", el("span", { class: `pill ${p.status}` }, p.status.replace("_", " ")),
+      p.origin === "structural" ? el("span", { class: "muted" }, " · structural") : ""));
+  }
+  if (!currentPlan && data.plans.length) openPlan(data.plans[0].id);
+}
+
+async function openPlan(id) {
+  const data = await api(`/api/plan/${encodeURIComponent(id)}`);
+  currentPlan = id; editingPlan = false;
+  renderPlan(data);
+  document.querySelectorAll("#queue button").forEach(b => b.setAttribute("aria-current", String(b.dataset.id === id)));
+}
+
+function renderPlan(data) {
+  const p = data.plan, editable = p.origin === "ai_drafted";
+  const limit = p.estimatedMinutesPerDay * 1.5;
+  const field = (name, value) => editingPlan ? el("input", { class: "wide", "data-field": name, value: value ?? "" }) : el("div", {}, value ?? "");
+  const body = [
+    el("p", {}, el("strong", {}, p.title), " ", el("span", { class: `pill ${p.status}` }, p.status.replace("_", " ")),
+      el("span", { class: "muted" }, ` · ${p.days.length} days · about ${p.estimatedMinutesPerDay} min/day · ${p.difficulty} · ${p.origin.replace("_", " ")}`),
+      p.meta.model ? el("span", { class: "muted" }, ` · drafted by ${p.meta.model}`) : "",
+      p.meta.reviewedBy ? el("span", { class: "muted" }, ` · reviewed by ${p.meta.reviewedBy}`) : "",
+      data.published ? el("span", { class: "muted" }, " · published") : ""),
+  ];
+  const reasons = [...(p.checks?.reasons ?? [])];
+  if (reasons.length) body.push(el("h2", {}, "Why it was flagged"), el("ul", { class: "reasons" },
+    reasons.map(r => el("li", {}, el("span", { class: "check" }, r.check), r.day ? ` · day ${r.day}` : "", `: ${r.message}`, r.by ? el("span", { class: "muted" }, ` (${r.by})`) : ""))));
+  if (data.problems.length) body.push(el("h2", { class: "error" }, "Current problems"),
+    el("ul", {}, data.problems.map(r => el("li", { class: "error" }, r.day ? `Day ${r.day}: ` : "", r.message))));
+  if (editingPlan) body.push(el("h2", {}, "Title"), field("title", p.title));
+  body.push(el("h2", {}, "Short description"), field("shortDescription", p.shortDescription),
+    el("h2", {}, "About"), editingPlan ? el("textarea", { "data-field": "description" }, p.description) : el("div", { class: "prose" }, p.description),
+    el("h2", {}, "Days"));
+  for (const d of data.days) {
+    const over = d.minutes > limit;
+    body.push(el("div", { class: "day", "data-day": d.dayNumber },
+      el("h3", {}, `Day ${d.dayNumber}`, d.title && !editingPlan ? ` · ${d.title}` : "",
+        el("span", { class: over ? "over" : "muted" }, ` · ${d.minutes} min`)),
+      editingPlan ? [el("input", { class: "wide", "data-day-field": "title", placeholder: "Title", value: d.title ?? "" }),
+                     el("textarea", { "data-day-field": "intro", placeholder: "Intro" }, d.intro ?? ""),
+                     el("textarea", { "data-day-field": "passages", "aria-label": "Passages, one per line: JHN.3.1-JHN.3.21" }, d.passagesText)]
+                  : [d.intro ? el("div", { class: "prose" }, d.intro) : "", el("div", { class: "muted" }, d.labels.join(" · "))]));
+  }
+  const actions = !editable ? [el("span", { class: "muted" }, "Structural plans are computed from word counts. Change the catalogue to change them.")]
+    : editingPlan ? [el("button", { class: "primary", onclick: savePlanEdit }, "Save edits"), el("button", { onclick: () => { editingPlan = false; renderPlan(data); } }, "Cancel")]
+    : [el("button", { class: "primary", onclick: () => planAct("approve"), ...(data.canApprove ? {} : { disabled: "", title: "Fix the current problems first" }) }, "Approve"),
+       el("button", { onclick: () => { editingPlan = true; renderPlan(data); } }, "Edit"),
+       el("button", { class: "danger", onclick: () => planAct("flag", prompt("Why flag this plan?")) }, "Flag with note"),
+       el("button", { onclick: () => planAct("regenerate", prompt("What should change? (optional)") ?? "") }, "Regenerate")];
+  body.push(el("div", { class: "actions" }, actions));
+  $("#study").replaceChildren(...body);
+  $("#source").replaceChildren(el("h2", {}, "Plan"), el("p", { class: "muted" }, `${p.id} · ${p.category} · v${p.contentVersion}`),
+    el("p", {}, p.credits));
+}
+
+async function planAct(kind, note) {
+  if (note === null) return;
+  try {
+    await api(`/api/plan/${encodeURIComponent(currentPlan)}/${kind}`, { reviewer: reviewer(), note });
+    toast({ approve: "Approved", flag: "Flagged", regenerate: "Regeneration requested" }[kind]);
+    await loadPlans(); openPlan(currentPlan);
+  } catch (e) { toast(e.message); }
+}
+
+async function savePlanEdit() {
+  const body = { reviewer: undefined, days: [] };
+  try { body.reviewer = reviewer(); } catch (e) { toast(e.message); return; }
+  document.querySelectorAll("#study [data-field]").forEach(f => body[f.dataset.field] = f.value);
+  document.querySelectorAll("#study .day").forEach(d => {
+    const day = { dayNumber: Number(d.dataset.day) };
+    d.querySelectorAll("[data-day-field]").forEach(f => day[f.dataset.dayField] = f.value);
+    body.days.push(day);
+  });
+  try {
+    const plan = await api(`/api/plan/${encodeURIComponent(currentPlan)}/edit`, body);
+    toast(plan.status === "flagged" ? "Saved, but the checks flagged something" : "Saved; checks passed");
+    await loadPlans(); openPlan(currentPlan);
+  } catch (e) { toast(e.message); }
+}
+(async () => {
+  const cfg = await api("/api/config");
+  let saved = ""; try { saved = localStorage.getItem("reviewer") || ""; } catch {}
+  $("#reviewer").value = cfg.reviewer || saved;
+  const fromHash = decodeURIComponent(location.hash.slice(1));
+  if (fromHash) await open(fromHash).catch(() => {});
+  await loadQueue();
+})();
+</script>
+</body>
+</html>

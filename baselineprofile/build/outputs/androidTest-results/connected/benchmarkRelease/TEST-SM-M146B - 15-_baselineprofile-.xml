@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="2" failures="0" errors="0" skipped="0" time="1164.177" timestamp="2026-11-18T03:29:46" hostname="localhost">
+  <testsuite name="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" tests="2" failures="0" errors="0" skipped="0" time="1154.513" timestamp="2026-11-18T03:29:46" hostname="localhost">
+    <properties>
+      <property name="device" value="SM-M146B - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":baselineprofile" />
+    </properties>
+    <testcase name="feedScrollBaselineProfile" classname="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" time="582.872" />
+    <testcase name="feedScrollNoCompilation" classname="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" time="571.641" />
+  </testsuite>
+</testsuites>

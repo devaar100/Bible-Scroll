@@ -1,0 +1,10 @@
+[project]
+name = "bible-content-pipeline"
+version = "0.1.0"
+description = "Builds data/source.db (tagged Hebrew/Greek, lexicons, cross references) for the app's study content."
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

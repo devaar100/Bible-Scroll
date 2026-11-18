@@ -1,0 +1,1230 @@
+{
+  "id": "new-testament-90-days",
+  "schemaVersion": 1,
+  "contentVersion": "948870feed07",
+  "title": "The New Testament in 90 days",
+  "shortDescription": "From the birth of Jesus to the new creation in three months.",
+  "description": "Read all 27 books of the New Testament, in order, in about three months: the four Gospels, the story of the early church, the letters and Revelation. A good way to see how the whole story fits together.",
+  "category": "year-round-habits",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 58
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 75
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 20
+        },
+        {
+          "book": "MRK",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 45
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 50
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 44
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 14,
+          "startVerse": 32,
+          "endChapter": 16,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 80
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 50
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 56
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 42
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 59
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 37
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 48
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 56
+        }
+      ]
+    },
+    {
+      "dayNumber": 32,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 53
+        },
+        {
+          "book": "JHN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 51
+        }
+      ]
+    },
+    {
+      "dayNumber": 33,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 34,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 47
+        }
+      ]
+    },
+    {
+      "dayNumber": 35,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 53
+        }
+      ]
+    },
+    {
+      "dayNumber": 36,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 41
+        }
+      ]
+    },
+    {
+      "dayNumber": 37,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 57
+        }
+      ]
+    },
+    {
+      "dayNumber": 38,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 39,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 40,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 41,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 42,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 25
+        },
+        {
+          "book": "ACT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 47
+        }
+      ]
+    },
+    {
+      "dayNumber": 43,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 37
+        }
+      ]
+    },
+    {
+      "dayNumber": 44,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 60
+        }
+      ]
+    },
+    {
+      "dayNumber": 45,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 46,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 47,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 52
+        }
+      ]
+    },
+    {
+      "dayNumber": 48,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 49,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 50,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 51,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 52,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 53,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 44
+        }
+      ]
+    },
+    {
+      "dayNumber": 54,
+      "passages": [
+        {
+          "book": "ACT",
+          "startChapter": 28,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 31
+        },
+        {
+          "book": "ROM",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 55,
+      "passages": [
+        {
+          "book": "ROM",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 56,
+      "passages": [
+        {
+          "book": "ROM",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 57,
+      "passages": [
+        {
+          "book": "ROM",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 58,
+      "passages": [
+        {
+          "book": "ROM",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 59,
+      "passages": [
+        {
+          "book": "1CO",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 60,
+      "passages": [
+        {
+          "book": "1CO",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 61,
+      "passages": [
+        {
+          "book": "1CO",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 62,
+      "passages": [
+        {
+          "book": "1CO",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 63,
+      "passages": [
+        {
+          "book": "1CO",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 64,
+      "passages": [
+        {
+          "book": "2CO",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 65,
+      "passages": [
+        {
+          "book": "2CO",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 66,
+      "passages": [
+        {
+          "book": "2CO",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 67,
+      "passages": [
+        {
+          "book": "GAL",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 68,
+      "passages": [
+        {
+          "book": "GAL",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 18
+        },
+        {
+          "book": "EPH",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 69,
+      "passages": [
+        {
+          "book": "EPH",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 70,
+      "passages": [
+        {
+          "book": "EPH",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 24
+        },
+        {
+          "book": "PHP",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 71,
+      "passages": [
+        {
+          "book": "PHP",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 23
+        },
+        {
+          "book": "COL",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 72,
+      "passages": [
+        {
+          "book": "COL",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 18
+        },
+        {
+          "book": "1TH",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 73,
+      "passages": [
+        {
+          "book": "1TH",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 28
+        },
+        {
+          "book": "2TH",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 18
+        },
+        {
+          "book": "1TI",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 74,
+      "passages": [
+        {
+          "book": "1TI",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 75,
+      "passages": [
+        {
+          "book": "2TI",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 22
+        },
+        {
+          "book": "TIT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 76,
+      "passages": [
+        {
+          "book": "TIT",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 15
+        },
+        {
+          "book": "PHM",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 25
+        },
+        {
+          "book": "HEB",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 77,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 78,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 79,
+      "passages": [
+        {
+          "book": "HEB",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 80,
+      "passages": [
+        {
+          "book": "JAS",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 81,
+      "passages": [
+        {
+          "book": "JAS",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 20
+        },
+        {
+          "book": "1PE",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 82,
+      "passages": [
+        {
+          "book": "1PE",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 14
+        },
+        {
+          "book": "2PE",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 83,
+      "passages": [
+        {
+          "book": "2PE",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 18
+        },
+        {
+          "book": "1JN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 84,
+      "passages": [
+        {
+          "book": "1JN",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 21
+        },
+        {
+          "book": "2JN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 13
+        },
+        {
+          "book": "3JN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 14
+        },
+        {
+          "book": "JUD",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 85,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 86,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 87,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 19
+        }
+      ]
+    },
+    {
+      "dayNumber": 88,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 8
+        }
+      ]
+    },
+    {
+      "dayNumber": 89,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 90,
+      "passages": [
+        {
+          "book": "REV",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 21
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 10,
+  "difficulty": "medium",
+  "reviewed": false
+}

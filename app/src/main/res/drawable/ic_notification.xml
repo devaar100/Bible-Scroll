@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Monochrome open book for the status bar. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,6.5C10.4,5.3 8.1,4.75 5.5,4.75C4.4,4.75 3.4,4.9 2.5,5.15V19.1C3.4,18.85 4.4,18.75 5.5,18.75C8.1,18.75 10.4,19.3 12,20.5C13.6,19.3 15.9,18.75 18.5,18.75C19.6,18.75 20.6,18.85 21.5,19.1V5.15C20.6,4.9 19.6,4.75 18.5,4.75C15.9,4.75 13.6,5.3 12,6.5ZM11,18.1C9.6,17.45 7.7,17.1 5.5,17.1C5,17.1 4.5,17.15 4,17.2V6.6C4.5,6.5 5,6.45 5.5,6.45C7.6,6.45 9.5,6.9 11,7.8V18.1ZM20,17.2C19.5,17.15 19,17.1 18.5,17.1C16.3,17.1 14.4,17.45 13,18.1V7.8C14.5,6.9 16.4,6.45 18.5,6.45C19,6.45 19.5,6.5 20,6.6V17.2Z" />
+</vector>

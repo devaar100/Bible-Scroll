@@ -1,34 +1,67 @@
 package aarnav100.developer.biblescroll.ui.theme
 
+import aarnav100.developer.biblescroll.R
 import androidx.compose.material3.Typography
+import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Set of Material typography styles to start with
+// Both fonts are bundled variable fonts (SIL Open Font License) from Google Fonts.
+private val weights = listOf(
+    FontWeight.Light,
+    FontWeight.Normal,
+    FontWeight.Medium,
+    FontWeight.SemiBold,
+    FontWeight.Bold,
+)
+
+@OptIn(ExperimentalTextApi::class)
+private fun variableFamily(resId: Int) = FontFamily(
+    weights.map { weight ->
+        Font(
+            resId = resId,
+            weight = weight,
+            variationSettings = FontVariation.Settings(FontVariation.weight(weight.weight)),
+        )
+    },
+)
+
+/** Scripture and headlines. */
+val Literata = variableFamily(R.font.literata)
+
+/** UI text. */
+val Inter = variableFamily(R.font.inter)
+
+private val base = Typography()
+
 val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
-    )
-    */
+    // Headlines / display: Literata
+    displayLarge = base.displayLarge.copy(fontFamily = Literata),
+    displayMedium = base.displayMedium.copy(fontFamily = Literata),
+    displaySmall = base.displaySmall.copy(fontFamily = Literata),
+    headlineLarge = base.headlineLarge.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
+    headlineMedium = base.headlineMedium.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
+    headlineSmall = base.headlineSmall.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
+    // UI: Inter
+    titleLarge = base.titleLarge.copy(fontFamily = Inter, fontWeight = FontWeight.SemiBold),
+    titleMedium = base.titleMedium.copy(fontFamily = Inter),
+    titleSmall = base.titleSmall.copy(fontFamily = Inter),
+    bodyLarge = base.bodyLarge.copy(fontFamily = Inter),
+    bodyMedium = base.bodyMedium.copy(fontFamily = Inter),
+    bodySmall = base.bodySmall.copy(fontFamily = Inter),
+    labelLarge = base.labelLarge.copy(fontFamily = Inter),
+    labelMedium = base.labelMedium.copy(fontFamily = Inter),
+    labelSmall = base.labelSmall.copy(fontFamily = Inter),
+)
+
+/** Full-screen verse text in the Bible feed. */
+val ScriptureTextStyle = TextStyle(
+    fontFamily = Literata,
+    fontWeight = FontWeight.Normal,
+    fontSize = 26.sp,
+    lineHeight = 38.sp,
 )

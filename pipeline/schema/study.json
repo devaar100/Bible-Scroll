@@ -1,0 +1,484 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://biblescroll.invalid/schema/study.json",
+  "title": "Verse study",
+  "description": "One verse's study (B8 Verse study / D2 Deep study). originalLanguage, crossReferences and citations come from data (pipeline/data/source.db); the prose sections are written later by AI and reviewed. Verse keys follow the app's KJV versification.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schemaVersion",
+    "contentVersion",
+    "originalLanguage",
+    "crossReferences",
+    "meaning",
+    "historicalContext",
+    "lifeInBibleTimes",
+    "theology",
+    "didYouKnow",
+    "applyIt",
+    "citations",
+    "status",
+    "meta"
+  ],
+  "properties": {
+    "id": {
+      "description": "USFM book code (the app's books.code), chapter, verse, e.g. JHN.3.16.",
+      "$ref": "#/$defs/verseKey"
+    },
+    "schemaVersion": {
+      "const": 2
+    },
+    "contentVersion": {
+      "description": "Changes whenever the inputs (source files, builder rules) or the prose change.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{12}(\\.[0-9]+)?$"
+    },
+    "originalLanguage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "textBasis",
+        "words"
+      ],
+      "properties": {
+        "language": {
+          "description": "Majority language of the verse's words (Aramaic: parts of Daniel, Ezra, Jer 10:11).",
+          "enum": [
+            "hebrew",
+            "aramaic",
+            "greek"
+          ]
+        },
+        "textBasis": {
+          "description": "Which text the words follow. Hebrew: Leningrad Codex (Qere where marked). Greek: the critical text (NA27/28 word list), or the KJV's Greek (Scrivener TR) for verses absent from the critical text.",
+          "enum": [
+            "leningrad",
+            "critical",
+            "textus_receptus"
+          ]
+        },
+        "words": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/word"
+          }
+        }
+      }
+    },
+    "crossReferences": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "$ref": "#/$defs/crossReference"
+      }
+    },
+    "meaning": {
+      "$ref": "#/$defs/prose"
+    },
+    "historicalContext": {
+      "$ref": "#/$defs/prose"
+    },
+    "lifeInBibleTimes": {
+      "$ref": "#/$defs/prose"
+    },
+    "theology": {
+      "$ref": "#/$defs/prose"
+    },
+    "didYouKnow": {
+      "$ref": "#/$defs/prose"
+    },
+    "applyIt": {
+      "$ref": "#/$defs/prose"
+    },
+    "citations": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/citation"
+      }
+    },
+    "status": {
+      "description": "generated: built (prose may still be empty); auto_checked: passed automatic checks; flagged: needs a human; reviewed: approved by a human.",
+      "enum": [
+        "generated",
+        "auto_checked",
+        "flagged",
+        "reviewed"
+      ]
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "generatedAt"
+      ],
+      "properties": {
+        "model": {
+          "description": "Model that wrote the prose; null while no AI has run.",
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "reviewedBy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reviewedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "editedBy": {
+          "type": "string",
+          "minLength": 1
+        },
+        "editedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        }
+      }
+    },
+    "checks": {
+      "description": "Result of the latest auto-check and any reviewer flags. Absent until the study has been checked.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkedAt",
+        "checkerVersion",
+        "reasons"
+      ],
+      "properties": {
+        "checkedAt": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        },
+        "checkerVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/checkReason"
+          }
+        },
+        "rubric": {
+          "$ref": "#/$defs/rubric"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "description": "Past 'generated', the prose must exist and name the model that wrote it.",
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "auto_checked",
+              "flagged",
+              "reviewed"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "meta": {
+            "properties": {
+              "model": {
+                "type": "string"
+              }
+            }
+          },
+          "meaning": {
+            "minLength": 1
+          },
+          "historicalContext": {
+            "minLength": 1
+          },
+          "lifeInBibleTimes": {
+            "minLength": 1
+          },
+          "theology": {
+            "minLength": 1
+          },
+          "didYouKnow": {
+            "minLength": 1
+          },
+          "applyIt": {
+            "minLength": 1
+          }
+        }
+      }
+    },
+    {
+      "description": "A reviewed study records who reviewed it and when.",
+      "if": {
+        "properties": {
+          "status": {
+            "const": "reviewed"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "meta": {
+            "required": [
+              "reviewedBy",
+              "reviewedAt"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "description": "A flagged study says why.",
+      "if": {
+        "properties": {
+          "status": {
+            "const": "flagged"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "checks"
+        ],
+        "properties": {
+          "checks": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "verseKey": {
+      "type": "string",
+      "pattern": "^[1-3A-Z][A-Z0-9]{2}\\.[1-9][0-9]*\\.[1-9][0-9]*$"
+    },
+    "prose": {
+      "description": "Plain text written by AI later; empty until then.",
+      "type": "string"
+    },
+    "word": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface",
+        "lemma",
+        "transliteration",
+        "strongs",
+        "gloss",
+        "morphology"
+      ],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lemma": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transliteration": {
+          "type": "string",
+          "minLength": 1
+        },
+        "strongs": {
+          "description": "Disambiguated Strong's (STEPBible dStrong), e.g. H7225G or G0976.",
+          "type": "string",
+          "pattern": "^[HG][0-9]{4,5}[A-Za-z]?$"
+        },
+        "gloss": {
+          "description": "The source's English rendering of this word in context (not a lexicon definition).",
+          "type": "string"
+        },
+        "morphology": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "crossReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ref",
+        "source"
+      ],
+      "properties": {
+        "ref": {
+          "description": "A verse (ROM.8.28) or an inclusive range (JHN.1.1-JHN.1.3, LEV.27.34-NUM.1.1).",
+          "type": "string",
+          "pattern": "^[1-3A-Z][A-Z0-9]{2}\\.[1-9][0-9]*\\.[1-9][0-9]*(-[1-3A-Z][A-Z0-9]{2}\\.[1-9][0-9]*\\.[1-9][0-9]*)?$"
+        },
+        "source": {
+          "enum": [
+            "OpenBible",
+            "TSK"
+          ]
+        },
+        "note": {
+          "description": "TSK: the word or phrase in this verse that the reference annotates.",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "citation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "licence",
+        "url"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "licence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        }
+      }
+    },
+    "checkReason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "check",
+        "message"
+      ],
+      "properties": {
+        "check": {
+          "enum": [
+            "schema",
+            "length",
+            "reference",
+            "original_language",
+            "banned_phrase",
+            "rubric",
+            "reviewer",
+            "regenerate"
+          ]
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section": {
+          "description": "Prose section the problem is in, when it has one.",
+          "type": "string"
+        },
+        "by": {
+          "description": "Reviewer, for reviewer/regenerate reasons.",
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]+)?(Z|[+-][0-9]{2}:[0-9]{2})$"
+        }
+      }
+    },
+    "rubric": {
+      "description": "Second-opinion AI rubric. Scores 0 (no concern) to 3 (serious).",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model",
+        "factualRisk",
+        "oneSidedTheology",
+        "tone"
+      ],
+      "properties": {
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "factualRisk": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "score",
+            "reason"
+          ],
+          "properties": {
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "oneSidedTheology": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "score",
+            "reason"
+          ],
+          "properties": {
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "tone": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "score",
+            "reason"
+          ],
+          "properties": {
+            "score": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

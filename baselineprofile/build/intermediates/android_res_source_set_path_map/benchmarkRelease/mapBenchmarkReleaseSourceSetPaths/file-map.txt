@@ -1,0 +1,8 @@
+aarnav100.developer.biblescroll.baselineprofile-pngs-0 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/generated/res/pngs/benchmarkRelease
+aarnav100.developer.biblescroll.baselineprofile-updated_navigation_xml-1 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/generated/updated_navigation_xml/benchmarkRelease
+aarnav100.developer.biblescroll.baselineprofile-packageBenchmarkReleaseResources-2 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/intermediates/incremental/benchmarkRelease/packageBenchmarkReleaseResources/merged.dir
+aarnav100.developer.biblescroll.baselineprofile-packageBenchmarkReleaseResources-3 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/intermediates/incremental/benchmarkRelease/packageBenchmarkReleaseResources/stripped.dir
+aarnav100.developer.biblescroll.baselineprofile-benchmarkRelease-4 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/build/intermediates/merged_res/benchmarkRelease/mergeBenchmarkReleaseResources
+aarnav100.developer.biblescroll.baselineprofile-benchmarkRelease-5 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/src/benchmarkRelease/res
+aarnav100.developer.biblescroll.baselineprofile-main-6 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/baselineprofile/src/main/res
+gradleHome-0 /Users/aarnavjindal/.gradle

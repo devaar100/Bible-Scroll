@@ -1,0 +1,384 @@
+{
+  "id": "gospels-30-days",
+  "schemaVersion": 1,
+  "contentVersion": "2de5a110083d",
+  "title": "The four Gospels in 30 days",
+  "shortDescription": "Matthew, Mark, Luke and John in a month.",
+  "description": "Read the four accounts of Jesus' life back to back. Each writer tells the story for different readers and notices different things; reading them together brings the whole picture into focus.",
+  "category": "gospels-and-acts",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 48
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 50
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 51
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 25,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 75
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "MAT",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 20
+        },
+        {
+          "book": "MRK",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 52
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 37
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "MRK",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 39
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 56
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 42
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 59
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 48
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 71
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "LUK",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 53
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 71
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 59
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 57
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "JHN",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 25
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 14,
+  "difficulty": "medium",
+  "reviewed": false
+}

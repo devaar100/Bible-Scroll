@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-18T04:49:21.717Z" hostname="Aarnavs-Laptop-7.local" time="0.134">
+  <properties/>
+  <testcase name="storedStudyIsAvailableOffline" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.061"/>
+  <testcase name="offlineAndNotDownloadedIsAClearStateNotAnError" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.004"/>
+  <testcase name="verseMissingFromADownloadedBookHasNoStudy" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.006"/>
+  <testcase name="networkFailureShowsFailedOnlineAndOfflineWhenDisconnected" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.007"/>
+  <testcase name="firstStateIsLoading" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.004"/>
+  <testcase name="corruptDownloadIsNeverImportedAndCanBeRetried" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.012"/>
+  <testcase name="comingOnlineDownloadsWithProgressThenShowsTheStudy" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.01"/>
+  <testcase name="bookNotInManifestHasNoStudy" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.005"/>
+  <testcase name="newerContentFormatAsksForAnAppUpdate" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.013"/>
+  <testcase name="twoVersesOfOneBookShareOneDownload" classname="aarnav100.developer.biblescroll.core.content.StudyRepositoryTest" time="0.012"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

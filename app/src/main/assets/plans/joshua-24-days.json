@@ -1,0 +1,305 @@
+{
+  "id": "joshua-24-days",
+  "schemaVersion": 1,
+  "contentVersion": "c17e0fe35aab",
+  "title": "Joshua in 24 days",
+  "shortDescription": "Courage, promises kept, and a new land.",
+  "description": "After Moses, Joshua leads Israel into the promised land. A book about courage, faithfulness and the God who keeps his word.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 7
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 2,
+          "startVerse": 8,
+          "endChapter": 3,
+          "endVerse": 7
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 3,
+          "startVerse": 8,
+          "endChapter": 4,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 4,
+          "startVerse": 14,
+          "endChapter": 5,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 7,
+          "startVerse": 19,
+          "endChapter": 8,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 8,
+          "startVerse": 15,
+          "endChapter": 8,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 10,
+          "startVerse": 28,
+          "endChapter": 11,
+          "endVerse": 9
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 11,
+          "startVerse": 10,
+          "endChapter": 12,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 13,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 13,
+          "startVerse": 26,
+          "endChapter": 14,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 15,
+          "endVerse": 63
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 16,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 11
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 17,
+          "startVerse": 12,
+          "endChapter": 18,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 18,
+          "startVerse": 16,
+          "endChapter": 19,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 19,
+          "startVerse": 34,
+          "endChapter": 20,
+          "endVerse": 9
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 45
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 22,
+          "startVerse": 17,
+          "endChapter": 22,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 8
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "JOS",
+          "startChapter": 24,
+          "startVerse": 9,
+          "endChapter": 24,
+          "endVerse": 33
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 4,
+  "difficulty": "easy",
+  "reviewed": false
+}

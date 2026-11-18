@@ -1,0 +1,65 @@
+{
+  "id": "jonah-4-days",
+  "schemaVersion": 1,
+  "contentVersion": "08d7ad39cd71",
+  "title": "Jonah in 4 days",
+  "shortDescription": "A reluctant prophet and a God of second chances.",
+  "description": "Jonah runs from God, is swallowed by a great fish, and is upset when God shows mercy. A short story with a surprisingly big heart.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "JON",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "JON",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "JON",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "JON",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 11
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 2,
+  "difficulty": "easy",
+  "reviewed": false
+}

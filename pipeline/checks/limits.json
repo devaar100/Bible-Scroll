@@ -1,0 +1,11 @@
+{
+  "_comment": "Word limits per prose section (whitespace-separated words). Tune after reading real output.",
+  "words": {
+    "meaning":           {"min": 40, "max": 180},
+    "historicalContext": {"min": 40, "max": 180},
+    "lifeInBibleTimes":  {"min": 30, "max": 150},
+    "theology":          {"min": 40, "max": 180},
+    "didYouKnow":        {"min": 15, "max": 80},
+    "applyIt":           {"min": 25, "max": 120}
+  }
+}

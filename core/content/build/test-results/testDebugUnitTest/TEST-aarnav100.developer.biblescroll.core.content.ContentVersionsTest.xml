@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="aarnav100.developer.biblescroll.core.content.ContentVersionsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-18T04:49:21.648Z" hostname="Aarnavs-Laptop-7.local" time="0.001">
+  <properties/>
+  <testcase name="refreshPlanTouchesOnlyBooksOnTheDevice" classname="aarnav100.developer.biblescroll.core.content.ContentVersionsTest" time="0.001"/>
+  <testcase name="versionsCompareByEqualityNotOrder" classname="aarnav100.developer.biblescroll.core.content.ContentVersionsTest" time="0.0"/>
+  <testcase name="supportedFormats" classname="aarnav100.developer.biblescroll.core.content.ContentVersionsTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

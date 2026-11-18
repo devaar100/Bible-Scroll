@@ -1,0 +1,497 @@
+{
+  "id": "exodus-40-days",
+  "schemaVersion": 1,
+  "contentVersion": "500f2dfe6982",
+  "title": "Exodus in 40 days",
+  "shortDescription": "Rescue from Egypt, the Ten Commandments, and God among his people.",
+  "description": "God hears his people's cry, rescues them from slavery, gives the law at Sinai, and comes to live among them. One of the Bible's great stories of freedom.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 6,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 10,
+          "startVerse": 18,
+          "endChapter": 11,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 12,
+          "startVerse": 32,
+          "endChapter": 13,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 13,
+          "startVerse": 13,
+          "endChapter": 14,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 14,
+          "startVerse": 17,
+          "endChapter": 15,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 15,
+          "startVerse": 17,
+          "endChapter": 16,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 16,
+          "startVerse": 15,
+          "endChapter": 17,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 20,
+          "startVerse": 1,
+          "endChapter": 20,
+          "endVerse": 26
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 25,
+          "startVerse": 22,
+          "endChapter": 26,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 26,
+          "startVerse": 13,
+          "endChapter": 26,
+          "endVerse": 37
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 28,
+          "startVerse": 18,
+          "endChapter": 28,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 29,
+          "startVerse": 1,
+          "endChapter": 29,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 29,
+          "startVerse": 29,
+          "endChapter": 30,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 30,
+          "startVerse": 13,
+          "endChapter": 30,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 31,
+          "startVerse": 1,
+          "endChapter": 32,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 32,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 32,
+          "startVerse": 17,
+          "endChapter": 32,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 33,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 33,
+          "startVerse": 1,
+          "endChapter": 34,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 34,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 34,
+          "startVerse": 14,
+          "endChapter": 34,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 35,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 35,
+          "startVerse": 1,
+          "endChapter": 35,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 36,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 36,
+          "startVerse": 1,
+          "endChapter": 36,
+          "endVerse": 38
+        }
+      ]
+    },
+    {
+      "dayNumber": 37,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 37,
+          "startVerse": 1,
+          "endChapter": 37,
+          "endVerse": 29
+        }
+      ]
+    },
+    {
+      "dayNumber": 38,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 38,
+          "startVerse": 1,
+          "endChapter": 38,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 39,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 39,
+          "startVerse": 1,
+          "endChapter": 39,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 40,
+      "passages": [
+        {
+          "book": "EXO",
+          "startChapter": 40,
+          "startVerse": 1,
+          "endChapter": 40,
+          "endVerse": 38
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 4,
+  "difficulty": "medium",
+  "reviewed": false
+}

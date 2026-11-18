@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://biblescroll.invalid/schema/manifest.json",
+  "title": "Study content manifest",
+  "description": "manifest.json at the content root. The app fetches it, then downloads any book whose contentVersion differs from what it has.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "schemaVersion", "release", "books", "discover"],
+  "properties": {
+    "formatVersion": {"const": 1},
+    "schemaVersion": {"const": 2},
+    "release": {"description": "Hash of everything below; changes whenever any file does.", "type": "string", "pattern": "^[0-9a-f]{12}$"},
+    "books": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["book", "bookId", "url", "contentVersion", "verseCount", "reviewedCount", "sha256", "bytes"],
+        "properties": {
+          "book": {"type": "string", "pattern": "^[1-3A-Z][A-Z0-9]{2}$"},
+          "bookId": {"type": "integer", "minimum": 1, "maximum": 66},
+          "url": {"description": "Absolute URL, or relative to manifest.json when no baseUrl is configured.", "type": "string"},
+          "contentVersion": {"type": "string", "pattern": "^[0-9a-f]{12}$"},
+          "verseCount": {"type": "integer", "minimum": 1},
+          "reviewedCount": {"type": "integer", "minimum": 0},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "bytes": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "discover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "count", "sha256", "bytes"],
+      "properties": {
+        "url": {"type": "string"},
+        "count": {"type": "integer", "minimum": 0},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "bytes": {"type": "integer", "minimum": 1}
+      }
+    }
+  }
+}

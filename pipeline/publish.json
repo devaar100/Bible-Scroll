@@ -1,0 +1,5 @@
+{
+  "_comment": "Firebase Hosting target for study content. baseUrl is what the app downloads from.",
+  "firebaseProject": "biblescroll-content",
+  "baseUrl": "https://biblescroll-content.web.app"
+}

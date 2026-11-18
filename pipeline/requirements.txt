@@ -1,0 +1,5 @@
+# Runtime dependencies (Python 3.11+). Everything else is the standard library.
+jsonschema==4.26.0   # validates studies against schema/study.json
+anthropic==2.10.0    # AI rubric pass in `check` (Claude Haiku 5.5)
+fastapi==0.163.2     # local review tool (`review`)
+uvicorn==0.54.0      # serves the review tool on 127.0.0.1

@@ -1,0 +1,86 @@
+package aarnav100.developer.biblescroll.data.bible
+
+import androidx.room.Dao
+import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
+
+/** Read-only access to the bundled Bible. Room runs Flow queries off the main thread. */
+@Dao
+interface BibleDao {
+
+    @Query("SELECT * FROM translations ORDER BY sort_order")
+    fun observeTranslations(): Flow<List<TranslationEntity>>
+
+    @Query("SELECT * FROM books ORDER BY id")
+    fun observeBooks(): Flow<List<BookEntity>>
+
+    @Query("SELECT * FROM chapters WHERE translation_id = :translationId AND book_id = :bookId ORDER BY chapter")
+    fun observeChapters(translationId: String, bookId: Int): Flow<List<ChapterEntity>>
+
+    @Query(
+        """
+        SELECT * FROM verses
+        WHERE translation_id = :translationId AND book_id = :bookId AND chapter = :chapter
+        ORDER BY verse
+        """
+    )
+    fun observeChapterVerses(translationId: String, bookId: Int, chapter: Int): Flow<List<VerseEntity>>
+
+    @Query(
+        """
+        SELECT * FROM verses
+        WHERE translation_id = :translationId AND book_id = :bookId AND chapter = :chapter AND verse = :verse
+        """
+    )
+    fun observeVerse(translationId: String, bookId: Int, chapter: Int, verse: Int): Flow<VerseEntity?>
+
+    @Query(
+        """
+        SELECT * FROM verses
+        WHERE translation_id = :translationId AND ordinal >= :fromOrdinal
+        ORDER BY ordinal
+        LIMIT :count
+        """
+    )
+    fun observeVersesFrom(translationId: String, fromOrdinal: Int, count: Int): Flow<List<VerseEntity>>
+
+    @Query(
+        """
+        SELECT v.* FROM verses v
+        JOIN translations t ON t.id = v.translation_id
+        WHERE v.book_id = :bookId AND v.chapter = :chapter AND v.verse = :verse
+        ORDER BY t.sort_order
+        """
+    )
+    fun observeVerseInAllTranslations(bookId: Int, chapter: Int, verse: Int): Flow<List<VerseEntity>>
+
+    /**
+     * Verses whose packed key (book * 1_000_000 + chapter * 1_000 + verse) is in [keys], in Bible
+     * order. Keys absent from this translation are simply missing from the result. Callers must keep
+     * [keys] under SQLite's 999-variable limit.
+     */
+    @Query(
+        """
+        SELECT * FROM verses
+        WHERE translation_id = :translationId
+          AND (book_id * 1000000 + chapter * 1000 + verse) IN (:keys)
+        ORDER BY ordinal
+        """
+    )
+    suspend fun versesByKeys(translationId: String, keys: List<Long>): List<VerseEntity>
+
+    @Query("SELECT COUNT(*) FROM verses WHERE translation_id = :translationId")
+    suspend fun countVerses(translationId: String): Int
+
+    /** Ordinal of the given verse, or of the next existing one if it is absent in this translation. */
+    @Query(
+        """
+        SELECT ordinal FROM verses
+        WHERE translation_id = :translationId
+          AND (book_id > :bookId OR (book_id = :bookId AND (chapter > :chapter OR (chapter = :chapter AND verse >= :verse))))
+        ORDER BY ordinal
+        LIMIT 1
+        """
+    )
+    suspend fun ordinalAtOrAfter(translationId: String, bookId: Int, chapter: Int, verse: Int): Int?
+}

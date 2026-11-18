@@ -1,0 +1,617 @@
+{
+  "id": "genesis-50-days",
+  "schemaVersion": 1,
+  "contentVersion": "6ea1d4b480af",
+  "title": "Genesis in 50 days",
+  "shortDescription": "Creation, the first families, and God's promise to Abraham.",
+  "description": "The book of beginnings: creation, the fall, the flood, and the stories of Abraham, Isaac, Jacob and Joseph, through which God's promise to bless the world begins to unfold.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 5,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 5,
+          "startVerse": 16,
+          "endChapter": 6,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 7,
+          "startVerse": 1,
+          "endChapter": 7,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 9,
+          "startVerse": 15,
+          "endChapter": 10,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 11,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 12,
+          "startVerse": 1,
+          "endChapter": 13,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 14,
+          "startVerse": 1,
+          "endChapter": 14,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 15,
+          "startVerse": 1,
+          "endChapter": 16,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 17,
+          "startVerse": 1,
+          "endChapter": 17,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 18,
+          "startVerse": 1,
+          "endChapter": 18,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 19,
+          "startVerse": 1,
+          "endChapter": 19,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 19,
+          "startVerse": 21,
+          "endChapter": 20,
+          "endVerse": 18
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 22,
+          "endVerse": 24
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 23,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 20
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 24,
+          "startVerse": 1,
+          "endChapter": 24,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 24,
+          "startVerse": 34,
+          "endChapter": 24,
+          "endVerse": 67
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 25,
+          "startVerse": 1,
+          "endChapter": 25,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 26
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 27,
+          "startVerse": 27,
+          "endChapter": 27,
+          "endVerse": 46
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 28,
+          "startVerse": 1,
+          "endChapter": 29,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 29,
+          "startVerse": 11,
+          "endChapter": 29,
+          "endVerse": 35
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 30,
+          "startVerse": 1,
+          "endChapter": 30,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 31,
+          "startVerse": 1,
+          "endChapter": 31,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 31,
+          "startVerse": 32,
+          "endChapter": 31,
+          "endVerse": 55
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 32,
+          "startVerse": 1,
+          "endChapter": 32,
+          "endVerse": 32
+        }
+      ]
+    },
+    {
+      "dayNumber": 32,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 33,
+          "startVerse": 1,
+          "endChapter": 34,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 33,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 34,
+          "startVerse": 13,
+          "endChapter": 34,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 34,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 35,
+          "startVerse": 1,
+          "endChapter": 36,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 35,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 36,
+          "startVerse": 18,
+          "endChapter": 37,
+          "endVerse": 9
+        }
+      ]
+    },
+    {
+      "dayNumber": 36,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 37,
+          "startVerse": 10,
+          "endChapter": 37,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 37,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 38,
+          "startVerse": 1,
+          "endChapter": 38,
+          "endVerse": 30
+        }
+      ]
+    },
+    {
+      "dayNumber": 38,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 39,
+          "startVerse": 1,
+          "endChapter": 39,
+          "endVerse": 23
+        }
+      ]
+    },
+    {
+      "dayNumber": 39,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 40,
+          "startVerse": 1,
+          "endChapter": 41,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 40,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 41,
+          "startVerse": 18,
+          "endChapter": 41,
+          "endVerse": 57
+        }
+      ]
+    },
+    {
+      "dayNumber": 41,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 42,
+          "startVerse": 1,
+          "endChapter": 42,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 42,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 42,
+          "startVerse": 23,
+          "endChapter": 43,
+          "endVerse": 11
+        }
+      ]
+    },
+    {
+      "dayNumber": 43,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 43,
+          "startVerse": 12,
+          "endChapter": 43,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 44,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 44,
+          "startVerse": 1,
+          "endChapter": 44,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 45,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 45,
+          "startVerse": 1,
+          "endChapter": 45,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 46,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 46,
+          "startVerse": 1,
+          "endChapter": 46,
+          "endVerse": 34
+        }
+      ]
+    },
+    {
+      "dayNumber": 47,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 47,
+          "startVerse": 1,
+          "endChapter": 47,
+          "endVerse": 31
+        }
+      ]
+    },
+    {
+      "dayNumber": 48,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 48,
+          "startVerse": 1,
+          "endChapter": 48,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 49,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 49,
+          "startVerse": 1,
+          "endChapter": 49,
+          "endVerse": 33
+        }
+      ]
+    },
+    {
+      "dayNumber": 50,
+      "passages": [
+        {
+          "book": "GEN",
+          "startChapter": 50,
+          "startVerse": 1,
+          "endChapter": 50,
+          "endVerse": 26
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 4,
+  "difficulty": "medium",
+  "reviewed": false
+}

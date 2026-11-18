@@ -1,0 +1,389 @@
+{
+  "id": "1-samuel-31-days",
+  "schemaVersion": 1,
+  "contentVersion": "ecbdae8342cf",
+  "title": "1 Samuel in 31 days",
+  "shortDescription": "Samuel, Saul and the rise of young David.",
+  "description": "Israel asks for a king. The story follows Samuel, Saul's rise and fall, and David from shepherd boy to giant-slayer to fugitive.",
+  "category": "old-testament-stories",
+  "days": [
+    {
+      "dayNumber": 1,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 1,
+          "startVerse": 1,
+          "endChapter": 1,
+          "endVerse": 28
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 2,
+          "startVerse": 1,
+          "endChapter": 2,
+          "endVerse": 36
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 3,
+          "startVerse": 1,
+          "endChapter": 3,
+          "endVerse": 21
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 4,
+          "startVerse": 1,
+          "endChapter": 4,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 5,
+          "startVerse": 1,
+          "endChapter": 6,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 6,
+          "startVerse": 14,
+          "endChapter": 7,
+          "endVerse": 17
+        }
+      ]
+    },
+    {
+      "dayNumber": 7,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 8,
+          "startVerse": 1,
+          "endChapter": 8,
+          "endVerse": 22
+        }
+      ]
+    },
+    {
+      "dayNumber": 8,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 9,
+          "startVerse": 1,
+          "endChapter": 9,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 9,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 10,
+          "startVerse": 1,
+          "endChapter": 10,
+          "endVerse": 27
+        }
+      ]
+    },
+    {
+      "dayNumber": 10,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 11,
+          "startVerse": 1,
+          "endChapter": 12,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 11,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 12,
+          "startVerse": 11,
+          "endChapter": 13,
+          "endVerse": 11
+        }
+      ]
+    },
+    {
+      "dayNumber": 12,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 13,
+          "startVerse": 12,
+          "endChapter": 14,
+          "endVerse": 14
+        }
+      ]
+    },
+    {
+      "dayNumber": 13,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 14,
+          "startVerse": 15,
+          "endChapter": 14,
+          "endVerse": 40
+        }
+      ]
+    },
+    {
+      "dayNumber": 14,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 14,
+          "startVerse": 41,
+          "endChapter": 15,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 15,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 15,
+          "startVerse": 17,
+          "endChapter": 16,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 16,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 16,
+          "startVerse": 11,
+          "endChapter": 17,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 17,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 17,
+          "startVerse": 17,
+          "endChapter": 17,
+          "endVerse": 43
+        }
+      ]
+    },
+    {
+      "dayNumber": 18,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 17,
+          "startVerse": 44,
+          "endChapter": 18,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 19,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 18,
+          "startVerse": 13,
+          "endChapter": 19,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 20,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 19,
+          "startVerse": 11,
+          "endChapter": 20,
+          "endVerse": 13
+        }
+      ]
+    },
+    {
+      "dayNumber": 21,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 20,
+          "startVerse": 14,
+          "endChapter": 20,
+          "endVerse": 42
+        }
+      ]
+    },
+    {
+      "dayNumber": 22,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 21,
+          "startVerse": 1,
+          "endChapter": 21,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 23,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 22,
+          "startVerse": 1,
+          "endChapter": 23,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 24,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 23,
+          "startVerse": 13,
+          "endChapter": 24,
+          "endVerse": 10
+        }
+      ]
+    },
+    {
+      "dayNumber": 25,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 24,
+          "startVerse": 11,
+          "endChapter": 25,
+          "endVerse": 15
+        }
+      ]
+    },
+    {
+      "dayNumber": 26,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 25,
+          "startVerse": 16,
+          "endChapter": 25,
+          "endVerse": 44
+        }
+      ]
+    },
+    {
+      "dayNumber": 27,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 26,
+          "startVerse": 1,
+          "endChapter": 26,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 28,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 27,
+          "startVerse": 1,
+          "endChapter": 27,
+          "endVerse": 12
+        }
+      ]
+    },
+    {
+      "dayNumber": 29,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 28,
+          "startVerse": 1,
+          "endChapter": 28,
+          "endVerse": 25
+        }
+      ]
+    },
+    {
+      "dayNumber": 30,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 29,
+          "startVerse": 1,
+          "endChapter": 30,
+          "endVerse": 16
+        }
+      ]
+    },
+    {
+      "dayNumber": 31,
+      "passages": [
+        {
+          "book": "1SA",
+          "startChapter": 30,
+          "startVerse": 17,
+          "endChapter": 31,
+          "endVerse": 13
+        }
+      ]
+    }
+  ],
+  "status": "auto_checked",
+  "origin": "structural",
+  "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
+  "estimatedMinutesPerDay": 4,
+  "difficulty": "easy",
+  "reviewed": false
+}

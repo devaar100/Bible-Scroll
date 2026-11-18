@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Bible Scroll"
 include(":app")
+include(":baselineprofile")
+include(":core:content")

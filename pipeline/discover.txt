@@ -1,0 +1,5 @@
+# Discover feed (D1): curated verses, one study id per line (e.g. JHN.3.16), in the order the feed shows them.
+# Only verses whose study is auto_checked or reviewed are published; `publish --dry-run` lists any it leaves out.
+# These are also reviewed first (after flagged studies).
+#
+# The curated list hasn't been chosen yet. Add verses below.

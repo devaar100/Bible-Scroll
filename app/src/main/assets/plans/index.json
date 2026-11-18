@@ -1,0 +1,362 @@
+{
+  "formatVersion": 1,
+  "startHere": [
+    "john-21-days",
+    "mark-16-days",
+    "psalms-and-proverbs-month",
+    "james-5-days",
+    "philippians-4-days"
+  ],
+  "categories": [
+    {
+      "id": "topics-and-seasons",
+      "title": "Topics and seasons",
+      "plans": []
+    },
+    {
+      "id": "gospels-and-acts",
+      "title": "Gospels and Acts",
+      "plans": [
+        "acts-28-days",
+        "gospels-30-days",
+        "john-21-days",
+        "luke-24-days",
+        "mark-16-days",
+        "matthew-28-days"
+      ]
+    },
+    {
+      "id": "letters-and-revelation",
+      "title": "Letters and Revelation",
+      "plans": [
+        "1-john-5-days",
+        "1-peter-5-days",
+        "colossians-4-days",
+        "ephesians-6-days",
+        "galatians-6-days",
+        "hebrews-13-days",
+        "james-5-days",
+        "philippians-4-days",
+        "revelation-22-days",
+        "romans-16-days"
+      ]
+    },
+    {
+      "id": "old-testament-stories",
+      "title": "Old Testament stories",
+      "plans": [
+        "1-samuel-31-days",
+        "daniel-12-days",
+        "esther-10-days",
+        "exodus-40-days",
+        "genesis-50-days",
+        "jonah-4-days",
+        "joshua-24-days",
+        "ruth-4-days"
+      ]
+    },
+    {
+      "id": "year-round-habits",
+      "title": "Year-round habits",
+      "plans": [
+        "bible-in-a-year",
+        "new-testament-90-days",
+        "proverbs-31-days",
+        "psalms-60-days",
+        "psalms-and-proverbs-month"
+      ]
+    }
+  ],
+  "plans": [
+    {
+      "id": "1-john-5-days",
+      "title": "1 John in 5 days",
+      "shortDescription": "Light, love and the confidence of belonging to God.",
+      "category": "letters-and-revelation",
+      "days": 5,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "04f291b7f2c1"
+    },
+    {
+      "id": "1-peter-5-days",
+      "title": "1 Peter in 5 days",
+      "shortDescription": "Hope for people going through hard times.",
+      "category": "letters-and-revelation",
+      "days": 5,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "7f92c2f610c0"
+    },
+    {
+      "id": "1-samuel-31-days",
+      "title": "1 Samuel in 31 days",
+      "shortDescription": "Samuel, Saul and the rise of young David.",
+      "category": "old-testament-stories",
+      "days": 31,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "easy",
+      "contentVersion": "ecbdae8342cf"
+    },
+    {
+      "id": "acts-28-days",
+      "title": "Acts in 28 days",
+      "shortDescription": "How the early church grew from Jerusalem to Rome.",
+      "category": "gospels-and-acts",
+      "days": 28,
+      "estimatedMinutesPerDay": 5,
+      "difficulty": "easy",
+      "contentVersion": "fa1f02b5a4a8"
+    },
+    {
+      "id": "bible-in-a-year",
+      "title": "The Bible in a year",
+      "shortDescription": "A little Old Testament and a little New Testament every day.",
+      "category": "year-round-habits",
+      "days": 365,
+      "estimatedMinutesPerDay": 11,
+      "difficulty": "hard",
+      "contentVersion": "94ba2e773533"
+    },
+    {
+      "id": "colossians-4-days",
+      "title": "Colossians in 4 days",
+      "shortDescription": "Christ above everything, in four days.",
+      "category": "letters-and-revelation",
+      "days": 4,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "6c64ae186f09"
+    },
+    {
+      "id": "daniel-12-days",
+      "title": "Daniel in 12 days",
+      "shortDescription": "Faithfulness in a foreign land.",
+      "category": "old-testament-stories",
+      "days": 12,
+      "estimatedMinutesPerDay": 5,
+      "difficulty": "easy",
+      "contentVersion": "616ff0f70854"
+    },
+    {
+      "id": "ephesians-6-days",
+      "title": "Ephesians in 6 days",
+      "shortDescription": "Who you are in Christ, and how to live it.",
+      "category": "letters-and-revelation",
+      "days": 6,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "bb737983c4cb"
+    },
+    {
+      "id": "esther-10-days",
+      "title": "Esther in 10 days",
+      "shortDescription": "Courage at just the right moment.",
+      "category": "old-testament-stories",
+      "days": 10,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "5939e373565d"
+    },
+    {
+      "id": "exodus-40-days",
+      "title": "Exodus in 40 days",
+      "shortDescription": "Rescue from Egypt, the Ten Commandments, and God among his people.",
+      "category": "old-testament-stories",
+      "days": 40,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "medium",
+      "contentVersion": "500f2dfe6982"
+    },
+    {
+      "id": "galatians-6-days",
+      "title": "Galatians in 6 days",
+      "shortDescription": "Freedom in Christ, in six short readings.",
+      "category": "letters-and-revelation",
+      "days": 6,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "4903494005a8"
+    },
+    {
+      "id": "genesis-50-days",
+      "title": "Genesis in 50 days",
+      "shortDescription": "Creation, the first families, and God's promise to Abraham.",
+      "category": "old-testament-stories",
+      "days": 50,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "medium",
+      "contentVersion": "6ea1d4b480af"
+    },
+    {
+      "id": "gospels-30-days",
+      "title": "The four Gospels in 30 days",
+      "shortDescription": "Matthew, Mark, Luke and John in a month.",
+      "category": "gospels-and-acts",
+      "days": 30,
+      "estimatedMinutesPerDay": 14,
+      "difficulty": "medium",
+      "contentVersion": "2de5a110083d"
+    },
+    {
+      "id": "hebrews-13-days",
+      "title": "Hebrews in 13 days",
+      "shortDescription": "Jesus, the better hope, and the call to keep going.",
+      "category": "letters-and-revelation",
+      "days": 13,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "4e38f8718e89"
+    },
+    {
+      "id": "james-5-days",
+      "title": "James in 5 days",
+      "shortDescription": "Faith that shows up in everyday life.",
+      "category": "letters-and-revelation",
+      "days": 5,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "a198caba2261"
+    },
+    {
+      "id": "john-21-days",
+      "title": "John in 21 days",
+      "shortDescription": "Signs, conversations and the \"I am\" sayings of Jesus.",
+      "category": "gospels-and-acts",
+      "days": 21,
+      "estimatedMinutesPerDay": 5,
+      "difficulty": "easy",
+      "contentVersion": "9460793668c4"
+    },
+    {
+      "id": "jonah-4-days",
+      "title": "Jonah in 4 days",
+      "shortDescription": "A reluctant prophet and a God of second chances.",
+      "category": "old-testament-stories",
+      "days": 4,
+      "estimatedMinutesPerDay": 2,
+      "difficulty": "easy",
+      "contentVersion": "08d7ad39cd71"
+    },
+    {
+      "id": "joshua-24-days",
+      "title": "Joshua in 24 days",
+      "shortDescription": "Courage, promises kept, and a new land.",
+      "category": "old-testament-stories",
+      "days": 24,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "easy",
+      "contentVersion": "c17e0fe35aab"
+    },
+    {
+      "id": "luke-24-days",
+      "title": "Luke in 24 days",
+      "shortDescription": "A careful account with a heart for outsiders.",
+      "category": "gospels-and-acts",
+      "days": 24,
+      "estimatedMinutesPerDay": 6,
+      "difficulty": "easy",
+      "contentVersion": "dd3a4ec3839e"
+    },
+    {
+      "id": "mark-16-days",
+      "title": "Mark in 16 days",
+      "shortDescription": "The shortest Gospel: fast-moving and full of action.",
+      "category": "gospels-and-acts",
+      "days": 16,
+      "estimatedMinutesPerDay": 5,
+      "difficulty": "easy",
+      "contentVersion": "1a31573d2e18"
+    },
+    {
+      "id": "matthew-28-days",
+      "title": "Matthew in 28 days",
+      "shortDescription": "Jesus the promised King, and the Sermon on the Mount.",
+      "category": "gospels-and-acts",
+      "days": 28,
+      "estimatedMinutesPerDay": 5,
+      "difficulty": "easy",
+      "contentVersion": "bb7899a985ae"
+    },
+    {
+      "id": "new-testament-90-days",
+      "title": "The New Testament in 90 days",
+      "shortDescription": "From the birth of Jesus to the new creation in three months.",
+      "category": "year-round-habits",
+      "days": 90,
+      "estimatedMinutesPerDay": 10,
+      "difficulty": "medium",
+      "contentVersion": "948870feed07"
+    },
+    {
+      "id": "philippians-4-days",
+      "title": "Philippians in 4 days",
+      "shortDescription": "A letter about joy, written from prison.",
+      "category": "letters-and-revelation",
+      "days": 4,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "1c1fec31c6e9"
+    },
+    {
+      "id": "proverbs-31-days",
+      "title": "Proverbs in 31 days",
+      "shortDescription": "A chapter of wisdom for every day of the month.",
+      "category": "year-round-habits",
+      "days": 31,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "2c382c2f0929"
+    },
+    {
+      "id": "psalms-60-days",
+      "title": "Psalms in 60 days",
+      "shortDescription": "Two months of the Bible's songs and prayers.",
+      "category": "year-round-habits",
+      "days": 60,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "medium",
+      "contentVersion": "e936a8a7ee97"
+    },
+    {
+      "id": "psalms-and-proverbs-month",
+      "title": "Psalms and Proverbs in a month",
+      "shortDescription": "Prayers and practical wisdom, side by side, for 31 days.",
+      "category": "year-round-habits",
+      "days": 31,
+      "estimatedMinutesPerDay": 9,
+      "difficulty": "medium",
+      "contentVersion": "77c5e6178596"
+    },
+    {
+      "id": "revelation-22-days",
+      "title": "Revelation in 22 days",
+      "shortDescription": "A vision of Christ's victory and all things made new.",
+      "category": "letters-and-revelation",
+      "days": 22,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "2e6a5e5058b3"
+    },
+    {
+      "id": "romans-16-days",
+      "title": "Romans in 16 days",
+      "shortDescription": "Paul's fullest letter on grace and faith.",
+      "category": "letters-and-revelation",
+      "days": 16,
+      "estimatedMinutesPerDay": 3,
+      "difficulty": "easy",
+      "contentVersion": "9a112be3ff8d"
+    },
+    {
+      "id": "ruth-4-days",
+      "title": "Ruth in 4 days",
+      "shortDescription": "Loyalty, kindness and a quiet story of redemption.",
+      "category": "old-testament-stories",
+      "days": 4,
+      "estimatedMinutesPerDay": 4,
+      "difficulty": "easy",
+      "contentVersion": "b48eb7048cf0"
+    }
+  ]
+}

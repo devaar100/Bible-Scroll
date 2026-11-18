@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuites tests="6" failures="0" errors="0" skipped="4" time="1041.669" timestamp="2026-11-18T03:03:58" hostname="localhost">
+  <testsuite name="aarnav100.developer.biblescroll.baselineprofile.BaselineProfileGenerator" tests="2" failures="0" errors="0" skipped="0" time="1037.459" timestamp="2026-11-18T03:03:58" hostname="localhost">
+    <properties>
+      <property name="device" value="SM-M146B - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":baselineprofile" />
+    </properties>
+    <testcase name="startup" classname="aarnav100.developer.biblescroll.baselineprofile.BaselineProfileGenerator" time="80.962" />
+    <testcase name="feedJourneys" classname="aarnav100.developer.biblescroll.baselineprofile.BaselineProfileGenerator" time="956.497" />
+  </testsuite>
+  <testsuite name="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" tests="2" failures="0" errors="0" skipped="2" time="0.123" timestamp="2026-11-18T03:03:58" hostname="localhost">
+    <properties>
+      <property name="device" value="SM-M146B - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":baselineprofile" />
+    </properties>
+    <testcase name="feedScrollBaselineProfile" classname="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" time="0.121">
+      <skipped />
+    </testcase>
+    <testcase name="feedScrollNoCompilation" classname="aarnav100.developer.biblescroll.baselineprofile.ScrollBenchmarks" time="0.002">
+      <skipped />
+    </testcase>
+  </testsuite>
+  <testsuite name="aarnav100.developer.biblescroll.baselineprofile.StartupBenchmarks" tests="2" failures="0" errors="0" skipped="2" time="0.005" timestamp="2026-11-18T03:03:58" hostname="localhost">
+    <properties>
+      <property name="device" value="SM-M146B - 15" />
+      <property name="flavor" value="" />
+      <property name="project" value=":baselineprofile" />
+    </properties>
+    <testcase name="startupNoCompilation" classname="aarnav100.developer.biblescroll.baselineprofile.StartupBenchmarks" time="0.002">
+      <skipped />
+    </testcase>
+    <testcase name="startupBaselineProfile" classname="aarnav100.developer.biblescroll.baselineprofile.StartupBenchmarks" time="0.003">
+      <skipped />
+    </testcase>
+  </testsuite>
+</testsuites>

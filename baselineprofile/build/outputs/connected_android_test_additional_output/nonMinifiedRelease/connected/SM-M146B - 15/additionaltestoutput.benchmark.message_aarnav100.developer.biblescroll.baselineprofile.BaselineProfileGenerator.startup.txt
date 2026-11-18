@@ -1,0 +1,6 @@
+BaselineProfileGenerator_startup
+Total run time Ns: 80096677097.
+Baseline profile [results](file://BaselineProfileGenerator_startup-startup-prof-2026-11-18-02-47-59.txt)
+
+To copy the profile use:
+adb -s RZCW504PYVZ pull "/sdcard/Android/media/aarnav100.developer.biblescroll.baselineprofile/additional_test_output/BaselineProfileGenerator_startup-startup-prof.txt" .
