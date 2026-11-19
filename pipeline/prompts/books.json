@@ -1,6 +1,383 @@
 {
   "_comment": "Book background and notes on the text for the study prompt (generate.request_values). Read by a person before any batch. Widely held views only; anything contested goes under disputes. textNotes apply to every verse from..to (KJV keys) and are the only manuscript facts the model may mention. Editing this file changes the prompt hash.",
   "books": {
+    "GEN": {
+      "author": "Anonymous; Jewish and Christian tradition names Moses as author of the first five books.",
+      "date": "Disputed. Tradition places the writing around the time of Moses; many scholars think it took its final shape between the time of the kings and the years after the exile.",
+      "audience": "Israel, as the opening book of the Torah, the first five books of the Bible.",
+      "setting": "The creation of the world, the first human family, the flood, and the stories of Abraham, Isaac, Jacob and Joseph, ending with Israel's family in Egypt.",
+      "disputes": [
+        "Whether Moses wrote it, and when it reached its present form, is disputed.",
+        "How to read the early chapters (as literal history, as figurative, or something in between) is debated among Christians."
+      ]
+    },
+    "EXO": {
+      "author": "Anonymous; tradition names Moses.",
+      "date": "The date of writing is disputed. The exodus itself is dated either to the 1400s BC or to the 1200s BC.",
+      "audience": "Israel, remembering how God rescued the nation and made a covenant with it.",
+      "setting": "Israel's slavery in Egypt, God's rescue of the nation through Moses, the covenant and laws at Mount Sinai, and the building of the tabernacle.",
+      "disputes": [
+        "Whether Moses wrote it, and when it reached its present form, is disputed.",
+        "The date and details of the exodus are debated."
+      ]
+    },
+    "LEV": {
+      "author": "Anonymous; tradition names Moses.",
+      "date": "The events are set at Mount Sinai soon after the exodus; the date of writing is disputed.",
+      "audience": "Israel, especially its priests, learning how to live as a holy people near God.",
+      "setting": "Laws about sacrifices, the priesthood, clean and unclean, holy living and annual festivals, given at Sinai.",
+      "disputes": [
+        "Whether Moses wrote it, and when it reached its present form, is disputed.",
+        "How Christians understand these laws today is debated."
+      ]
+    },
+    "NUM": {
+      "author": "Anonymous; tradition names Moses.",
+      "date": "The events cover about forty years after the exodus; the date of writing is disputed.",
+      "audience": "Israel, and later generations who needed to learn from the wilderness years.",
+      "setting": "Israel's counting of its tribes, its journey from Sinai toward Canaan, rebellion and wandering in the wilderness, and preparation to enter the land.",
+      "disputes": [
+        "Whether Moses wrote it, and when it reached its present form, is disputed.",
+        "How to understand the large numbers in the censuses is debated."
+      ]
+    },
+    "DEU": {
+      "author": "Anonymous; tradition names Moses, with the account of his death added later.",
+      "date": "The speeches are set just before Israel entered Canaan; many scholars think the book reached its final form centuries later, during the time of the kings.",
+      "audience": "Israel on the edge of the promised land, and later generations.",
+      "setting": "Moses's farewell speeches on the plains of Moab, retelling the story, repeating the law and calling Israel to renew its covenant with God.",
+      "disputes": [
+        "Whether Moses wrote it, and when it reached its present form, is disputed."
+      ]
+    },
+    "JOS": {
+      "author": "Anonymous; tradition names Joshua for much of it.",
+      "date": "The events are usually placed in the 1400s or 1200s BC; the book was written later, and the date is disputed.",
+      "audience": "Israel in the land, remembering how God gave it.",
+      "setting": "Israel under Joshua crosses the Jordan, takes Jericho, wins and settles in Canaan, divides the land among the tribes and renews the covenant.",
+      "disputes": [
+        "The date and authorship are disputed.",
+        "How the conquest accounts fit archaeology and the book of Judges is debated."
+      ]
+    },
+    "JDG": {
+      "author": "Anonymous; tradition names Samuel.",
+      "date": "The events are set between about 1200 and 1050 BC; the book was probably written in the time of the kings, and the date is disputed.",
+      "audience": "Israel, probably during the monarchy.",
+      "setting": "The tribes after Joshua, before Israel had kings, in a repeated cycle of turning away from God, oppression, and rescue through leaders called judges.",
+      "disputes": [
+        "The author and date are disputed.",
+        "How to arrange the timeline of the judges is debated."
+      ]
+    },
+    "RUT": {
+      "author": "Anonymous; tradition names Samuel.",
+      "date": "Set in the time of the judges; the date of writing is disputed, from the time of David to after the exile.",
+      "audience": "Israel, and in particular readers interested in David's family line.",
+      "setting": "A family from Bethlehem moves to Moab and returns; Ruth, a Moabite widow, and her mother-in-law Naomi are cared for by Boaz, who becomes Ruth's husband.",
+      "disputes": [
+        "The date and author are disputed.",
+        "Why the book was written, for example to welcome outsiders or to trace David's line, is debated."
+      ]
+    },
+    "1SA": {
+      "author": "Anonymous; tradition names Samuel, with Nathan and Gad.",
+      "date": "The events run from about 1100 to 1010 BC; the books of Samuel were written later, and the date is disputed.",
+      "audience": "Israel, probably during or after the time of the kings.",
+      "setting": "The last judge Samuel, Israel's demand for a king, the rise and failure of Saul, and the rise of David.",
+      "disputes": [
+        "The authorship and date are disputed.",
+        "Whether the book drew on earlier sources is debated."
+      ]
+    },
+    "2SA": {
+      "author": "Anonymous; tradition names Samuel, with Nathan and Gad.",
+      "date": "The events cover David's reign, from about 1010 to 970 BC; the books of Samuel were written later, and the date is disputed.",
+      "audience": "Israel, probably during or after the time of the kings.",
+      "setting": "David becomes king, first over Judah and then over all Israel, captures Jerusalem, receives God's promise of a lasting house, sins, and faces family troubles and rebellion.",
+      "disputes": [
+        "The authorship and date are disputed."
+      ]
+    },
+    "1KI": {
+      "author": "Anonymous; tradition names Jeremiah.",
+      "date": "The story runs from about 970 to 850 BC; the books of Kings reach the exile, so they were finished after about 560 BC.",
+      "audience": "Israelites in or after the exile, asking why the kingdom fell.",
+      "setting": "Solomon's reign and the building of the temple, the split into northern and southern kingdoms, and the prophet Elijah.",
+      "disputes": [
+        "The author is unknown, and how the book was put together is debated.",
+        "How the royal dates fit together is debated."
+      ]
+    },
+    "2KI": {
+      "author": "Anonymous; tradition names Jeremiah.",
+      "date": "The story runs from about 850 BC to the fall of Jerusalem in 586 BC; the books of Kings were finished after about 560 BC.",
+      "audience": "Israelites in or after the exile, asking why the kingdom fell.",
+      "setting": "The northern and southern kingdoms side by side, the prophet Elisha, the fall of the northern kingdom to Assyria, and the fall of Judah to Babylon.",
+      "disputes": [
+        "The author is unknown, and how the book was put together is debated.",
+        "How the royal dates fit together is debated."
+      ]
+    },
+    "1CH": {
+      "author": "Anonymous; tradition names Ezra.",
+      "date": "Probably written after the exile, around the 400s to 300s BC.",
+      "audience": "Jews who had returned from exile, rebuilding their identity around the temple and David's line.",
+      "setting": "Family lines from Adam onward, then David's kingdom and his preparations for the temple.",
+      "disputes": [
+        "The author and date are disputed.",
+        "Chronicles retells events found in Samuel and Kings with different emphases; how to explain differences in detail is debated."
+      ]
+    },
+    "2CH": {
+      "author": "Anonymous; tradition names Ezra.",
+      "date": "Probably written after the exile, around the 400s to 300s BC.",
+      "audience": "Jews who had returned from exile, rebuilding their identity around the temple and David's line.",
+      "setting": "Solomon builds the temple, the kings of Judah follow, and the book ends with the exile and the Persian king's decree that lets the people return.",
+      "disputes": [
+        "The author and date are disputed.",
+        "Chronicles retells events found in Samuel and Kings with different emphases; how to explain differences in detail is debated."
+      ]
+    },
+    "EZR": {
+      "author": "Anonymous; tradition names Ezra, a priest and teacher of the law.",
+      "date": "The events run from about 538 to 458 BC, after the exile.",
+      "audience": "Jews who had returned from exile.",
+      "setting": "The return from Babylon, the rebuilding of the temple, and Ezra's reforms among the people.",
+      "disputes": [
+        "How the work of Ezra and Nehemiah fit together in time is debated.",
+        "How much Ezra himself wrote is debated."
+      ]
+    },
+    "NEH": {
+      "author": "Anonymous; much of it is Nehemiah's own first-person account.",
+      "date": "The events begin about 445 BC.",
+      "audience": "Jews in Jerusalem after the exile.",
+      "setting": "Nehemiah, a Persian court official, returns to rebuild Jerusalem's wall, then leads reforms and a renewal of the covenant.",
+      "disputes": [
+        "How the work of Nehemiah and Ezra fit together in time is debated."
+      ]
+    },
+    "EST": {
+      "author": "Anonymous.",
+      "date": "Set in the Persian empire, around 480 to 470 BC; probably written in the 400s to 300s BC.",
+      "audience": "Jews living under foreign rule.",
+      "setting": "Esther becomes queen of Persia and, with her cousin Mordecai, saves the Jewish people from a plot. God is never named in the Hebrew text.",
+      "disputes": [
+        "How closely the book follows history, and whether it is history or historical story, is debated.",
+        "How to understand God's absence from the text is debated."
+      ]
+    },
+    "JOB": {
+      "author": "Anonymous.",
+      "date": "Unknown; the story is set in the age of the patriarchs, but the writing may be much later.",
+      "audience": "Anyone struggling to understand suffering and God's justice.",
+      "setting": "Job, a righteous man in the land of Uz, loses everything; he and his friends argue about why, and God answers him.",
+      "disputes": [
+        "The author and date are unknown.",
+        "Whether Job was a historical person or a figure in a story is debated.",
+        "How to read the friends' speeches is debated."
+      ]
+    },
+    "PSA": {
+      "author": "Many poets. Headings attribute many psalms to David and others to Asaph, the sons of Korah, Solomon, Moses and others; many have no heading.",
+      "date": "Written over several centuries, from the time of the kings to after the exile; the collection was probably completed after the exile.",
+      "audience": "Israel at worship, in the temple and in personal prayer; the church has prayed them ever since.",
+      "setting": "Praise, thanksgiving, lament, confession, trust, royal and wisdom poems, gathered into five books.",
+      "disputes": [
+        "Whether the headings are original or added later is disputed.",
+        "The dates of most individual psalms are disputed.",
+        "Psalm numbering differs in Bibles based on the Greek translation, usually by one."
+      ]
+    },
+    "PRO": {
+      "author": "Solomon is named for much of the book; other parts are credited to unnamed wise people, to Agur and to Lemuel's mother. It was gathered over time.",
+      "date": "Gathered over centuries, from Solomon's time (about 970 to 930 BC) to the years after the exile.",
+      "audience": "Young people, and anyone seeking wisdom for daily life.",
+      "setting": "Short sayings and longer poems about wise and foolish ways of living.",
+      "disputes": [
+        "How much comes from Solomon, and when the book reached its present form, is disputed.",
+        "Proverbs describe general patterns, not guarantees; how to read them is a matter of interpretation."
+      ]
+    },
+    "ECC": {
+      "author": "The book names \"the Teacher\", a son of David and king in Jerusalem; tradition identifies him as Solomon.",
+      "date": "Disputed, from Solomon's time to several centuries later.",
+      "audience": "Readers wrestling with the meaning of work, wealth, pleasure and death.",
+      "setting": "The Teacher reflects on life under the sun, finds much of it fleeting, and urges readers to enjoy God's gifts and fear God.",
+      "disputes": [
+        "Whether Solomon wrote it, and the date, are disputed.",
+        "How to read its tone, as pessimism or as faith, is debated."
+      ]
+    },
+    "SNG": {
+      "author": "The title names Solomon; whether he wrote it, or it was written for or about him, is debated.",
+      "date": "Disputed.",
+      "audience": "Readers of every age; the poems celebrate love.",
+      "setting": "A series of love poems between a woman and a man, with a chorus of friends.",
+      "disputes": [
+        "The author and date are disputed.",
+        "Whether to read it as love poetry, as a picture of God and his people, or both, is debated."
+      ]
+    },
+    "ISA": {
+      "author": "The prophet Isaiah, son of Amoz, who lived in Jerusalem.",
+      "date": "Isaiah prophesied from about 740 to 700 BC; the later chapters speak to the exile and return.",
+      "audience": "Judah and Jerusalem under the threat of Assyria, and later readers in and after exile.",
+      "setting": "Warnings of judgment, calls to trust God, promises of a coming king and servant, and comfort for a people in exile.",
+      "disputes": [
+        "Whether Isaiah wrote the whole book, including the later chapters addressed to exiles, or later writers added to it, is debated.",
+        "How its prophecies relate to their own time and to Jesus is interpreted in different ways."
+      ]
+    },
+    "JER": {
+      "author": "The prophet Jeremiah, with help from his scribe Baruch.",
+      "date": "Jeremiah prophesied from about 627 to 580 BC.",
+      "audience": "Judah and Jerusalem before and after Babylon conquered them in 586 BC.",
+      "setting": "Warnings of coming judgment, Jeremiah's own struggles, the fall of Jerusalem, and promises of a new covenant and return.",
+      "disputes": [
+        "The book is not in time order, and how it was put together is debated.",
+        "The ancient Greek translation is shorter than the Hebrew text and arranged differently; how to explain this is debated."
+      ]
+    },
+    "LAM": {
+      "author": "Anonymous; tradition names Jeremiah.",
+      "date": "After Jerusalem fell in 586 BC.",
+      "audience": "The people of Judah, grieving the destruction of the city.",
+      "setting": "Five poems of mourning over the ruins of Jerusalem and the temple, with a thread of hope in God's faithful love.",
+      "disputes": [
+        "The author is disputed."
+      ]
+    },
+    "EZK": {
+      "author": "The prophet Ezekiel, a priest taken to Babylon in 597 BC.",
+      "date": "He prophesied from about 593 to 571 BC.",
+      "audience": "Jewish exiles in Babylon.",
+      "setting": "Visions, symbolic acts and messages of judgment on Jerusalem, followed by promises of restoration and a vision of a new temple.",
+      "disputes": [
+        "How to read the vision of the new temple, as literal, symbolic or fulfilled in Christ, is debated.",
+        "How the book was put together is debated."
+      ]
+    },
+    "DAN": {
+      "author": "The book names Daniel, a young Jew taken to Babylon, as its main figure and, in part, its author.",
+      "date": "Disputed. Some hold it was written in the 500s BC; many scholars think it reached its final form in the 160s BC.",
+      "audience": "Jews living under foreign rule.",
+      "setting": "Stories of faithful Jews in the courts of Babylon and Persia, and visions of coming kingdoms and God's final rule.",
+      "disputes": [
+        "The date of writing is disputed.",
+        "How to interpret the visions, and which kingdoms they describe, is debated."
+      ]
+    },
+    "HOS": {
+      "author": "The prophet Hosea.",
+      "date": "He prophesied in the northern kingdom from about 750 to 722 BC.",
+      "audience": "Israel, the northern kingdom, before Assyria conquered it.",
+      "setting": "Hosea's marriage to an unfaithful wife pictures Israel's unfaithfulness to God, and God's steady love for his people.",
+      "disputes": [
+        "Whether the marriage and children are literal events or a symbolic account is debated.",
+        "The Hebrew text is often hard to translate."
+      ]
+    },
+    "JOL": {
+      "author": "The prophet Joel, son of Pethuel.",
+      "date": "Disputed; suggestions range from the 800s to the 300s BC.",
+      "audience": "Judah and Jerusalem.",
+      "setting": "A plague of locusts becomes a picture of the coming day of the LORD, with a call to repent and a promise that God will pour out his Spirit.",
+      "disputes": [
+        "The date is disputed.",
+        "Whether the locusts are real insects, an invading army, or both is debated."
+      ]
+    },
+    "AMO": {
+      "author": "The prophet Amos, a shepherd and farmer from Tekoa in Judah.",
+      "date": "He prophesied around 760 to 750 BC.",
+      "audience": "Israel, the northern kingdom, at a time of wealth and security.",
+      "setting": "Amos condemns injustice, oppression of the poor and empty worship, and warns of coming judgment.",
+      "disputes": [
+        "Whether the hopeful ending was written by Amos or added later is debated."
+      ]
+    },
+    "OBA": {
+      "author": "The prophet Obadiah.",
+      "date": "Disputed; many place it after Jerusalem fell in 586 BC, while others date it earlier.",
+      "audience": "Edom, Judah's neighbor, and the people of Judah.",
+      "setting": "A short message of judgment on Edom for its pride and for gloating over Judah's disaster, with a promise that God's rule will prevail.",
+      "disputes": [
+        "The date is disputed."
+      ]
+    },
+    "JON": {
+      "author": "Anonymous; the book is about the prophet Jonah, son of Amittai.",
+      "date": "Jonah lived around 780 to 750 BC; the book may have been written later, and its date is disputed.",
+      "audience": "Israel, and readers who need to see God's mercy toward outsiders.",
+      "setting": "God sends Jonah to Nineveh, Assyria's capital; Jonah runs away, is rescued, and then resents God's mercy toward Nineveh.",
+      "disputes": [
+        "Whether the book is history or a parable, or both, is debated.",
+        "The date of writing is disputed."
+      ]
+    },
+    "MIC": {
+      "author": "The prophet Micah, from Moresheth in Judah.",
+      "date": "He prophesied around 735 to 700 BC.",
+      "audience": "Judah and Israel, whose leaders were unjust.",
+      "setting": "Warnings of judgment on corrupt leaders and a call to justice, with promises of a ruler to come and of peace.",
+      "disputes": [
+        "Whether all of the book comes from Micah, or later writers added to it, is debated."
+      ]
+    },
+    "NAM": {
+      "author": "The prophet Nahum of Elkosh.",
+      "date": "Between about 663 and 612 BC, before Nineveh fell.",
+      "audience": "Judah, with Assyria's capital as the target of the message.",
+      "setting": "A poem announcing God's judgment on Nineveh, which had brutalised its neighbors.",
+      "disputes": [
+        "Where Elkosh was is unknown."
+      ]
+    },
+    "HAB": {
+      "author": "The prophet Habakkuk.",
+      "date": "Probably in the late 600s BC, before Babylon conquered Jerusalem.",
+      "audience": "Judah.",
+      "setting": "Habakkuk questions God about injustice and about Babylon's rise, receives answers, and ends with a prayer of trust.",
+      "disputes": [
+        "The exact date is uncertain."
+      ]
+    },
+    "ZEP": {
+      "author": "The prophet Zephaniah.",
+      "date": "He prophesied in the days of King Josiah, about 640 to 609 BC.",
+      "audience": "Judah and Jerusalem.",
+      "setting": "Warnings of the coming day of the LORD and judgment on the nations and Judah, with promises of restoration.",
+      "disputes": [
+        "The exact date within Josiah's reign is uncertain."
+      ]
+    },
+    "HAG": {
+      "author": "The prophet Haggai.",
+      "date": "He prophesied in 520 BC.",
+      "audience": "Jews who had returned from exile to Jerusalem.",
+      "setting": "Haggai urges the returned exiles to finish rebuilding the temple and promises that God is with them.",
+      "disputes": []
+    },
+    "ZEC": {
+      "author": "The prophet Zechariah.",
+      "date": "He began prophesying in 520 BC.",
+      "audience": "Jews who had returned from exile to Jerusalem.",
+      "setting": "A series of visions and messages encouraging the rebuilding of the temple, followed by messages about a coming king and God's final victory.",
+      "disputes": [
+        "Whether the same author wrote the last chapters, or they come from a later time, is debated."
+      ]
+    },
+    "MAL": {
+      "author": "The prophet Malachi; the name means \"my messenger\" and may be a title.",
+      "date": "Probably around 450 to 430 BC.",
+      "audience": "The community in Jerusalem after the temple was rebuilt.",
+      "setting": "God reminds a disappointed people of his love, rebukes careless worship and unfaithfulness, and promises a messenger to come.",
+      "disputes": [
+        "Whether Malachi is a personal name or a title is debated."
+      ]
+    },
     "MAT": {
       "author": "Anonymous; early church tradition names Matthew, the tax collector who became an apostle.",
       "date": "Probably between about AD 70 and 90; some date it before AD 70.",
@@ -46,23 +423,242 @@
         "How John relates to the other three Gospels is debated."
       ]
     },
-    "PSA": {
-      "author": "Many poets. Headings attribute many psalms to David and others to Asaph, the sons of Korah, Solomon, Moses and others; many have no heading.",
-      "date": "Written over several centuries, from the time of the kings to after the exile; the collection was probably completed after the exile.",
-      "audience": "Israel at worship, in the temple and in personal prayer; the church has prayed them ever since.",
-      "setting": "Praise, thanksgiving, lament, confession, trust, royal and wisdom poems, gathered into five books.",
+    "ACT": {
+      "author": "Anonymous; early church tradition names Luke, who also wrote the third Gospel.",
+      "date": "Probably between the early 60s and the 90s AD, the date being disputed.",
+      "audience": "Written for Theophilus and, through him, readers across the Roman world.",
+      "setting": "The risen Jesus's last words, the coming of the Spirit, the spread of the church from Jerusalem to Rome, and the work of Peter and Paul.",
       "disputes": [
-        "Whether the headings are original or added later is disputed.",
-        "The dates of most individual psalms are disputed.",
-        "Psalm numbering differs in Bibles based on the Greek translation, usually by one."
+        "Whether Luke wrote it, and when, is disputed.",
+        "How Acts fits with Paul's own letters is debated."
+      ]
+    },
+    "ROM": {
+      "author": "Paul, an apostle.",
+      "date": "Probably around AD 57, written from Corinth.",
+      "audience": "Believers in Rome, Jews and non-Jews, whom Paul had not yet met.",
+      "setting": "Paul explains the good news of Jesus, human sin, God's righteousness and grace, faith, Israel's place, and life in the Spirit, as he plans to visit Rome.",
+      "disputes": [
+        "Why Paul wrote the letter is debated.",
+        "How to understand key ideas such as righteousness, justification and Israel's future is debated."
+      ]
+    },
+    "1CO": {
+      "author": "Paul, with Sosthenes.",
+      "date": "Probably around AD 53 to 55, written from Ephesus.",
+      "audience": "The church in Corinth, a busy port city, which was divided and troubled.",
+      "setting": "Paul answers reports and questions about divisions, immorality, lawsuits, marriage, food offered to idols, worship, spiritual gifts and the resurrection.",
+      "disputes": [
+        "How to apply Paul's instructions on head coverings and on women speaking in church is debated."
+      ]
+    },
+    "2CO": {
+      "author": "Paul, with Timothy.",
+      "date": "Probably around AD 55 to 56, written from Macedonia.",
+      "audience": "The church in Corinth.",
+      "setting": "Paul defends his ministry, speaks about comfort in suffering, reconciliation and generosity, and responds to challengers.",
+      "disputes": [
+        "Whether it is one letter or several joined together, especially the last chapters, is debated."
+      ]
+    },
+    "GAL": {
+      "author": "Paul.",
+      "date": "Disputed, from about AD 48 to the mid-50s.",
+      "audience": "Churches in Galatia in Asia Minor; whether this means the northern or southern part of the region is debated.",
+      "setting": "Paul defends the good news that people are accepted by faith in Christ, against teachers who said non-Jewish believers must keep the law of Moses.",
+      "disputes": [
+        "The date and the location of the Galatian churches are disputed.",
+        "How Paul's visits to Jerusalem fit with Acts is debated."
+      ]
+    },
+    "EPH": {
+      "author": "Paul, writing from prison; some scholars think a follower wrote it in his name.",
+      "date": "About AD 60 to 62 if written by Paul.",
+      "audience": "Believers in and around Ephesus; many think it was a circular letter for several churches.",
+      "setting": "The first half explains God's plan to unite Jews and non-Jews in Christ; the second half describes how to live as the church.",
+      "disputes": [
+        "Whether Paul wrote it is disputed.",
+        "Where Paul was imprisoned when he wrote it, Rome or elsewhere, is debated."
+      ]
+    },
+    "PHP": {
+      "author": "Paul, with Timothy.",
+      "date": "Probably around AD 60 to 62 if written from Rome; some propose Ephesus or Caesarea.",
+      "audience": "The church in Philippi, a Roman colony in Macedonia that Paul had founded.",
+      "setting": "Paul writes from prison to thank the church for a gift, encourage unity and joy, and urge them to follow Christ's humility.",
+      "disputes": [
+        "Where Paul was in prison, and when, is debated.",
+        "Whether it is one letter or several joined together is debated."
+      ]
+    },
+    "COL": {
+      "author": "Paul, with Timothy; some scholars think a follower wrote it in his name.",
+      "date": "About AD 60 to 62 if written by Paul, probably from Rome.",
+      "audience": "The church in Colossae in Asia Minor, which Paul had not visited.",
+      "setting": "Paul counters a mistaken teaching by showing that Christ is supreme over everything, and describes the new life in him.",
+      "disputes": [
+        "Whether Paul wrote it is disputed.",
+        "What the false teaching was is debated."
+      ]
+    },
+    "1TH": {
+      "author": "Paul, with Silas and Timothy.",
+      "date": "Probably around AD 50 to 51, written from Corinth; one of the earliest New Testament writings.",
+      "audience": "The young church in Thessalonica, facing opposition.",
+      "setting": "Paul encourages new believers, urges holy living, and comforts them about those who have died and about Jesus's return.",
+      "disputes": [
+        "How to understand the passages about Jesus's return is debated."
+      ]
+    },
+    "2TH": {
+      "author": "Paul, with Silas and Timothy; a few scholars think a follower wrote it.",
+      "date": "Probably around AD 51 if written by Paul.",
+      "audience": "The church in Thessalonica.",
+      "setting": "Paul corrects confusion about the day of the Lord and urges believers to keep working steadily.",
+      "disputes": [
+        "Whether Paul wrote it is disputed by some.",
+        "How to understand the passage about the man of lawlessness is debated."
+      ]
+    },
+    "1TI": {
+      "author": "Paul; many scholars think a follower wrote the letters to Timothy and Titus in his name.",
+      "date": "About AD 62 to 65 if written by Paul.",
+      "audience": "Timothy, Paul's younger coworker, who was leading the church in Ephesus.",
+      "setting": "Paul advises Timothy about false teaching, worship, church leaders and how to care for the church.",
+      "disputes": [
+        "Whether Paul wrote the letters to Timothy and Titus is disputed.",
+        "How to apply its instructions about roles in the church is debated."
+      ]
+    },
+    "2TI": {
+      "author": "Paul; many scholars think a follower wrote it in his name.",
+      "date": "About AD 64 to 67 if written by Paul, near the end of his life.",
+      "audience": "Timothy.",
+      "setting": "Paul, in prison and expecting to die, urges Timothy to stay faithful, endure hardship and keep teaching the truth.",
+      "disputes": [
+        "Whether Paul wrote it is disputed.",
+        "Whether Paul was released and imprisoned again after the events of Acts is debated."
+      ]
+    },
+    "TIT": {
+      "author": "Paul; many scholars think a follower wrote it in his name.",
+      "date": "About AD 62 to 65 if written by Paul.",
+      "audience": "Titus, Paul's coworker, who was leading the churches on Crete.",
+      "setting": "Paul tells Titus how to appoint leaders, resist false teaching and encourage good living in the churches on Crete.",
+      "disputes": [
+        "Whether Paul wrote it is disputed."
+      ]
+    },
+    "PHM": {
+      "author": "Paul, with Timothy.",
+      "date": "Probably around AD 60 to 62, written from prison.",
+      "audience": "Philemon, a believer in Colossae, and the church that met in his home.",
+      "setting": "Paul asks Philemon to welcome back Onesimus, a runaway slave, as a brother.",
+      "disputes": [
+        "Whether Paul was asking Philemon to free Onesimus is debated.",
+        "Where Paul was imprisoned is debated."
+      ]
+    },
+    "HEB": {
+      "author": "Anonymous; some early Christians linked it to Paul, and others suggested Barnabas or Apollos.",
+      "date": "Probably before AD 70, but this is disputed.",
+      "audience": "Jewish followers of Jesus who were tempted to turn back under pressure; a greeting from Italy hints at a link with Rome.",
+      "setting": "A sermon-like letter that shows Jesus is greater than the prophets, angels, Moses and the priests, and urges faithfulness.",
+      "disputes": [
+        "The author is unknown.",
+        "The date and the first readers are disputed.",
+        "How to read the warning passages is debated."
+      ]
+    },
+    "JAS": {
+      "author": "James; tradition names James, the brother of Jesus and a leader of the Jerusalem church.",
+      "date": "Disputed, from the 40s AD to the 90s AD.",
+      "audience": "Jewish believers in Jesus scattered outside Judea.",
+      "setting": "Practical teaching on trials, wisdom, speech, wealth, humility, prayer, and faith shown by action.",
+      "disputes": [
+        "Which James wrote it, and when, is disputed.",
+        "How James's words on faith and works relate to Paul's is debated."
+      ]
+    },
+    "1PE": {
+      "author": "Peter, an apostle; some scholars think a follower wrote it in his name.",
+      "date": "Probably around AD 62 to 65.",
+      "audience": "Believers scattered across Asia Minor who faced hostility for their faith.",
+      "setting": "Peter encourages them to hope, to live holy lives and to follow Christ's example in suffering; he writes from \"Babylon\", probably meaning Rome.",
+      "disputes": [
+        "Whether Peter wrote it is disputed by some.",
+        "Whether \"Babylon\" means Rome is debated.",
+        "Whether the suffering was local hostility or official persecution is debated."
+      ]
+    },
+    "2PE": {
+      "author": "The letter names Peter as its author; many scholars doubt this and date it later.",
+      "date": "Disputed; from the 60s AD to the early 100s AD.",
+      "audience": "Christian communities facing false teachers.",
+      "setting": "A farewell-style letter that urges believers to grow in faith, warns against false teachers and reminds them that the Lord will return.",
+      "disputes": [
+        "Whether Peter wrote it is strongly debated.",
+        "How it relates to the letter of Jude is debated."
+      ]
+    },
+    "1JN": {
+      "author": "Anonymous; tradition names John the apostle.",
+      "date": "Probably around AD 85 to 100.",
+      "audience": "Churches in Asia Minor, tradition says around Ephesus, shaken by a group that had left.",
+      "setting": "A letter about knowing God, walking in the light, loving one another and holding to the truth about Jesus, so readers can be sure they have eternal life.",
+      "disputes": [
+        "Who wrote it is debated.",
+        "Who the opponents were is debated."
+      ]
+    },
+    "2JN": {
+      "author": "The writer calls himself \"the elder\"; tradition identifies him as John.",
+      "date": "Probably around AD 85 to 100.",
+      "audience": "\"The chosen lady and her children\", probably a church.",
+      "setting": "A short letter about walking in truth and love and not welcoming teachers who deny that Jesus came in the flesh.",
+      "disputes": [
+        "Who the elder was is debated.",
+        "Whether the lady is a person or a church is debated."
+      ]
+    },
+    "3JN": {
+      "author": "The writer calls himself \"the elder\"; tradition identifies him as John.",
+      "date": "Probably around AD 85 to 100.",
+      "audience": "Gaius, a respected believer.",
+      "setting": "A short personal letter that praises Gaius for hospitality to traveling teachers and criticises Diotrephes, who rejected them.",
+      "disputes": [
+        "Who the elder was is debated."
+      ]
+    },
+    "JUD": {
+      "author": "Jude, brother of James; usually understood as a brother of Jesus.",
+      "date": "Disputed, from the 60s to the 80s AD.",
+      "audience": "Christians troubled by false teachers.",
+      "setting": "Jude urges readers to contend for the faith, warns of people who twist grace into license, and ends with praise.",
+      "disputes": [
+        "The date is disputed.",
+        "How the letter relates to the second letter of Peter is debated.",
+        "Jude draws on Jewish writings outside the Old Testament; how to understand this is debated."
+      ]
+    },
+    "REV": {
+      "author": "John, who says he received the visions on the island of Patmos; tradition identifies him with John the apostle.",
+      "date": "Usually dated to the 90s AD under Domitian; some date it to the late 60s.",
+      "audience": "Seven churches in the Roman province of Asia, facing pressure to compromise.",
+      "setting": "Visions of heaven, of coming judgment, and of a new heaven and earth, to encourage believers to stay faithful to Jesus.",
+      "disputes": [
+        "Which John wrote it, and when, is debated.",
+        "How to interpret its visions is debated: some see events in the first century, some see history unfolding, some see the end of time, and some see symbols."
       ]
     }
   },
   "textNotes": [
+    {"from": "MAT.5.44", "to": "MAT.5.44", "note": "Some of the lines in the first half of this verse, about blessing those who curse you and doing good to those who hate you, are missing from the oldest manuscripts of Matthew and appear in later ones, so some modern Bibles print a shorter text or add a note."},
     {"from": "MAT.6.13", "to": "MAT.6.13", "note": "The closing words of praise (\"for yours is the kingdom...\") are missing from the oldest manuscripts of Matthew, so many modern Bibles put them in a footnote."},
     {"from": "MAT.17.21", "to": "MAT.17.21", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
     {"from": "MAT.18.11", "to": "MAT.18.11", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
     {"from": "MAT.23.14", "to": "MAT.23.14", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.1.1", "to": "MRK.1.1", "note": "The words \"the Son of God\" are missing from some of the oldest manuscripts of this verse and present in others, so many modern Bibles print them with a note."},
     {"from": "MRK.7.16", "to": "MRK.7.16", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
     {"from": "MRK.9.44", "to": "MRK.9.44", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
     {"from": "MRK.9.46", "to": "MRK.9.46", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
@@ -70,9 +666,16 @@
     {"from": "MRK.15.28", "to": "MRK.15.28", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
     {"from": "MRK.16.9", "to": "MRK.16.20", "note": "The two oldest complete manuscripts of Mark end at 16:8; most later manuscripts include these verses, and many modern Bibles print them with a note."},
     {"from": "LUK.17.36", "to": "LUK.17.36", "note": "This verse is missing from the oldest manuscripts of Luke, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "LUK.22.19", "to": "LUK.22.20", "note": "Some early manuscripts lack the closing words about the bread and the whole saying about the cup, which most manuscripts include, so some modern Bibles print them with a note."},
     {"from": "LUK.22.43", "to": "LUK.22.44", "note": "These two verses are missing from some of the oldest manuscripts of Luke and present in others, so many modern Bibles print them with a note."},
     {"from": "LUK.23.17", "to": "LUK.23.17", "note": "This verse is missing from the oldest manuscripts of Luke, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "LUK.23.34", "to": "LUK.23.34", "note": "The first sentence of this verse, in which Jesus asks the Father to forgive those responsible, is missing from some of the oldest manuscripts of Luke and present in others, so many modern Bibles print it with a note."},
+    {"from": "JHN.1.18", "to": "JHN.1.18", "note": "Manuscripts differ here between \"the only Son\" and \"the only God\" (or \"God the only Son\"), which is why English Bibles read differently."},
     {"from": "JHN.5.4", "to": "JHN.5.4", "note": "This verse (and the end of the one before it) is missing from the oldest manuscripts of John, so many modern Bibles leave it out or put it in a footnote."},
-    {"from": "JHN.7.53", "to": "JHN.8.11", "note": "This passage is missing from the oldest manuscripts of John and appears in different places in some later ones, so many modern Bibles print it with a note."}
+    {"from": "JHN.7.53", "to": "JHN.8.11", "note": "This passage is missing from the oldest manuscripts of John and appears in different places in some later ones, so many modern Bibles print it with a note."},
+    {"from": "ROM.8.1", "to": "ROM.8.1", "note": "Some older English Bibles add a clause here about walking according to the Spirit; it is missing from the oldest manuscripts of Romans and appears in later ones."},
+    {"from": "ROM.8.28", "to": "ROM.8.28", "note": "Manuscripts differ on whether God is named as the one who works all things together for good, which is why English Bibles read differently."},
+    {"from": "PHP.4.13", "to": "PHP.4.13", "note": "The word \"Christ\" in this verse is not in the oldest manuscripts, which read simply \"the one who strengthens me\"; later manuscripts add it, and many English Bibles include it."},
+    {"from": "1JN.4.19", "to": "1JN.4.19", "note": "Some manuscripts include the word \"him\" after \"love\" and others do not, which is why some Bibles read \"We love him\" and others read simply \"We love\"."}
   ]
 }
