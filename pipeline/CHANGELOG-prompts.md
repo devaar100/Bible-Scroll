@@ -22,3 +22,17 @@ NOT READY. All 3 canaries flagged ERROR (PSA.43.5 now 3 ERRORs). 20/20 written i
 and PSA.37.5 x2 context-claim/invented-image, ROM.8.28 one-sided-theology). Criterion 3 (ERROR=0, WARN<=4) failed
 for the second round in a row: stopped to ask before round 3. Max writer output 16,591 tokens (PSA.37.5), so the
 32,000 limit was needed.
+
+## Round 2 → round 3 (2026-11-19)
+
+Decisions: PHP.4.13 retried within round 2; the JHN.3.16 Israel/Egypt context-claim and the ROM.8.28 one-sided-theology
+WARNs are discounted (well-established background; a dispute the writer is told to name).
+
+- prompts/study.md, historicalContext and lifeInBibleTimes: added "Mention only places, events and the parts of the
+  passage that the verses given show; don't say how a psalm or passage ends unless its end is shown." (PSA.37.5 said
+  the psalm ends with inheriting the land; the writer saw only verses 1-9.)
+- checks/pipeline_wording.txt: "book background" (PHP.4.13: "The book background says..."). CHECKER_VERSION 9.
+- .claude/agents/study-reviewer.md: well-established background about a person, place or event the text names is
+  not a context-claim; naming views fairly is not one-sided when the verse touches a dispute listed in the writer's
+  rule 2 (baptism, predestination, end times, Mary, sacraments, church authority, creation and science).
+- cctest retry: re-review regenerated studies under their blind labels; a later review replaces the earlier one.
