@@ -36,7 +36,8 @@ CC_DIR = OUT / CC_TEST_PART
 SEVERITIES = ("ERROR", "WARN", "NOTE")
 CATEGORIES = ("speaker-or-attribution", "phrase-not-in-verse", "context-claim", "word-data",
               "cross-reference-accuracy", "factual-claim", "one-sided-theology", "generic-filler",
-              "grammar-overclaim", "invented-image", "tone", "leak", "numbered-verse")
+              "grammar-overclaim", "invented-image", "tone", "leak", "numbered-verse",
+              "did-you-know-scope")
 TITLES = {"meaning": "Meaning", "historicalContext": "Historical context", "lifeInBibleTimes": "Life in Bible times",
           "theology": "Theology", "didYouKnow": "Did you know?", "applyIt": "Apply it"}
 

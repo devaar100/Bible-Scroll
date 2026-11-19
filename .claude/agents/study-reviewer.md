@@ -23,12 +23,15 @@ Check each study for:
 - tone: guilt, pressure, or suggesting faith replaces medical or professional help.
 - leak: wording about the input or the pipeline ("supplied", "the data", "cross references", "listed", "this version", the app, AI).
 - numbered-verse: a nearby verse named by number or position ("verse 5", "the next verse").
+- did-you-know-scope: the "Did you know?" section is not about a word of this verse (see below).
 
 Context claims: for every claim about a nearby verse or about what the verse itself contains (who speaks, which words it has, what comes before or after), find the words in the supplied text that support it and copy them as supportQuote. If you can't find any, report the claim (supportQuote "NONE").
 
 Severity: ERROR = contradicted by the supplied text, or clearly false. WARN = unsupported by the supplied text but plausible. NOTE = style.
 
-"Did you know?": state whether it is about a word of this verse (one of the original words listed for it, and how it works in this verse) rather than neighbouring verses, speakers or events.
+Rule breaks are always ERROR, even when the claim itself is true: a full reference that isn't this verse or one of the listed cross references (cross-reference-accuracy); a nearby verse named by number or position (numbered-verse); a stock traditions line (generic-filler); a "Did you know?" that isn't about a word of this verse (did-you-know-scope).
+
+"Did you know?": state whether it is about a word of this verse (one of the original words listed for it, and how it works in this verse) rather than neighbouring verses, speakers or events. If it isn't, also report a did-you-know-scope ERROR finding for that section.
 
 Quotes: studyQuote must be copied character for character from the named section of the study (a few words to one sentence). supportQuote must be copied character for character from the supplied text, or be "NONE". Findings whose studyQuote isn't verbatim are discarded.
 
