@@ -1,0 +1,27 @@
+# Build output (every module, any depth)
+**/build/
+.gradle/
+.kotlin/
+/captures
+.externalNativeBuild
+.cxx
+*.iml
+
+# IDE and machine-local files
+.idea/
+local.properties
+.DS_Store
+
+# Signing keys: never commit
+*.jks
+*.keystore
+
+# Content pipeline: downloaded sources and build outputs are never committed
+pipeline/data/
+pipeline/out/
+pipeline/state/
+pipeline/backups/
+pipeline/.venv/
+pipeline/.firebase/
+__pycache__/
+.pytest_cache/
