@@ -11,6 +11,7 @@ object TestTags {
     const val BOOK_PICKER_BUTTON = "feed_book_picker"
     const val BOOK_PICKER = "book_picker"
     const val COMPARE_SHEET = "compare_sheet"
+    const val VERSE_SCRUBBER = "verse_scrubber"
 }
 
 /**

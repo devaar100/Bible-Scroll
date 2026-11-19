@@ -129,6 +129,14 @@ class FakeBibleRepository(private val withSpanish: Boolean = false) : BibleRepos
     }
     override suspend fun versesByRefs(translationId: String, refs: Collection<VerseRef>) =
         byTranslation.getValue(translationId).filter { it.ref in refs }
+    override suspend fun chapterSpans(translationId: String) = aarnav100.developer.biblescroll.data.bible.ChapterSpans.of(
+        translationId,
+        byTranslation.getValue(translationId).groupBy { it.ref.bookId to it.ref.chapter }.values.map { verses ->
+            aarnav100.developer.biblescroll.data.bible.ChapterSpanRow(
+                verses.first().ref.bookId, verses.first().ref.chapter, verses.minOf { it.ordinal }, verses.size, verses.maxOf { it.ref.verse },
+            )
+        },
+    )
     override suspend fun ordinalAtOrAfter(translationId: String, ref: VerseRef) =
         byTranslation.getValue(translationId).firstOrNull { it.ref.order() >= ref.order() }?.ordinal
 

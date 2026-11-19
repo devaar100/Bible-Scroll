@@ -2,6 +2,13 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-19: Verse scrubber redesign
+
+### 18. The scrubber's touch strip runs 0 to 48 dp from the edge, and only the active capsule drags
+The track sits 8 dp from the start edge, so a 48 dp strip centred on it would hang 16 dp off-screen; the strip starts at the edge instead, with the track inside it. Only the active capsule (a zone at least 48 dp tall) can be dragged; a tap elsewhere on the track jumps there, and a drag that starts elsewhere does nothing. The system back gesture is excluded only in a 160 dp band that follows the active capsule (Android allows 200 dp per edge).
+**Why:** your call (2026-11-19). Grabbing only the active capsule keeps stray edge swipes from scrubbing, and the small exclusion leaves back working along the rest of the edge. Tested on an SM-M146B with gesture and three-button navigation: grabs at the edge were never taken by the system, and back still worked away from the capsule.
+**Revisit if:** a device's gesture navigation still takes the grab (then switch to press-and-hold to grab), or people expect dragging anywhere on the track to scrub.
+
 ## 2026-11-19: Launch content run
 
 ### 17. Every study is generated and reviewed by Claude Haiku 5.5 at effort "medium"

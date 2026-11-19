@@ -317,7 +317,7 @@
       </trans-unit>
       <trans-unit id="notifications_cancel" resname="notifications_cancel">
         <source>Cancel</source>
-        <note from="where">S2 Settings → General → Language; S6 Reminder time picker; Settings → Storage</note>
+        <note from="where">S1-S4 Settings; S2 Settings → General → Language; S6 Reminder time picker; Settings → Storage</note>
       </trans-unit>
       <trans-unit id="notifications_blocked" resname="notifications_blocked">
         <source>Notifications are turned off for %1$s, so reminders can’t appear. You can turn them on in system settings.</source>
@@ -966,6 +966,50 @@
       <trans-unit id="settings_hide_ai_studies_summary" resname="settings_hide_ai_studies_summary">
         <source>Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</source>
         <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_verse_scrubber" resname="settings_verse_scrubber">
+        <source>Verse scrubber</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_verse_scrubber_always" resname="settings_verse_scrubber_always">
+        <source>Always</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_verse_scrubber_while_scrolling" resname="settings_verse_scrubber_while_scrolling">
+        <source>Only while scrolling</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_verse_scrubber_off" resname="settings_verse_scrubber_off">
+        <source>Off</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="scrubber_chapter_cd" resname="scrubber_chapter_cd">
+        <source>Position in chapter</source>
+        <note from="where">B1 Bible feed</note>
+        <note from="developer">Verse scrubber (B1, B2, H11): TalkBack slider texts.</note>
+      </trans-unit>
+      <trans-unit id="scrubber_chapter_state" resname="scrubber_chapter_state">
+        <source>Verse %1$d of %2$d</source>
+        <note from="where">B1 Bible feed</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="scrubber_liked_cd" resname="scrubber_liked_cd">
+        <source>Position in liked verses</source>
+        <note from="where">B1 Bible feed</note>
+      </trans-unit>
+      <trans-unit id="scrubber_liked_state" resname="scrubber_liked_state">
+        <source>Liked verse %1$d of %2$d</source>
+        <note from="where">B1 Bible feed</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="scrubber_plan_cd" resname="scrubber_plan_cd">
+        <source>Position in today\'s reading</source>
+        <note from="where">H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="scrubber_plan_state" resname="scrubber_plan_state">
+        <source>Page %1$d of %2$d</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="study_close" resname="study_close">
         <source>Close study</source>

@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.ui.theme
 
+import aarnav100.developer.biblescroll.ui.components.scrubber.scrubberColors
 import aarnav100.developer.biblescroll.data.settings.AccentPreset
 import aarnav100.developer.biblescroll.data.settings.ReadingBackground
 import androidx.compose.ui.graphics.Color
@@ -52,6 +53,29 @@ class ContrastTest {
                 // The top-bar filter heart sits on the pill, not the page.
                 check("$accent on $bg pill", readingAccent(c, accent, dynamic = null), c.container, Wcag.NON_TEXT)
             }
+        }
+        assertNoFailures()
+    }
+
+    /**
+     * Verse scrubber (B1/B2/H11), the same scrubberColors() the composable draws with: active and passed capsules
+     * 3:1, upcoming just visible (about 1.15:1, deliberately quiet, never louder than passed), current number 4.5:1,
+     * dim end numbers 3:1 (the slider semantics carry the full position text).
+     */
+    @Test
+    fun verseScrubberStatesAndLabelsOnEveryReadingBackground() {
+        for (bg in ReadingBackground.entries) {
+            val c = bg.colors()
+            val s = scrubberColors(c)
+            check("$bg scrubber active", s.active, c.background, Wcag.NON_TEXT)
+            check("$bg scrubber passed", s.passed, c.background, Wcag.NON_TEXT)
+            check("$bg scrubber current number", s.labelCurrent, c.background, Wcag.TEXT)
+            check("$bg scrubber end numbers", s.labelDim, c.background, Wcag.NON_TEXT)
+            val upcoming = contrastRatio(s.upcoming, c.background)
+            if (upcoming !in 1.10..1.25) failures += "%s scrubber upcoming: %.2f:1, want about 1.15:1".format(bg, upcoming)
+            // States stay distinguishable from each other, not only from the page.
+            check("$bg scrubber active vs passed", s.active, s.passed, 1.5)
+            check("$bg scrubber passed vs upcoming", s.passed, s.upcoming, 2.0)
         }
         assertNoFailures()
     }

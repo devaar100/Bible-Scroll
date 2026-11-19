@@ -64,6 +64,20 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import aarnav100.developer.biblescroll.data.bible.ChapterSpan
+import aarnav100.developer.biblescroll.data.bible.ChapterSpans
+import aarnav100.developer.biblescroll.data.settings.ScrubberMode
+import aarnav100.developer.biblescroll.ui.components.scrubber.ScrubberVisibility
+import aarnav100.developer.biblescroll.ui.components.scrubber.ScrubberLabelNumber
+import aarnav100.developer.biblescroll.ui.components.scrubber.VerseScrubber
+import aarnav100.developer.biblescroll.ui.components.scrubber.VerseScrubberDefaults
+import aarnav100.developer.biblescroll.ui.theme.BibleScrollTheme
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.pager.PagerState
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.ui.platform.LocalResources
+import kotlinx.coroutines.flow.filterNotNull
 
 /**
  * B1: full-screen vertical verse feed, with the B2 liked filter, B3/B4 book picker, B5 translation
@@ -79,6 +93,7 @@ fun BibleScreen(
     studyViewModel: VerseStudyViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val chapterSpans by viewModel.chapterSpans.collectAsStateWithLifecycle()
     // Startup is "fully drawn" once real verses are on screen, not at the loading spinner.
     ReportDrawnWhen { (state as? BibleFeedUiState.Ready)?.pages?.isNotEmpty() == true }
     // Widget tap: open the linked verse once the feed is on screen.
@@ -133,6 +148,7 @@ fun BibleScreen(
                             verseAt = { s.pages[it] },
                             state = s,
                             actions = pageActions,
+                            scrubber = FeedScrubber.Chapter(chapterSpans?.takeIf { it.translationId == s.translationId }),
                             onCurrentVerse = { current = it },
                             onPageChanged = viewModel::onPageChanged,
                             onVerseSettled = viewModel::onVerseSettled,
@@ -332,6 +348,7 @@ private fun LikedFeedContent(
             verseAt = { verses.getOrNull(it) },
             state = state,
             actions = actions,
+            scrubber = FeedScrubber.List,
             onCurrentVerse = onCurrentVerse,
             onPageChanged = {},
             onVerseSettled = onVerseSettled,
@@ -377,6 +394,7 @@ private fun VerseFeedPager(
     verseAt: (Int) -> Verse?,
     state: BibleFeedUiState.Ready,
     actions: PageActions,
+    scrubber: FeedScrubber,
     onCurrentVerse: (Verse?) -> Unit,
     onPageChanged: (Int) -> Unit,
     onVerseSettled: (Verse) -> Unit,
@@ -393,6 +411,8 @@ private fun VerseFeedPager(
     // page instead of scrolling there through the whole Bible.
     key(pagerKey) {
         val pagerState = rememberPagerState(initialPage = startPage) { pageCount }
+        // True while the scrubber is dragging: pages fly past, so the reading position is saved on release only.
+        val scrubbing = remember { mutableStateOf(false) }
 
         LaunchedEffect(pagerState) {
             snapshotFlow { pagerState.currentPage }.collect(onPageChanged)
@@ -401,9 +421,12 @@ private fun VerseFeedPager(
             snapshotFlow { currentVerseAt(pagerState.currentPage) }.collect(onCurrentVerse)
         }
         LaunchedEffect(pagerState) {
-            // Re-runs when the settled page's verse finishes loading, so the save isn't skipped.
-            snapshotFlow { currentVerseAt(pagerState.settledPage) }
-                .collect { verse -> if (verse != null) onVerseSettled(verse) }
+            // Re-runs when the settled page's verse finishes loading, so the save isn't skipped. Held while
+            // scrubbing; releasing the scrubber emits the verse it stopped on.
+            snapshotFlow { if (scrubbing.value) null else currentVerseAt(pagerState.settledPage) }
+                .filterNotNull()
+                .distinctUntilChanged()
+                .collect(onVerseSettled)
         }
         LaunchedEffect(pagerState, lifecycle) {
             // H2 streak: a verse counts once it has been on screen for ~2 s with the app in front.
@@ -420,6 +443,9 @@ private fun VerseFeedPager(
                 }
         }
 
+        val mode = BibleScrollTheme.settings.verseScrubber
+        val textStart = ScrubberVisibility.textStartInsetDp(mode).dp
+        Box(Modifier.fillMaxSize()) {
         VerticalPager(
             state = pagerState,
             // Compose the neighbouring verses ahead of time so swipes never show a blank page.
@@ -447,11 +473,80 @@ private fun VerseFeedPager(
                     onShare = { actions.onShare(verse, reference) },
                     onCopy = { actions.onCopy(verse, reference) },
                     onActions = { actions.onActions(verse) },
+                    textStartInset = textStart,
                 )
             }
         }
+        FeedPagerScrubber(pagerState, pageCount, scrubber, mode, currentVerseAt, scrubbing)
+        }
     }
 }
+
+/** What the scrubber spans: B1 the current chapter, B2 the whole liked list. */
+private sealed interface FeedScrubber {
+    /** [spans] null while they load (no scrubber yet). */
+    data class Chapter(val spans: ChapterSpans?) : FeedScrubber
+    data object List : FeedScrubber
+}
+
+@Composable
+private fun BoxScope.FeedPagerScrubber(
+    pagerState: PagerState,
+    pageCount: Int,
+    scrubber: FeedScrubber,
+    mode: ScrubberMode,
+    verseAt: (Int) -> Verse?,
+    scrubbing: MutableState<Boolean>,
+) {
+    val resources = LocalResources.current
+    val scope = rememberCoroutineScope()
+    val latestScrubber by rememberUpdatedState(scrubber)
+    val latestVerseAt by rememberUpdatedState(verseAt)
+    // Changes only when the pager crosses into another chapter, so page moves don't recompose anything here.
+    val span by remember(pagerState, pageCount) {
+        derivedStateOf {
+            when (val sc = latestScrubber) {
+                is FeedScrubber.Chapter -> sc.spans?.spanAt(pagerState.currentPage)
+                FeedScrubber.List -> ChapterSpan(0, 0, firstPage = 0, count = pageCount, lastVerse = pageCount)
+            }
+        }
+    }
+    val current = span ?: return
+    val chapter = scrubber is FeedScrubber.Chapter
+    // B1 labels use the real verse number (a translation may skip one, e.g. WEB Acts 8:37) and the last verse.
+    // Pages outside the loaded window fall back to the index (and the chapter's last verse for the last row).
+    val number = ScrubberLabelNumber { i ->
+        val loaded = if (chapter) latestVerseAt(current.pageOf(i))?.ref?.verse else null
+        loaded ?: if (chapter && i == current.count - 1) current.lastVerse else i + 1
+    }
+    VerseScrubber(
+        // Continuous: mid-swipe the track and numbers move with the finger. Read only in the scrubber's draw phase.
+        position = { (pagerState.currentPage - current.firstPage) + pagerState.currentPageOffsetFraction },
+        count = current.count,
+        labelNumber = number,
+        stateDescription = { i ->
+            resources.getString(
+                if (chapter) R.string.scrubber_chapter_state else R.string.scrubber_liked_state,
+                number.numberAt(i),
+                current.lastVerse,
+            )
+        },
+        contentDescription = stringResource(if (chapter) R.string.scrubber_chapter_cd else R.string.scrubber_liked_cd),
+        mode = mode,
+        scrolling = { pagerState.isScrollInProgress },
+        onScrub = { i -> scope.launch { pagerState.scrollToPage(current.pageOf(i)) } },
+        onScrubbingChange = { scrubbing.value = it },
+        modifier = Modifier
+            .align(Alignment.TopStart)
+            .padding(top = FeedScrubberTop, bottom = VerseScrubberDefaults.VerticalGap),
+    )
+}
+
+/**
+ * 12 dp under the top bar (8 dp + 48 dp buttons + 8 dp). The feed sits inside the Scaffold's padding, so the status
+ * bar and the bottom navigation bar are already outside it; the bottom gap is 12 dp above the navigation bar.
+ */
+private val FeedScrubberTop = 64.dp + VerseScrubberDefaults.VerticalGap
 
 @Composable
 internal fun Verse.reference(bookNames: Map<Int, String>): String =

@@ -28,6 +28,7 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 - [x] S7 Help & feedback + Report a problem (email intent only; set `supportEmail` in app/build.gradle.kts before release)
 - [x] B8 Verse study from the feed (B7 "Study this verse", VOTD card), shared D2/B8 StudySession + StudyStateContent; debug-only study import (src/debug)
 - [x] S5 Widget guide, S8 Legal (privacy, licences, sources, Licensee library list), S1 rows, docs/privacy-inventory.md, web/privacy/ (generated; host on a separate Firebase site, see web/README.md). Lawyer review list in docs/privacy-inventory.md
+- [x] Verse scrubber (B1/B2/H11): segmented capsule track driven by the pager's continuous position, grab the active capsule to scrub, tap to jump, S2 Always / Only while scrolling / Off (spec "Verse scrubber", decisions #18). Screenshot and contrast tests per reading background
 - [ ] Session 32: TBD
 - [x] Session 33: C1/C2 Community anonymous monthly vote: local CommunityVote table (user.db v10) + Firestore REST add-one counter (backend/: rules, emulator tests need JDK 21, seed script). Fill pipeline/community/ministries.json with real ministries before release
 - [ ] Session 34: TBD

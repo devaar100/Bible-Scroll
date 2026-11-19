@@ -20,6 +20,12 @@ data class ReadingColors(
     /** Reference line and rail icons. */
     val secondaryText: Color,
     val wordsOfJesus: Color,
+    /**
+     * Verse scrubber: alpha of [text] for capsules above the active one (>= 3:1 on [background]) and below it
+     * (about 1.15:1, just visible). Tuned per background; ContrastTest checks both.
+     */
+    val scrubberPassedAlpha: Float,
+    val scrubberUpcomingAlpha: Float,
 )
 
 fun ReadingBackground.colors(): ReadingColors = when (this) {
@@ -30,6 +36,8 @@ fun ReadingBackground.colors(): ReadingColors = when (this) {
         text = Ink,
         secondaryText = InkMuted,
         wordsOfJesus = Crimson,
+        scrubberPassedAlpha = 0.5f,
+        scrubberUpcomingAlpha = 0.07f,
     )
     ReadingBackground.Sepia -> ReadingColors(
         isDark = false,
@@ -39,6 +47,8 @@ fun ReadingBackground.colors(): ReadingColors = when (this) {
         secondaryText = Color(0xFF5C4B3A),
         // Slightly deeper than Paper's crimson: sepia is darker, so the red needs more weight.
         wordsOfJesus = Color(0xFF931428),
+        scrubberPassedAlpha = 0.55f,
+        scrubberUpcomingAlpha = 0.08f,
     )
     ReadingBackground.Charcoal -> ReadingColors(
         isDark = true,
@@ -47,6 +57,8 @@ fun ReadingBackground.colors(): ReadingColors = when (this) {
         text = Chalk,
         secondaryText = ChalkMuted,
         wordsOfJesus = Color(0xFFF4939E),
+        scrubberPassedAlpha = 0.42f,
+        scrubberUpcomingAlpha = 0.06f,
     )
     ReadingBackground.TrueBlack -> ReadingColors(
         isDark = true,
@@ -56,6 +68,8 @@ fun ReadingBackground.colors(): ReadingColors = when (this) {
         text = Color(0xFFE6E0D9),
         secondaryText = Color(0xFFA59D95),
         wordsOfJesus = Color(0xFFF2848F),
+        scrubberPassedAlpha = 0.44f,
+        scrubberUpcomingAlpha = 0.09f,
     )
 }
 

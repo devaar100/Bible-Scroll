@@ -78,3 +78,31 @@ fun MacrobenchmarkScope.openAndCloseCompare() {
 
 /** px/s; well above a casual swipe, like someone skimming. */
 private const val FLING_SPEED = 12_000
+
+private const val VERSE_SCRUBBER = "verse_scrubber"
+
+/** Opens the feed on Psalm 119:1 (176 verses, the longest chapter) through the app's own verse link. */
+fun MacrobenchmarkScope.openPsalm119() {
+    startActivityAndWait { intent ->
+        intent.data = android.net.Uri.parse("biblescroll://verse/19/119/1")
+    }
+    passOnboardingIfShown()
+    waitForFeed()
+    check(device.wait(Until.hasObject(By.res(VERSE_SCRUBBER)), TIMEOUT)) { "Verse scrubber not shown (setting Off?)" }
+}
+
+/** Grabs the active capsule (verse 1, at the top) and drags it to the bottom, then back up: every one of Psalm 119's verses goes past. */
+fun MacrobenchmarkScope.scrubChapter(passes: Int = 2) {
+    val scrubber = checkNotNull(device.wait(Until.findObject(By.res(VERSE_SCRUBBER)), TIMEOUT)) { "Scrubber not on screen" }
+    val bounds = scrubber.visibleBounds
+    val x = bounds.centerX()
+    val top = bounds.top + 4
+    val bottom = bounds.bottom - 4
+    repeat(passes) {
+        // ~5 ms per step: about 1.2 s per sweep, a brisk human scrub.
+        device.swipe(x, top, x, bottom, 240)
+        device.waitForIdle(500)
+        device.swipe(x, bottom, x, top, 240)
+        device.waitForIdle(500)
+    }
+}

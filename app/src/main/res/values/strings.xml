@@ -267,6 +267,17 @@
     <!-- S2: Hide AI studies -->
     <string name="settings_hide_ai_studies">Hide AI studies</string>
     <string name="settings_hide_ai_studies_summary">Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</string>
+    <string name="settings_verse_scrubber">Verse scrubber</string>
+    <string name="settings_verse_scrubber_always">Always</string>
+    <string name="settings_verse_scrubber_while_scrolling">Only while scrolling</string>
+    <string name="settings_verse_scrubber_off">Off</string>
+    <!-- Verse scrubber (B1, B2, H11): TalkBack slider texts. -->
+    <string name="scrubber_chapter_cd">Position in chapter</string>
+    <string name="scrubber_chapter_state">Verse %1$d of %2$d</string>
+    <string name="scrubber_liked_cd">Position in liked verses</string>
+    <string name="scrubber_liked_state">Liked verse %1$d of %2$d</string>
+    <string name="scrubber_plan_cd">Position in today\'s reading</string>
+    <string name="scrubber_plan_state">Page %1$d of %2$d</string>
     <!-- B8/D2 study -->
     <string name="study_close">Close study</string>
     <string name="study_mark_studied">Mark as studied</string>
