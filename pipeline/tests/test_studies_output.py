@@ -114,5 +114,23 @@ def test_aramaic_in_daniel():
     assert study("DAN.3.1")["originalLanguage"]["language"] == "aramaic"
 
 
-def test_prose_empty_and_status_generated(all_studies):
-    assert all(s["status"] == "generated" and s["meta"]["model"] is None and s["meaning"] == "" for s in all_studies)
+def test_prose_status_and_model_agree(all_studies):
+    """Holds before and after `generate`/`batch` write prose: a study is either unwritten or fully written."""
+    from pipeline.studies import PROSE_FIELDS
+
+    problems = []
+    for s in all_studies:
+        filled = [bool(s[name]) for name in PROSE_FIELDS]
+        model = s["meta"]["model"]
+        if not any(filled):
+            # Unwritten: only "generated" (never written) or "failed" (the writer gave up); never checked or reviewed.
+            if s["status"] not in ("generated", "failed"):
+                problems.append((s["id"], "no prose but status " + s["status"]))
+            if s["status"] == "generated" and model is not None:
+                problems.append((s["id"], "no prose but a model is recorded"))
+        elif all(filled):
+            if model is None:
+                problems.append((s["id"], "prose without meta.model"))
+        elif s["status"] != "failed":
+            problems.append((s["id"], "only some prose sections filled"))
+    assert not problems, problems[:20]
