@@ -115,7 +115,7 @@ def test_generic_traditions_sentences_are_rejected(written, bible, sentence):
 
 @pytest.mark.parametrize("sentence", [
     "Catholic and Protestant readers differ on what this says about baptism.",
-    "Traditions differ about the timing of the end, as the book background notes.",
+    "Traditions differ about the timing of the end that this letter describes.",
     "Christians have long prayed these words.",
     "Readers in every age have read these lines at weddings.",
 ])
@@ -423,6 +423,22 @@ def test_reviewer_quotes_must_be_verbatim(written):
     assert [d["why"].split(" ")[0] for d in review["discarded"]] == ["studyQuote", "malformed"]
     assert review["didYouKnow"]["JHN.3.16"]["about"] is True
 
+
+
+def test_retry_review_replaces_the_earlier_review(written):
+    from pipeline import cctest
+    written["meaning"] = words(60, "The new text after the retry.")
+    finding = {"section": "Meaning", "severity": "ERROR", "category": "leak", "supportQuote": "NONE",
+               "explanation": "x"}
+    first = {"id": "S12", "didYouKnowAboutThisVerse": False, "findings": [dict(finding, studyQuote="old text")]}
+    retry = {"id": "S12", "didYouKnowAboutThisVerse": True,
+             "findings": [dict(finding, studyQuote="The new text", severity="WARN")]}
+    review = cctest.verify(2, {"studies": [first, retry]}, {"S12": written})
+    assert [f["severity"] for f in review["findings"]["S12"]] == ["WARN"]
+    assert review["discarded"] == []  # the first review's quotes belong to the replaced text
+    assert review["didYouKnow"]["S12"]["about"] is True
+    review = cctest.verify(2, {"studies": [retry, dict(retry, findings=[])]}, {"S12": written})
+    assert review["findings"] == {}
 
 # ---- Blind review batches ---------------------------------------------------------------------------------
 

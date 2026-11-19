@@ -155,9 +155,12 @@ def main() -> None:
     bl.add_argument("--canaries", help="folder of canary studies (out/canaries; read only)")
     bl.add_argument("--size", type=int, default=5)
     bl.add_argument("--seed", type=int, default=0)
+    rt = cc_sub.add_parser("retry", help="reviewer packet for regenerated studies under their blind labels")
+    rt.add_argument("--round", type=int, required=True)
+    rt.add_argument("ids", nargs="+")
     vf = cc_sub.add_parser("verify", help="check reviewer findings' studyQuotes verbatim; write review.json")
     vf.add_argument("--round", type=int, required=True)
-    vf.add_argument("findings", nargs="+", help="reviewer JSON files")
+    vf.add_argument("findings", nargs="+", help="reviewer JSON files (retry replies last: they replace earlier reviews)")
     vf.add_argument("--canaries-from", help="folder holding the canary studies (out/studies; read only)")
     rpt = cc_sub.add_parser("report", help="print the round table")
     rpt.add_argument("--round", type=int, required=True)
@@ -641,6 +644,8 @@ def run_cctest(args) -> None:
         labels = cc.blind(args.round, Path(args.canaries) if args.canaries else None, args.size, args.seed)
         batches = sorted({v["batch"] for v in labels.values()})
         print(f"{len(labels)} studies in {len(batches)} batches: {cc.round_dir(args.round) / 'review'}")
+    elif args.cc_command == "retry":
+        print(cc.retry_packet(args.round, args.ids))
     elif args.cc_command == "verify":
         studies = {}
         rd = StudyStore(cc.round_dir(args.round))

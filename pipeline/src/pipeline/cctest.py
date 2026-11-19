@@ -9,6 +9,8 @@ instead of the API. TEST ARTIFACTS ONLY: they live in out/cc_test/roundN/, carry
   cctest packet --round N IDS... [--from DIR]
         the reviewer input for each study (study + WEB/BSB text, context verses, cleaned word data, cross
         references, book block, text notes), printed for the review call.
+  cctest retry --round N IDS...
+        review/retry-K.txt: regenerated studies under their blind labels, for one more review call.
   cctest verify --round N FINDINGS_FILE
         reviewer findings (JSON) -> every studyQuote checked verbatim against its study; unverified ones are
         discarded and counted. Writes out/cc_test/roundN/review.json.
@@ -191,6 +193,22 @@ def blind(n: int, canary_dir: Path | None, size: int = 5, seed: int = 0, bible_d
     return labels
 
 
+def retry_packet(n: int, ids: list[str], bible_db: Path = APP_BIBLE_DB) -> Path:
+    """Write review/retry-K.txt: the regenerated round studies [ids] under the labels they had in the blind
+    batches. Pass its reply to verify after the batch replies: a later review of a label replaces the earlier."""
+    rd = round_dir(n)
+    meta = json.loads((rd / "review" / "labels.json").read_text())
+    label_of = {v["id"]: k for k, v in meta["labels"].items() if v["source"] == "round"}
+    missing = [i for i in ids if i not in label_of]
+    if missing:
+        raise SystemExit(f"Not in this round's blind batches: {', '.join(missing)}")
+    store = StudyStore(rd)
+    k = 1 + len(list((rd / "review").glob("retry-*.txt")))
+    out = rd / "review" / f"retry-{k}.txt"
+    out.write_text("\n\n".join(packet(store.load(i), bible_db, label=label_of[i]) for i in ids) + "\n")
+    return out
+
+
 # ---- Reviewer findings ----------------------------------------------------------------------------------
 
 def _norm(text: str) -> str:
@@ -227,6 +245,9 @@ def verify(n: int, findings: dict, studies: dict[str, dict]) -> dict:
         study = studies.get(sid)
         if study is None:
             raise SystemExit(f"Reviewer returned an unknown study id {sid}")
+        if sid in dyk:  # a later review of the same study (a retry) replaces the earlier one
+            kept.pop(sid, None)
+            discarded = [d for d in discarded if d["id"] != sid]
         dyk[sid] = {"about": entry.get("didYouKnowAboutThisVerse"), "note": entry.get("didYouKnowNote", "")}
         for f in entry.get("findings", []):
             bad = [k for k in ("section", "severity", "category", "studyQuote", "supportQuote", "explanation")
