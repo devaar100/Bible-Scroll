@@ -73,5 +73,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "1 Pedro en 5 días",
+      "shortDescription": "Esperanza para quienes atraviesan tiempos difíciles.",
+      "description": "Pedro escribe a creyentes dispersos que enfrentan presión y sufrimiento, y les recuerda su esperanza viva y cómo vivir bien entre vecinos que no la comparten.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

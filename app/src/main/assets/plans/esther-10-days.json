@@ -133,5 +133,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Ester en 10 días",
+      "shortDescription": "Valentía en el momento justo.",
+      "description": "Una mujer judía llega a ser reina de Persia y arriesga su vida para salvar a su pueblo. Dios nunca es nombrado, pero su cuidado se ve en cada giro de la historia.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.feature.bible.picker
 
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
+import aarnav100.developer.biblescroll.data.bible.normalizeForSearch
 import aarnav100.developer.biblescroll.data.bible.model.Book
 import aarnav100.developer.biblescroll.data.bible.model.Testament
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
@@ -66,7 +67,7 @@ class BookPickerViewModel @Inject constructor(
         books, readChapters, query, selectedBookId, savedPosition,
     ) { books, read, query, selectedId, position ->
         val rows = books
-            .filter { matchesBookQuery(it.name, it.code, query) }
+            .filter { matchesBookQuery(it, query) }
             .map { BookRow(it, read[it.id]?.size ?: 0) }
         BookPickerUiState(
             query = query,
@@ -113,13 +114,17 @@ class BookPickerViewModel @Inject constructor(
 }
 
 /**
- * Live search for B3. Ignores case, spaces and punctuation, and matches the book name or its
- * USFM code, so "1 cor", "1cor" and "1co" all find 1 Corinthians.
+ * Live search for B3 and H13. Ignores case, accents, spaces and punctuation, and matches anywhere in the book's
+ * name, abbreviation or search aliases in the app's language, its English name, or its USFM code, so "1 cor",
+ * "1co" and "primera de corintios" all find 1 Corinthians, and "genesis" finds "Génesis".
  */
-internal fun matchesBookQuery(name: String, code: String, query: String): Boolean {
-    val q = query.normalizedForSearch()
-    if (q.isEmpty()) return true
-    return q in name.normalizedForSearch() || q in code.normalizedForSearch()
-}
+internal fun matchesBookQuery(book: Book, query: String): Boolean =
+    matchesBookQuery(book.searchTerms.ifEmpty { listOf(normalizeForSearch(book.name)) } + normalizeForSearch(book.code), query)
 
-private fun String.normalizedForSearch(): String = lowercase().filter { it.isLetterOrDigit() }
+internal fun matchesBookQuery(name: String, code: String, query: String): Boolean =
+    matchesBookQuery(listOf(normalizeForSearch(name), normalizeForSearch(code)), query)
+
+private fun matchesBookQuery(terms: List<String>, query: String): Boolean {
+    val q = normalizeForSearch(query)
+    return q.isEmpty() || terms.any { q in it }
+}

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 /*
  * User data lives in its own database (user.db), separate from the bundled Bible, and must never
- * be destructively migrated. Rows carry updated_at for future last-write-wins sync (spec §5).
+ * be destructively migrated. Rows carry updated_at so importing a backup (Session 29) can merge by newest change.
  * Marks are keyed by reference, not translation, so a like follows the verse across translations.
  */
 
@@ -15,7 +15,7 @@ data class VerseMarkEntity(
     @ColumnInfo(name = "book_id") val bookId: Int,
     @ColumnInfo(name = "chapter") val chapter: Int,
     @ColumnInfo(name = "verse") val verse: Int,
-    /** Clearing a flag keeps the row (flag = false) so the change can sync. */
+    /** Clearing a flag keeps the row (flag = false) so an import merge sees the newer "off". */
     @ColumnInfo(name = "liked") val liked: Boolean,
     @ColumnInfo(name = "updated_at") val updatedAt: Long,
     /** Added in v3; the default must match MIGRATION_2_3's ALTER TABLE. */
@@ -79,7 +79,7 @@ data class ReadingPositionEntity(
 data class ChapterReadEntity(
     @ColumnInfo(name = "book_id") val bookId: Int,
     @ColumnInfo(name = "chapter") val chapter: Int,
-    /** Unmarking keeps the row with read = false so the change can sync. */
+    /** Unmarking keeps the row with read = false so an import merge sees the newer "unread". */
     @ColumnInfo(name = "read") val read: Boolean,
     @ColumnInfo(name = "updated_at") val updatedAt: Long,
 )

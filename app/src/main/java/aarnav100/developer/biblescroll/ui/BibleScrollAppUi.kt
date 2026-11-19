@@ -1,5 +1,8 @@
 package aarnav100.developer.biblescroll.ui
 
+import aarnav100.developer.biblescroll.ui.navigation.PendingPlanLink
+import aarnav100.developer.biblescroll.ui.navigation.PlanDetailRoute
+import aarnav100.developer.biblescroll.ui.navigation.PlanReaderRoute
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.ui.navigation.AppNavHost
 import aarnav100.developer.biblescroll.ui.navigation.BibleRoute
@@ -11,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +38,7 @@ import kotlinx.coroutines.flow.StateFlow
 @Composable
 fun BibleScrollAppUi(
     pendingVerse: StateFlow<VerseRef?>,
+    pendingPlan: PendingPlanLink,
     appDark: Boolean,
     onSystemBarsDark: (Boolean) -> Unit,
 ) {
@@ -55,9 +60,17 @@ fun BibleScrollAppUi(
     LaunchedEffect(linked) {
         if (linked != null) navigateTo(TopLevelDestination.BIBLE)
     }
+    // Plan reminder taps: Home tab, then the plan's page (H9) on top.
+    val linkedPlan by pendingPlan.planId.collectAsStateWithLifecycle()
+    LaunchedEffect(linkedPlan) {
+        val planId = linkedPlan ?: return@LaunchedEffect
+        navigateTo(TopLevelDestination.HOME)
+        navController.navigate(PlanDetailRoute(planId))
+        pendingPlan.consume(planId)
+    }
 
     // The feed draws its reading background under the status bar; everything else is app chrome.
-    val onFeed = currentDestination?.hasRoute(BibleRoute::class) ?: true
+    val onFeed = currentDestination?.let { it.hasRoute(BibleRoute::class) || it.hasRoute(PlanReaderRoute::class) } ?: true
     val statusBarDark = if (onFeed) BibleScrollTheme.readingColors.isDark else appDark
     val reportBars by rememberUpdatedState(onSystemBarsDark)
     LaunchedEffect(statusBarDark, appDark) { reportBars(statusBarDark) }
@@ -72,23 +85,12 @@ fun BibleScrollAppUi(
         containerColor = if (onFeed) BibleScrollTheme.readingColors.background else MaterialTheme.colorScheme.background,
         bottomBar = {
             if (onTopLevel) {
-                NavigationBar {
-                    TopLevelDestination.entries.forEach { destination ->
-                        val selected = currentDestination?.hierarchy
-                            ?.any { it.hasRoute(destination.route::class) } == true
-                        NavigationBarItem(
-                            selected = selected,
-                            onClick = { navigateTo(destination) },
-                            icon = {
-                                Icon(
-                                    imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
-                                    contentDescription = null,
-                                )
-                            },
-                            label = { Text(stringResource(destination.label)) },
-                        )
-                    }
-                }
+                AppNavigationBar(
+                    isSelected = { destination ->
+                        currentDestination?.hierarchy?.any { it.hasRoute(destination.route::class) } == true
+                    },
+                    onSelect = ::navigateTo,
+                )
             }
         },
     ) { innerPadding ->
@@ -96,5 +98,26 @@ fun BibleScrollAppUi(
             navController = navController,
             modifier = Modifier.padding(innerPadding),
         )
+    }
+}
+
+/** The four tabs. Labels stay on one line (ellipsised if a language makes them too long; screen readers get the full text). */
+@Composable
+internal fun AppNavigationBar(isSelected: (TopLevelDestination) -> Boolean, onSelect: (TopLevelDestination) -> Unit) {
+    NavigationBar {
+        TopLevelDestination.entries.forEach { destination ->
+            val selected = isSelected(destination)
+            NavigationBarItem(
+                selected = selected,
+                onClick = { onSelect(destination) },
+                icon = {
+                    Icon(
+                        imageVector = if (selected) destination.selectedIcon else destination.unselectedIcon,
+                        contentDescription = null,
+                    )
+                },
+                label = { Text(stringResource(destination.label), maxLines = 1, overflow = TextOverflow.Ellipsis) },
+            )
+        }
     }
 }

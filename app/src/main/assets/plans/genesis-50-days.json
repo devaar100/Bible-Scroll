@@ -613,5 +613,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 4,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Génesis en 50 días",
+      "shortDescription": "La creación, las primeras familias y la promesa de Dios a Abraham.",
+      "description": "El libro de los comienzos: la creación, la caída, el diluvio y las historias de Abraham, Isaac, Jacob y José, a través de las cuales comienza a desplegarse la promesa de Dios de bendecir al mundo.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

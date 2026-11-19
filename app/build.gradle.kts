@@ -8,16 +8,6 @@ plugins {
     alias(libs.plugins.baselineprofile)
 }
 
-/**
- * Crashlytics is release-only and opt-in per checkout: it switches on once the Firebase config is
- * placed at app/src/release/google-services.json. Without it, release builds carry no Firebase code.
- */
-val crashlyticsEnabled = file("src/release/google-services.json").exists()
-if (crashlyticsEnabled) {
-    apply(plugin = libs.plugins.google.services.get().pluginId)
-    apply(plugin = libs.plugins.firebase.crashlytics.get().pluginId)
-}
-
 android {
     namespace = "aarnav100.developer.biblescroll"
     compileSdk {
@@ -35,7 +25,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            // en-XA (accented, ~30-40% longer) and ar-XB (right-to-left) for layout checks: pick them in system
+            // Settings → Languages with developer options on, or see PseudoLocaleScreenshotTest. Debug only.
+            isPseudoLocalesEnabled = true
+        }
         release {
+            // R8 + resource shrinking. The bundle carries the R8 mapping (BUNDLE-METADATA/.../proguard.map),
+            // so Play Console deobfuscates crash stack traces. No crash-reporting SDK (docs/decisions.md).
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -113,6 +110,7 @@ dependencies {
 
     // Study content (bundled + downloaded studies, CDN, weekly refresh)
     implementation(project(":core:content"))
+    implementation(project(":core:plans"))
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.hilt.work)
 
@@ -121,11 +119,6 @@ dependencies {
     baselineProfile(project(":baselineprofile"))
 
     debugImplementation(libs.leakcanary.android)
-
-    if (crashlyticsEnabled) {
-        releaseImplementation(platform(libs.firebase.bom))
-        releaseImplementation(libs.firebase.crashlytics)
-    }
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

@@ -130,6 +130,51 @@ class UserDatabaseMigrationTest {
         }
     }
 
+    @Test
+    fun migrate5To6AddsEmptyStreakDaysAndKeepsMarks() {
+        helper.createDatabase(TEST_DB, 5).use { db ->
+            db.execSQL("INSERT INTO verse_marks (book_id, chapter, verse, liked, updated_at, bookmarked, created_at, studied, study_saved) VALUES (43, 3, 16, 1, 100, 0, 50, 0, 0)")
+        }
+        helper.runMigrationsAndValidate(TEST_DB, 6, true, *USER_DB_MIGRATIONS).use { db ->
+            db.query("SELECT COUNT(*) FROM streak_days").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+            db.query("SELECT liked FROM verse_marks").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
+            db.execSQL("INSERT INTO streak_days (date, verses_viewed, plan_days_completed, devotionals_finished, counted_at, utc_offset_minutes, updated_at) VALUES ('2026-11-18', 5, 0, 0, 1, 60, 1)")
+        }
+    }
+
+    @Test
+    fun migrate6To7AddsEmptyPlanTablesAndKeepsStreaks() {
+        helper.createDatabase(TEST_DB, 6).use { db ->
+            db.execSQL("INSERT INTO streak_days (date, verses_viewed, plan_days_completed, devotionals_finished, counted_at, utc_offset_minutes, updated_at) VALUES ('2026-11-18', 5, 0, 0, 1, 60, 1)")
+        }
+        helper.runMigrationsAndValidate(TEST_DB, 7, true, *USER_DB_MIGRATIONS).use { db ->
+            db.query("SELECT COUNT(*) FROM streak_days").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
+            db.query("SELECT COUNT(*) FROM plan_enrollments").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+            db.query("SELECT COUNT(*) FROM plan_day_progress").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+        }
+    }
+
+    @Test
+    fun migrate7To8AddsCustomPlansAndKeepsEnrollments() {
+        helper.createDatabase(TEST_DB, 7).use { db ->
+            db.execSQL("INSERT INTO plan_enrollments (id, plan_id, plan_title, plan_content_version, plan_json, total_days, minutes_per_day, start_date, reminder_minute_of_day, completed_at, created_at, updated_at) VALUES ('e1', 'john-21-days', 'John', 'v', '{}', 21, 5, '2026-11-18', NULL, NULL, 1, 1)")
+        }
+        helper.runMigrationsAndValidate(TEST_DB, 8, true, *USER_DB_MIGRATIONS).use { db ->
+            db.query("SELECT COUNT(*) FROM plan_enrollments").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
+            db.execSQL("INSERT INTO custom_plans (id, title, book_ids, pace_kind, pace_value, total_days, minutes_per_day, plan_json, created_at, updated_at) VALUES ('custom-1', 'Mine', '43', 'days', 21, 21, 5, '{}', 1, 1)")
+            db.query("SELECT deleted FROM custom_plans").use { it.moveToFirst(); assertEquals(0, it.getInt(0)) }
+        }
+    }
+
+    @Test
+    fun migrate8To9AddsDevotionalProgress() {
+        helper.createDatabase(TEST_DB, 8).close()
+        helper.runMigrationsAndValidate(TEST_DB, 9, true, *USER_DB_MIGRATIONS).use { db ->
+            db.execSQL("INSERT INTO devotional_progress (read_for, devotional_id, content_version, finished_at, updated_at) VALUES ('2026-11-18', 'devotional-11-18', 'v', 1, 1)")
+            db.query("SELECT COUNT(*) FROM devotional_progress").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
+        }
+    }
+
     private companion object {
         const val TEST_DB = "user-migration-test.db"
     }

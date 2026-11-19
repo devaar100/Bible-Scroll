@@ -1,5 +1,12 @@
 package aarnav100.developer.biblescroll.core.content.di
 
+import aarnav100.developer.biblescroll.core.content.BundledDevotionals
+import aarnav100.developer.biblescroll.core.content.DevotionalDownloader
+import aarnav100.developer.biblescroll.core.content.DevotionalImporter
+import aarnav100.developer.biblescroll.core.content.DevotionalRepository
+import aarnav100.developer.biblescroll.core.content.DevotionalStore
+import aarnav100.developer.biblescroll.core.content.RoomDevotionalStore
+import aarnav100.developer.biblescroll.core.content.db.DevotionalDao
 import aarnav100.developer.biblescroll.core.content.AndroidAssetSource
 import aarnav100.developer.biblescroll.core.content.BookDownloader
 import aarnav100.developer.biblescroll.core.content.BookImporter
@@ -53,6 +60,43 @@ object ContentModule {
 
     @Provides
     fun provideContentDao(db: ContentDatabase): ContentDao = db.contentDao()
+
+    @Provides
+    fun provideDevotionalDao(db: ContentDatabase): DevotionalDao = db.devotionalDao()
+
+    @Provides
+    @Singleton
+    fun provideDevotionalImporter(store: DevotionalStore, json: Json): DevotionalImporter = DevotionalImporter(store, json)
+
+    @Provides
+    @Singleton
+    fun provideDevotionalDownloader(
+        api: ContentApi,
+        store: DevotionalStore,
+        importer: DevotionalImporter,
+        @ApplicationContext context: Context,
+    ): DevotionalDownloader = DevotionalDownloader(
+        api, store, importer, File(context.cacheDir, "devotional-downloads"),
+        CoroutineScope(SupervisorJob() + Dispatchers.IO), Dispatchers.IO, BuildConfig.CONTENT_BASE_URL,
+    )
+
+    @Provides
+    @Singleton
+    fun provideDevotionalRepository(
+        store: DevotionalStore,
+        downloader: DevotionalDownloader,
+        network: NetworkMonitor,
+        json: Json,
+    ): DevotionalRepository = DevotionalRepository(store, downloader, network, json, Dispatchers.Default)
+
+    @Provides
+    @Singleton
+    fun provideBundledDevotionals(
+        @ApplicationContext context: Context,
+        store: DevotionalStore,
+        importer: DevotionalImporter,
+        json: Json,
+    ): BundledDevotionals = BundledDevotionals(AndroidAssetSource(context.assets), store, importer, json, Dispatchers.IO)
 
     @Provides
     @Singleton
@@ -118,6 +162,9 @@ object ContentModule {
 abstract class ContentBindings {
     @Binds
     abstract fun bindContentStore(impl: RoomContentStore): ContentStore
+
+    @Binds
+    abstract fun bindDevotionalStore(impl: RoomDevotionalStore): DevotionalStore
 
     @Binds
     abstract fun bindNetworkMonitor(impl: AndroidNetworkMonitor): NetworkMonitor

@@ -356,3 +356,11 @@ def test_redraft_with_bad_anchor_leaves_calendar_untouched(tmp_path):
     with pytest.raises(cal.CalendarError):
         calendar_ai.redraft_series(first.date, FakeDrafter({"days": bad}), path=path, verses=KJV)
     assert path.read_text() == before and not path.with_suffix(".draft.csv").exists()
+
+
+def test_standalone_words_from_the_passage_itself_are_allowed():
+    passage = "Therefore don't be anxious for tomorrow, for tomorrow will be anxious for itself."
+    doc = {"reflect": "Jesus doesn't promise that tomorrow will be easy.", "title": "Enough"}
+    assert dchecks.check_standalone(doc, passage) == []
+    assert dchecks.check_standalone({"reflect": "As we saw yesterday, he cares.", "title": "x"}, passage)[0]["check"] == "standalone"
+    assert dchecks.check_standalone(doc)[0]["check"] == "standalone"  # without the passage, still caught

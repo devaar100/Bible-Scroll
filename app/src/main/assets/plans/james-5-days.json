@@ -73,5 +73,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Santiago en 5 días",
+      "shortDescription": "Una fe que se nota en la vida diaria.",
+      "description": "Santiago es práctico y directo: habla de las pruebas, la lengua, las riquezas, la oración y una fe que actúa. Cinco días, un capítulo breve cada día.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

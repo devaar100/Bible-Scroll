@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Languages offered in Android 13+ system settings (Apps → Bible Scroll → Language) and in S2 → Language.
+  Keep in step with `app_languages` in res/values/arrays.xml (LocalizationTest checks), and add a values-xx/strings.xml
+  and values-xx/books.xml for each.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="es" />
+</locale-config>

@@ -12,9 +12,13 @@ enum class Testament { OLD, NEW }
 data class Book(
     val id: Int,
     val code: String,
+    /** In the app's language (BookNames); bible.db's English name if none is available. */
     val name: String,
     val testament: Testament,
     val chapterCount: Int,
+    val abbreviation: String = name,
+    /** Normalized words the book search matches; empty means name and code only. */
+    val searchTerms: List<String> = emptyList(),
 )
 
 data class Chapter(

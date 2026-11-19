@@ -493,5 +493,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 4,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Éxodo en 40 días",
+      "shortDescription": "El rescate de Egipto, los Diez Mandamientos y Dios en medio de su pueblo.",
+      "description": "Dios escucha el clamor de su pueblo, lo rescata de la esclavitud, da la ley en el Sinaí y viene a vivir en medio de ellos. Una de las grandes historias de libertad de la Biblia.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

@@ -35,7 +35,7 @@ class UserDataRepositoryTest {
     }
 
     @Test
-    fun unlikeKeepsRowForSyncAndLeavesBookmark() = runTest {
+    fun unlikeKeepsRowForImportMergeAndLeavesBookmark() = runTest {
         repo.setLiked(john316, true)
         repo.setBookmarked(john316, true)
         now = 5_000L

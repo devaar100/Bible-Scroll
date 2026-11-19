@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.library
 
+import aarnav100.developer.biblescroll.data.backup.BackupNotices
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.library.LibraryRepository
 import aarnav100.developer.biblescroll.data.library.LibrarySort
@@ -37,9 +38,11 @@ class LibraryListViewModelTest {
     @Before fun setUp() = Dispatchers.setMain(UnconfinedTestDispatcher())
     @After fun tearDown() = Dispatchers.resetMain()
 
+    private val notices = BackupNotices(FakePreferencesDataStore())
+
     private fun TestScope.viewModel(screen: LibraryScreen, saved: SavedStateHandle = SavedStateHandle(mapOf("screen" to screen.name))) =
         LibraryListViewModel(saved, LibraryRepository(dao) { now }, FakeBibleRepository(),
-            ReaderPreferences(FakePreferencesDataStore()), link)
+            ReaderPreferences(FakePreferencesDataStore()), link, notices)
             .also { vm -> backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} } }
 
     @Test
@@ -105,5 +108,27 @@ class LibraryListViewModelTest {
         vm.undo(removal)
         advanceUntilIdle()
         assertEquals(listOf(john316), vm.uiState.value.rows.map { it.ref })
+    }
+
+    @Test
+    fun notesTipShowsFromFiveNotesUntilDismissedForGood() = runTest {
+        val vm = viewModel(LibraryScreen.NOTES)
+        backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.showNotesTip.collect {} }
+        repeat(4) { userData.saveNote(VerseRef(1, 1, it + 1), "note $it") }
+        assertEquals(false, vm.showNotesTip.value)
+        userData.saveNote(VerseRef(1, 1, 5), "fifth")
+        assertEquals(true, vm.showNotesTip.value)
+        vm.dismissNotesTip()
+        assertEquals(false, vm.showNotesTip.value)
+        assertEquals(false, viewModel(LibraryScreen.NOTES).also { again ->
+            backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { again.showNotesTip.collect {} }
+        }.showNotesTip.value)
+    }
+
+    @Test
+    fun notesTipNeverShowsOnOtherLists() = runTest {
+        repeat(6) { userData.saveNote(VerseRef(1, 1, it + 1), "note $it") }
+        val vm = viewModel(LibraryScreen.LIKED_AND_BOOKMARKED)
+        assertEquals(false, vm.showNotesTip.value)
     }
 }

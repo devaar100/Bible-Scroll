@@ -169,5 +169,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Hebreos en 13 días",
+      "shortDescription": "Jesús, la mejor esperanza, y el llamado a seguir adelante.",
+      "description": "Hebreos muestra cómo Jesús cumple lo que anunciaban los sacerdotes y los sacrificios del Antiguo Testamento, y anima a los creyentes cansados a no rendirse. Incluye el gran capítulo sobre la fe.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

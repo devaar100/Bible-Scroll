@@ -349,5 +349,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 5,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Mateo en 28 días",
+      "shortDescription": "Jesús, el Rey prometido, y el Sermón del Monte.",
+      "description": "Mateo escribe para lectores que conocían las Escrituras hebreas y muestra cómo Jesús cumple sus esperanzas. Contiene el Sermón del Monte y muchas de las parábolas más conocidas de Jesús.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

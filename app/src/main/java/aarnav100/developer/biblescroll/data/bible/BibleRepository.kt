@@ -7,6 +7,7 @@ import aarnav100.developer.biblescroll.data.bible.model.Translation
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -36,11 +37,19 @@ interface BibleRepository {
 @Singleton
 class OfflineBibleRepository @Inject constructor(
     private val dao: BibleDao,
+    private val bookNames: BookNames = BookNames.Stored,
 ) : BibleRepository {
 
     override fun translations() = dao.observeTranslations().map { list -> list.map { it.toModel() } }
 
-    override fun books() = dao.observeBooks().map { list -> list.map { it.toModel() } }
+    /** In the app's language; emits again when it changes, so names in open screens follow. */
+    override fun books() = combine(dao.observeBooks(), bookNames.books) { list, names ->
+        list.map { entity ->
+            val model = entity.toModel()
+            names?.get(entity.id)?.let { model.copy(name = it.name, abbreviation = it.abbreviation, searchTerms = it.searchTerms) }
+                ?: model
+        }
+    }
 
     override fun chapters(translationId: String, bookId: Int) =
         dao.observeChapters(translationId, bookId).map { list -> list.map { it.toModel() } }

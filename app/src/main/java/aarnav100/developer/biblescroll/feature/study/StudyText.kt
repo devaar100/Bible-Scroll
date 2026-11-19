@@ -2,6 +2,7 @@ package aarnav100.developer.biblescroll.feature.study
 
 import aarnav100.developer.biblescroll.core.content.BookCodes
 import aarnav100.developer.biblescroll.core.content.model.Study
+import aarnav100.developer.biblescroll.data.bible.References
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 
 /** D1 card teaser: the study's first sentence, cut at a word boundary to about [maxChars]. */
@@ -24,14 +25,8 @@ fun parseRefRange(ref: String): RefRange? {
     return RefRange(VerseRef(start.bookId, start.chapter, start.verse), VerseRef(end.bookId, end.chapter, end.verse))
 }
 
-/** "Romans 8:28", "Romans 8:28–30", "Genesis 1:1–2:3", "Leviticus 27:34 – Numbers 1:1". */
+/** "Romans 8:28", "Romans 8:28–30", "Genesis 1:1–2:3", "Leviticus 27:34 – Numbers 1:1", in the app's language. */
 fun formatRefRange(range: RefRange, bookNames: Map<Int, String>): String {
     val (a, b) = range
-    val book = bookNames[a.bookId].orEmpty()
-    return when {
-        a == b -> "$book ${a.chapter}:${a.verse}"
-        a.bookId != b.bookId -> "$book ${a.chapter}:${a.verse} – ${bookNames[b.bookId].orEmpty()} ${b.chapter}:${b.verse}"
-        a.chapter != b.chapter -> "$book ${a.chapter}:${a.verse}–${b.chapter}:${b.verse}"
-        else -> "$book ${a.chapter}:${a.verse}–${b.verse}"
-    }
+    return References.range(bookNames[a.bookId].orEmpty(), a, b, bookNames[b.bookId].orEmpty())
 }

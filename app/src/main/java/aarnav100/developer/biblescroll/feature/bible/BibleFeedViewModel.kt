@@ -5,6 +5,7 @@ import aarnav100.developer.biblescroll.data.bible.model.Translation
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
+import aarnav100.developer.biblescroll.data.streak.StreakRepository
 import aarnav100.developer.biblescroll.data.user.UserDataRepository
 import aarnav100.developer.biblescroll.ui.navigation.PendingVerseLink
 import androidx.compose.runtime.Immutable
@@ -81,6 +82,7 @@ class BibleFeedViewModel @Inject constructor(
     private val userData: UserDataRepository,
     private val preferences: ReaderPreferences,
     private val verseLink: PendingVerseLink,
+    private val streaks: StreakRepository,
 ) : ViewModel() {
 
     /** A verse link (from the widget) waiting to be opened. */
@@ -208,6 +210,11 @@ class BibleFeedViewModel @Inject constructor(
         if (pendingJump != null) return
         anchor = verse.ref
         viewModelScope.launch { userData.saveReadingPosition(verse.translationId, verse.ref) }
+    }
+
+    /** H2: the verse was on screen long enough to count toward today's reading (either feed). */
+    fun onVerseDwelled(verse: Verse) {
+        viewModelScope.launch { streaks.recordVerseViewed(verse.ref) }
     }
 
     /** Liked feed equivalent of [onVerseSettled]. Doesn't move the main feed or the reading position. */

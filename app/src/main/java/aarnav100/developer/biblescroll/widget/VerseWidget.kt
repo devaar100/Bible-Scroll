@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.widget
 
+import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.MainActivity
 import aarnav100.developer.biblescroll.ui.navigation.VerseLinks
 import aarnav100.developer.biblescroll.ui.theme.DarkColors
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
+import androidx.glance.LocalContext
 import androidx.glance.LocalSize
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
@@ -104,7 +106,7 @@ private fun WidgetContent(context: Context, display: WidgetDisplay?) {
             )
             Spacer(GlanceModifier.height(if (medium) 10.dp else 6.dp))
             Text(
-                text = if (medium) "${display.reference} · ${display.translationId}" else display.reference,
+                text = if (medium) LocalContext.current.getString(R.string.two_parts, display.reference, display.translationId) else display.reference,
                 maxLines = 1,
                 style = TextStyle(
                     color = GlanceTheme.colors.primary,

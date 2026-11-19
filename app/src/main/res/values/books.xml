@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bible book names (English). Spanish: values-es/books.xml. BookNamesTest checks every array has 66 items. -->
+<resources>
+    <!-- Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans. -->
+    <string-array name="book_names">
+        <item>Genesis</item>
+        <item>Exodus</item>
+        <item>Leviticus</item>
+        <item>Numbers</item>
+        <item>Deuteronomy</item>
+        <item>Joshua</item>
+        <item>Judges</item>
+        <item>Ruth</item>
+        <item>1 Samuel</item>
+        <item>2 Samuel</item>
+        <item>1 Kings</item>
+        <item>2 Kings</item>
+        <item>1 Chronicles</item>
+        <item>2 Chronicles</item>
+        <item>Ezra</item>
+        <item>Nehemiah</item>
+        <item>Esther</item>
+        <item>Job</item>
+        <item>Psalms</item>
+        <item>Proverbs</item>
+        <item>Ecclesiastes</item>
+        <item>Song of Solomon</item>
+        <item>Isaiah</item>
+        <item>Jeremiah</item>
+        <item>Lamentations</item>
+        <item>Ezekiel</item>
+        <item>Daniel</item>
+        <item>Hosea</item>
+        <item>Joel</item>
+        <item>Amos</item>
+        <item>Obadiah</item>
+        <item>Jonah</item>
+        <item>Micah</item>
+        <item>Nahum</item>
+        <item>Habakkuk</item>
+        <item>Zephaniah</item>
+        <item>Haggai</item>
+        <item>Zechariah</item>
+        <item>Malachi</item>
+        <item>Matthew</item>
+        <item>Mark</item>
+        <item>Luke</item>
+        <item>John</item>
+        <item>Acts</item>
+        <item>Romans</item>
+        <item>1 Corinthians</item>
+        <item>2 Corinthians</item>
+        <item>Galatians</item>
+        <item>Ephesians</item>
+        <item>Philippians</item>
+        <item>Colossians</item>
+        <item>1 Thessalonians</item>
+        <item>2 Thessalonians</item>
+        <item>1 Timothy</item>
+        <item>2 Timothy</item>
+        <item>Titus</item>
+        <item>Philemon</item>
+        <item>Hebrews</item>
+        <item>James</item>
+        <item>1 Peter</item>
+        <item>2 Peter</item>
+        <item>1 John</item>
+        <item>2 John</item>
+        <item>3 John</item>
+        <item>Jude</item>
+        <item>Revelation</item>
+    </string-array>
+    <!-- Short book names, 66 items, same order. For tight spaces such as the widget. -->
+    <string-array name="book_abbreviations">
+        <item>Gen</item>
+        <item>Exod</item>
+        <item>Lev</item>
+        <item>Num</item>
+        <item>Deut</item>
+        <item>Josh</item>
+        <item>Judg</item>
+        <item>Ruth</item>
+        <item>1 Sam</item>
+        <item>2 Sam</item>
+        <item>1 Kgs</item>
+        <item>2 Kgs</item>
+        <item>1 Chr</item>
+        <item>2 Chr</item>
+        <item>Ezra</item>
+        <item>Neh</item>
+        <item>Esth</item>
+        <item>Job</item>
+        <item>Ps</item>
+        <item>Prov</item>
+        <item>Eccl</item>
+        <item>Song</item>
+        <item>Isa</item>
+        <item>Jer</item>
+        <item>Lam</item>
+        <item>Ezek</item>
+        <item>Dan</item>
+        <item>Hos</item>
+        <item>Joel</item>
+        <item>Amos</item>
+        <item>Obad</item>
+        <item>Jonah</item>
+        <item>Mic</item>
+        <item>Nah</item>
+        <item>Hab</item>
+        <item>Zeph</item>
+        <item>Hag</item>
+        <item>Zech</item>
+        <item>Mal</item>
+        <item>Matt</item>
+        <item>Mark</item>
+        <item>Luke</item>
+        <item>John</item>
+        <item>Acts</item>
+        <item>Rom</item>
+        <item>1 Cor</item>
+        <item>2 Cor</item>
+        <item>Gal</item>
+        <item>Eph</item>
+        <item>Phil</item>
+        <item>Col</item>
+        <item>1 Thess</item>
+        <item>2 Thess</item>
+        <item>1 Tim</item>
+        <item>2 Tim</item>
+        <item>Titus</item>
+        <item>Phlm</item>
+        <item>Heb</item>
+        <item>Jas</item>
+        <item>1 Pet</item>
+        <item>2 Pet</item>
+        <item>1 John</item>
+        <item>2 John</item>
+        <item>3 John</item>
+        <item>Jude</item>
+        <item>Rev</item>
+    </string-array>
+    <!-- Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none. -->
+    <string-array name="book_search_aliases">
+        <item>Gn</item>
+        <item>Ex</item>
+        <item>Lv</item>
+        <item>Nm</item>
+        <item>Dt</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>First Samuel|I Samuel|1st Samuel</item>
+        <item>Second Samuel|II Samuel|2nd Samuel</item>
+        <item>First Kings|I Kings|1st Kings</item>
+        <item>Second Kings|II Kings|2nd Kings</item>
+        <item>First Chronicles|I Chronicles|1st Chronicles</item>
+        <item>Second Chronicles|II Chronicles|2nd Chronicles</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Psalm|Psa</item>
+        <item>Prv</item>
+        <item>Qoheleth</item>
+        <item>Song of Songs|Canticles</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Ezk</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Mt</item>
+        <item>Mk|Mrk</item>
+        <item>Lk</item>
+        <item>Jn</item>
+        <item></item>
+        <item>Ro</item>
+        <item>First Corinthians|I Corinthians|1st Corinthians</item>
+        <item>Second Corinthians|II Corinthians|2nd Corinthians</item>
+        <item></item>
+        <item></item>
+        <item>Php</item>
+        <item></item>
+        <item>First Thessalonians|I Thessalonians|1st Thessalonians</item>
+        <item>Second Thessalonians|II Thessalonians|2nd Thessalonians</item>
+        <item>First Timothy|I Timothy|1st Timothy</item>
+        <item>Second Timothy|II Timothy|2nd Timothy</item>
+        <item></item>
+        <item>Philem</item>
+        <item></item>
+        <item>Jm</item>
+        <item>First Peter|I Peter|1st Peter</item>
+        <item>Second Peter|II Peter|2nd Peter</item>
+        <item>First John|I John|1st John</item>
+        <item>Second John|II John|2nd John</item>
+        <item>Third John|III John|3rd John</item>
+        <item></item>
+        <item>Revelations|Apocalypse</item>
+    </string-array>
+</resources>

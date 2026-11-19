@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.widget
 
+import aarnav100.developer.biblescroll.data.bible.References
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import androidx.datastore.core.DataStore
@@ -65,7 +66,7 @@ class WidgetVerseRepository @Inject constructor(
                 WidgetDisplay(
                     ref = ref,
                     text = shown?.text.orEmpty(),
-                    reference = "${names[ref.bookId].orEmpty()} ${ref.chapter}:${ref.verse}",
+                    reference = References.verse(names[ref.bookId].orEmpty(), ref),
                     translationId = shown?.translationId ?: DEFAULT.translationId,
                 )
             }

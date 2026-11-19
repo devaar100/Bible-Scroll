@@ -380,5 +380,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 14,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Los cuatro Evangelios en 30 días",
+      "shortDescription": "Mateo, Marcos, Lucas y Juan en un mes.",
+      "description": "Lee uno tras otro los cuatro relatos de la vida de Jesús. Cada escritor cuenta la historia para lectores distintos y se fija en cosas distintas; leerlos juntos permite ver el panorama completo.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

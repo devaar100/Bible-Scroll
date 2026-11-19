@@ -157,5 +157,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 5,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Daniel en 12 días",
+      "shortDescription": "Fidelidad en tierra extranjera.",
+      "description": "Daniel y sus amigos se mantienen fieles en Babilonia: el horno de fuego, el foso de los leones y visiones del reino de Dios, que perdura más que todos los imperios.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

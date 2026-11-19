@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.core.content.work;
 
 import aarnav100.developer.biblescroll.core.content.BookDownloader;
+import aarnav100.developer.biblescroll.core.content.DevotionalDownloader;
 import android.content.Context;
 import androidx.work.WorkerParameters;
 import dagger.internal.DaggerGenerated;
@@ -28,20 +29,25 @@ import javax.annotation.processing.Generated;
 public final class StudyRefreshWorker_Factory {
   private final Provider<BookDownloader> downloaderProvider;
 
-  private StudyRefreshWorker_Factory(Provider<BookDownloader> downloaderProvider) {
+  private final Provider<DevotionalDownloader> devotionalsProvider;
+
+  private StudyRefreshWorker_Factory(Provider<BookDownloader> downloaderProvider,
+      Provider<DevotionalDownloader> devotionalsProvider) {
     this.downloaderProvider = downloaderProvider;
+    this.devotionalsProvider = devotionalsProvider;
   }
 
   public StudyRefreshWorker get(Context context, WorkerParameters params) {
-    return newInstance(context, params, downloaderProvider.get());
+    return newInstance(context, params, downloaderProvider.get(), devotionalsProvider.get());
   }
 
-  public static StudyRefreshWorker_Factory create(Provider<BookDownloader> downloaderProvider) {
-    return new StudyRefreshWorker_Factory(downloaderProvider);
+  public static StudyRefreshWorker_Factory create(Provider<BookDownloader> downloaderProvider,
+      Provider<DevotionalDownloader> devotionalsProvider) {
+    return new StudyRefreshWorker_Factory(downloaderProvider, devotionalsProvider);
   }
 
   public static StudyRefreshWorker newInstance(Context context, WorkerParameters params,
-      BookDownloader downloader) {
-    return new StudyRefreshWorker(context, params, downloader);
+      BookDownloader downloader, DevotionalDownloader devotionals) {
+    return new StudyRefreshWorker(context, params, downloader, devotionals);
   }
 }

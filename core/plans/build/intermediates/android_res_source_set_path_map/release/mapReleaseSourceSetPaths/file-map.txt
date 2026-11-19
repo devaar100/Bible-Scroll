@@ -1,0 +1,9 @@
+aarnav100.developer.biblescroll.core.plans-pngs-0 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/generated/res/pngs/release
+aarnav100.developer.biblescroll.core.plans-updated_navigation_xml-1 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/generated/updated_navigation_xml/release
+aarnav100.developer.biblescroll.core.plans-mergeReleaseResources-2 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/incremental/release/mergeReleaseResources/merged.dir
+aarnav100.developer.biblescroll.core.plans-mergeReleaseResources-3 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+aarnav100.developer.biblescroll.core.plans-release-4 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/merged_res/release/mergeReleaseResources
+aarnav100.developer.biblescroll.core.plans-release-5 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/packaged_res/release/packageReleaseResources
+aarnav100.developer.biblescroll.core.plans-main-6 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/src/main/res
+aarnav100.developer.biblescroll.core.plans-release-7 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/src/release/res
+gradleHome-0 /Users/aarnavjindal/.gradle

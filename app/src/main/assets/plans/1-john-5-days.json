@@ -73,5 +73,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "1 Juan en 5 días",
+      "shortDescription": "Luz, amor y la confianza de pertenecer a Dios.",
+      "description": "Una carta tierna y repetitiva sobre andar en la luz, amarse unos a otros y saber que perteneces a Dios.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

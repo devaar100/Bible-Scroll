@@ -61,5 +61,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Filipenses en 4 días",
+      "shortDescription": "Una carta sobre la alegría, escrita desde la cárcel.",
+      "description": "Pablo escribió esta cálida carta estando encadenado, y está llena de alegría, gratitud y ánimo para no preocuparse. Cuatro días breves.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

@@ -733,5 +733,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 4,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Salmos en 60 días",
+      "shortDescription": "Dos meses con los cantos y las oraciones de la Biblia.",
+      "description": "Lee los 150 salmos en 60 días. Abarcan todos los estados de ánimo: alegría, miedo, enojo, dolor, gratitud y esperanza. Muchos lectores encuentran aquí una frase que se convierte en su propia oración.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

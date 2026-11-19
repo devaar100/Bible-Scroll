@@ -104,6 +104,8 @@ data class Manifest(
     val release: String,
     val books: List<ManifestBook>,
     val discover: DiscoverEntry,
+    /** Daily devotionals, one file per month. Absent in manifests published before devotionals existed. */
+    val devotionals: ManifestDevotionals = ManifestDevotionals(),
 )
 
 @Serializable

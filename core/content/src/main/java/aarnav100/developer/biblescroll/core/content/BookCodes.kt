@@ -13,6 +13,9 @@ object BookCodes {
 
     fun code(bookId: Int): String = CODES[bookId - 1]
 
+    /** "JHN" -> 43, or null for an unknown code. */
+    fun id(code: String): Int? = IDS[code]
+
     /** "JHN.3.16" -> VerseKey(43, 3, 16), or null if it isn't a valid study id. */
     fun parse(studyId: String): VerseKey? {
         val parts = studyId.split(".")

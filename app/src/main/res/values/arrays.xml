@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Languages offered in S2 → Language (BCP 47 tags). Same list as res/xml/locales_config.xml. -->
+    <string-array name="app_languages" translatable="false">
+        <item>en</item>
+        <item>es</item>
+    </string-array>
+</resources>

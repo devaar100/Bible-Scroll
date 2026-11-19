@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.discover
 
+import aarnav100.developer.biblescroll.feature.study.StudyLanguageNote
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.ui.theme.ScriptureTextStyle
 import androidx.compose.foundation.layout.Arrangement
@@ -46,6 +47,7 @@ fun DiscoverCard(data: Flow<DiscoverCardUi>, onOpen: () -> Unit, modifier: Modif
             )
             Spacer(Modifier.height(12.dp))
             Text(c.reference, style = MaterialTheme.typography.titleSmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            StudyLanguageNote()
             Spacer(Modifier.height(24.dp))
             Text(
                 c.teaser ?: stringResource(R.string.discover_open_to_read),

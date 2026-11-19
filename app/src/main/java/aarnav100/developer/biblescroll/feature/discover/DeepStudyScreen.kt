@@ -56,7 +56,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 @Composable
 fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    val reference = stringResource(R.string.feed_reference_format, state.bookName, state.ref.chapter, state.ref.verse)
+    val reference = stringResource(R.string.ref_verse, state.bookName, state.ref.chapter, state.ref.verse)
     val readInContext = { target: VerseRef ->
         onLeave()
         viewModel.readInContext(target)

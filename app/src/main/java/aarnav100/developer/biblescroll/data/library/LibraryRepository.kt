@@ -48,7 +48,7 @@ class LibraryRepository internal constructor(
         return rows.map { it.sortedWith(comparator(sort)) }
     }
 
-    /** Turn the item off (marks keep their row so the change can sync; notes are deleted). */
+    /** Turn the item off (marks keep their row so an import merge sees the change; notes are deleted). */
     suspend fun remove(list: LibraryList, ref: VerseRef): Removal? {
         val key = VerseKey(ref.bookId, ref.chapter, ref.verse)
         if (list == LibraryList.NOTES) {

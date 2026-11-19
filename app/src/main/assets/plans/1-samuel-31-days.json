@@ -385,5 +385,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 4,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "1 Samuel en 31 días",
+      "shortDescription": "Samuel, Saúl y el ascenso del joven David.",
+      "description": "Israel pide un rey. La historia sigue a Samuel, el ascenso y la caída de Saúl, y a David, que pasa de pastorcito a vencedor de un gigante y luego a fugitivo.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

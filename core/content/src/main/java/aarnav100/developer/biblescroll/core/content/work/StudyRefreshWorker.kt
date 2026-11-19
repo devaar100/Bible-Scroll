@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.core.content.work
 
 import aarnav100.developer.biblescroll.core.content.BookDownloader
+import aarnav100.developer.biblescroll.core.content.DevotionalDownloader
 import aarnav100.developer.biblescroll.core.content.DownloadFailure
 import android.content.Context
 import android.util.Log
@@ -16,16 +17,20 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import java.util.concurrent.TimeUnit
 
-/** Weekly: refresh only books already on the device whose content changed. */
+/** Weekly: refresh only books and devotional months already on the device whose content changed. */
 @HiltWorker
 class StudyRefreshWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted params: WorkerParameters,
     private val downloader: BookDownloader,
+    private val devotionals: DevotionalDownloader,
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        val failure = downloader.refreshStoredBooks()
+        // Books, then devotional months: the same rules (only what's on the device, only what changed).
+        val books = downloader.refreshStoredBooks()
+        val months = devotionals.refreshStoredMonths() // even if books failed
+        val failure = books ?: months
         // Local logcat only (no analytics): enough to diagnose a refresh that keeps failing.
         Log.i(TAG, if (failure == null) "Study refresh done" else "Study refresh failed: $failure")
         return when (failure) {

@@ -35,6 +35,22 @@ class SettingsRepository @Inject constructor(
         }
         .distinctUntilChanged()
 
+    /** H2: cover one missed day per Monday-Sunday week. Off by default. */
+    val streakGraceDay: Flow<Boolean> = dataStore.data
+        .catch { if (it is IOException) emit(emptyPreferences()) else throw it }
+        .map { it[STREAK_GRACE_DAY] ?: false }
+        .distinctUntilChanged()
+
+    suspend fun setStreakGraceDay(value: Boolean) = put(STREAK_GRACE_DAY, value)
+
+    /** With "Hide AI studies" on, the reader chose to see devotionals anyway (H15-H17). */
+    val showDevotionalsWhenAiHidden: Flow<Boolean> = dataStore.data
+        .catch { if (it is IOException) emit(emptyPreferences()) else throw it }
+        .map { it[SHOW_DEVOTIONALS_WHEN_AI_HIDDEN] ?: false }
+        .distinctUntilChanged()
+
+    suspend fun setShowDevotionalsWhenAiHidden(value: Boolean) = put(SHOW_DEVOTIONALS_WHEN_AI_HIDDEN, value)
+
     suspend fun setThemeMode(value: ThemeMode) = put(THEME_MODE, value.name)
     suspend fun setReadingBackground(value: ReadingBackground) = put(READING_BACKGROUND, value.name)
     suspend fun setAccent(value: AccentPreset) = put(ACCENT, value.name)
@@ -55,6 +71,8 @@ class SettingsRepository @Inject constructor(
         val RED_LETTERS = booleanPreferencesKey("red_letters")
         val SCRIPTURE_SIZE = stringPreferencesKey("scripture_size")
         val HIDE_AI_STUDIES = booleanPreferencesKey("hide_ai_studies")
+        val STREAK_GRACE_DAY = booleanPreferencesKey("streak_grace_day")
+        val SHOW_DEVOTIONALS_WHEN_AI_HIDDEN = booleanPreferencesKey("show_devotionals_when_ai_hidden")
     }
 }
 

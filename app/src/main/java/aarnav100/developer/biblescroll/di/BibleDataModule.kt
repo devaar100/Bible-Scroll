@@ -3,7 +3,9 @@ package aarnav100.developer.biblescroll.di
 import aarnav100.developer.biblescroll.data.bible.BibleDao
 import aarnav100.developer.biblescroll.data.bible.BibleDatabase
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
+import aarnav100.developer.biblescroll.data.bible.BookNames
 import aarnav100.developer.biblescroll.data.bible.OfflineBibleRepository
+import aarnav100.developer.biblescroll.data.bible.ResourceBookNames
 import android.content.Context
 import androidx.room.Room
 import dagger.Binds
@@ -36,4 +38,7 @@ object BibleDatabaseModule {
 abstract class BibleRepositoryModule {
     @Binds
     abstract fun bindBibleRepository(impl: OfflineBibleRepository): BibleRepository
+
+    @Binds
+    abstract fun bindBookNames(impl: ResourceBookNames): BookNames
 }

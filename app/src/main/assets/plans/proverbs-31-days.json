@@ -385,5 +385,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Proverbios en 31 días",
+      "shortDescription": "Un capítulo de sabiduría para cada día del mes.",
+      "description": "Proverbios tiene 31 capítulos, uno para cada día de un mes largo. Dichos breves sobre el trabajo, las palabras, el dinero, la amistad y el carácter, para leerlos despacio y volver a ellos.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

@@ -57,6 +57,7 @@ fun StudyBody(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        StudyLanguageNote()
         StudyProvenance(reviewed = study.reviewed)
         StudySection(stringResource(R.string.study_meaning), study.meaning)
         StudySection(stringResource(R.string.study_historical_context), study.historicalContext)
@@ -168,7 +169,7 @@ private fun WordRow(word: Word, rtl: Boolean) {
                 fontWeight = FontWeight.Medium,
             )
             Text(
-                "${word.transliteration.replace(".", "")} · ${word.strongs}",
+                stringResource(R.string.two_parts, word.transliteration.replace(".", ""), word.strongs),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )

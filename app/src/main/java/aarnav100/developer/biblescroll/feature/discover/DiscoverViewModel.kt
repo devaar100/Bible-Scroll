@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.discover
 
+import aarnav100.developer.biblescroll.data.bible.References
 import aarnav100.developer.biblescroll.core.content.DiscoverFeed
 import aarnav100.developer.biblescroll.core.content.DiscoverRepository
 import aarnav100.developer.biblescroll.core.content.StudyRepository
@@ -101,7 +102,7 @@ class DiscoverViewModel @Inject constructor(
         studies.storedStudy(ref.bookId, ref.chapter, ref.verse),
         bookNames,
     ) { verse, study, names ->
-        DiscoverCardUi("${names[ref.bookId].orEmpty()} ${ref.chapter}:${ref.verse}", verse?.text, study?.let(::studyTeaser))
+        DiscoverCardUi(References.verse(names[ref.bookId].orEmpty(), ref), verse?.text, study?.let(::studyTeaser))
     }
 
     /** The feed settled on [index]: remember it, and on Wi-Fi fetch the next few cards' books ahead. */

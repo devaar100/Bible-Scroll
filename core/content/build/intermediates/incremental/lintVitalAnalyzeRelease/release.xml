@@ -7,7 +7,7 @@
     proguardFiles="build/intermediates/default_proguard_files/global/proguard-android-optimize.txt-9.2.1"
     consumerProguardFiles="consumer-rules.pro"
     partialResultsDir="build/intermediates/lint_vital_partial_results/release/lintVitalAnalyzeRelease/out"
-    desugaredMethodsFiles="/Users/aarnavjindal/.gradle/caches/9.4.1/transforms/4265939ddd93fd6aa4bfe9f1350ece8a/transformed/D8BackportedDesugaredMethods.txt">
+    desugaredMethodsFiles="/Users/aarnavjindal/.gradle/caches/9.4.1/transforms/0f4aa4c9fef74eec31364d6fca32dfc5/transformed/D8BackportedDesugaredMethods.txt">
   <buildFeatures/>
   <sourceProviders>
     <sourceProvider
@@ -27,6 +27,6 @@
       type="MAIN"
       applicationId="aarnav100.developer.biblescroll.core.content"
       generatedSourceFolders="build/generated/ksp/release/java:build/generated/ksp/release/kotlin:build/generated/ap_generated_sources/release/out:build/generated/source/buildConfig/release"
-      desugaredMethodsFiles="/Users/aarnavjindal/.gradle/caches/9.4.1/transforms/4265939ddd93fd6aa4bfe9f1350ece8a/transformed/D8BackportedDesugaredMethods.txt">
+      desugaredMethodsFiles="/Users/aarnavjindal/.gradle/caches/9.4.1/transforms/0f4aa4c9fef74eec31364d6fca32dfc5/transformed/D8BackportedDesugaredMethods.txt">
   </artifact>
 </variant>

@@ -20,6 +20,7 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.FormatSize
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Palette
@@ -51,6 +52,7 @@ fun SettingsScreen(
     onOpenGeneral: () -> Unit,
     onOpenNotifications: () -> Unit,
     onOpenStorage: () -> Unit,
+    onOpenDataBackup: () -> Unit,
 ) {
     SettingsPage(title = stringResource(R.string.settings_title), onBack = onBack) {
         NavRow(Icons.Outlined.Tune, stringResource(R.string.settings_general), stringResource(R.string.settings_general_summary), onOpenGeneral)
@@ -65,6 +67,12 @@ fun SettingsScreen(
             stringResource(R.string.settings_storage),
             stringResource(R.string.settings_storage_summary),
             onOpenStorage,
+        )
+        NavRow(
+            Icons.Outlined.Backup,
+            stringResource(R.string.settings_data_backup),
+            stringResource(R.string.settings_data_backup_summary),
+            onOpenDataBackup,
         )
     }
 }
@@ -82,7 +90,7 @@ fun GeneralSettingsScreen(
         NavRow(
             Icons.Outlined.Palette,
             stringResource(R.string.settings_appearance),
-            "${stringResource(settings.themeMode.label)} · ${stringResource(settings.readingBackground.label)}",
+            stringResource(R.string.two_parts, stringResource(settings.themeMode.label), stringResource(settings.readingBackground.label)),
             onOpenAppearance,
         )
         NavRow(
@@ -91,6 +99,7 @@ fun GeneralSettingsScreen(
             stringResource(settings.scriptureSize.label),
             onOpenFontSize,
         )
+        LanguageRow()
         ListItem(
             headlineContent = { Text(stringResource(R.string.settings_red_letters)) },
             supportingContent = { Text(stringResource(R.string.settings_red_letters_summary)) },

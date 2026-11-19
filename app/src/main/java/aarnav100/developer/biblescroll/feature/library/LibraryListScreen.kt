@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -38,7 +39,9 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.SwipeToDismissBoxValue
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
@@ -64,9 +67,11 @@ import kotlinx.coroutines.launch
 fun LibraryListScreen(
     onBack: () -> Unit,
     onOpenStudy: (VerseRef) -> Unit,
+    onOpenDataBackup: () -> Unit,
     viewModel: LibraryListViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val showNotesTip by viewModel.showNotesTip.collectAsStateWithLifecycle()
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
     val removedMessage = stringResource(state.list.removedMessage)
@@ -123,6 +128,7 @@ fun LibraryListScreen(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
                 )
             }
+            if (showNotesTip) NotesExportTip(onExport = onOpenDataBackup, onDismiss = viewModel::dismissNotesTip)
             SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)) {
                 LibrarySort.entries.forEachIndexed { i, s ->
                     SegmentedButton(
@@ -230,4 +236,27 @@ private val LibraryList.removedMessage: Int get() = when (this) {
     LibraryList.LIKED -> R.string.library_removed_liked
     LibraryList.BOOKMARKED -> R.string.library_removed_bookmarked
     LibraryList.NOTES -> R.string.library_removed_note
+}
+
+/** One-time tip on H7 once there are a few notes (dismissing it is permanent). */
+@Composable
+private fun NotesExportTip(onExport: () -> Unit, onDismiss: () -> Unit) {
+    Surface(
+        shape = RoundedCornerShape(16.dp),
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+    ) {
+        Column(Modifier.padding(start = 16.dp, top = 12.dp, end = 8.dp, bottom = 4.dp)) {
+            Text(
+                stringResource(R.string.notes_tip),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                modifier = Modifier.padding(end = 8.dp),
+            )
+            Row(Modifier.align(Alignment.End)) {
+                TextButton(onClick = onDismiss) { Text(stringResource(R.string.tip_dismiss)) }
+                TextButton(onClick = onExport) { Text(stringResource(R.string.notes_tip_export)) }
+            }
+        }
+    }
 }

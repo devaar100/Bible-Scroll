@@ -26,3 +26,4 @@ rootProject.name = "Bible Scroll"
 include(":app")
 include(":baselineprofile")
 include(":core:content")
+include(":core:plans")

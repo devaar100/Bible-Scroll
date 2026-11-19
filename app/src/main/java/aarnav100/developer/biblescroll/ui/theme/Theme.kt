@@ -20,6 +20,7 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 
 /** Also used by the Glance widget theme. */
 internal val LightColors = lightColorScheme(
@@ -206,6 +207,8 @@ fun ReadingTheme(
     val base = MaterialTheme.colorScheme
     val scheme = base.copy(
         primary = accentColor,
+        // The app's onPrimary was chosen for the app's primary, not this accent (e.g. white on a light pink).
+        onPrimary = readableOn(accentColor),
         background = reading.background,
         onBackground = reading.text,
         surface = reading.background,
@@ -244,3 +247,11 @@ object BibleScrollTheme {
 @Composable
 @ReadOnlyComposable
 fun scriptureSp(base: TextUnit): TextUnit = base * LocalScriptureScale.current
+
+/** Near-black or white, whichever contrasts more with [background] (WCAG relative luminance). */
+internal fun readableOn(background: Color): Color {
+    val l = background.luminance()
+    val withBlack = (l + 0.05) / (0.0 + 0.05) // ink luminance ~0 (0xFF1A1A1A is ~0.01)
+    val withWhite = 1.05 / (l + 0.05)
+    return if (withBlack >= withWhite) Color(0xFF1A1A1A) else Color.White
+}

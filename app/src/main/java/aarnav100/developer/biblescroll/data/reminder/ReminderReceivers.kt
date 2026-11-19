@@ -3,6 +3,7 @@ package aarnav100.developer.biblescroll.data.reminder
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,9 @@ private fun BroadcastReceiver.runAsync(block: suspend () -> Unit) {
     receiverScope.launch {
         try {
             block()
+        } catch (e: Exception) {
+            // e.g. user.db won't open: never crash in the background; the app shows the error when opened.
+            Log.e("Reminders", "Reminder work failed", e)
         } finally {
             pending.finish()
         }
@@ -31,19 +35,31 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
     @Inject lateinit var scheduler: ReminderScheduler
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action != ACTION_FIRE) return
-        runAsync {
-            try {
-                notifier.showDailyVerse()
-            } finally {
-                // Always line up the next one, even if posting failed.
-                scheduler.syncFromStore()
+        when (intent.action) {
+            ACTION_FIRE -> runAsync {
+                try {
+                    notifier.showDailyVerse()
+                } finally {
+                    // Always line up the next one, even if posting failed.
+                    scheduler.syncFromStore()
+                }
+            }
+            ACTION_PLAN -> {
+                val enrollmentId = intent.data?.lastPathSegment ?: return
+                runAsync {
+                    try {
+                        notifier.showPlanReminder(enrollmentId)
+                    } finally {
+                        scheduler.syncPlanReminders()
+                    }
+                }
             }
         }
     }
 
     companion object {
         const val ACTION_FIRE = "aarnav100.developer.biblescroll.action.DAILY_REMINDER"
+        const val ACTION_PLAN = "aarnav100.developer.biblescroll.action.PLAN_REMINDER"
     }
 }
 

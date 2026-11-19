@@ -1,0 +1,3209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file original="app/src/main/res/values/strings.xml" source-language="en" target-language="es" datatype="plaintext">
+    <body>
+      <trans-unit id="app_name" resname="app_name">
+        <source>Bible Scroll</source>
+        <note from="where">App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S6 Settings → Notifications</note>
+        <note from="developer">Brand name: keep as is.</note>
+      </trans-unit>
+      <trans-unit id="tab_community" resname="tab_community">
+        <source>Community</source>
+        <note from="where">Bottom tab bar; C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="tab_discover" resname="tab_discover">
+        <source>Discover</source>
+        <note from="where">Bottom tab bar</note>
+      </trans-unit>
+      <trans-unit id="tab_home" resname="tab_home">
+        <source>Home</source>
+        <note from="where">Bottom tab bar; H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="tab_bible" resname="tab_bible">
+        <source>Bible</source>
+        <note from="where">Bottom tab bar</note>
+      </trans-unit>
+      <trans-unit id="feed_like" resname="feed_like">
+        <source>Like</source>
+        <note from="where">B1 Bible feed: verse page</note>
+        <note from="developer">Bible feed (B1)</note>
+      </trans-unit>
+      <trans-unit id="feed_unlike" resname="feed_unlike">
+        <source>Unlike</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_note" resname="feed_note">
+        <source>Note</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_note_add" resname="feed_note_add">
+        <source>Add note</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_verse_cd" resname="feed_verse_cd">
+        <source>%1$s %2$s, %3$s</source>
+        <note from="where">B1 Bible feed: verse page</note>
+        <note from="developer">TalkBack: one feed page = verse text, then reference and translation.</note>
+        <note from="placeholders">Keep %1$s %2$s %3$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="feed_share" resname="feed_share">
+        <source>Share</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_copy" resname="feed_copy">
+        <source>Copy verse</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_copied" resname="feed_copied">
+        <source>Verse copied</source>
+        <note from="where">B1 Bible feed; H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="feed_share_chooser" resname="feed_share_chooser">
+        <source>Share verse</source>
+        <note from="where">B7 Verse actions</note>
+      </trans-unit>
+      <trans-unit id="feed_translation_cd" resname="feed_translation_cd">
+        <source>Translation: %1$s. Change translation</source>
+        <note from="where">B1 Bible feed: top bar</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="feed_book_chapter_cd" resname="feed_book_chapter_cd">
+        <source>%1$s. Choose book and chapter</source>
+        <note from="where">B1 Bible feed: top bar</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="ref_verse" resname="ref_verse">
+        <source>%1$s %2$d:%3$d</source>
+        <note from="where">B1 Bible feed; B3/B4 Book picker and chapter grid; D2 Deep study page; Notifications (daily verse and plan reminders); O1-O8 Onboarding; Verse references, everywhere a verse is named</note>
+        <note from="developer">Verse references. %1$s = book name; numbers are chapter and verse. Change the order or punctuation to suit your language (e.g. "Juan 3:16"). Used everywhere a verse is named: feed, library, plans, studies, widget, share.</note>
+        <note from="placeholders">Keep %1$s %2$d %3$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="ref_verse_range" resname="ref_verse_range">
+        <source>%1$s %2$d:%3$d–%4$d</source>
+        <note from="where">Verse references, everywhere a verse is named</note>
+        <note from="developer">Several verses in one chapter: "John 3:16–18" (book, chapter, first verse, last verse).</note>
+        <note from="placeholders">Keep %1$s %2$d %3$d %4$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="ref_chapter_range" resname="ref_chapter_range">
+        <source>%1$s %2$d:%3$d–%4$d:%5$d</source>
+        <note from="where">Verse references, everywhere a verse is named</note>
+        <note from="developer">A passage across chapters: "Genesis 1:1–2:3" (book, chapter, verse, end chapter, end verse).</note>
+        <note from="placeholders">Keep %1$s %2$d %3$d %4$d %5$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="ref_book_range" resname="ref_book_range">
+        <source>%1$s – %2$s</source>
+        <note from="where">Verse references, everywhere a verse is named</note>
+        <note from="developer">A passage across books; both sides are full references: "Leviticus 27:34 – Numbers 1:1".</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="ref_chapter" resname="ref_chapter">
+        <source>%1$s %2$d</source>
+        <note from="where">Verse references, everywhere a verse is named</note>
+        <note from="developer">A whole chapter: "Psalm 23" (book, chapter).</note>
+        <note from="placeholders">Keep %1$s %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="feed_chapter_format" resname="feed_chapter_format">
+        <source>%1$s %2$d</source>
+        <note from="where">B1 Bible feed</note>
+        <note from="placeholders">Keep %1$s %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="feed_note_edit" resname="feed_note_edit">
+        <source>Edit note</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_bookmark" resname="feed_bookmark">
+        <source>Bookmark verse</source>
+        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_unbookmark" resname="feed_unbookmark">
+        <source>Remove bookmark</source>
+        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="feed_liked_filter_on" resname="feed_liked_filter_on">
+        <source>Show liked verses only</source>
+        <note from="where">B1 Bible feed: top bar</note>
+        <note from="developer">Liked filter (B2)</note>
+      </trans-unit>
+      <trans-unit id="feed_liked_filter_off" resname="feed_liked_filter_off">
+        <source>Show all verses</source>
+        <note from="where">B1 Bible feed: top bar</note>
+      </trans-unit>
+      <trans-unit id="feed_liked_empty_title" resname="feed_liked_empty_title">
+        <source>No liked verses yet</source>
+        <note from="where">B1 Bible feed</note>
+      </trans-unit>
+      <trans-unit id="feed_liked_empty_hint" resname="feed_liked_empty_hint">
+        <source>Double-tap a verse, or tap its heart, to keep it here.</source>
+        <note from="where">B1 Bible feed</note>
+      </trans-unit>
+      <trans-unit id="feed_verse_actions" resname="feed_verse_actions">
+        <source>Verse actions</source>
+        <note from="where">B1 Bible feed: verse page</note>
+      </trans-unit>
+      <trans-unit id="actions_copy" resname="actions_copy">
+        <source>Copy</source>
+        <note from="where">B7 Verse actions sheet</note>
+        <note from="developer">Verse actions (B7)</note>
+      </trans-unit>
+      <trans-unit id="actions_compare" resname="actions_compare">
+        <source>Compare versions</source>
+        <note from="where">B7 Verse actions sheet</note>
+      </trans-unit>
+      <trans-unit id="actions_share_image" resname="actions_share_image">
+        <source>Share as image</source>
+        <note from="where">B10 Share verse as image; B7 Verse actions sheet</note>
+      </trans-unit>
+      <trans-unit id="actions_widget_verse" resname="actions_widget_verse">
+        <source>Set as widget verse</source>
+        <note from="where">B11 Set as widget verse dialog; B7 Verse actions sheet</note>
+      </trans-unit>
+      <trans-unit id="settings_title" resname="settings_title">
+        <source>Settings</source>
+        <note from="where">H1 Home tab; S1-S4 Settings</note>
+        <note from="developer">Settings (S1-S4)</note>
+      </trans-unit>
+      <trans-unit id="settings_back" resname="settings_back">
+        <source>Back</source>
+        <note from="where">H12 Plan days &amp; notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_general" resname="settings_general">
+        <source>General</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_general_summary" resname="settings_general_summary">
+        <source>Appearance, font size, language</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_appearance" resname="settings_appearance">
+        <source>Appearance</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_font_size" resname="settings_font_size">
+        <source>Font size</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_font_size_summary" resname="settings_font_size_summary">
+        <source>Changes the size of Scripture text, on top of your phone’s font size.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_red_letters" resname="settings_red_letters">
+        <source>Words of Jesus in red</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_red_letters_summary" resname="settings_red_letters_summary">
+        <source>Show Jesus’ words in red where the translation marks them</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_app_mode" resname="settings_app_mode">
+        <source>App mode</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_mode_light" resname="settings_mode_light">
+        <source>Light</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_mode_dark" resname="settings_mode_dark">
+        <source>Dark</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_mode_system" resname="settings_mode_system">
+        <source>System</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_reading_background" resname="settings_reading_background">
+        <source>Reading background</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_bg_paper" resname="settings_bg_paper">
+        <source>Paper</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_bg_sepia" resname="settings_bg_sepia">
+        <source>Sepia</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_bg_charcoal" resname="settings_bg_charcoal">
+        <source>Charcoal</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_bg_true_black" resname="settings_bg_true_black">
+        <source>True Black</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent" resname="settings_accent">
+        <source>Accent</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_crimson" resname="settings_accent_crimson">
+        <source>Crimson</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_rose" resname="settings_accent_rose">
+        <source>Rose</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_amber" resname="settings_accent_amber">
+        <source>Amber</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_sage" resname="settings_accent_sage">
+        <source>Sage</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_teal" resname="settings_accent_teal">
+        <source>Teal</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_accent_indigo" resname="settings_accent_indigo">
+        <source>Indigo</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_dynamic_color" resname="settings_dynamic_color">
+        <source>Match my wallpaper</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_dynamic_color_summary" resname="settings_dynamic_color_summary">
+        <source>Use your wallpaper’s colours for the accent</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_size_default" resname="settings_size_default">
+        <source>Default</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_size_large" resname="settings_size_large">
+        <source>Large</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_size_larger" resname="settings_size_larger">
+        <source>Larger</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_size_largest" resname="settings_size_largest">
+        <source>Largest</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_preview_reference" resname="settings_preview_reference">
+        <source>John 14:6</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_notifications" resname="settings_notifications">
+        <source>Notifications</source>
+        <note from="where">S1-S4 Settings; S6 Settings → Notifications</note>
+        <note from="developer">Notifications (S6) and the daily reminder</note>
+      </trans-unit>
+      <trans-unit id="settings_notifications_summary" resname="settings_notifications_summary">
+        <source>Daily reminder</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="notifications_daily" resname="notifications_daily">
+        <source>Daily reminder</source>
+        <note from="where">S6 Settings → Notifications</note>
+      </trans-unit>
+      <trans-unit id="notifications_daily_summary" resname="notifications_daily_summary">
+        <source>A short verse each day to bring you back to reading</source>
+        <note from="where">S6 Settings → Notifications</note>
+      </trans-unit>
+      <trans-unit id="notifications_time" resname="notifications_time">
+        <source>Reminder time</source>
+        <note from="where">S6 Settings → Notifications</note>
+      </trans-unit>
+      <trans-unit id="notifications_time_dialog" resname="notifications_time_dialog">
+        <source>Choose reminder time</source>
+        <note from="where">S6 Reminder time picker</note>
+      </trans-unit>
+      <trans-unit id="notifications_ok" resname="notifications_ok">
+        <source>OK</source>
+        <note from="where">S6 Reminder time picker</note>
+      </trans-unit>
+      <trans-unit id="notifications_cancel" resname="notifications_cancel">
+        <source>Cancel</source>
+        <note from="where">S2 Settings → General → Language; S6 Reminder time picker; Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="notifications_blocked" resname="notifications_blocked">
+        <source>Notifications are turned off for %1$s, so reminders can’t appear. You can turn them on in system settings.</source>
+        <note from="where">S6 Settings → Notifications</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="notifications_open_settings" resname="notifications_open_settings">
+        <source>Open notification settings</source>
+        <note from="where">S6 Settings → Notifications</note>
+      </trans-unit>
+      <trans-unit id="reminder_channel_name" resname="reminder_channel_name">
+        <source>Daily reminder</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="reminder_channel_description" resname="reminder_channel_description">
+        <source>One short verse a day, at the time you choose</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="reminder_title" resname="reminder_title">
+        <source>%1$s · %2$s</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="share_square" resname="share_square">
+        <source>Square</source>
+        <note from="where">B10 Share verse as image</note>
+        <note from="developer">Share as image (B10)</note>
+      </trans-unit>
+      <trans-unit id="share_story" resname="share_story">
+        <source>Story</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_style_paper" resname="share_style_paper">
+        <source>Paper</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_style_charcoal" resname="share_style_charcoal">
+        <source>Charcoal</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_style_crimson" resname="share_style_crimson">
+        <source>Crimson</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_style_sepia" resname="share_style_sepia">
+        <source>Sepia</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_save" resname="share_save">
+        <source>Save</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_share" resname="share_share">
+        <source>Share</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_image_chooser" resname="share_image_chooser">
+        <source>Share verse image</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_saved" resname="share_saved">
+        <source>Saved to Pictures/%1$s</source>
+        <note from="where">B10 Share verse as image</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="share_failed" resname="share_failed">
+        <source>Couldn’t create the image. Try again.</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="share_permission_needed" resname="share_permission_needed">
+        <source>Allow storage access to save images.</source>
+        <note from="where">B10 Share verse as image</note>
+      </trans-unit>
+      <trans-unit id="widget_name" resname="widget_name">
+        <source>Verse</source>
+        <note from="where">App name in the launcher and system settings</note>
+        <note from="developer">Widget and widget verse dialog (B11)</note>
+      </trans-unit>
+      <trans-unit id="widget_description" resname="widget_description">
+        <source>A verse of your choice on your home screen</source>
+        <note from="where">Widget picker</note>
+      </trans-unit>
+      <trans-unit id="widget_dialog_body" resname="widget_dialog_body">
+        <source>Show %1$s on your home screen widget?</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="widget_dialog_not_placed" resname="widget_dialog_not_placed">
+        <source>Your verse widget isn’t on the home screen yet.</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_dialog_manual" resname="widget_dialog_manual">
+        <source>1. Touch and hold an empty spot on your home screen, then tap Widgets.\n2. Find %1$s and drag the Verse widget onto your home screen.</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="widget_set" resname="widget_set">
+        <source>Set</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_add_to_home" resname="widget_add_to_home">
+        <source>Add to home screen</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_cancel" resname="widget_cancel">
+        <source>Cancel</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_updated" resname="widget_updated">
+        <source>Widget verse updated</source>
+        <note from="where">B1 Bible feed</note>
+      </trans-unit>
+      <trans-unit id="compare_title" resname="compare_title">
+        <source>%1$s in every version</source>
+        <note from="where">B9 Compare versions</note>
+        <note from="developer">Compare versions (B9)</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="compare_current" resname="compare_current">
+        <source>Reading</source>
+        <note from="where">B9 Compare versions</note>
+      </trans-unit>
+      <trans-unit id="compare_missing" resname="compare_missing">
+        <source>Not in this translation</source>
+        <note from="where">B9 Compare versions</note>
+      </trans-unit>
+      <trans-unit id="compare_copy_cd" resname="compare_copy_cd">
+        <source>Copy %1$s</source>
+        <note from="where">B9 Compare versions</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="note_hint" resname="note_hint">
+        <source>Write a note on this verse…</source>
+        <note from="where">B6 Verse notes sheet</note>
+        <note from="developer">Verse notes (B6)</note>
+      </trans-unit>
+      <trans-unit id="note_delete" resname="note_delete">
+        <source>Delete note</source>
+        <note from="where">B6 Verse notes sheet</note>
+      </trans-unit>
+      <trans-unit id="note_autosaved" resname="note_autosaved">
+        <source>Saved automatically</source>
+        <note from="where">B6 Verse notes sheet</note>
+      </trans-unit>
+      <trans-unit id="picker_search_hint" resname="picker_search_hint">
+        <source>Search books</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="developer">Book picker (B3) and chapter grid (B4)</note>
+      </trans-unit>
+      <trans-unit id="picker_search_clear" resname="picker_search_clear">
+        <source>Clear search</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_old_testament" resname="picker_old_testament">
+        <source>Old Testament</source>
+        <note from="where">B3/B4 Book picker and chapter grid; H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="picker_new_testament" resname="picker_new_testament">
+        <source>New Testament</source>
+        <note from="where">B3/B4 Book picker and chapter grid; H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="picker_no_match" resname="picker_no_match">
+        <source>No books match “%1$s”</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_current_book" resname="picker_current_book">
+        <source>Current book</source>
+        <note from="where">UNUSED (not referenced in code)</note>
+      </trans-unit>
+      <trans-unit id="picker_chapter_count[one]" resname="picker_chapter_count[one]">
+        <source>%d chapter</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_chapter_count[other]" resname="picker_chapter_count[other]">
+        <source>%d chapters</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_book_cd[one]" resname="picker_book_cd[one]">
+        <source>%1$s, %2$s, %3$d read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="developer">Screen reader text for a book in the picker: book name, chapter count text, chapters read. Quantity = chapters read.</note>
+        <note from="placeholders">Keep %1$s %2$s %3$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_book_cd[other]" resname="picker_book_cd[other]">
+        <source>%1$s, %2$s, %3$d read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="developer">Screen reader text for a book in the picker: book name, chapter count text, chapters read. Quantity = chapters read.</note>
+        <note from="placeholders">Keep %1$s %2$s %3$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_back_to_books" resname="picker_back_to_books">
+        <source>Back to books</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_read_progress[one]" resname="picker_read_progress[one]">
+        <source>%1$d of %2$d read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="developer">Chapter grid header: chapters read, chapters in the book. Quantity = chapters read.</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_read_progress[other]" resname="picker_read_progress[other]">
+        <source>%1$d of %2$d read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="developer">Chapter grid header: chapters read, chapters in the book. Quantity = chapters read.</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_continue" resname="picker_continue">
+        <source>Continue at %1$s</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_mark_book_read" resname="picker_mark_book_read">
+        <source>Mark %1$s as read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_mark_book_unread" resname="picker_mark_book_unread">
+        <source>Mark %1$s as unread</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_long_press_hint" resname="picker_long_press_hint">
+        <source>Long-press a chapter to mark it read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_mark_read" resname="picker_mark_read">
+        <source>Mark read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_mark_unread" resname="picker_mark_unread">
+        <source>Mark unread</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+      </trans-unit>
+      <trans-unit id="picker_chapter_read_cd" resname="picker_chapter_read_cd">
+        <source>Chapter %1$d, read</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="picker_chapter_cd" resname="picker_chapter_cd">
+        <source>Chapter %1$d</source>
+        <note from="where">B3/B4 Book picker and chapter grid</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="translations_title" resname="translations_title">
+        <source>Translations</source>
+        <note from="where">B5 Translation picker</note>
+        <note from="developer">Translation picker (B5)</note>
+      </trans-unit>
+      <trans-unit id="translations_offline" resname="translations_offline">
+        <source>Offline</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="translations_selected" resname="translations_selected">
+        <source>Selected</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="translation_desc_WEB" resname="translation_desc_WEB">
+        <source>Modern, readable English. A public-domain update of the 1901 American Standard Version.</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="translation_desc_KJV" resname="translation_desc_KJV">
+        <source>The classic 1611 translation in traditional English, loved for its poetry.</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="translation_desc_BSB" resname="translation_desc_BSB">
+        <source>Clear, contemporary English translated straight from the Hebrew and Greek.</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="onb_promise" resname="onb_promise">
+        <source>Swap a few minutes of scrolling for a verse that stays with you.</source>
+        <note from="where">O1-O8 Onboarding</note>
+        <note from="developer">Onboarding (O2-O8)</note>
+      </trans-unit>
+      <trans-unit id="onb_promise_detail" resname="onb_promise_detail">
+        <source>Free to use. No ads, no account.</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_get_started" resname="onb_get_started">
+        <source>Get started</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_continue" resname="onb_continue">
+        <source>Continue</source>
+        <note from="where">O1-O8 Onboarding; O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_skip" resname="onb_skip">
+        <source>Skip</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_back" resname="onb_back">
+        <source>Back</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_page_indicator" resname="onb_page_indicator">
+        <source>Page %1$d of %2$d</source>
+        <note from="where">O3 Onboarding feature tour</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_feed_title" resname="onb_tour_feed_title">
+        <source>One verse at a time</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_feed_body" resname="onb_tour_feed_body">
+        <source>Swipe up for the next verse. No walls of text, just the next line.</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_like_title" resname="onb_tour_like_title">
+        <source>Keep what speaks to you</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_like_body" resname="onb_tour_like_body">
+        <source>Double-tap a verse to like it. Your likes are always a tap away.</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_share_title" resname="onb_tour_share_title">
+        <source>Share it as an image</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_share_body" resname="onb_tour_share_body">
+        <source>Turn any verse into a clean card for a message or a story.</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_reminder_title" resname="onb_tour_reminder_title">
+        <source>A gentle daily nudge</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_reminder_body" resname="onb_tour_reminder_body">
+        <source>Pick a time and we\'ll send you one verse. Nothing more.</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_title" resname="onb_goal_title">
+        <source>What do you want from five minutes a day?</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_peace" resname="onb_goal_peace">
+        <source>Peace</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_peace_detail" resname="onb_goal_peace_detail">
+        <source>A calmer moment in a busy day</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_understanding" resname="onb_goal_understanding">
+        <source>Understanding Scripture</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_understanding_detail" resname="onb_goal_understanding_detail">
+        <source>Get to know the Bible better</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_routine" resname="onb_goal_routine">
+        <source>A steady routine</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_goal_routine_detail" resname="onb_goal_routine_detail">
+        <source>Show up a little every day</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_response_peace_title" resname="onb_response_peace_title">
+        <source>Peace is a good place to start</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_response_understanding_title" resname="onb_response_understanding_title">
+        <source>Let\'s take it one verse at a time</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_response_routine_title" resname="onb_response_routine_title">
+        <source>Small steps add up</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_response_body" resname="onb_response_body">
+        <source>Here\'s a verse for you. It\'ll be the first one in your feed.</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_timing_title" resname="onb_timing_title">
+        <source>When would this fit your day?</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_timing_morning" resname="onb_timing_morning">
+        <source>In the morning</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_timing_break" resname="onb_timing_break">
+        <source>On a break</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_timing_bed" resname="onb_timing_bed">
+        <source>Before bed</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_timing_whenever" resname="onb_timing_whenever">
+        <source>Whenever I pick up my phone</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_when_morning" resname="onb_when_morning">
+        <source>every morning</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_when_break" resname="onb_when_break">
+        <source>on your break</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_when_bed" resname="onb_when_bed">
+        <source>before bed</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_when_whenever" resname="onb_when_whenever">
+        <source>whenever you like</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_when_daily" resname="onb_when_daily">
+        <source>every day</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_label" resname="onb_plan_label">
+        <source>Your plan</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_headline" resname="onb_plan_headline">
+        <source>%1$s, %2$s</source>
+        <note from="where">O1-O8 Onboarding</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_phrase_default" resname="onb_plan_phrase_default">
+        <source>A verse at a time</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_phrase_peace" resname="onb_plan_phrase_peace">
+        <source>A few calm minutes</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_phrase_understanding" resname="onb_plan_phrase_understanding">
+        <source>A verse to learn from</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_phrase_routine" resname="onb_plan_phrase_routine">
+        <source>A small daily habit</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_how_title" resname="onb_plan_how_title">
+        <source>How it works</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_how_1" resname="onb_plan_how_1">
+        <source>Swipe up for the next verse</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_how_2" resname="onb_plan_how_2">
+        <source>Double-tap any verse you want to keep</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_how_3" resname="onb_plan_how_3">
+        <source>Your place is saved, so you can pick up where you left off</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_how_4" resname="onb_plan_how_4">
+        <source>Change your reminder any time in Settings</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_remind" resname="onb_plan_remind">
+        <source>Remind me daily</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_time" resname="onb_plan_time">
+        <source>Reminder time</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_no_reminder" resname="onb_plan_no_reminder">
+        <source>No reminder. You can add one later in Settings.</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_plan_widget_tip" resname="onb_plan_widget_tip">
+        <source>No set time? Add the verse widget to your home screen and catch a verse whenever you unlock.</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_notification_now" resname="onb_notification_now">
+        <source>now</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_notification_preview_cd" resname="onb_notification_preview_cd">
+        <source>Example reminder</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_title" resname="onb_permission_title">
+        <source>Can we send you one verse a day?</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_body" resname="onb_permission_body">
+        <source>Just one short verse at %1$s. That\'s it.</source>
+        <note from="where">O1-O8 Onboarding</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_allow" resname="onb_permission_allow">
+        <source>Allow notifications</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_not_now" resname="onb_permission_not_now">
+        <source>Not now</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_declined_title" resname="onb_permission_declined_title">
+        <source>No problem</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_permission_declined_body" resname="onb_permission_declined_body">
+        <source>You can turn reminders on later in Settings, then Notifications.</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_start_reading" resname="onb_start_reading">
+        <source>Start reading</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="settings_storage" resname="settings_storage">
+        <source>Storage</source>
+        <note from="where">S1-S4 Settings; Settings → Storage</note>
+        <note from="developer">Settings → Storage (study content)</note>
+      </trans-unit>
+      <trans-unit id="settings_storage_summary" resname="settings_storage_summary">
+        <source>Downloaded verse studies</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="storage_total" resname="storage_total">
+        <source>Studies on this phone: %1$s</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_explainer" resname="storage_explainer">
+        <source>A book\'s studies download the first time you open one, then work offline. Books marked “included” come with the app.</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_empty" resname="storage_empty">
+        <source>No studies on this phone yet. A book\'s studies download the first time you open one.</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_nothing_downloaded" resname="storage_nothing_downloaded">
+        <source>Nothing downloaded. Included books can\'t be removed.</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_remove" resname="storage_remove">
+        <source>Remove downloaded studies</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_remove_title" resname="storage_remove_title">
+        <source>Remove downloaded studies?</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_remove_confirm" resname="storage_remove_confirm">
+        <source>Remove</source>
+        <note from="where">Settings → Storage</note>
+      </trans-unit>
+      <trans-unit id="storage_remove_body[one]" resname="storage_remove_body[one]">
+        <source>Studies for %1$d book will be deleted from this phone. They download again when you open them. Included books stay.</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_remove_body[other]" resname="storage_remove_body[other]">
+        <source>Studies for %1$d books will be deleted from this phone. They download again when you open them. Included books stay.</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_removed[one]" resname="storage_removed[one]">
+        <source>Removed %1$d book</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_removed[other]" resname="storage_removed[other]">
+        <source>Removed %1$d books</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_book_downloaded[one]" resname="storage_book_downloaded[one]">
+        <source>Downloaded · %1$d study</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_book_downloaded[other]" resname="storage_book_downloaded[other]">
+        <source>Downloaded · %1$d studies</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_book_bundled[one]" resname="storage_book_bundled[one]">
+        <source>Included with the app · %1$d study</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="storage_book_bundled[other]" resname="storage_book_bundled[other]">
+        <source>Included with the app · %1$d studies</source>
+        <note from="where">Settings → Storage</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="settings_hide_ai_studies" resname="settings_hide_ai_studies">
+        <source>Hide AI studies</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">S2: Hide AI studies</note>
+      </trans-unit>
+      <trans-unit id="settings_hide_ai_studies_summary" resname="settings_hide_ai_studies_summary">
+        <source>Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="study_close" resname="study_close">
+        <source>Close study</source>
+        <note from="where">D2 Deep study page</note>
+        <note from="developer">B8/D2 study</note>
+      </trans-unit>
+      <trans-unit id="study_mark_studied" resname="study_mark_studied">
+        <source>Mark as studied</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_studied" resname="study_studied">
+        <source>Studied</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_not_studied" resname="study_not_studied">
+        <source>Not studied</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_save" resname="study_save">
+        <source>Save</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_saved" resname="study_saved">
+        <source>Saved</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_read_in_context" resname="study_read_in_context">
+        <source>Read in context</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_meaning" resname="study_meaning">
+        <source>Meaning</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_historical_context" resname="study_historical_context">
+        <source>Historical context</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_life_in_bible_times" resname="study_life_in_bible_times">
+        <source>Life in Bible times</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_theology" resname="study_theology">
+        <source>Theology</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_did_you_know" resname="study_did_you_know">
+        <source>Did you know?</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_apply_it" resname="study_apply_it">
+        <source>Apply it</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_original_hebrew" resname="study_original_hebrew">
+        <source>The Hebrew, word by word</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_original_aramaic" resname="study_original_aramaic">
+        <source>The Aramaic, word by word</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_original_greek" resname="study_original_greek">
+        <source>The Greek, word by word</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_cross_references" resname="study_cross_references">
+        <source>Cross references</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_open_reference" resname="study_open_reference">
+        <source>Read in the Bible</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_reference_note" resname="study_reference_note">
+        <source>On “%1$s”</source>
+        <note from="where">B8/D2 Verse study</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="study_sources" resname="study_sources">
+        <source>Sources</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_ai_assisted" resname="study_ai_assisted">
+        <source>AI-assisted, checked automatically</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_reviewed" resname="study_reviewed">
+        <source>AI-assisted, reviewed by a person</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_downloading" resname="study_downloading">
+        <source>Downloading studies for this book…</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_offline_title" resname="study_offline_title">
+        <source>Not available offline</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_offline_body" resname="study_offline_body">
+        <source>Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.</source>
+        <note from="where">D2 Deep study page</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="study_failed_title" resname="study_failed_title">
+        <source>Couldn\'t download this study</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_failed_body" resname="study_failed_body">
+        <source>Something went wrong on the way. Try again in a moment.</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_retry" resname="study_retry">
+        <source>Try again</source>
+        <note from="where">D1 Discover tab; D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_none_title" resname="study_none_title">
+        <source>No study for this verse yet</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_none_body" resname="study_none_body">
+        <source>Studies are being written and checked a few books at a time.</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_update_title" resname="study_update_title">
+        <source>Update the app to read this study</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_update_body" resname="study_update_body">
+        <source>This study uses a newer format than your version of the app.</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_hidden_title" resname="study_hidden_title">
+        <source>Studies are hidden</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_hidden_body" resname="study_hidden_body">
+        <source>You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.</source>
+        <note from="where">D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="study_hidden_show" resname="study_hidden_show">
+        <source>Show studies again</source>
+        <note from="where">D1 Discover tab; D2 Deep study page</note>
+      </trans-unit>
+      <trans-unit id="discover_read_study" resname="discover_read_study">
+        <source>Read the study</source>
+        <note from="where">D1 Discover tab</note>
+        <note from="developer">D1 Discover</note>
+      </trans-unit>
+      <trans-unit id="discover_open_to_read" resname="discover_open_to_read">
+        <source>Open to read the study.</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_hidden_title" resname="discover_hidden_title">
+        <source>Discover is turned off</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_hidden_body" resname="discover_hidden_body">
+        <source>Discover is made of AI-assisted verse studies, and you\'ve chosen to hide those in Settings. You can turn them back on any time.</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_offline_title" resname="discover_offline_title">
+        <source>Connect to see Discover</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_offline_body" resname="discover_offline_body">
+        <source>The Discover list downloads the first time you\'re online, then works offline.</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_empty_title" resname="discover_empty_title">
+        <source>Nothing to discover yet</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_empty_body" resname="discover_empty_body">
+        <source>New verse studies are on their way. Check back soon.</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="library_title" resname="library_title">
+        <source>Your library</source>
+        <note from="where">H1 Home tab; H3 Library</note>
+        <note from="developer">H3-H7 Library</note>
+      </trans-unit>
+      <trans-unit id="library_total[one]" resname="library_total[one]">
+        <source>%1$d item</source>
+        <note from="where">H1 Home tab; H3 Library</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="library_total[other]" resname="library_total[other]">
+        <source>%1$d items</source>
+        <note from="where">H1 Home tab; H3 Library</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="library_group_studies" resname="library_group_studies">
+        <source>Studies</source>
+        <note from="where">H3 Library</note>
+      </trans-unit>
+      <trans-unit id="library_group_bible" resname="library_group_bible">
+        <source>Bible</source>
+        <note from="where">H3 Library</note>
+      </trans-unit>
+      <trans-unit id="library_saved_studies" resname="library_saved_studies">
+        <source>Saved studies</source>
+        <note from="where">H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_studied" resname="library_studied">
+        <source>Studied</source>
+        <note from="where">H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_liked_bookmarked" resname="library_liked_bookmarked">
+        <source>Liked &amp; bookmarked</source>
+        <note from="where">H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_liked" resname="library_liked">
+        <source>Liked</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_bookmarked" resname="library_bookmarked">
+        <source>Bookmarked</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_notes" resname="library_notes">
+        <source>Notes</source>
+        <note from="where">H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_sort_bible" resname="library_sort_bible">
+        <source>Bible order</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_sort_recent" resname="library_sort_recent">
+        <source>Most recent</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_search_notes" resname="library_search_notes">
+        <source>Search your notes</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_clear_search" resname="library_clear_search">
+        <source>Clear search</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_no_matches" resname="library_no_matches">
+        <source>No notes contain “%1$s”.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="library_remove" resname="library_remove">
+        <source>Remove</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_undo" resname="library_undo">
+        <source>Undo</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_removed_saved" resname="library_removed_saved">
+        <source>Removed from saved studies</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_removed_studied" resname="library_removed_studied">
+        <source>Removed from studied</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_removed_liked" resname="library_removed_liked">
+        <source>Removed from liked</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_removed_bookmarked" resname="library_removed_bookmarked">
+        <source>Bookmark removed</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_removed_note" resname="library_removed_note">
+        <source>Note deleted</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_empty_saved" resname="library_empty_saved">
+        <source>No saved studies yet. Tap Save at the bottom of a study to keep it here.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_empty_studied" resname="library_empty_studied">
+        <source>Nothing studied yet. Studies you open from Discover show up here.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_empty_liked" resname="library_empty_liked">
+        <source>No liked verses yet. Double-tap a verse in the feed, or tap its heart.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_empty_bookmarked" resname="library_empty_bookmarked">
+        <source>No bookmarks yet. Tap the bookmark at the top of the feed to keep your place.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="library_empty_notes" resname="library_empty_notes">
+        <source>No notes yet. Tap the note button beside a verse to write one.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="streak_chip_description[one]" resname="streak_chip_description[one]">
+        <source>Reading streak: %d day. Open streak</source>
+        <note from="where">H2 Streak chip and sheet</note>
+        <note from="developer">H2 Streak. Encouraging only: no guilt, no "lost" wording.</note>
+      </trans-unit>
+      <trans-unit id="streak_chip_description[other]" resname="streak_chip_description[other]">
+        <source>Reading streak: %d days. Open streak</source>
+        <note from="where">H2 Streak chip and sheet</note>
+        <note from="developer">H2 Streak. Encouraging only: no guilt, no "lost" wording.</note>
+      </trans-unit>
+      <trans-unit id="streak_current[one]" resname="streak_current[one]">
+        <source>%d day streak</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_current[other]" resname="streak_current[other]">
+        <source>%d day streak</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_longest[one]" resname="streak_longest[one]">
+        <source>Longest: %d day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_longest[other]" resname="streak_longest[other]">
+        <source>Longest: %d days</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_message_done" resname="streak_message_done">
+        <source>Today counts. Lovely to have you here.</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_message_keep_going" resname="streak_message_keep_going">
+        <source>Today\'s still open whenever you\'re ready.</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_message_start" resname="streak_message_start">
+        <source>Every day is a fresh start. Today can be day one.</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_how_it_counts" resname="streak_how_it_counts">
+        <source>A day counts when you read 5 verses in the feed, complete a plan day or finish a devotional.</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_this_week" resname="streak_this_week">
+        <source>This week</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_previous_month" resname="streak_previous_month">
+        <source>Previous month</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_next_month" resname="streak_next_month">
+        <source>Next month</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_legend_done" resname="streak_legend_done">
+        <source>Read</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_legend_grace" resname="streak_legend_grace">
+        <source>Grace day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_legend_travel" resname="streak_legend_travel">
+        <source>Travel day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_done" resname="streak_day_done">
+        <source>read</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_grace" resname="streak_day_grace">
+        <source>grace day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_travel" resname="streak_day_travel">
+        <source>travel day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_open" resname="streak_day_open">
+        <source>today, still open</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_none" resname="streak_day_none">
+        <source>no reading</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_day_future" resname="streak_day_future">
+        <source>upcoming</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_grace_title" resname="streak_grace_title">
+        <source>Weekly grace day</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="streak_grace_body" resname="streak_grace_body">
+        <source>Life happens. One missed day each week (Monday to Sunday) is covered automatically.</source>
+        <note from="where">H2 Streak chip and sheet</note>
+      </trans-unit>
+      <trans-unit id="plans_title" resname="plans_title">
+        <source>Reading plans</source>
+        <note from="where">H1 Home tab; H8 Reading plans browser</note>
+        <note from="developer">H8-H10 Reading plans</note>
+      </trans-unit>
+      <trans-unit id="plans_home_body" resname="plans_home_body">
+        <source>Short, steady plans for every season</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="plans_my_plans" resname="plans_my_plans">
+        <source>My plans</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_start_here" resname="plans_start_here">
+        <source>Start here</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_build_title" resname="plans_build_title">
+        <source>Build your own plan</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_build_body" resname="plans_build_body">
+        <source>Pick a book and a pace that suits you</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_days[one]" resname="plans_days[one]">
+        <source>%d day</source>
+        <note from="where">H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
+      </trans-unit>
+      <trans-unit id="plans_days[other]" resname="plans_days[other]">
+        <source>%d days</source>
+        <note from="where">H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
+      </trans-unit>
+      <trans-unit id="plans_minutes_a_day[one]" resname="plans_minutes_a_day[one]">
+        <source>about %d min a day</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_minutes_a_day[other]" resname="plans_minutes_a_day[other]">
+        <source>about %d min a day</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_progress[one]" resname="plans_progress[one]">
+        <source>%1$d of %2$d day read</source>
+        <note from="where">H12 Plan days &amp; notes; H8 Reading plans browser</note>
+        <note from="developer">Plan progress: days read, days in the plan. Quantity = days in the plan.</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_progress[other]" resname="plans_progress[other]">
+        <source>%1$d of %2$d days read</source>
+        <note from="where">H12 Plan days &amp; notes; H8 Reading plans browser</note>
+        <note from="developer">Plan progress: days read, days in the plan. Quantity = days in the plan.</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_finished" resname="plans_finished">
+        <source>Finished</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_starts_tomorrow" resname="plans_starts_tomorrow">
+        <source>Starts tomorrow</source>
+        <note from="where">H8 Reading plans browser</note>
+      </trans-unit>
+      <trans-unit id="plans_not_found" resname="plans_not_found">
+        <source>This plan isn\'t available right now.</source>
+        <note from="where">H11 Plan reader; H12 Plan days &amp; notes; H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_difficulty_easy" resname="plans_difficulty_easy">
+        <source>Easy</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_difficulty_medium" resname="plans_difficulty_medium">
+        <source>Steady</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_difficulty_hard" resname="plans_difficulty_hard">
+        <source>Ambitious</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_start" resname="plans_start">
+        <source>Start plan</source>
+        <note from="where">H13/H14 Create your own plan; H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_start_again" resname="plans_start_again">
+        <source>Start again</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_finished_before" resname="plans_finished_before">
+        <source>You\'ve finished this plan before. Lovely to read it again.</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_in_progress" resname="plans_in_progress">
+        <source>In progress</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_reminder_at" resname="plans_reminder_at">
+        <source>Reminder at %1$s</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_days_heading" resname="plans_days_heading">
+        <source>Days</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_day_number" resname="plans_day_number">
+        <source>Day %1$d</source>
+        <note from="where">H11 Plan reader; H12 Plan days &amp; notes; H13/H14 Create your own plan; Plan day headings (H9, H11, H12)</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_day_expand" resname="plans_day_expand">
+        <source>Show introduction</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_day_collapse" resname="plans_day_collapse">
+        <source>Hide introduction</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_show_all_days[one]" resname="plans_show_all_days[one]">
+        <source>Show all %d day</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_show_all_days[other]" resname="plans_show_all_days[other]">
+        <source>Show all %d days</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_show_fewer_days" resname="plans_show_fewer_days">
+        <source>Show fewer days</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_start_dialog_title" resname="plans_start_dialog_title">
+        <source>Start %1$s</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_start_when" resname="plans_start_when">
+        <source>When would you like to start?</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_start_today" resname="plans_start_today">
+        <source>Today</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_start_tomorrow" resname="plans_start_tomorrow">
+        <source>Tomorrow</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_reminder_title" resname="plans_reminder_title">
+        <source>Plan reminder</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_reminder_body" resname="plans_reminder_body">
+        <source>A gentle nudge for this plan\'s reading</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_reminder_time" resname="plans_reminder_time">
+        <source>Remind me at %1$s</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_cancel" resname="plans_cancel">
+        <source>Cancel</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_started_today" resname="plans_started_today">
+        <source>Plan started. Day 1 is ready when you are.</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_started_tomorrow" resname="plans_started_tomorrow">
+        <source>All set. Your plan starts tomorrow.</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plan_reminder_channel_name" resname="plan_reminder_channel_name">
+        <source>Plan reminders</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="plan_reminder_channel_description" resname="plan_reminder_channel_description">
+        <source>A reminder for each reading plan you\'ve asked to be reminded about</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="plan_reminder_title" resname="plan_reminder_title">
+        <source>Day %1$d of %2$s</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+        <note from="placeholders">Keep %1$d %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plan_reminder_text[one]" resname="plan_reminder_text[one]">
+        <source>About %d minute. Whenever you\'re ready.</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="plan_reminder_text[other]" resname="plan_reminder_text[other]">
+        <source>About %d minutes. Whenever you\'re ready.</source>
+        <note from="where">Notifications (daily verse and plan reminders)</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_close" resname="plans_reader_close">
+        <source>Close reading</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="developer">H11 plan reader, H12 days &amp; notes, completion</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_day" resname="plans_reader_day">
+        <source>Day %1$d of %2$d</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_swipe" resname="plans_reader_swipe">
+        <source>Swipe up to begin</source>
+        <note from="where">H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_minutes[one]" resname="plans_reader_minutes[one]">
+        <source>About %d minute of reading.</source>
+        <note from="where">H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_minutes[other]" resname="plans_reader_minutes[other]">
+        <source>About %d minutes of reading.</source>
+        <note from="where">H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_end_of_day" resname="plans_reader_end_of_day">
+        <source>That\'s day %1$d.</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_mark_read" resname="plans_reader_mark_read">
+        <source>Mark day as read</source>
+        <note from="where">H11 Plan reader</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_day_read" resname="plans_reader_day_read">
+        <source>Day %1$d read</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_reader_next_day" resname="plans_reader_next_day">
+        <source>Next: day %1$d</source>
+        <note from="where">H11 Plan reader</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_read_day" resname="plans_read_day">
+        <source>Read day %1$d</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_catch_up_body" resname="plans_catch_up_body">
+        <source>Want the plan to fit around today? Your next reading can become today\'s.</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_adjust_schedule" resname="plans_adjust_schedule">
+        <source>Adjust schedule</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_days_and_notes" resname="plans_days_and_notes">
+        <source>Days &amp; notes</source>
+        <note from="where">H12 Plan days &amp; notes; H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_notes_heading" resname="plans_notes_heading">
+        <source>Your notes</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_notes_empty" resname="plans_notes_empty">
+        <source>Notes you write on verses in this plan will appear here.</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_day_status_read" resname="plans_day_status_read">
+        <source>Read</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_day_status_next" resname="plans_day_status_next">
+        <source>Up next</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_day_status_unread" resname="plans_day_status_unread">
+        <source>Not read yet</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_day_read_it" resname="plans_day_read_it">
+        <source>Read this day</source>
+        <note from="where">H12 Plan days &amp; notes</note>
+      </trans-unit>
+      <trans-unit id="plans_complete_title" resname="plans_complete_title">
+        <source>You finished %1$s</source>
+        <note from="where">Plan finished screen</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_complete_body[one]" resname="plans_complete_body[one]">
+        <source>%d day of reading, one at a time. Well done.</source>
+        <note from="where">Plan finished screen</note>
+      </trans-unit>
+      <trans-unit id="plans_complete_body[other]" resname="plans_complete_body[other]">
+        <source>%d days of reading, one at a time. Well done.</source>
+        <note from="where">Plan finished screen</note>
+      </trans-unit>
+      <trans-unit id="plans_complete_done" resname="plans_complete_done">
+        <source>Back to the plan</source>
+        <note from="where">Plan finished screen</note>
+      </trans-unit>
+      <trans-unit id="plans_create_books_title" resname="plans_create_books_title">
+        <source>Choose books</source>
+        <note from="where">H13/H14 Create your own plan</note>
+        <note from="developer">H13/H14 create plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_pace_title" resname="plans_create_pace_title">
+        <source>Choose a pace</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_summary_title" resname="plans_create_summary_title">
+        <source>Your plan</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_next" resname="plans_create_next">
+        <source>Next</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_search" resname="plans_create_search">
+        <source>Search books</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_quick_picks" resname="plans_create_quick_picks">
+        <source>Quick picks</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_pick_hint" resname="plans_create_pick_hint">
+        <source>Pick one or more books</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_books_selected[one]" resname="plans_create_books_selected[one]">
+        <source>%d book chosen</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_books_selected[other]" resname="plans_create_books_selected[other]">
+        <source>%d books chosen</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_calculating" resname="plans_create_calculating">
+        <source>Working out the days…</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_by_minutes" resname="plans_create_by_minutes">
+        <source>Minutes a day</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_by_days" resname="plans_create_by_days">
+        <source>Number of days</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_minutes[one]" resname="plans_create_minutes[one]">
+        <source>%d minute a day</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_minutes[other]" resname="plans_create_minutes[other]">
+        <source>%d minutes a day</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_custom" resname="plans_create_custom">
+        <source>Custom</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_days_label" resname="plans_create_days_label">
+        <source>Finish in</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_result" resname="plans_create_result">
+        <source>Your plan</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_days_capped" resname="plans_create_days_capped">
+        <source>That\'s as many days as these books allow: one verse a day.</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_name" resname="plans_create_name">
+        <source>Plan name</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_first_days" resname="plans_create_first_days">
+        <source>First days</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_more_days[one]" resname="plans_create_more_days[one]">
+        <source>…and %d more day</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_create_more_days[other]" resname="plans_create_more_days[other]">
+        <source>…and %d more days</source>
+        <note from="where">H13/H14 Create your own plan</note>
+      </trans-unit>
+      <trans-unit id="plans_custom_title_one" resname="plans_custom_title_one">
+        <source>%1$s in %2$s</source>
+        <note from="where">Names of plans the reader builds (H14)</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_custom_title_two" resname="plans_custom_title_two">
+        <source>%1$s and %2$s in %3$s</source>
+        <note from="where">Names of plans the reader builds (H14)</note>
+        <note from="placeholders">Keep %1$s %2$s %3$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_custom_title_range" resname="plans_custom_title_range">
+        <source>%1$s to %2$s in %3$s</source>
+        <note from="where">Names of plans the reader builds (H14)</note>
+        <note from="placeholders">Keep %1$s %2$s %3$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_custom_title_more[one]" resname="plans_custom_title_more[one]">
+        <source>%1$s and %2$d more in %3$s</source>
+        <note from="where">Names of plans the reader builds (H14)</note>
+        <note from="developer">Custom plan title: first book, how many other books, plan length ("John and 3 more in 30 days"). Quantity = other books.</note>
+        <note from="placeholders">Keep %1$s %2$d %3$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_custom_title_more[other]" resname="plans_custom_title_more[other]">
+        <source>%1$s and %2$d more in %3$s</source>
+        <note from="where">Names of plans the reader builds (H14)</note>
+        <note from="developer">Custom plan title: first book, how many other books, plan length ("John and 3 more in 30 days"). Quantity = other books.</note>
+        <note from="placeholders">Keep %1$s %2$d %3$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_delete" resname="plans_delete">
+        <source>Delete plan</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_delete_title" resname="plans_delete_title">
+        <source>Delete this plan?</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="plans_delete_body" resname="plans_delete_body">
+        <source>The plan and its progress will be removed. Notes you wrote on verses stay in your Library.</source>
+        <note from="where">H9 Plan detail / H10 Start plan dialog</note>
+      </trans-unit>
+      <trans-unit id="devo_today_title" resname="devo_today_title">
+        <source>Today\'s devotional</source>
+        <note from="where">H1 Home: devotional cards</note>
+        <note from="developer">H15-H17 devotionals</note>
+      </trans-unit>
+      <trans-unit id="devo_archive_link" resname="devo_archive_link">
+        <source>All days</source>
+        <note from="where">H1 Home: devotional cards</note>
+      </trans-unit>
+      <trans-unit id="devo_archive_title" resname="devo_archive_title">
+        <source>Devotionals</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_archive_read[one]" resname="devo_archive_read[one]">
+        <source>%d read this year</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_archive_read[other]" resname="devo_archive_read[other]">
+        <source>%d read this year</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_read" resname="devo_read">
+        <source>Read</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_archive_missing" resname="devo_archive_missing">
+        <source>Not available yet</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_not_read" resname="devo_not_read">
+        <source>Not read</source>
+        <note from="where">H17 Devotional archive</note>
+      </trans-unit>
+      <trans-unit id="devo_read_today" resname="devo_read_today">
+        <source>Read today</source>
+        <note from="where">H1 Home: devotional cards</note>
+      </trans-unit>
+      <trans-unit id="devo_tomorrow" resname="devo_tomorrow">
+        <source>Tomorrow\'s devotional</source>
+        <note from="where">H1 Home: devotional cards</note>
+      </trans-unit>
+      <trans-unit id="devo_tomorrow_in" resname="devo_tomorrow_in">
+        <source>Tomorrow\'s devotional in %1$s</source>
+        <note from="where">H1 Home: devotional cards</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="devo_series_day" resname="devo_series_day">
+        <source>%1$s · Day %2$d of %3$d</source>
+        <note from="where">H15 Devotional detail; H16 Devotional reader</note>
+        <note from="placeholders">Keep %1$s %2$d %3$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="devo_start" resname="devo_start">
+        <source>Start</source>
+        <note from="where">H15 Devotional detail</note>
+      </trans-unit>
+      <trans-unit id="devo_read_again" resname="devo_read_again">
+        <source>Read again</source>
+        <note from="where">H15 Devotional detail</note>
+      </trans-unit>
+      <trans-unit id="devo_read_already" resname="devo_read_already">
+        <source>You\'ve read this one.</source>
+        <note from="where">H15 Devotional detail</note>
+      </trans-unit>
+      <trans-unit id="devo_share_verse" resname="devo_share_verse">
+        <source>Share the verse as an image</source>
+        <note from="where">H15 Devotional detail; H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_ai_label" resname="devo_ai_label">
+        <source>Written with AI help and checked before publishing.</source>
+        <note from="where">H15 Devotional detail</note>
+      </trans-unit>
+      <trans-unit id="devo_ai_notice_title" resname="devo_ai_notice_title">
+        <source>Devotionals are AI-assisted</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_ai_notice_body" resname="devo_ai_notice_body">
+        <source>You\'ve chosen to hide AI studies. Daily devotionals are written with AI help, then checked before they\'re published. Scripture itself is never AI-written.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_ai_show_anyway" resname="devo_ai_show_anyway">
+        <source>Show devotionals anyway</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_loading" resname="devo_loading">
+        <source>Getting the devotional…</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_offline" resname="devo_offline">
+        <source>This devotional isn\'t on your phone yet. It will download when you\'re online.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_failed" resname="devo_failed">
+        <source>The devotional couldn\'t be downloaded.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_retry" resname="devo_retry">
+        <source>Try again</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_not_published" resname="devo_not_published">
+        <source>This day\'s devotional isn\'t ready yet. Please check back soon.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_month_not_published" resname="devo_month_not_published">
+        <source>This month\'s devotionals aren\'t ready yet.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_update_required" resname="devo_update_required">
+        <source>Update the app to read this devotional.</source>
+        <note from="where">Devotionals (H15-H17)</note>
+      </trans-unit>
+      <trans-unit id="devo_close" resname="devo_close">
+        <source>Close</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_next_page" resname="devo_next_page">
+        <source>Next page</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_previous_page" resname="devo_previous_page">
+        <source>Previous page</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_page_of" resname="devo_page_of">
+        <source>Page %1$d of %2$d</source>
+        <note from="where">H16 Devotional reader</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="devo_section_context" resname="devo_section_context">
+        <source>Context</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_section_reflect" resname="devo_section_reflect">
+        <source>Reflect</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_section_apply" resname="devo_section_apply">
+        <source>Apply it</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_section_prayer" resname="devo_section_prayer">
+        <source>Prayer</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_finish" resname="devo_finish">
+        <source>Finish</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_finished" resname="devo_finished">
+        <source>Done for today.</source>
+        <note from="where">H16 Devotional reader</note>
+      </trans-unit>
+      <trans-unit id="devo_next_in" resname="devo_next_in">
+        <source>Next devotional in %1$s</source>
+        <note from="where">H16 Devotional reader</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="settings_data_backup" resname="settings_data_backup">
+        <source>Data &amp; backup</source>
+        <note from="where">S1-S4 Settings; S9 Settings → Data &amp; backup</note>
+        <note from="developer">S9 Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="settings_data_backup_summary" resname="settings_data_backup_summary">
+        <source>Export or import your notes, likes and plans</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="data_backup_stored" resname="data_backup_stored">
+        <source>Your notes, likes, bookmarks, plans, reading progress and settings are stored on this phone.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_google" resname="data_backup_google">
+        <source>If Google backup is turned on in your phone\'s settings, Android may also save a copy to your own Google Drive.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_export" resname="data_backup_export">
+        <source>Export my data</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_export_detail" resname="data_backup_export_detail">
+        <source>Saves a backup file you can import on any phone, then offers a readable copy of your notes, likes and bookmarks.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_import" resname="data_backup_import">
+        <source>Import</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_import_detail" resname="data_backup_import_detail">
+        <source>Adds what\'s in a backup file to this phone. Nothing here is removed. Where both have the same item, the newer change is kept.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_saved" resname="data_backup_saved">
+        <source>Backup saved</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_saved_both" resname="data_backup_saved_both">
+        <source>Backup and readable copy saved</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_save_failed" resname="data_backup_save_failed">
+        <source>Couldn\'t save the file. Try another place.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_import_done" resname="data_backup_import_done">
+        <source>Import finished</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_import_failed" resname="data_backup_import_failed">
+        <source>Couldn\'t import this file</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_nothing_new" resname="data_backup_nothing_new">
+        <source>Nothing new: this phone already has everything in the file.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_added" resname="data_backup_added">
+        <source>Added %1$s.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="data_backup_ok" resname="data_backup_ok">
+        <source>OK</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_error_not_backup" resname="data_backup_error_not_backup">
+        <source>This isn\'t a Bible Scroll backup file. Choose the .json file you exported.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_error_too_new" resname="data_backup_error_too_new">
+        <source>This file was made by a newer version of Bible Scroll. Update the app, then try again.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_error_too_large" resname="data_backup_error_too_large">
+        <source>This file is too large to be a Bible Scroll backup.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_error_unreadable" resname="data_backup_error_unreadable">
+        <source>Couldn\'t open this file. Nothing was imported.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_backup_error_damaged" resname="data_backup_error_damaged">
+        <source>This backup file is damaged or incomplete, so nothing was imported. Your data on this phone hasn\'t changed.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="import_notes[one]" resname="import_notes[one]">
+        <source>%1$d note</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_notes[other]" resname="import_notes[other]">
+        <source>%1$d notes</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_likes[one]" resname="import_likes[one]">
+        <source>%1$d like</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_likes[other]" resname="import_likes[other]">
+        <source>%1$d likes</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_bookmarks[one]" resname="import_bookmarks[one]">
+        <source>%1$d bookmark</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_bookmarks[other]" resname="import_bookmarks[other]">
+        <source>%1$d bookmarks</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_saved_studies[one]" resname="import_saved_studies[one]">
+        <source>%1$d saved study</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_saved_studies[other]" resname="import_saved_studies[other]">
+        <source>%1$d saved studies</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_chapters_read[one]" resname="import_chapters_read[one]">
+        <source>%1$d chapter read</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_chapters_read[other]" resname="import_chapters_read[other]">
+        <source>%1$d chapters read</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_plans[one]" resname="import_plans[one]">
+        <source>%1$d plan</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_plans[other]" resname="import_plans[other]">
+        <source>%1$d plans</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_plan_days[one]" resname="import_plan_days[one]">
+        <source>%1$d plan day done</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_plan_days[other]" resname="import_plan_days[other]">
+        <source>%1$d plan days done</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_devotionals[one]" resname="import_devotionals[one]">
+        <source>%1$d devotional read</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_devotionals[other]" resname="import_devotionals[other]">
+        <source>%1$d devotionals read</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_streak_days[one]" resname="import_streak_days[one]">
+        <source>%1$d day of reading history</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_streak_days[other]" resname="import_streak_days[other]">
+        <source>%1$d days of reading history</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_settings[one]" resname="import_settings[one]">
+        <source>%1$d setting</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_settings[other]" resname="import_settings[other]">
+        <source>%1$d settings</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_notes_updated[one]" resname="import_notes_updated[one]">
+        <source>Updated %1$d note.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_notes_updated[other]" resname="import_notes_updated[other]">
+        <source>Updated %1$d notes.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_other_changes[one]" resname="import_other_changes[one]">
+        <source>Brought in %1$d newer change (such as where you were reading).</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="import_other_changes[other]" resname="import_other_changes[other]">
+        <source>Brought in %1$d newer changes (such as where you were reading).</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="md_title" resname="md_title">
+        <source>My notes, likes and bookmarks</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="developer">Readable export (Markdown)</note>
+      </trans-unit>
+      <trans-unit id="md_exported" resname="md_exported">
+        <source>Exported %1$s · %2$s</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="md_notes" resname="md_notes">
+        <source>Notes</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="md_likes" resname="md_likes">
+        <source>Likes</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="md_bookmarks" resname="md_bookmarks">
+        <source>Bookmarks</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="md_none" resname="md_none">
+        <source>None yet.</source>
+        <note from="where">S9 Settings → Data &amp; backup</note>
+      </trans-unit>
+      <trans-unit id="data_error_title" resname="data_error_title">
+        <source>We couldn\'t open your saved data</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+        <note from="developer">user.db won't open</note>
+      </trans-unit>
+      <trans-unit id="data_error_body" resname="data_error_body">
+        <source>Your notes, likes and plans are still on this phone, but Bible Scroll can\'t read them right now. Save a copy of the data file to keep it safe, then try again. Updating the app may also fix this.</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+      </trans-unit>
+      <trans-unit id="data_error_save_copy" resname="data_error_save_copy">
+        <source>Save a copy of the data file</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+      </trans-unit>
+      <trans-unit id="data_error_retry" resname="data_error_retry">
+        <source>Try again</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+      </trans-unit>
+      <trans-unit id="data_error_saved" resname="data_error_saved">
+        <source>Copy saved</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+      </trans-unit>
+      <trans-unit id="data_error_save_failed" resname="data_error_save_failed">
+        <source>Couldn\'t save the copy. Try another place.</source>
+        <note from="where">Error screen shown instead of the app when saved data can't be opened</note>
+      </trans-unit>
+      <trans-unit id="restore_title" resname="restore_title">
+        <source>Welcome back</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+        <note from="developer">After a restore (Home)</note>
+      </trans-unit>
+      <trans-unit id="restore_body" resname="restore_body">
+        <source>Your notes, likes and plans came across from your backup.</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+      </trans-unit>
+      <trans-unit id="restore_notifications" resname="restore_notifications">
+        <source>Your reminders are set, but notifications aren\'t allowed on this phone yet.</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+      </trans-unit>
+      <trans-unit id="restore_allow_notifications" resname="restore_allow_notifications">
+        <source>Allow notifications</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+      </trans-unit>
+      <trans-unit id="restore_studies[one]" resname="restore_studies[one]">
+        <source>Studies you used for %1$d book weren\'t part of the backup.</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="restore_studies[other]" resname="restore_studies[other]">
+        <source>Studies you used for %1$d books weren\'t part of the backup.</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="restore_download_studies" resname="restore_download_studies">
+        <source>Download them again</source>
+        <note from="where">H1 Home: card shown once after restoring a backup</note>
+      </trans-unit>
+      <trans-unit id="tip_dismiss" resname="tip_dismiss">
+        <source>Dismiss</source>
+        <note from="where">H1 Home: card shown once after restoring a backup; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="notes_tip" resname="notes_tip">
+        <source>Your notes are stored on this phone. Export a copy any time.</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+        <note from="developer">H7 tip</note>
+      </trans-unit>
+      <trans-unit id="notes_tip_export" resname="notes_tip_export">
+        <source>Export</source>
+        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+      </trans-unit>
+      <trans-unit id="settings_language" resname="settings_language">
+        <source>Language</source>
+        <note from="where">S2 Settings → General → Language</note>
+        <note from="developer">Language (S2)</note>
+      </trans-unit>
+      <trans-unit id="settings_language_system" resname="settings_language_system">
+        <source>System default</source>
+        <note from="where">S2 Settings → General → Language</note>
+      </trans-unit>
+      <trans-unit id="two_parts" resname="two_parts">
+        <source>%1$s · %2$s</source>
+        <note from="where">B10 Share verse as image; B8/D2 Verse study; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
+        <note from="developer">Two short labels shown together on one line, e.g. "Dark · Sepia". Change the separator if your language needs.</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="plans_day_titled" resname="plans_day_titled">
+        <source>Day %1$d · %2$s</source>
+        <note from="where">Plan day headings (H9, H11, H12)</note>
+        <note from="developer">A plan day with its title: "Day 3 · The Good Shepherd" (day number, title).</note>
+        <note from="placeholders">Keep %1$d %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="streak_day_cd" resname="streak_day_cd">
+        <source>%1$s: %2$s</source>
+        <note from="where">H2 Streak chip and sheet</note>
+        <note from="developer">Screen reader text for one day in the streak calendar: "Monday, 18 November 2026: Read" (date, status).</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="study_english_only" resname="study_english_only">
+        <source>Studies are in English for now.</source>
+        <note from="where">B8/D2 Verse study</note>
+        <note from="developer">Shown on studies and Discover cards when the app language isn't English.</note>
+      </trans-unit>
+      <trans-unit id="book_names[0]" resname="book_names[0]">
+        <source>Genesis</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[1]" resname="book_names[1]">
+        <source>Exodus</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[2]" resname="book_names[2]">
+        <source>Leviticus</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[3]" resname="book_names[3]">
+        <source>Numbers</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[4]" resname="book_names[4]">
+        <source>Deuteronomy</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[5]" resname="book_names[5]">
+        <source>Joshua</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[6]" resname="book_names[6]">
+        <source>Judges</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[7]" resname="book_names[7]">
+        <source>Ruth</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[8]" resname="book_names[8]">
+        <source>1 Samuel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[9]" resname="book_names[9]">
+        <source>2 Samuel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[10]" resname="book_names[10]">
+        <source>1 Kings</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[11]" resname="book_names[11]">
+        <source>2 Kings</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[12]" resname="book_names[12]">
+        <source>1 Chronicles</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[13]" resname="book_names[13]">
+        <source>2 Chronicles</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[14]" resname="book_names[14]">
+        <source>Ezra</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[15]" resname="book_names[15]">
+        <source>Nehemiah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[16]" resname="book_names[16]">
+        <source>Esther</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[17]" resname="book_names[17]">
+        <source>Job</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[18]" resname="book_names[18]">
+        <source>Psalms</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[19]" resname="book_names[19]">
+        <source>Proverbs</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[20]" resname="book_names[20]">
+        <source>Ecclesiastes</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[21]" resname="book_names[21]">
+        <source>Song of Solomon</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[22]" resname="book_names[22]">
+        <source>Isaiah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[23]" resname="book_names[23]">
+        <source>Jeremiah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[24]" resname="book_names[24]">
+        <source>Lamentations</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[25]" resname="book_names[25]">
+        <source>Ezekiel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[26]" resname="book_names[26]">
+        <source>Daniel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[27]" resname="book_names[27]">
+        <source>Hosea</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[28]" resname="book_names[28]">
+        <source>Joel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[29]" resname="book_names[29]">
+        <source>Amos</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[30]" resname="book_names[30]">
+        <source>Obadiah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[31]" resname="book_names[31]">
+        <source>Jonah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[32]" resname="book_names[32]">
+        <source>Micah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[33]" resname="book_names[33]">
+        <source>Nahum</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[34]" resname="book_names[34]">
+        <source>Habakkuk</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[35]" resname="book_names[35]">
+        <source>Zephaniah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[36]" resname="book_names[36]">
+        <source>Haggai</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[37]" resname="book_names[37]">
+        <source>Zechariah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[38]" resname="book_names[38]">
+        <source>Malachi</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[39]" resname="book_names[39]">
+        <source>Matthew</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[40]" resname="book_names[40]">
+        <source>Mark</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[41]" resname="book_names[41]">
+        <source>Luke</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[42]" resname="book_names[42]">
+        <source>John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[43]" resname="book_names[43]">
+        <source>Acts</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[44]" resname="book_names[44]">
+        <source>Romans</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[45]" resname="book_names[45]">
+        <source>1 Corinthians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[46]" resname="book_names[46]">
+        <source>2 Corinthians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[47]" resname="book_names[47]">
+        <source>Galatians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[48]" resname="book_names[48]">
+        <source>Ephesians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[49]" resname="book_names[49]">
+        <source>Philippians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[50]" resname="book_names[50]">
+        <source>Colossians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[51]" resname="book_names[51]">
+        <source>1 Thessalonians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[52]" resname="book_names[52]">
+        <source>2 Thessalonians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[53]" resname="book_names[53]">
+        <source>1 Timothy</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[54]" resname="book_names[54]">
+        <source>2 Timothy</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[55]" resname="book_names[55]">
+        <source>Titus</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[56]" resname="book_names[56]">
+        <source>Philemon</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[57]" resname="book_names[57]">
+        <source>Hebrews</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[58]" resname="book_names[58]">
+        <source>James</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[59]" resname="book_names[59]">
+        <source>1 Peter</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[60]" resname="book_names[60]">
+        <source>2 Peter</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[61]" resname="book_names[61]">
+        <source>1 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[62]" resname="book_names[62]">
+        <source>2 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[63]" resname="book_names[63]">
+        <source>3 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[64]" resname="book_names[64]">
+        <source>Jude</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_names[65]" resname="book_names[65]">
+        <source>Revelation</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[0]" resname="book_abbreviations[0]">
+        <source>Gen</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[1]" resname="book_abbreviations[1]">
+        <source>Exod</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[2]" resname="book_abbreviations[2]">
+        <source>Lev</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[3]" resname="book_abbreviations[3]">
+        <source>Num</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[4]" resname="book_abbreviations[4]">
+        <source>Deut</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[5]" resname="book_abbreviations[5]">
+        <source>Josh</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[6]" resname="book_abbreviations[6]">
+        <source>Judg</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[7]" resname="book_abbreviations[7]">
+        <source>Ruth</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[8]" resname="book_abbreviations[8]">
+        <source>1 Sam</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[9]" resname="book_abbreviations[9]">
+        <source>2 Sam</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[10]" resname="book_abbreviations[10]">
+        <source>1 Kgs</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[11]" resname="book_abbreviations[11]">
+        <source>2 Kgs</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[12]" resname="book_abbreviations[12]">
+        <source>1 Chr</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[13]" resname="book_abbreviations[13]">
+        <source>2 Chr</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[14]" resname="book_abbreviations[14]">
+        <source>Ezra</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[15]" resname="book_abbreviations[15]">
+        <source>Neh</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[16]" resname="book_abbreviations[16]">
+        <source>Esth</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[17]" resname="book_abbreviations[17]">
+        <source>Job</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[18]" resname="book_abbreviations[18]">
+        <source>Ps</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[19]" resname="book_abbreviations[19]">
+        <source>Prov</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[20]" resname="book_abbreviations[20]">
+        <source>Eccl</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[21]" resname="book_abbreviations[21]">
+        <source>Song</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[22]" resname="book_abbreviations[22]">
+        <source>Isa</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[23]" resname="book_abbreviations[23]">
+        <source>Jer</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[24]" resname="book_abbreviations[24]">
+        <source>Lam</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[25]" resname="book_abbreviations[25]">
+        <source>Ezek</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[26]" resname="book_abbreviations[26]">
+        <source>Dan</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[27]" resname="book_abbreviations[27]">
+        <source>Hos</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[28]" resname="book_abbreviations[28]">
+        <source>Joel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[29]" resname="book_abbreviations[29]">
+        <source>Amos</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[30]" resname="book_abbreviations[30]">
+        <source>Obad</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[31]" resname="book_abbreviations[31]">
+        <source>Jonah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[32]" resname="book_abbreviations[32]">
+        <source>Mic</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[33]" resname="book_abbreviations[33]">
+        <source>Nah</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[34]" resname="book_abbreviations[34]">
+        <source>Hab</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[35]" resname="book_abbreviations[35]">
+        <source>Zeph</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[36]" resname="book_abbreviations[36]">
+        <source>Hag</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[37]" resname="book_abbreviations[37]">
+        <source>Zech</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[38]" resname="book_abbreviations[38]">
+        <source>Mal</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[39]" resname="book_abbreviations[39]">
+        <source>Matt</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[40]" resname="book_abbreviations[40]">
+        <source>Mark</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[41]" resname="book_abbreviations[41]">
+        <source>Luke</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[42]" resname="book_abbreviations[42]">
+        <source>John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[43]" resname="book_abbreviations[43]">
+        <source>Acts</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[44]" resname="book_abbreviations[44]">
+        <source>Rom</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[45]" resname="book_abbreviations[45]">
+        <source>1 Cor</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[46]" resname="book_abbreviations[46]">
+        <source>2 Cor</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[47]" resname="book_abbreviations[47]">
+        <source>Gal</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[48]" resname="book_abbreviations[48]">
+        <source>Eph</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[49]" resname="book_abbreviations[49]">
+        <source>Phil</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[50]" resname="book_abbreviations[50]">
+        <source>Col</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[51]" resname="book_abbreviations[51]">
+        <source>1 Thess</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[52]" resname="book_abbreviations[52]">
+        <source>2 Thess</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[53]" resname="book_abbreviations[53]">
+        <source>1 Tim</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[54]" resname="book_abbreviations[54]">
+        <source>2 Tim</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[55]" resname="book_abbreviations[55]">
+        <source>Titus</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[56]" resname="book_abbreviations[56]">
+        <source>Phlm</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[57]" resname="book_abbreviations[57]">
+        <source>Heb</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[58]" resname="book_abbreviations[58]">
+        <source>Jas</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[59]" resname="book_abbreviations[59]">
+        <source>1 Pet</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[60]" resname="book_abbreviations[60]">
+        <source>2 Pet</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[61]" resname="book_abbreviations[61]">
+        <source>1 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[62]" resname="book_abbreviations[62]">
+        <source>2 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[63]" resname="book_abbreviations[63]">
+        <source>3 John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[64]" resname="book_abbreviations[64]">
+        <source>Jude</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_abbreviations[65]" resname="book_abbreviations[65]">
+        <source>Rev</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Short book names, 66 items, same order. For tight spaces such as the widget.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[0]" resname="book_search_aliases[0]">
+        <source>Gn</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[1]" resname="book_search_aliases[1]">
+        <source>Ex</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[2]" resname="book_search_aliases[2]">
+        <source>Lv</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[3]" resname="book_search_aliases[3]">
+        <source>Nm</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[4]" resname="book_search_aliases[4]">
+        <source>Dt</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[5]" resname="book_search_aliases[5]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[6]" resname="book_search_aliases[6]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[7]" resname="book_search_aliases[7]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[8]" resname="book_search_aliases[8]">
+        <source>First Samuel|I Samuel|1st Samuel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[9]" resname="book_search_aliases[9]">
+        <source>Second Samuel|II Samuel|2nd Samuel</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[10]" resname="book_search_aliases[10]">
+        <source>First Kings|I Kings|1st Kings</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[11]" resname="book_search_aliases[11]">
+        <source>Second Kings|II Kings|2nd Kings</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[12]" resname="book_search_aliases[12]">
+        <source>First Chronicles|I Chronicles|1st Chronicles</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[13]" resname="book_search_aliases[13]">
+        <source>Second Chronicles|II Chronicles|2nd Chronicles</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[14]" resname="book_search_aliases[14]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[15]" resname="book_search_aliases[15]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[16]" resname="book_search_aliases[16]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[17]" resname="book_search_aliases[17]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[18]" resname="book_search_aliases[18]">
+        <source>Psalm|Psa</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[19]" resname="book_search_aliases[19]">
+        <source>Prv</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[20]" resname="book_search_aliases[20]">
+        <source>Qoheleth</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[21]" resname="book_search_aliases[21]">
+        <source>Song of Songs|Canticles</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[22]" resname="book_search_aliases[22]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[23]" resname="book_search_aliases[23]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[24]" resname="book_search_aliases[24]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[25]" resname="book_search_aliases[25]">
+        <source>Ezk</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[26]" resname="book_search_aliases[26]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[27]" resname="book_search_aliases[27]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[28]" resname="book_search_aliases[28]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[29]" resname="book_search_aliases[29]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[30]" resname="book_search_aliases[30]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[31]" resname="book_search_aliases[31]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[32]" resname="book_search_aliases[32]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[33]" resname="book_search_aliases[33]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[34]" resname="book_search_aliases[34]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[35]" resname="book_search_aliases[35]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[36]" resname="book_search_aliases[36]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[37]" resname="book_search_aliases[37]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[38]" resname="book_search_aliases[38]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[39]" resname="book_search_aliases[39]">
+        <source>Mt</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[40]" resname="book_search_aliases[40]">
+        <source>Mk|Mrk</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[41]" resname="book_search_aliases[41]">
+        <source>Lk</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[42]" resname="book_search_aliases[42]">
+        <source>Jn</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[43]" resname="book_search_aliases[43]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[44]" resname="book_search_aliases[44]">
+        <source>Ro</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[45]" resname="book_search_aliases[45]">
+        <source>First Corinthians|I Corinthians|1st Corinthians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[46]" resname="book_search_aliases[46]">
+        <source>Second Corinthians|II Corinthians|2nd Corinthians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[47]" resname="book_search_aliases[47]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[48]" resname="book_search_aliases[48]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[49]" resname="book_search_aliases[49]">
+        <source>Php</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[50]" resname="book_search_aliases[50]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[51]" resname="book_search_aliases[51]">
+        <source>First Thessalonians|I Thessalonians|1st Thessalonians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[52]" resname="book_search_aliases[52]">
+        <source>Second Thessalonians|II Thessalonians|2nd Thessalonians</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[53]" resname="book_search_aliases[53]">
+        <source>First Timothy|I Timothy|1st Timothy</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[54]" resname="book_search_aliases[54]">
+        <source>Second Timothy|II Timothy|2nd Timothy</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[55]" resname="book_search_aliases[55]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[56]" resname="book_search_aliases[56]">
+        <source>Philem</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[57]" resname="book_search_aliases[57]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[58]" resname="book_search_aliases[58]">
+        <source>Jm</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[59]" resname="book_search_aliases[59]">
+        <source>First Peter|I Peter|1st Peter</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[60]" resname="book_search_aliases[60]">
+        <source>Second Peter|II Peter|2nd Peter</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[61]" resname="book_search_aliases[61]">
+        <source>First John|I John|1st John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[62]" resname="book_search_aliases[62]">
+        <source>Second John|II John|2nd John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[63]" resname="book_search_aliases[63]">
+        <source>Third John|III John|3rd John</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[64]" resname="book_search_aliases[64]">
+        <source></source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+      <trans-unit id="book_search_aliases[65]" resname="book_search_aliases[65]">
+        <source>Revelations|Apocalypse</source>
+        <note from="where">Bible book names, everywhere a book is named</note>
+        <note from="developer">Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none.</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,5 +1,7 @@
 package aarnav100.developer.biblescroll.feature.library
 
+import aarnav100.developer.biblescroll.data.bible.References
+import aarnav100.developer.biblescroll.data.backup.BackupNotices
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.library.LibraryList
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -66,6 +69,7 @@ class LibraryListViewModel @Inject constructor(
     private val bible: BibleRepository,
     readerPreferences: ReaderPreferences,
     private val pendingVerseLink: PendingVerseLink,
+    private val notices: BackupNotices,
 ) : ViewModel() {
 
     val screen: LibraryScreen = LibraryScreen.valueOf(checkNotNull(savedState.get<String>("screen")))
@@ -82,13 +86,26 @@ class LibraryListViewModel @Inject constructor(
             // One query for every verse's text, in the reader's translation.
             val texts = bible.versesByRefs(translation, entries.map { it.ref }).associate { it.ref to it.text }
             entries.map { e ->
-                LibraryRow(e.ref, "${names[e.ref.bookId].orEmpty()} ${e.ref.chapter}:${e.ref.verse}", texts[e.ref], e.note)
+                LibraryRow(e.ref, References.verse(names[e.ref.bookId].orEmpty(), e.ref), texts[e.ref], e.note)
             }
         }
 
     val uiState: StateFlow<LibraryListUiState> = combine(sort, filter, query, rows) { s, f, q, r ->
         LibraryListUiState(screen, loading = false, sort = s, filter = f, query = q, rows = r)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), LibraryListUiState(screen))
+
+    /** H7 only: once there are [NOTES_TIP_AT] notes, a one-time tip to export a copy (dismissible). */
+    val showNotesTip: StateFlow<Boolean> =
+        if (screen != LibraryScreen.NOTES) {
+            MutableStateFlow(false)
+        } else {
+            combine(library.counts(), notices.notesTipDismissed) { counts, dismissed -> counts.notes >= NOTES_TIP_AT && !dismissed }
+                .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), false)
+        }
+
+    fun dismissNotesTip() {
+        viewModelScope.launch { notices.dismissNotesTip() }
+    }
 
     fun setSort(value: LibrarySort) { savedState[KEY_SORT] = value.name }
     fun setFilter(value: MarkFilter) { savedState[KEY_FILTER] = value.name }
@@ -107,9 +124,10 @@ class LibraryListViewModel @Inject constructor(
         viewModelScope.launch { library.undo(removal) }
     }
 
-    private companion object {
-        const val KEY_SORT = "library_sort"
-        const val KEY_FILTER = "library_filter"
-        const val KEY_QUERY = "library_query"
+    companion object {
+        const val NOTES_TIP_AT = 5
+        private const val KEY_SORT = "library_sort"
+        private const val KEY_FILTER = "library_filter"
+        private const val KEY_QUERY = "library_query"
     }
 }

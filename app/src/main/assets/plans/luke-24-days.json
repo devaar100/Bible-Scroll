@@ -301,5 +301,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 6,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Lucas en 24 días",
+      "shortDescription": "Un relato cuidadoso con un corazón para los de afuera.",
+      "description": "Lucas se propuso escribir un relato ordenado. Su Evangelio presta especial atención a los pobres, a las mujeres, a los de afuera y a la oración, e incluye parábolas que no aparecen en ningún otro lugar, como la del hijo pródigo.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

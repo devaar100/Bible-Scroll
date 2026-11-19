@@ -7193,5 +7193,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 11,
   "difficulty": "hard",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "La Biblia en un año",
+      "shortDescription": "Un poco del Antiguo Testamento y un poco del Nuevo Testamento cada día.",
+      "description": "Lee toda la Biblia en 365 días. Cada día combina una lectura del Antiguo Testamento con una del Nuevo, así nunca te alejas de la historia de Jesús mientras avanzas por la historia, la poesía y los profetas. ¿Te saltaste un día? Retoma donde te quedaste; el plan te espera.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

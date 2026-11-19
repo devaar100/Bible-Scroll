@@ -602,5 +602,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 9,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Salmos y Proverbios en un mes",
+      "shortDescription": "Oraciones y sabiduría práctica, lado a lado, durante 31 días.",
+      "description": "Cada día trae algunos salmos y una porción de Proverbios del tamaño de un capítulo. Los salmos dan palabras para la alabanza, la tristeza y la confianza; Proverbios da consejos sencillos para los días comunes. Léelos juntos durante un mes.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

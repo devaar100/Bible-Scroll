@@ -11,7 +11,12 @@
     {
       "id": "topics-and-seasons",
       "title": "Topics and seasons",
-      "plans": []
+      "plans": [],
+      "i18n": {
+        "es": {
+          "title": "Temas y temporadas"
+        }
+      }
     },
     {
       "id": "gospels-and-acts",
@@ -23,7 +28,12 @@
         "luke-24-days",
         "mark-16-days",
         "matthew-28-days"
-      ]
+      ],
+      "i18n": {
+        "es": {
+          "title": "Evangelios y Hechos"
+        }
+      }
     },
     {
       "id": "letters-and-revelation",
@@ -39,7 +49,12 @@
         "philippians-4-days",
         "revelation-22-days",
         "romans-16-days"
-      ]
+      ],
+      "i18n": {
+        "es": {
+          "title": "Cartas y Apocalipsis"
+        }
+      }
     },
     {
       "id": "old-testament-stories",
@@ -53,7 +68,12 @@
         "jonah-4-days",
         "joshua-24-days",
         "ruth-4-days"
-      ]
+      ],
+      "i18n": {
+        "es": {
+          "title": "Historias del Antiguo Testamento"
+        }
+      }
     },
     {
       "id": "year-round-habits",
@@ -64,7 +84,12 @@
         "proverbs-31-days",
         "psalms-60-days",
         "psalms-and-proverbs-month"
-      ]
+      ],
+      "i18n": {
+        "es": {
+          "title": "Hábitos para todo el año"
+        }
+      }
     }
   ],
   "plans": [
@@ -76,7 +101,13 @@
       "days": 5,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "04f291b7f2c1"
+      "contentVersion": "04f291b7f2c1",
+      "i18n": {
+        "es": {
+          "title": "1 Juan en 5 días",
+          "shortDescription": "Luz, amor y la confianza de pertenecer a Dios."
+        }
+      }
     },
     {
       "id": "1-peter-5-days",
@@ -86,7 +117,13 @@
       "days": 5,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "7f92c2f610c0"
+      "contentVersion": "7f92c2f610c0",
+      "i18n": {
+        "es": {
+          "title": "1 Pedro en 5 días",
+          "shortDescription": "Esperanza para quienes atraviesan tiempos difíciles."
+        }
+      }
     },
     {
       "id": "1-samuel-31-days",
@@ -96,7 +133,13 @@
       "days": 31,
       "estimatedMinutesPerDay": 4,
       "difficulty": "easy",
-      "contentVersion": "ecbdae8342cf"
+      "contentVersion": "ecbdae8342cf",
+      "i18n": {
+        "es": {
+          "title": "1 Samuel en 31 días",
+          "shortDescription": "Samuel, Saúl y el ascenso del joven David."
+        }
+      }
     },
     {
       "id": "acts-28-days",
@@ -106,7 +149,13 @@
       "days": 28,
       "estimatedMinutesPerDay": 5,
       "difficulty": "easy",
-      "contentVersion": "fa1f02b5a4a8"
+      "contentVersion": "fa1f02b5a4a8",
+      "i18n": {
+        "es": {
+          "title": "Hechos en 28 días",
+          "shortDescription": "Cómo creció la iglesia primitiva desde Jerusalén hasta Roma."
+        }
+      }
     },
     {
       "id": "bible-in-a-year",
@@ -116,7 +165,13 @@
       "days": 365,
       "estimatedMinutesPerDay": 11,
       "difficulty": "hard",
-      "contentVersion": "94ba2e773533"
+      "contentVersion": "94ba2e773533",
+      "i18n": {
+        "es": {
+          "title": "La Biblia en un año",
+          "shortDescription": "Un poco del Antiguo Testamento y un poco del Nuevo Testamento cada día."
+        }
+      }
     },
     {
       "id": "colossians-4-days",
@@ -126,7 +181,13 @@
       "days": 4,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "6c64ae186f09"
+      "contentVersion": "6c64ae186f09",
+      "i18n": {
+        "es": {
+          "title": "Colosenses en 4 días",
+          "shortDescription": "Cristo por encima de todo, en cuatro días."
+        }
+      }
     },
     {
       "id": "daniel-12-days",
@@ -136,7 +197,13 @@
       "days": 12,
       "estimatedMinutesPerDay": 5,
       "difficulty": "easy",
-      "contentVersion": "616ff0f70854"
+      "contentVersion": "616ff0f70854",
+      "i18n": {
+        "es": {
+          "title": "Daniel en 12 días",
+          "shortDescription": "Fidelidad en tierra extranjera."
+        }
+      }
     },
     {
       "id": "ephesians-6-days",
@@ -146,7 +213,13 @@
       "days": 6,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "bb737983c4cb"
+      "contentVersion": "bb737983c4cb",
+      "i18n": {
+        "es": {
+          "title": "Efesios en 6 días",
+          "shortDescription": "Quién eres en Cristo y cómo vivirlo."
+        }
+      }
     },
     {
       "id": "esther-10-days",
@@ -156,7 +229,13 @@
       "days": 10,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "5939e373565d"
+      "contentVersion": "5939e373565d",
+      "i18n": {
+        "es": {
+          "title": "Ester en 10 días",
+          "shortDescription": "Valentía en el momento justo."
+        }
+      }
     },
     {
       "id": "exodus-40-days",
@@ -166,7 +245,13 @@
       "days": 40,
       "estimatedMinutesPerDay": 4,
       "difficulty": "medium",
-      "contentVersion": "500f2dfe6982"
+      "contentVersion": "500f2dfe6982",
+      "i18n": {
+        "es": {
+          "title": "Éxodo en 40 días",
+          "shortDescription": "El rescate de Egipto, los Diez Mandamientos y Dios en medio de su pueblo."
+        }
+      }
     },
     {
       "id": "galatians-6-days",
@@ -176,7 +261,13 @@
       "days": 6,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "4903494005a8"
+      "contentVersion": "4903494005a8",
+      "i18n": {
+        "es": {
+          "title": "Gálatas en 6 días",
+          "shortDescription": "Libertad en Cristo, en seis lecturas breves."
+        }
+      }
     },
     {
       "id": "genesis-50-days",
@@ -186,7 +277,13 @@
       "days": 50,
       "estimatedMinutesPerDay": 4,
       "difficulty": "medium",
-      "contentVersion": "6ea1d4b480af"
+      "contentVersion": "6ea1d4b480af",
+      "i18n": {
+        "es": {
+          "title": "Génesis en 50 días",
+          "shortDescription": "La creación, las primeras familias y la promesa de Dios a Abraham."
+        }
+      }
     },
     {
       "id": "gospels-30-days",
@@ -196,7 +293,13 @@
       "days": 30,
       "estimatedMinutesPerDay": 14,
       "difficulty": "medium",
-      "contentVersion": "2de5a110083d"
+      "contentVersion": "2de5a110083d",
+      "i18n": {
+        "es": {
+          "title": "Los cuatro Evangelios en 30 días",
+          "shortDescription": "Mateo, Marcos, Lucas y Juan en un mes."
+        }
+      }
     },
     {
       "id": "hebrews-13-days",
@@ -206,7 +309,13 @@
       "days": 13,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "4e38f8718e89"
+      "contentVersion": "4e38f8718e89",
+      "i18n": {
+        "es": {
+          "title": "Hebreos en 13 días",
+          "shortDescription": "Jesús, la mejor esperanza, y el llamado a seguir adelante."
+        }
+      }
     },
     {
       "id": "james-5-days",
@@ -216,7 +325,13 @@
       "days": 5,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "a198caba2261"
+      "contentVersion": "a198caba2261",
+      "i18n": {
+        "es": {
+          "title": "Santiago en 5 días",
+          "shortDescription": "Una fe que se nota en la vida diaria."
+        }
+      }
     },
     {
       "id": "john-21-days",
@@ -226,7 +341,13 @@
       "days": 21,
       "estimatedMinutesPerDay": 5,
       "difficulty": "easy",
-      "contentVersion": "9460793668c4"
+      "contentVersion": "9460793668c4",
+      "i18n": {
+        "es": {
+          "title": "Juan en 21 días",
+          "shortDescription": "Señales, conversaciones y los dichos «Yo soy» de Jesús."
+        }
+      }
     },
     {
       "id": "jonah-4-days",
@@ -236,7 +357,13 @@
       "days": 4,
       "estimatedMinutesPerDay": 2,
       "difficulty": "easy",
-      "contentVersion": "08d7ad39cd71"
+      "contentVersion": "08d7ad39cd71",
+      "i18n": {
+        "es": {
+          "title": "Jonás en 4 días",
+          "shortDescription": "Un profeta que no quería ir y un Dios de segundas oportunidades."
+        }
+      }
     },
     {
       "id": "joshua-24-days",
@@ -246,7 +373,13 @@
       "days": 24,
       "estimatedMinutesPerDay": 4,
       "difficulty": "easy",
-      "contentVersion": "c17e0fe35aab"
+      "contentVersion": "c17e0fe35aab",
+      "i18n": {
+        "es": {
+          "title": "Josué en 24 días",
+          "shortDescription": "Valentía, promesas cumplidas y una nueva tierra."
+        }
+      }
     },
     {
       "id": "luke-24-days",
@@ -256,7 +389,13 @@
       "days": 24,
       "estimatedMinutesPerDay": 6,
       "difficulty": "easy",
-      "contentVersion": "dd3a4ec3839e"
+      "contentVersion": "dd3a4ec3839e",
+      "i18n": {
+        "es": {
+          "title": "Lucas en 24 días",
+          "shortDescription": "Un relato cuidadoso con un corazón para los de afuera."
+        }
+      }
     },
     {
       "id": "mark-16-days",
@@ -266,7 +405,13 @@
       "days": 16,
       "estimatedMinutesPerDay": 5,
       "difficulty": "easy",
-      "contentVersion": "1a31573d2e18"
+      "contentVersion": "1a31573d2e18",
+      "i18n": {
+        "es": {
+          "title": "Marcos en 16 días",
+          "shortDescription": "El Evangelio más breve: ágil y lleno de acción."
+        }
+      }
     },
     {
       "id": "matthew-28-days",
@@ -276,7 +421,13 @@
       "days": 28,
       "estimatedMinutesPerDay": 5,
       "difficulty": "easy",
-      "contentVersion": "bb7899a985ae"
+      "contentVersion": "bb7899a985ae",
+      "i18n": {
+        "es": {
+          "title": "Mateo en 28 días",
+          "shortDescription": "Jesús, el Rey prometido, y el Sermón del Monte."
+        }
+      }
     },
     {
       "id": "new-testament-90-days",
@@ -286,7 +437,13 @@
       "days": 90,
       "estimatedMinutesPerDay": 10,
       "difficulty": "medium",
-      "contentVersion": "948870feed07"
+      "contentVersion": "948870feed07",
+      "i18n": {
+        "es": {
+          "title": "El Nuevo Testamento en 90 días",
+          "shortDescription": "Del nacimiento de Jesús a la nueva creación en tres meses."
+        }
+      }
     },
     {
       "id": "philippians-4-days",
@@ -296,7 +453,13 @@
       "days": 4,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "1c1fec31c6e9"
+      "contentVersion": "1c1fec31c6e9",
+      "i18n": {
+        "es": {
+          "title": "Filipenses en 4 días",
+          "shortDescription": "Una carta sobre la alegría, escrita desde la cárcel."
+        }
+      }
     },
     {
       "id": "proverbs-31-days",
@@ -306,7 +469,13 @@
       "days": 31,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "2c382c2f0929"
+      "contentVersion": "2c382c2f0929",
+      "i18n": {
+        "es": {
+          "title": "Proverbios en 31 días",
+          "shortDescription": "Un capítulo de sabiduría para cada día del mes."
+        }
+      }
     },
     {
       "id": "psalms-60-days",
@@ -316,7 +485,13 @@
       "days": 60,
       "estimatedMinutesPerDay": 4,
       "difficulty": "medium",
-      "contentVersion": "e936a8a7ee97"
+      "contentVersion": "e936a8a7ee97",
+      "i18n": {
+        "es": {
+          "title": "Salmos en 60 días",
+          "shortDescription": "Dos meses con los cantos y las oraciones de la Biblia."
+        }
+      }
     },
     {
       "id": "psalms-and-proverbs-month",
@@ -326,7 +501,13 @@
       "days": 31,
       "estimatedMinutesPerDay": 9,
       "difficulty": "medium",
-      "contentVersion": "77c5e6178596"
+      "contentVersion": "77c5e6178596",
+      "i18n": {
+        "es": {
+          "title": "Salmos y Proverbios en un mes",
+          "shortDescription": "Oraciones y sabiduría práctica, lado a lado, durante 31 días."
+        }
+      }
     },
     {
       "id": "revelation-22-days",
@@ -336,7 +517,13 @@
       "days": 22,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "2e6a5e5058b3"
+      "contentVersion": "2e6a5e5058b3",
+      "i18n": {
+        "es": {
+          "title": "Apocalipsis en 22 días",
+          "shortDescription": "Una visión de la victoria de Cristo y de todas las cosas hechas nuevas."
+        }
+      }
     },
     {
       "id": "romans-16-days",
@@ -346,7 +533,13 @@
       "days": 16,
       "estimatedMinutesPerDay": 3,
       "difficulty": "easy",
-      "contentVersion": "9a112be3ff8d"
+      "contentVersion": "9a112be3ff8d",
+      "i18n": {
+        "es": {
+          "title": "Romanos en 16 días",
+          "shortDescription": "La carta más completa de Pablo sobre la gracia y la fe."
+        }
+      }
     },
     {
       "id": "ruth-4-days",
@@ -356,7 +549,13 @@
       "days": 4,
       "estimatedMinutesPerDay": 4,
       "difficulty": "easy",
-      "contentVersion": "b48eb7048cf0"
+      "contentVersion": "b48eb7048cf0",
+      "i18n": {
+        "es": {
+          "title": "Rut en 4 días",
+          "shortDescription": "Lealtad, bondad y una historia sencilla de redención."
+        }
+      }
     }
   ]
 }

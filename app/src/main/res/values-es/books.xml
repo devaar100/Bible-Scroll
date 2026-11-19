@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nombres de los libros de la Biblia (español, tradición Reina-Valera). -->
+<resources>
+    <!-- Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans. -->
+    <string-array name="book_names">
+        <item>Génesis</item>
+        <item>Éxodo</item>
+        <item>Levítico</item>
+        <item>Números</item>
+        <item>Deuteronomio</item>
+        <item>Josué</item>
+        <item>Jueces</item>
+        <item>Rut</item>
+        <item>1 Samuel</item>
+        <item>2 Samuel</item>
+        <item>1 Reyes</item>
+        <item>2 Reyes</item>
+        <item>1 Crónicas</item>
+        <item>2 Crónicas</item>
+        <item>Esdras</item>
+        <item>Nehemías</item>
+        <item>Ester</item>
+        <item>Job</item>
+        <item>Salmos</item>
+        <item>Proverbios</item>
+        <item>Eclesiastés</item>
+        <item>Cantares</item>
+        <item>Isaías</item>
+        <item>Jeremías</item>
+        <item>Lamentaciones</item>
+        <item>Ezequiel</item>
+        <item>Daniel</item>
+        <item>Oseas</item>
+        <item>Joel</item>
+        <item>Amós</item>
+        <item>Abdías</item>
+        <item>Jonás</item>
+        <item>Miqueas</item>
+        <item>Nahúm</item>
+        <item>Habacuc</item>
+        <item>Sofonías</item>
+        <item>Hageo</item>
+        <item>Zacarías</item>
+        <item>Malaquías</item>
+        <item>Mateo</item>
+        <item>Marcos</item>
+        <item>Lucas</item>
+        <item>Juan</item>
+        <item>Hechos</item>
+        <item>Romanos</item>
+        <item>1 Corintios</item>
+        <item>2 Corintios</item>
+        <item>Gálatas</item>
+        <item>Efesios</item>
+        <item>Filipenses</item>
+        <item>Colosenses</item>
+        <item>1 Tesalonicenses</item>
+        <item>2 Tesalonicenses</item>
+        <item>1 Timoteo</item>
+        <item>2 Timoteo</item>
+        <item>Tito</item>
+        <item>Filemón</item>
+        <item>Hebreos</item>
+        <item>Santiago</item>
+        <item>1 Pedro</item>
+        <item>2 Pedro</item>
+        <item>1 Juan</item>
+        <item>2 Juan</item>
+        <item>3 Juan</item>
+        <item>Judas</item>
+        <item>Apocalipsis</item>
+    </string-array>
+    <!-- Short book names, 66 items, same order. For tight spaces such as the widget. -->
+    <string-array name="book_abbreviations">
+        <item>Gn</item>
+        <item>Éx</item>
+        <item>Lv</item>
+        <item>Nm</item>
+        <item>Dt</item>
+        <item>Jos</item>
+        <item>Jue</item>
+        <item>Rt</item>
+        <item>1 S</item>
+        <item>2 S</item>
+        <item>1 R</item>
+        <item>2 R</item>
+        <item>1 Cr</item>
+        <item>2 Cr</item>
+        <item>Esd</item>
+        <item>Neh</item>
+        <item>Est</item>
+        <item>Job</item>
+        <item>Sal</item>
+        <item>Pr</item>
+        <item>Ec</item>
+        <item>Cnt</item>
+        <item>Is</item>
+        <item>Jer</item>
+        <item>Lm</item>
+        <item>Ez</item>
+        <item>Dn</item>
+        <item>Os</item>
+        <item>Jl</item>
+        <item>Am</item>
+        <item>Abd</item>
+        <item>Jon</item>
+        <item>Mi</item>
+        <item>Nah</item>
+        <item>Hab</item>
+        <item>Sof</item>
+        <item>Hag</item>
+        <item>Zac</item>
+        <item>Mal</item>
+        <item>Mt</item>
+        <item>Mr</item>
+        <item>Lc</item>
+        <item>Jn</item>
+        <item>Hch</item>
+        <item>Ro</item>
+        <item>1 Co</item>
+        <item>2 Co</item>
+        <item>Gá</item>
+        <item>Ef</item>
+        <item>Fil</item>
+        <item>Col</item>
+        <item>1 Ts</item>
+        <item>2 Ts</item>
+        <item>1 Ti</item>
+        <item>2 Ti</item>
+        <item>Tit</item>
+        <item>Flm</item>
+        <item>He</item>
+        <item>Stg</item>
+        <item>1 P</item>
+        <item>2 P</item>
+        <item>1 Jn</item>
+        <item>2 Jn</item>
+        <item>3 Jn</item>
+        <item>Jud</item>
+        <item>Ap</item>
+    </string-array>
+    <!-- Extra words that find each book in the book search, separated by |. 66 items, same order. Accents and case are ignored. Leave an item empty if there are none. -->
+    <string-array name="book_search_aliases">
+        <item></item>
+        <item>Ex</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Primero de Samuel|I Samuel|1º Samuel</item>
+        <item>Segundo de Samuel|II Samuel|2º Samuel</item>
+        <item>Primero de Reyes|I Reyes|1º Reyes</item>
+        <item>Segundo de Reyes|II Reyes|2º Reyes</item>
+        <item>Primero de Crónicas|I Crónicas|1º Crónicas</item>
+        <item>Segundo de Crónicas|II Crónicas|2º Crónicas</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Salmo</item>
+        <item></item>
+        <item>Qohélet</item>
+        <item>Cantar de los Cantares|Cantar</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Hechos de los Apóstoles</item>
+        <item></item>
+        <item>Primera de Corintios|I Corintios|1º Corintios</item>
+        <item>Segunda de Corintios|II Corintios|2º Corintios</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Primera de Tesalonicenses|I Tesalonicenses|1º Tesalonicenses</item>
+        <item>Segunda de Tesalonicenses|II Tesalonicenses|2º Tesalonicenses</item>
+        <item>Primera de Timoteo|I Timoteo|1º Timoteo</item>
+        <item>Segunda de Timoteo|II Timoteo|2º Timoteo</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item>Jacobo</item>
+        <item>Primera de Pedro|I Pedro|1º Pedro</item>
+        <item>Segunda de Pedro|II Pedro|2º Pedro</item>
+        <item>Primera de Juan|I Juan|1º Juan</item>
+        <item>Segunda de Juan|II Juan|2º Juan</item>
+        <item>Tercera de Juan|III Juan|3º Juan</item>
+        <item></item>
+        <item>Revelación</item>
+    </string-array>
+</resources>

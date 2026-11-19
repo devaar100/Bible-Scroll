@@ -1226,5 +1226,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 10,
   "difficulty": "medium",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "El Nuevo Testamento en 90 días",
+      "shortDescription": "Del nacimiento de Jesús a la nueva creación en tres meses.",
+      "description": "Lee los 27 libros del Nuevo Testamento, en orden, en unos tres meses: los cuatro Evangelios, la historia de la iglesia primitiva, las cartas y Apocalipsis. Una buena manera de ver cómo encaja toda la historia.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

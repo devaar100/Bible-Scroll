@@ -332,7 +332,7 @@ private fun VerseCallout(verse: ShownVerse?) {
 
 @Composable
 internal fun ShownVerse.reference(): String =
-    stringResource(R.string.feed_reference_format, bookName, verse.ref.chapter, verse.ref.verse)
+    stringResource(R.string.ref_verse, bookName, verse.ref.chapter, verse.ref.verse)
 
 // ---- O7 Your plan ----
 
@@ -469,7 +469,7 @@ internal fun NotificationPreview(verse: ShownVerse?, modifier: Modifier = Modifi
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    "${stringResource(R.string.app_name)} · ${stringResource(R.string.onb_notification_now)}",
+                    stringResource(R.string.two_parts, stringResource(R.string.app_name), stringResource(R.string.onb_notification_now)),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )

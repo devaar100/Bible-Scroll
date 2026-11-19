@@ -12,6 +12,4 @@ plugins {
     alias(libs.plugins.android.test) apply false
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.baselineprofile) apply false
-    alias(libs.plugins.google.services) apply false
-    alias(libs.plugins.firebase.crashlytics) apply false
 }

@@ -265,5 +265,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 5,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Juan en 21 días",
+      "shortDescription": "Señales, conversaciones y los dichos «Yo soy» de Jesús.",
+      "description": "El Evangelio de Juan gira en torno a señales y largas conversaciones, y fue escrito para que quien lo lea crea. Muchas personas empiezan a leer la Biblia aquí.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

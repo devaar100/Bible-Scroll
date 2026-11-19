@@ -301,5 +301,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 4,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Josué en 24 días",
+      "shortDescription": "Valentía, promesas cumplidas y una nueva tierra.",
+      "description": "Después de Moisés, Josué guía a Israel hacia la tierra prometida. Un libro sobre la valentía, la fidelidad y el Dios que cumple su palabra.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

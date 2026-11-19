@@ -61,5 +61,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Colosenses en 4 días",
+      "shortDescription": "Cristo por encima de todo, en cuatro días.",
+      "description": "Una carta breve centrada en quién es Jesús y en lo que eso significa para nuestra manera de pensar, de hablar y de tratarnos unos a otros.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

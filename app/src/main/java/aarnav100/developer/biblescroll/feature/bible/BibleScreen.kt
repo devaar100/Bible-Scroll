@@ -54,6 +54,13 @@ import aarnav100.developer.biblescroll.feature.share.ShareImageSheet
 import aarnav100.developer.biblescroll.feature.bible.sheets.VerseActionsSheet
 import aarnav100.developer.biblescroll.feature.bible.sheets.VerseSheet
 import aarnav100.developer.biblescroll.feature.bible.sheets.VerseSheetsViewModel
+import aarnav100.developer.biblescroll.domain.streak.StreakRules
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 /**
@@ -126,6 +133,7 @@ fun BibleScreen(
                             onCurrentVerse = { current = it },
                             onPageChanged = viewModel::onPageChanged,
                             onVerseSettled = viewModel::onVerseSettled,
+                            onVerseDwelled = viewModel::onVerseDwelled,
                         )
                     } else {
                         LikedFeedContent(
@@ -134,6 +142,7 @@ fun BibleScreen(
                             actions = pageActions,
                             onCurrentVerse = { current = it },
                             onVerseSettled = viewModel::onLikedVerseSettled,
+                            onVerseDwelled = viewModel::onVerseDwelled,
                         )
                     }
 
@@ -204,9 +213,9 @@ fun BibleScreen(
     }
 }
 
-/** B7 actions, B9 compare and the Session 7 stubs. None of them move the feed. */
+/** B7 actions, B9 compare and the Session 7 stubs. None of them move the feed. Also used by the plan reader (H11). */
 @Composable
-private fun VerseSheets(
+internal fun VerseSheets(
     viewModel: VerseSheetsViewModel,
     bookNames: Map<Int, String>,
     screenSnackbar: SnackbarHostState,
@@ -238,7 +247,7 @@ private fun VerseSheets(
                 onCopy = { row ->
                     val verse = row.verse ?: return@CompareSheet
                     val reference = resources.getString(
-                        R.string.feed_reference_format,
+                        R.string.ref_verse,
                         bookNames[verse.ref.bookId].orEmpty(), verse.ref.chapter, verse.ref.verse,
                     )
                     copyAndConfirm(verse, reference, sheetSnackbar)
@@ -296,6 +305,7 @@ private fun LikedFeedContent(
     actions: PageActions,
     onCurrentVerse: (Verse?) -> Unit,
     onVerseSettled: (Verse) -> Unit,
+    onVerseDwelled: (Verse) -> Unit,
 ) {
     val verses = feed.verses
     when {
@@ -316,6 +326,7 @@ private fun LikedFeedContent(
             onCurrentVerse = onCurrentVerse,
             onPageChanged = {},
             onVerseSettled = onVerseSettled,
+            onVerseDwelled = onVerseDwelled,
         )
     }
 }
@@ -360,8 +371,11 @@ private fun VerseFeedPager(
     onCurrentVerse: (Verse?) -> Unit,
     onPageChanged: (Int) -> Unit,
     onVerseSettled: (Verse) -> Unit,
+    onVerseDwelled: (Verse) -> Unit,
 ) {
     val currentVerseAt by rememberUpdatedState(verseAt)
+    val currentOnDwelled by rememberUpdatedState(onVerseDwelled)
+    val lifecycle = LocalLifecycleOwner.current.lifecycle
     val translationName = remember(state.translations, state.translationId) {
         state.translations.firstOrNull { it.id == state.translationId }?.name ?: state.translationId
     }
@@ -381,6 +395,20 @@ private fun VerseFeedPager(
             // Re-runs when the settled page's verse finishes loading, so the save isn't skipped.
             snapshotFlow { currentVerseAt(pagerState.settledPage) }
                 .collect { verse -> if (verse != null) onVerseSettled(verse) }
+        }
+        LaunchedEffect(pagerState, lifecycle) {
+            // H2 streak: a verse counts once it has been on screen for ~2 s with the app in front.
+            // Leaving the verse or the app restarts the wait.
+            combine(snapshotFlow { currentVerseAt(pagerState.settledPage) }, lifecycle.currentStateFlow) { verse, state ->
+                verse?.takeIf { state.isAtLeast(Lifecycle.State.RESUMED) }
+            }
+                .distinctUntilChanged()
+                .collectLatest { verse ->
+                    if (verse != null) {
+                        delay(StreakRules.VERSE_DWELL_MILLIS)
+                        currentOnDwelled(verse)
+                    }
+                }
         }
 
         VerticalPager(
@@ -417,5 +445,5 @@ private fun VerseFeedPager(
 }
 
 @Composable
-private fun Verse.reference(bookNames: Map<Int, String>): String =
-    stringResource(R.string.feed_reference_format, bookNames[ref.bookId].orEmpty(), ref.chapter, ref.verse)
+internal fun Verse.reference(bookNames: Map<Int, String>): String =
+    stringResource(R.string.ref_verse, bookNames[ref.bookId].orEmpty(), ref.chapter, ref.verse)

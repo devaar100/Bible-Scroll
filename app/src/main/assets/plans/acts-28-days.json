@@ -349,5 +349,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 5,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Hechos en 28 días",
+      "shortDescription": "Cómo creció la iglesia primitiva desde Jerusalén hasta Roma.",
+      "description": "El segundo libro de Lucas sigue a los primeros cristianos, desde la venida del Espíritu en Pentecostés y a lo largo de los viajes de Pedro y de Pablo, mientras el mensaje se extiende por todo el mundo romano.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

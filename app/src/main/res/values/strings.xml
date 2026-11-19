@@ -1,4 +1,5 @@
 <resources>
+    <!-- Brand name: keep as is. -->
     <string name="app_name">Bible Scroll</string>
     <string name="tab_community">Community</string>
     <string name="tab_discover">Discover</string>
@@ -17,7 +18,17 @@
     <string name="feed_share_chooser">Share verse</string>
     <string name="feed_translation_cd">Translation: %1$s. Change translation</string>
     <string name="feed_book_chapter_cd">%1$s. Choose book and chapter</string>
-    <string name="feed_reference_format">%1$s %2$d:%3$d</string>
+    <!-- Verse references. %1$s = book name; numbers are chapter and verse. Change the order or punctuation to suit
+         your language (e.g. "Juan 3:16"). Used everywhere a verse is named: feed, library, plans, studies, widget, share. -->
+    <string name="ref_verse">%1$s %2$d:%3$d</string>
+    <!-- Several verses in one chapter: "John 3:16–18" (book, chapter, first verse, last verse). -->
+    <string name="ref_verse_range">%1$s %2$d:%3$d–%4$d</string>
+    <!-- A passage across chapters: "Genesis 1:1–2:3" (book, chapter, verse, end chapter, end verse). -->
+    <string name="ref_chapter_range">%1$s %2$d:%3$d–%4$d:%5$d</string>
+    <!-- A passage across books; both sides are full references: "Leviticus 27:34 – Numbers 1:1". -->
+    <string name="ref_book_range">%1$s – %2$s</string>
+    <!-- A whole chapter: "Psalm 23" (book, chapter). -->
+    <string name="ref_chapter">%1$s %2$d</string>
     <string name="feed_chapter_format">%1$s %2$d</string>
     <string name="feed_note_edit">Edit note</string>
     <string name="feed_bookmark">Bookmark verse</string>
@@ -37,7 +48,7 @@
     <string name="settings_title">Settings</string>
     <string name="settings_back">Back</string>
     <string name="settings_general">General</string>
-    <string name="settings_general_summary">Appearance, font size, red letters</string>
+    <string name="settings_general_summary">Appearance, font size, language</string>
     <string name="settings_appearance">Appearance</string>
     <string name="settings_font_size">Font size</string>
     <string name="settings_font_size_summary">Changes the size of Scripture text, on top of your phone’s font size.</string>
@@ -124,9 +135,17 @@
         <item quantity="other">%d chapters</item>
     </plurals>
     <!-- Book row for TalkBack: name, chapter count, chapters read -->
-    <string name="picker_book_cd">%1$s, %2$s, %3$d read</string>
+    <!-- Screen reader text for a book in the picker: book name, chapter count text, chapters read. Quantity = chapters read. -->
+    <plurals name="picker_book_cd">
+        <item quantity="one">%1$s, %2$s, %3$d read</item>
+        <item quantity="other">%1$s, %2$s, %3$d read</item>
+    </plurals>
     <string name="picker_back_to_books">Back to books</string>
-    <string name="picker_read_progress">%1$d of %2$d read</string>
+    <!-- Chapter grid header: chapters read, chapters in the book. Quantity = chapters read. -->
+    <plurals name="picker_read_progress">
+        <item quantity="one">%1$d of %2$d read</item>
+        <item quantity="other">%1$d of %2$d read</item>
+    </plurals>
     <string name="picker_continue">Continue at %1$s</string>
     <string name="picker_mark_book_read">Mark %1$s as read</string>
     <string name="picker_mark_book_unread">Mark %1$s as unread</string>
@@ -231,7 +250,7 @@
     </plurals>
     <!-- S2: Hide AI studies -->
     <string name="settings_hide_ai_studies">Hide AI studies</string>
-    <string name="settings_hide_ai_studies_summary">Hides verse studies written with AI help. Scripture, notes and plans aren\'t affected.</string>
+    <string name="settings_hide_ai_studies_summary">Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</string>
     <!-- B8/D2 study -->
     <string name="study_close">Close study</string>
     <string name="study_mark_studied">Mark as studied</string>
@@ -308,4 +327,315 @@
     <string name="library_empty_liked">No liked verses yet. Double-tap a verse in the feed, or tap its heart.</string>
     <string name="library_empty_bookmarked">No bookmarks yet. Tap the bookmark at the top of the feed to keep your place.</string>
     <string name="library_empty_notes">No notes yet. Tap the note button beside a verse to write one.</string>
+
+    <!-- H2 Streak. Encouraging only: no guilt, no "lost" wording. -->
+    <plurals name="streak_chip_description">
+        <item quantity="one">Reading streak: %d day. Open streak</item>
+        <item quantity="other">Reading streak: %d days. Open streak</item>
+    </plurals>
+    <plurals name="streak_current">
+        <item quantity="one">%d day streak</item>
+        <item quantity="other">%d day streak</item>
+    </plurals>
+    <plurals name="streak_longest">
+        <item quantity="one">Longest: %d day</item>
+        <item quantity="other">Longest: %d days</item>
+    </plurals>
+    <string name="streak_message_done">Today counts. Lovely to have you here.</string>
+    <string name="streak_message_keep_going">Today\'s still open whenever you\'re ready.</string>
+    <string name="streak_message_start">Every day is a fresh start. Today can be day one.</string>
+    <string name="streak_how_it_counts">A day counts when you read 5 verses in the feed, complete a plan day or finish a devotional.</string>
+    <string name="streak_this_week">This week</string>
+    <string name="streak_previous_month">Previous month</string>
+    <string name="streak_next_month">Next month</string>
+    <string name="streak_legend_done">Read</string>
+    <string name="streak_legend_grace">Grace day</string>
+    <string name="streak_legend_travel">Travel day</string>
+    <string name="streak_day_done">read</string>
+    <string name="streak_day_grace">grace day</string>
+    <string name="streak_day_travel">travel day</string>
+    <string name="streak_day_open">today, still open</string>
+    <string name="streak_day_none">no reading</string>
+    <string name="streak_day_future">upcoming</string>
+    <string name="streak_grace_title">Weekly grace day</string>
+    <string name="streak_grace_body">Life happens. One missed day each week (Monday to Sunday) is covered automatically.</string>
+
+    <!-- H8-H10 Reading plans -->
+    <string name="plans_title">Reading plans</string>
+    <string name="plans_home_body">Short, steady plans for every season</string>
+    <string name="plans_my_plans">My plans</string>
+    <string name="plans_start_here">Start here</string>
+    <string name="plans_build_title">Build your own plan</string>
+    <string name="plans_build_body">Pick a book and a pace that suits you</string>
+    <plurals name="plans_days">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+    <plurals name="plans_minutes_a_day">
+        <item quantity="one">about %d min a day</item>
+        <item quantity="other">about %d min a day</item>
+    </plurals>
+    <!-- Plan progress: days read, days in the plan. Quantity = days in the plan. -->
+    <plurals name="plans_progress">
+        <item quantity="one">%1$d of %2$d day read</item>
+        <item quantity="other">%1$d of %2$d days read</item>
+    </plurals>
+    <string name="plans_finished">Finished</string>
+    <string name="plans_starts_tomorrow">Starts tomorrow</string>
+    <string name="plans_not_found">This plan isn\'t available right now.</string>
+    <string name="plans_difficulty_easy">Easy</string>
+    <string name="plans_difficulty_medium">Steady</string>
+    <string name="plans_difficulty_hard">Ambitious</string>
+    <string name="plans_start">Start plan</string>
+    <string name="plans_start_again">Start again</string>
+    <string name="plans_finished_before">You\'ve finished this plan before. Lovely to read it again.</string>
+    <string name="plans_in_progress">In progress</string>
+    <string name="plans_reminder_at">Reminder at %1$s</string>
+    <string name="plans_days_heading">Days</string>
+    <string name="plans_day_number">Day %1$d</string>
+    <string name="plans_day_expand">Show introduction</string>
+    <string name="plans_day_collapse">Hide introduction</string>
+    <plurals name="plans_show_all_days">
+        <item quantity="one">Show all %d day</item>
+        <item quantity="other">Show all %d days</item>
+    </plurals>
+    <string name="plans_show_fewer_days">Show fewer days</string>
+    <string name="plans_start_dialog_title">Start %1$s</string>
+    <string name="plans_start_when">When would you like to start?</string>
+    <string name="plans_start_today">Today</string>
+    <string name="plans_start_tomorrow">Tomorrow</string>
+    <string name="plans_reminder_title">Plan reminder</string>
+    <string name="plans_reminder_body">A gentle nudge for this plan\'s reading</string>
+    <string name="plans_reminder_time">Remind me at %1$s</string>
+    <string name="plans_cancel">Cancel</string>
+    <string name="plans_started_today">Plan started. Day 1 is ready when you are.</string>
+    <string name="plans_started_tomorrow">All set. Your plan starts tomorrow.</string>
+    <string name="plan_reminder_channel_name">Plan reminders</string>
+    <string name="plan_reminder_channel_description">A reminder for each reading plan you\'ve asked to be reminded about</string>
+    <string name="plan_reminder_title">Day %1$d of %2$s</string>
+    <plurals name="plan_reminder_text">
+        <item quantity="one">About %d minute. Whenever you\'re ready.</item>
+        <item quantity="other">About %d minutes. Whenever you\'re ready.</item>
+    </plurals>
+
+    <!-- H11 plan reader, H12 days & notes, completion -->
+    <string name="plans_reader_close">Close reading</string>
+    <string name="plans_reader_day">Day %1$d of %2$d</string>
+    <string name="plans_reader_swipe">Swipe up to begin</string>
+    <plurals name="plans_reader_minutes">
+        <item quantity="one">About %d minute of reading.</item>
+        <item quantity="other">About %d minutes of reading.</item>
+    </plurals>
+    <string name="plans_reader_end_of_day">That\'s day %1$d.</string>
+    <string name="plans_reader_mark_read">Mark day as read</string>
+    <string name="plans_reader_day_read">Day %1$d read</string>
+    <string name="plans_reader_next_day">Next: day %1$d</string>
+    <string name="plans_read_day">Read day %1$d</string>
+    <string name="plans_catch_up_body">Want the plan to fit around today? Your next reading can become today\'s.</string>
+    <string name="plans_adjust_schedule">Adjust schedule</string>
+    <string name="plans_days_and_notes">Days &amp; notes</string>
+    <string name="plans_notes_heading">Your notes</string>
+    <string name="plans_notes_empty">Notes you write on verses in this plan will appear here.</string>
+    <string name="plans_day_status_read">Read</string>
+    <string name="plans_day_status_next">Up next</string>
+    <string name="plans_day_status_unread">Not read yet</string>
+    <string name="plans_day_read_it">Read this day</string>
+    <string name="plans_complete_title">You finished %1$s</string>
+    <plurals name="plans_complete_body">
+        <item quantity="one">%d day of reading, one at a time. Well done.</item>
+        <item quantity="other">%d days of reading, one at a time. Well done.</item>
+    </plurals>
+    <string name="plans_complete_done">Back to the plan</string>
+
+    <!-- H13/H14 create plan -->
+    <string name="plans_create_books_title">Choose books</string>
+    <string name="plans_create_pace_title">Choose a pace</string>
+    <string name="plans_create_summary_title">Your plan</string>
+    <string name="plans_create_next">Next</string>
+    <string name="plans_create_search">Search books</string>
+    <string name="plans_create_quick_picks">Quick picks</string>
+    <string name="plans_create_pick_hint">Pick one or more books</string>
+    <plurals name="plans_create_books_selected">
+        <item quantity="one">%d book chosen</item>
+        <item quantity="other">%d books chosen</item>
+    </plurals>
+    <string name="plans_create_calculating">Working out the days…</string>
+    <string name="plans_create_by_minutes">Minutes a day</string>
+    <string name="plans_create_by_days">Number of days</string>
+    <plurals name="plans_create_minutes">
+        <item quantity="one">%d minute a day</item>
+        <item quantity="other">%d minutes a day</item>
+    </plurals>
+    <string name="plans_create_custom">Custom</string>
+    <string name="plans_create_days_label">Finish in</string>
+    <string name="plans_create_result">Your plan</string>
+    <string name="plans_create_days_capped">That\'s as many days as these books allow: one verse a day.</string>
+    <string name="plans_create_name">Plan name</string>
+    <string name="plans_create_first_days">First days</string>
+    <plurals name="plans_create_more_days">
+        <item quantity="one">…and %d more day</item>
+        <item quantity="other">…and %d more days</item>
+    </plurals>
+    <string name="plans_custom_title_one">%1$s in %2$s</string>
+    <string name="plans_custom_title_two">%1$s and %2$s in %3$s</string>
+    <string name="plans_custom_title_range">%1$s to %2$s in %3$s</string>
+    <!-- Custom plan title: first book, how many other books, plan length ("John and 3 more in 30 days"). Quantity = other books. -->
+    <plurals name="plans_custom_title_more">
+        <item quantity="one">%1$s and %2$d more in %3$s</item>
+        <item quantity="other">%1$s and %2$d more in %3$s</item>
+    </plurals>
+    <string name="plans_delete">Delete plan</string>
+    <string name="plans_delete_title">Delete this plan?</string>
+    <string name="plans_delete_body">The plan and its progress will be removed. Notes you wrote on verses stay in your Library.</string>
+
+    <!-- H15-H17 devotionals -->
+    <string name="devo_today_title">Today\'s devotional</string>
+    <string name="devo_archive_link">All days</string>
+    <string name="devo_archive_title">Devotionals</string>
+    <plurals name="devo_archive_read">
+        <item quantity="one">%d read this year</item>
+        <item quantity="other">%d read this year</item>
+    </plurals>
+    <string name="devo_read">Read</string>
+    <string name="devo_archive_missing">Not available yet</string>
+    <string name="devo_not_read">Not read</string>
+    <string name="devo_read_today">Read today</string>
+    <string name="devo_tomorrow">Tomorrow\'s devotional</string>
+    <string name="devo_tomorrow_in">Tomorrow\'s devotional in %1$s</string>
+    <string name="devo_series_day">%1$s · Day %2$d of %3$d</string>
+    <string name="devo_start">Start</string>
+    <string name="devo_read_again">Read again</string>
+    <string name="devo_read_already">You\'ve read this one.</string>
+    <string name="devo_share_verse">Share the verse as an image</string>
+    <string name="devo_ai_label">Written with AI help and checked before publishing.</string>
+    <string name="devo_ai_notice_title">Devotionals are AI-assisted</string>
+    <string name="devo_ai_notice_body">You\'ve chosen to hide AI studies. Daily devotionals are written with AI help, then checked before they\'re published. Scripture itself is never AI-written.</string>
+    <string name="devo_ai_show_anyway">Show devotionals anyway</string>
+    <string name="devo_loading">Getting the devotional…</string>
+    <string name="devo_offline">This devotional isn\'t on your phone yet. It will download when you\'re online.</string>
+    <string name="devo_failed">The devotional couldn\'t be downloaded.</string>
+    <string name="devo_retry">Try again</string>
+    <string name="devo_not_published">This day\'s devotional isn\'t ready yet. Please check back soon.</string>
+    <string name="devo_month_not_published">This month\'s devotionals aren\'t ready yet.</string>
+    <string name="devo_update_required">Update the app to read this devotional.</string>
+    <string name="devo_close">Close</string>
+    <string name="devo_next_page">Next page</string>
+    <string name="devo_previous_page">Previous page</string>
+    <string name="devo_page_of">Page %1$d of %2$d</string>
+    <string name="devo_section_context">Context</string>
+    <string name="devo_section_reflect">Reflect</string>
+    <string name="devo_section_apply">Apply it</string>
+    <string name="devo_section_prayer">Prayer</string>
+    <string name="devo_finish">Finish</string>
+    <string name="devo_finished">Done for today.</string>
+    <string name="devo_next_in">Next devotional in %1$s</string>
+    <!-- S9 Data & backup -->
+    <string name="settings_data_backup">Data &amp; backup</string>
+    <string name="settings_data_backup_summary">Export or import your notes, likes and plans</string>
+    <string name="data_backup_stored">Your notes, likes, bookmarks, plans, reading progress and settings are stored on this phone.</string>
+    <string name="data_backup_google">If Google backup is turned on in your phone\'s settings, Android may also save a copy to your own Google Drive.</string>
+    <string name="data_backup_export">Export my data</string>
+    <string name="data_backup_export_detail">Saves a backup file you can import on any phone, then offers a readable copy of your notes, likes and bookmarks.</string>
+    <string name="data_backup_import">Import</string>
+    <string name="data_backup_import_detail">Adds what\'s in a backup file to this phone. Nothing here is removed. Where both have the same item, the newer change is kept.</string>
+    <string name="data_backup_saved">Backup saved</string>
+    <string name="data_backup_saved_both">Backup and readable copy saved</string>
+    <string name="data_backup_save_failed">Couldn\'t save the file. Try another place.</string>
+    <string name="data_backup_import_done">Import finished</string>
+    <string name="data_backup_import_failed">Couldn\'t import this file</string>
+    <string name="data_backup_nothing_new">Nothing new: this phone already has everything in the file.</string>
+    <string name="data_backup_added">Added %1$s.</string>
+    <string name="data_backup_ok">OK</string>
+    <string name="data_backup_error_not_backup">This isn\'t a Bible Scroll backup file. Choose the .json file you exported.</string>
+    <string name="data_backup_error_too_new">This file was made by a newer version of Bible Scroll. Update the app, then try again.</string>
+    <string name="data_backup_error_too_large">This file is too large to be a Bible Scroll backup.</string>
+    <string name="data_backup_error_unreadable">Couldn\'t open this file. Nothing was imported.</string>
+    <string name="data_backup_error_damaged">This backup file is damaged or incomplete, so nothing was imported. Your data on this phone hasn\'t changed.</string>
+    <plurals name="import_notes">
+        <item quantity="one">%1$d note</item>
+        <item quantity="other">%1$d notes</item>
+    </plurals>
+    <plurals name="import_likes">
+        <item quantity="one">%1$d like</item>
+        <item quantity="other">%1$d likes</item>
+    </plurals>
+    <plurals name="import_bookmarks">
+        <item quantity="one">%1$d bookmark</item>
+        <item quantity="other">%1$d bookmarks</item>
+    </plurals>
+    <plurals name="import_saved_studies">
+        <item quantity="one">%1$d saved study</item>
+        <item quantity="other">%1$d saved studies</item>
+    </plurals>
+    <plurals name="import_chapters_read">
+        <item quantity="one">%1$d chapter read</item>
+        <item quantity="other">%1$d chapters read</item>
+    </plurals>
+    <plurals name="import_plans">
+        <item quantity="one">%1$d plan</item>
+        <item quantity="other">%1$d plans</item>
+    </plurals>
+    <plurals name="import_plan_days">
+        <item quantity="one">%1$d plan day done</item>
+        <item quantity="other">%1$d plan days done</item>
+    </plurals>
+    <plurals name="import_devotionals">
+        <item quantity="one">%1$d devotional read</item>
+        <item quantity="other">%1$d devotionals read</item>
+    </plurals>
+    <plurals name="import_streak_days">
+        <item quantity="one">%1$d day of reading history</item>
+        <item quantity="other">%1$d days of reading history</item>
+    </plurals>
+    <plurals name="import_settings">
+        <item quantity="one">%1$d setting</item>
+        <item quantity="other">%1$d settings</item>
+    </plurals>
+    <plurals name="import_notes_updated">
+        <item quantity="one">Updated %1$d note.</item>
+        <item quantity="other">Updated %1$d notes.</item>
+    </plurals>
+    <plurals name="import_other_changes">
+        <item quantity="one">Brought in %1$d newer change (such as where you were reading).</item>
+        <item quantity="other">Brought in %1$d newer changes (such as where you were reading).</item>
+    </plurals>
+    <!-- Readable export (Markdown) -->
+    <string name="md_title">My notes, likes and bookmarks</string>
+    <string name="md_exported">Exported %1$s · %2$s</string>
+    <string name="md_notes">Notes</string>
+    <string name="md_likes">Likes</string>
+    <string name="md_bookmarks">Bookmarks</string>
+    <string name="md_none">None yet.</string>
+    <!-- user.db won't open -->
+    <string name="data_error_title">We couldn\'t open your saved data</string>
+    <string name="data_error_body">Your notes, likes and plans are still on this phone, but Bible Scroll can\'t read them right now. Save a copy of the data file to keep it safe, then try again. Updating the app may also fix this.</string>
+    <string name="data_error_save_copy">Save a copy of the data file</string>
+    <string name="data_error_retry">Try again</string>
+    <string name="data_error_saved">Copy saved</string>
+    <string name="data_error_save_failed">Couldn\'t save the copy. Try another place.</string>
+    <!-- After a restore (Home) -->
+    <string name="restore_title">Welcome back</string>
+    <string name="restore_body">Your notes, likes and plans came across from your backup.</string>
+    <string name="restore_notifications">Your reminders are set, but notifications aren\'t allowed on this phone yet.</string>
+    <string name="restore_allow_notifications">Allow notifications</string>
+    <plurals name="restore_studies">
+        <item quantity="one">Studies you used for %1$d book weren\'t part of the backup.</item>
+        <item quantity="other">Studies you used for %1$d books weren\'t part of the backup.</item>
+    </plurals>
+    <string name="restore_download_studies">Download them again</string>
+    <string name="tip_dismiss">Dismiss</string>
+    <!-- H7 tip -->
+    <string name="notes_tip">Your notes are stored on this phone. Export a copy any time.</string>
+    <string name="notes_tip_export">Export</string>
+    <!-- Language (S2) -->
+    <string name="settings_language">Language</string>
+    <string name="settings_language_system">System default</string>
+    <!-- Two short labels shown together on one line, e.g. "Dark · Sepia". Change the separator if your language needs. -->
+    <string name="two_parts">%1$s · %2$s</string>
+    <!-- A plan day with its title: "Day 3 · The Good Shepherd" (day number, title). -->
+    <string name="plans_day_titled">Day %1$d · %2$s</string>
+    <!-- Screen reader text for one day in the streak calendar: "Monday, 18 November 2026: Read" (date, status). -->
+    <string name="streak_day_cd">%1$s: %2$s</string>
+    <!-- Shown on studies and Discover cards when the app language isn't English. -->
+    <string name="study_english_only">Studies are in English for now.</string>
 </resources>

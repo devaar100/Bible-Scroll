@@ -5,6 +5,7 @@ import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.user.LocalUserDataRepository
 import aarnav100.developer.biblescroll.testing.FakeBibleRepository
 import aarnav100.developer.biblescroll.testing.FakePreferencesDataStore
+import aarnav100.developer.biblescroll.testing.FakeStreakRepository
 import aarnav100.developer.biblescroll.testing.FakeUserDao
 import aarnav100.developer.biblescroll.ui.navigation.PendingVerseLink
 import kotlinx.coroutines.Dispatchers
@@ -31,6 +32,7 @@ class BibleFeedViewModelTest {
     private val userData = LocalUserDataRepository(FakeUserDao()) { 1L }
     private val preferences = ReaderPreferences(FakePreferencesDataStore())
     private val link = PendingVerseLink()
+    private val streaks = FakeStreakRepository()
 
     private val gen11 = VerseRef(1, 1, 1)
     private val gen13 = VerseRef(1, 1, 3)
@@ -45,7 +47,7 @@ class BibleFeedViewModelTest {
     fun tearDown() = Dispatchers.resetMain()
 
     private fun TestScope.viewModel(): BibleFeedViewModel {
-        val vm = BibleFeedViewModel(bible, userData, preferences, link)
+        val vm = BibleFeedViewModel(bible, userData, preferences, link, streaks)
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.uiState.collect {} }
         return vm
     }
@@ -217,5 +219,15 @@ class BibleFeedViewModelTest {
         vm.onSelectTranslation("SHORT") // re-resolves the anchor in the new translation
 
         assertEquals(bible.ordinalOf("SHORT", john317) - 1, vm.ready.startPage)
+    }
+
+    @Test
+    fun dwelledVersesAreRecordedForTheStreak() = runTest {
+        val vm = viewModel()
+        advanceUntilIdle()
+        val verse = vm.ready.pages.values.first()
+        vm.onVerseDwelled(verse)
+        advanceUntilIdle()
+        assertEquals(listOf(verse.ref), streaks.versesViewed)
     }
 }

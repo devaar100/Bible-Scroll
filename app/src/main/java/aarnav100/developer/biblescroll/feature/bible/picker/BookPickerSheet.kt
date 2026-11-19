@@ -253,8 +253,9 @@ private fun LazyListScope.section(
     }
 }
 
+/** B3 sticky section header ("Old Testament" / "New Testament"); also used by H13. */
 @Composable
-private fun SectionHeader(text: String) {
+internal fun SectionHeader(text: String) {
     Text(
         text = text,
         style = MaterialTheme.typography.labelLarge,
@@ -270,7 +271,7 @@ private fun SectionHeader(text: String) {
 @Composable
 private fun BookRowItem(row: BookRow, isCurrent: Boolean, onClick: () -> Unit) {
     val chapters = pluralStringResource(R.plurals.picker_chapter_count, row.book.chapterCount, row.book.chapterCount)
-    val description = stringResource(R.string.picker_book_cd, row.book.name, chapters, row.readCount)
+    val description = pluralStringResource(R.plurals.picker_book_cd, row.readCount, row.book.name, chapters, row.readCount)
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -359,7 +360,7 @@ private fun ChapterGrid(
                         modifier = Modifier.semantics { heading() },
                     )
                     Text(
-                        text = stringResource(R.string.picker_read_progress, grid.read.size, grid.book.chapterCount),
+                        text = pluralStringResource(R.plurals.picker_read_progress, grid.read.size, grid.read.size, grid.book.chapterCount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
@@ -369,7 +370,7 @@ private fun ChapterGrid(
 
         grid.savedPosition?.let { pos ->
             item(span = fullSpan, key = "continue") {
-                val reference = stringResource(R.string.feed_reference_format, grid.book.name, pos.chapter, pos.verse)
+                val reference = stringResource(R.string.ref_verse, grid.book.name, pos.chapter, pos.verse)
                 FilledTonalButton(onClick = onContinue, modifier = Modifier.fillMaxWidth().padding(vertical = 4.dp)) {
                     Icon(Icons.Filled.PlayArrow, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(Modifier.width(8.dp))

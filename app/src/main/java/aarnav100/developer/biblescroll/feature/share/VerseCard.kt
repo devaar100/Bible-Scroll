@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.share
 
+import androidx.compose.ui.res.stringResource
 import aarnav100.developer.biblescroll.ui.theme.CharcoalBackground
 import aarnav100.developer.biblescroll.ui.theme.CharcoalSurfaceContainerHigh
 import aarnav100.developer.biblescroll.ui.theme.Chalk
@@ -178,7 +179,7 @@ fun VerseCard(
             // BasicText + em line heights: M3 Text's unscaled 24 sp line height would grow these
             // lines in a small preview and squeeze the verse box.
             BasicText(
-                text = "${content.reference} · ${content.translationId}",
+                text = stringResource(R.string.two_parts, content.reference, content.translationId),
                 maxLines = 1,
                 style = TextStyle(
                     color = style.text,

@@ -85,5 +85,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Efesios en 6 días",
+      "shortDescription": "Quién eres en Cristo y cómo vivirlo.",
+      "description": "La primera mitad de Efesios describe lo que Dios ha hecho; la segunda mitad lo lleva a la vida diaria en la iglesia, en casa y en el trabajo.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }

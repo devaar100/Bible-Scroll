@@ -36,6 +36,7 @@ class NotificationsViewModelTest {
             synced += settings
         }
         override suspend fun syncFromStore() = sync(repo.settings.first())
+        override suspend fun syncPlanReminders() = Unit
     }
 
     private val repo = ReminderRepository(FakePreferencesDataStore())

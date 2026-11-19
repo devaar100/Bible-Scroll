@@ -48,19 +48,20 @@ FAITH_INSTEAD_OF_CARE = _re.compile(
     r"(doctors?|medicine|medication|therapy|therapists?|counsell?ors?|treatment)\b", _re.I)
 
 
-def _scan(devotional: dict, patterns, check: str, label: str) -> list[dict]:
+def _scan(devotional: dict, patterns, check: str, label: str, passage: str = "") -> list[dict]:
+    """[passage]: words the day's own passage uses are allowed (Matthew 6:34 is about "tomorrow")."""
     out = []
     for section in ("title", *FIELDS):
         text = devotional.get(section, "")
         for pattern in patterns:
             m = pattern.search(text)
-            if m:
+            if m and not (passage and pattern.search(passage)):
                 out.append(reason(check, f"“{m.group(0)}”: {label}", section))
     return out
 
 
-def check_standalone(devotional: dict) -> list[dict]:
-    return _scan(devotional, STANDALONE, "standalone", "devotionals stand alone and don't assume the date or season")
+def check_standalone(devotional: dict, passage: str = "") -> list[dict]:
+    return _scan(devotional, STANDALONE, "standalone", "devotionals stand alone and don't assume the date or season", passage)
 
 
 def check_devotional_wording(devotional: dict) -> list[dict]:
@@ -152,7 +153,7 @@ def free_checks(devotional: dict, day: Day | None, bible: Bible, rules: Rules,
     reasons += study_checks.check_original_language(devotional, bible, ("title", *FIELDS), words, "these passages")
     reasons += study_checks.check_banned(devotional, rules, ("title", *FIELDS))
     reasons += study_checks.check_pipeline_wording(devotional, rules, ("title", *FIELDS))
-    reasons += check_standalone(devotional)
+    reasons += check_standalone(devotional, passage_text(anchor, bible.bible_db or APP_BIBLE_DB))
     reasons += check_devotional_wording(devotional)
     reasons += check_allowed_passages(devotional, bible, day)
     return reasons

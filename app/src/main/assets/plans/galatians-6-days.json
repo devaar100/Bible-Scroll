@@ -85,5 +85,13 @@
   "credits": "Reading plan by Bible Scroll. Daily times are estimated from the World English Bible at about 200 words a minute.",
   "estimatedMinutesPerDay": 3,
   "difficulty": "easy",
-  "reviewed": false
+  "reviewed": false,
+  "i18n": {
+    "es": {
+      "title": "Gálatas en 6 días",
+      "shortDescription": "Libertad en Cristo, en seis lecturas breves.",
+      "description": "Una carta apasionada sobre la gracia, la libertad y la vida en el Espíritu, escrita a iglesias a las que se les decía que necesitaban algo más que a Jesús.",
+      "credits": "Plan de lectura de Bible Scroll. Los tiempos diarios son estimados a partir de la World English Bible, a unas 200 palabras por minuto."
+    }
+  }
 }
