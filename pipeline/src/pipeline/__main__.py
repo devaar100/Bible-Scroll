@@ -150,6 +150,11 @@ def main() -> None:
     pk.add_argument("ids", nargs="+")
     pk.add_argument("--from", dest="src", help="read the studies from this folder (canaries: out/studies)")
     pk.add_argument("--prefix", default="", help='id prefix in the packet, e.g. "canary:"')
+    bl = cc_sub.add_parser("blind", help="write shuffled, unlabelled reviewer batches (review/batch-K.txt + labels.json)")
+    bl.add_argument("--round", type=int, required=True)
+    bl.add_argument("--canaries", help="folder of canary studies (out/canaries; read only)")
+    bl.add_argument("--size", type=int, default=5)
+    bl.add_argument("--seed", type=int, default=0)
     vf = cc_sub.add_parser("verify", help="check reviewer findings' studyQuotes verbatim; write review.json")
     vf.add_argument("--round", type=int, required=True)
     vf.add_argument("findings", nargs="+", help="reviewer JSON files")
@@ -632,10 +637,32 @@ def run_cctest(args) -> None:
     elif args.cc_command == "packet":
         store = StudyStore(Path(args.src)) if args.src else StudyStore(cc.round_dir(args.round))
         print("\n\n".join(cc.packet(store.load(i), prefix=args.prefix) for i in args.ids))
+    elif args.cc_command == "blind":
+        labels = cc.blind(args.round, Path(args.canaries) if args.canaries else None, args.size, args.seed)
+        batches = sorted({v["batch"] for v in labels.values()})
+        print(f"{len(labels)} studies in {len(batches)} batches: {cc.round_dir(args.round) / 'review'}")
     elif args.cc_command == "verify":
         studies = {}
         rd = StudyStore(cc.round_dir(args.round))
         studies.update({i: rd.load(i) for i in rd.ids()})
+        labels_file = cc.round_dir(args.round) / "review" / "labels.json"
+        if labels_file.exists() and not args.canaries_from:  # blind review: labels -> studies, findings re-keyed
+            meta = json.loads(labels_file.read_text())
+            canary = StudyStore(Path(meta["canaryDir"])) if meta["canaryDir"] else None
+            merged = {"studies": [s for f in args.findings for s in json.loads(Path(f).read_text())["studies"]]}
+            by_label = {}
+            for label, info in meta["labels"].items():
+                by_label[label] = (canary if info["source"] == "canary" else rd).load(info["id"])
+            review = cc.verify(args.round, merged, by_label)
+            review["labels"] = meta["labels"]
+            (cc.round_dir(args.round) / "review.json").write_text(json.dumps(review, indent=2, ensure_ascii=False) + "\n")
+            kept = sum(len(v) for v in review["findings"].values())
+            print(f"Kept {kept} findings; discarded {len(review['discarded'])}")
+            for d in review["discarded"]:
+                info = meta["labels"][d["id"]]
+                print(f"  discarded {d['id']} ({info['source']} {info['id']}): {d['why']}: "
+                      f"{d['finding'].get('studyQuote', '')[:100]!r}")
+            return
         if args.canaries_from:
             canary = StudyStore(Path(args.canaries_from))
             merged = {"studies": []}

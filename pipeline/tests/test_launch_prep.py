@@ -170,6 +170,14 @@ def test_did_you_know_word_accepts_surface_or_lemma(written, bible, written_as):
     assert "did_you_know_word" not in named(outcome(written, bible))
 
 
+@pytest.mark.parametrize("surface, written_as", [("δίδοτε,", "δίδοτε"), ("שָֽׁמָּה׃ ס", "שמה"), ("ὑμῖν.", "ὑμῖν")])
+def test_did_you_know_word_ignores_surface_punctuation(written, bible, surface, written_as):
+    written["originalLanguage"] = {"language": "greek", "textBasis": "x", "words": [
+        {"surface": surface, "lemma": "zz", "transliteration": "qq", "strongs": "G1", "gloss": "g", "morphology": "V"}]}
+    written["didYouKnow"] = words(30, f"The word {written_as} matters here.")
+    assert "did_you_know_word" not in named(outcome(written, bible))
+
+
 def test_did_you_know_word_needs_a_whole_word(written, bible):
     written["originalLanguage"] = {"language": "hebrew", "textBasis": "x", "words": [
         {"surface": "x", "lemma": "y", "transliteration": "ho.Du", "strongs": "H1", "gloss": "g", "morphology": "HR"}]}
@@ -414,3 +422,40 @@ def test_reviewer_quotes_must_be_verbatim(written):
     assert len(review["findings"]["JHN.3.16"]) == 1
     assert [d["why"].split(" ")[0] for d in review["discarded"]] == ["studyQuote", "malformed"]
     assert review["didYouKnow"]["JHN.3.16"]["about"] is True
+
+
+# ---- Blind review batches ---------------------------------------------------------------------------------
+
+def test_blind_batches_keep_a_verse_out_of_its_own_batch():
+    from pipeline import cctest
+    entries = [("round", f"V.{i}") for i in range(20)] + [("canary", "V.3"), ("canary", "V.7"), ("canary", "V.11")]
+    for seed in range(25):
+        batches = cctest.blind_batches(entries, 5, seed)
+        assert sorted(e for b in batches for e in b) == sorted(entries)
+        assert all(len(b) <= 5 for b in batches)
+        assert all(len({e[1] for e in b}) == len(b) for b in batches)
+    assert cctest.blind_batches(entries, 5, 1) == cctest.blind_batches(entries, 5, 1)
+    assert cctest.blind_batches(entries, 5, 1) != cctest.blind_batches(entries, 5, 2)
+
+
+def test_packet_label_hides_the_id(written):
+    from pipeline import cctest
+    from pipeline.paths import APP_BIBLE_DB
+    if not APP_BIBLE_DB.exists():
+        pytest.skip("needs the app bible.db")
+    text = cctest.packet(written, label="S07")
+    assert "=== STUDY S07 (" in text and "=== END STUDY S07 ===" in text
+    assert "canary" not in text.lower() and f"STUDY {written['id']}" not in text
+
+
+@pytest.mark.parametrize("text, flagged", [
+    ("The World English Bible puts it plainly: 'I shall lack nothing.' The King James differs.", False),
+    ("Look at sunergei, the verb rendered 'works together.' It is singular.", False),
+    ("The word ’together.’ ends here.", False),
+    ("The word be.re.Shit opens the book.", True),
+    ("The word ro.'I is the shepherd word.", True),
+    ("Here pe.Ri means fruit.", True),
+])
+def test_dotted_translit_ignores_sentence_end_in_quotes(written, bible, text, flagged):
+    written["meaning"] = words(60, text)
+    assert ("dotted_translit" in named(outcome(written, bible))) is flagged

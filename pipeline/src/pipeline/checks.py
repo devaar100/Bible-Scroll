@@ -21,7 +21,9 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "7"  # 7: "Did you know?" word match ignores case, diacritics, apostrophes, dots
+CHECKER_VERSION = "8"  # 8: dotted-transliteration check no longer fires on a sentence ending inside single
+# quotes ("nothing.'"); every dotted segment needs a letter
+# 7: "Did you know?" word match ignores case, diacritics, apostrophes, dots
 # and hyphens, and accepts surface, lemma or transliteration
 # 6: length limits from limits.json (graceShare, per-section grace/hardCap; theology 70-95,
 # cap 115); "Did you know?" must name one of the verse's listed original words
@@ -366,7 +368,11 @@ def check_verse_position(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) ->
 
 
 _LETTERS = "A-Za-zÀ-ɏḀ-ỿ'’ʼʾʿ"
-_DOTTED = re.compile(rf"(?<![{_LETTERS}.])[{_LETTERS}]+(?:\.[{_LETTERS}]+)+")
+_ALPHA = "A-Za-zÀ-ɏḀ-ỿ"
+# Every dotted segment needs a real letter: "ro.'I" is a dotted transliteration, but "nothing.'" (a sentence ending
+# inside single quotes) is not.
+_SEGMENT = rf"[{_LETTERS}]*[{_ALPHA}][{_LETTERS}]*"
+_DOTTED = re.compile(rf"(?<![{_LETTERS}.]){_SEGMENT}(?:\.{_SEGMENT})+")
 
 
 def check_dotted_translit(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
@@ -427,7 +433,14 @@ def dyk_forms(word: dict, greek: bool) -> set[str]:
 
     raw = [word.get("surface", ""), word.get("lemma", ""), word.get("transliteration", ""),
            clean_translit(word.get("transliteration", ""), greek)]
-    return {f for f in (dyk_norm(r).strip() for r in raw) if f}
+    # TAGNT/TAHOT surface forms carry punctuation and paragraph marks ("δίδοτε,", "שָֽׁמָּה׃ ס"): keep the first
+    # token and trim non-word characters from its ends.
+    forms = set()
+    for r in raw:
+        tokens = dyk_norm(r).split()
+        if tokens:
+            forms.add(re.sub(r"^\W+|\W+$", "", tokens[0]))
+    return {f for f in forms if f}
 
 
 def check_did_you_know_word(study: dict) -> list[dict]:
