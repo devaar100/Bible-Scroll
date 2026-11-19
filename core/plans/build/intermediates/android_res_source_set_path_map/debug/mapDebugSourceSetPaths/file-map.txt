@@ -1,9 +1,0 @@
-aarnav100.developer.biblescroll.core.plans-pngs-0 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/generated/res/pngs/debug
-aarnav100.developer.biblescroll.core.plans-updated_navigation_xml-1 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/generated/updated_navigation_xml/debug
-aarnav100.developer.biblescroll.core.plans-mergeDebugResources-2 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/incremental/debug/mergeDebugResources/merged.dir
-aarnav100.developer.biblescroll.core.plans-mergeDebugResources-3 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/incremental/debug/mergeDebugResources/stripped.dir
-aarnav100.developer.biblescroll.core.plans-debug-4 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/merged_res/debug/mergeDebugResources
-aarnav100.developer.biblescroll.core.plans-debug-5 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/build/intermediates/packaged_res/debug/packageDebugResources
-aarnav100.developer.biblescroll.core.plans-debug-6 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/src/debug/res
-aarnav100.developer.biblescroll.core.plans-main-7 /Users/aarnavjindal/AndroidStudioProjects/BibleScroll/core/plans/src/main/res
-gradleHome-0 /Users/aarnavjindal/.gradle
