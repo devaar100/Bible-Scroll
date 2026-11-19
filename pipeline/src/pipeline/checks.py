@@ -21,7 +21,9 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "3"  # 3: allowed-reference set, 20% length tolerance, pipeline wording, negated banned phrases
+CHECKER_VERSION = "4"  # 4: allowed set = the verses shown (context.py) + cross refs; verse-position wording;
+# dotted transliterations
+# 3: allowed-reference set, 20% length tolerance, pipeline wording, negated banned phrases
 # 2: English words after "Greek word" aren't treated as transliterations
 PROSE_FIELDS = ("meaning", "historicalContext", "lifeInBibleTimes", "theology", "didYouKnow", "applyIt")
 #: Studies pass a section up to this share over its maximum; above it (or under the minimum) they are flagged.
@@ -120,9 +122,12 @@ def _expand(book: int, start: tuple[int, int | None], end: tuple[int, int | None
 
 
 def allowed_verses(study: dict, bible: Bible) -> set[tuple[int, int, int]]:
-    """The verse itself, its whole chapter (which holds the context verses), and every listed cross reference."""
-    b, c, v = parse_id(study["id"])
-    allowed = {k for k in bible.verses if k[0] == b and k[1] == c} | {(b, c, v)}
+    """The verses the request showed (the verse and its context, context.context_keys) and every listed
+    cross reference."""
+    from .context import context_keys
+
+    key = parse_id(study["id"])
+    allowed = set(context_keys(key, (k for k in bible.verses if k[0] == key[0]))) | {key}
     for x in study.get("crossReferences", []):
         first, _, last = x["ref"].partition("-")
         fb, fc, fv = parse_id(first)
@@ -133,7 +138,7 @@ def allowed_verses(study: dict, bible: Bible) -> set[tuple[int, int, int]]:
 
 def check_allowed_references(study: dict, bible: Bible, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
     """
-    A reference must stay inside the allowed set: the verse's own chapter (incl. its context verses) and the
+    A reference must stay inside the allowed set: the verse, the context verses the request showed, and the
     listed cross references. A whole-chapter reference passes if it is the verse's own chapter or contains a
     listed cross reference. References that don't exist are reported by check_references instead.
     """
@@ -149,7 +154,8 @@ def check_allowed_references(study: dict, bible: Bible, fields: tuple[str, ...] 
             ok = (span & allowed) if whole_chapters else span <= allowed
             if not ok:
                 out.append(reason("reference_not_allowed",
-                                  f"“{ref.text}” isn't this chapter or a listed cross reference", section))
+                                  f"“{ref.text}” isn't a verse shown with this one or a listed cross reference",
+                                  section))
     return out
 
 
@@ -256,13 +262,52 @@ def check_pipeline_wording(study: dict, rules: Rules, fields: tuple[str, ...] = 
     return out
 
 
+# Nearby verses by number or position: "verse 5", "vv. 3-4", "the next verse", "two verses later".
+_VERSE_POSITION = [
+    re.compile(r"\b(?:verses?|vv?\.)\s*\d+", re.IGNORECASE),
+    re.compile(r"\b(?:next|previous|following|preceding|prior|earlier|later|last|first|final|opening|closing)"
+               r"\s+(?:(?:few|two|three|four|several)\s+)?verses?\b", re.IGNORECASE),
+    re.compile(r"\bverses?\s+(?:before|after|earlier|later|above|below|back|ahead)\b", re.IGNORECASE),
+]
+
+
+def check_verse_position(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """Neighbouring verses must be described by what they say, never by number or position."""
+    out = []
+    for section in fields:
+        text = study.get(section, "")
+        for pattern in _VERSE_POSITION:
+            m = pattern.search(text)
+            if m:
+                out.append(reason("verse_position", f"“{m.group(0)}”: describe the verse by what it says",
+                                  section))
+                break
+    return out
+
+
+_LETTERS = "A-Za-zÀ-ɏḀ-ỿ'’ʼʾʿ"
+_DOTTED = re.compile(rf"(?<![{_LETTERS}.])[{_LETTERS}]+(?:\.[{_LETTERS}]+)+")
+
+
+def check_dotted_translit(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """STEPBible syllable dots leaking into prose ("be.re.Shit", "ro.'I"). Skips e.g./i.e.-style abbreviations."""
+    out = []
+    for section in fields:
+        for m in _DOTTED.finditer(study.get(section, "")):
+            if all(len(part) <= 1 for part in m.group(0).split(".")):
+                continue
+            out.append(reason("dotted_translit", f"“{m.group(0)}”: write the word without syllable dots", section))
+    return out
+
+
 def free_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012Validator) -> list[dict]:
     reasons = check_schema(study, validator)
     if any(r["check"] == "schema" for r in reasons) and "originalLanguage" not in study:
         return reasons  # too broken to check further
     return [*reasons, *check_lengths(study, rules, tolerance=LENGTH_TOLERANCE), *check_references(study, bible),
             *check_allowed_references(study, bible), *check_original_language(study, bible),
-            *check_banned(study, rules), *check_pipeline_wording(study, rules)]
+            *check_banned(study, rules), *check_pipeline_wording(study, rules), *check_verse_position(study),
+            *check_dotted_translit(study)]
 
 
 # ---- Orchestration ----------------------------------------------------------------------------------

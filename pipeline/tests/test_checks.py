@@ -158,12 +158,13 @@ def test_length_band(n, band):
 
 
 def test_references_must_stay_in_the_allowed_set(written, bible):
-    # Own chapter (any verse), listed cross references and a chapter holding one are allowed.
-    written["theology"] = words(60, "See John 3:2, John 3, Romans 5:8, 1 John 4:9-10, Romans 5.")
+    # Context verses (4 either side), own chapter, listed cross references and a chapter holding one are allowed.
+    written["theology"] = words(60, "See John 3:12, John 3:20, John 3, Romans 5:8, 1 John 4:9-10, Romans 5.")
     assert outcome(written, bible).reasons == []
-    written["theology"] = words(60, "Compare Romans 8:28, John 1:12 and Genesis 1.")
+    written["theology"] = words(60, "Compare Romans 8:28, John 1:12, John 3:2 and Genesis 1.")
     msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "reference_not_allowed"]
-    assert len(msgs) == 3 and any("Romans 8:28" in m for m in msgs) and any("Genesis 1" in m for m in msgs)
+    assert len(msgs) == 4 and any("Romans 8:28" in m for m in msgs) and any("Genesis 1" in m for m in msgs)
+    assert any("John 3:2”" in m for m in msgs)  # same chapter but not shown
     written["theology"] = words(60, "Romans 5:8-9 goes one verse past the listed reference.")
     assert checks_named(outcome(written, bible)) == ["reference_not_allowed"]
 
@@ -180,3 +181,39 @@ def test_pipeline_wording_flags_even_when_negated(written, bible):
                  "Not in the data given.", "This version says so.", "The words supplied here."):
         written["didYouKnow"] = words(30, text)
         assert "pipeline_wording" in checks_named(outcome(written, bible)), text
+
+
+def test_context_crosses_chapters_but_not_psalms():
+    from pipeline.context import context_keys
+    verses = [(43, 1, v) for v in range(1, 52)] + [(43, 2, v) for v in range(1, 26)]
+    assert context_keys((43, 2, 2), verses) == [(43, 1, 49), (43, 1, 50), (43, 1, 51), (43, 2, 1), (43, 2, 2),
+                                                (43, 2, 3), (43, 2, 4), (43, 2, 5), (43, 2, 6)]
+    psalms = [(19, 23, v) for v in range(1, 7)] + [(19, 24, v) for v in range(1, 11)] + \
+             [(19, 119, v) for v in range(1, 177)]
+    assert context_keys((19, 23, 1), psalms) == [(19, 23, v) for v in range(1, 7)]  # whole psalm
+    assert context_keys((19, 119, 1), psalms) == [(19, 119, v) for v in range(1, 6)]  # long psalm: window, own psalm
+
+
+def test_verse_position_wording(written, bible):
+    for text in ("As verse 5 says, God acts.", "Compare vv. 3-4 here.", "The next verse explains it.",
+                 "The previous two verses show this.", "A few verses later Jesus speaks.",
+                 "In the verse before, he waits."):
+        written["meaning"] = words(60, text)
+        assert "verse_position" in checks_named(outcome(written, bible)), text
+    written["meaning"] = words(60, "This verse and its neighbours speak of love; when Jesus goes on to promise life.")
+    assert outcome(written, bible).reasons == []
+
+
+def test_dotted_transliterations(written, bible):
+    written["didYouKnow"] = words(30, "The Hebrew be.re.Shit opens the book.")
+    assert "dotted_translit" in checks_named(outcome(written, bible))
+    written["didYouKnow"] = words(30, "Some words, e.g. love, recur; i.e. often.")
+    assert "dotted_translit" not in checks_named(outcome(written, bible))
+
+
+def test_clean_translit():
+    from pipeline.context import clean_translit
+    assert clean_translit("be.re.Shit") == "bereshit"
+    assert clean_translit("ro.'I") == "ro'i"
+    assert clean_translit("Yah.weh") == "Yahweh"
+    assert clean_translit("agapaō") == "agapaō"
