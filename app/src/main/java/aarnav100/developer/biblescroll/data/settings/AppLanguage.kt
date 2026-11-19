@@ -75,6 +75,13 @@ class AppLanguage @Inject constructor(@ApplicationContext private val context: C
     /** Resources in the app's language, for text built outside a screen (notifications, widget, ViewModels). */
     fun resources(): Resources = context.resources
 
+    /**
+     * Resources in [locale], from a configuration context. Never `Resources(assets, metrics, config)`: that shares
+     * the app's AssetManager and switches the app's own resources to [locale] too (Spanish book names came out English).
+     */
+    fun resourcesIn(locale: Locale): Resources =
+        context.createConfigurationContext(Configuration(context.resources.configuration).apply { setLocale(locale) }).resources
+
     private fun uiLocale(): Locale = context.resources.configuration.locales[0] ?: Locale.getDefault()
 
     companion object {

@@ -2,7 +2,6 @@ package aarnav100.developer.biblescroll.data.bible
 
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.settings.AppLanguage
-import android.content.res.Configuration
 import android.content.res.Resources
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -33,10 +32,9 @@ interface BookNames {
 
 @Singleton
 class ResourceBookNames @Inject constructor(private val language: AppLanguage) : BookNames {
-    override val books: Flow<Map<Int, LocalizedBook>?> = language.locale.map { load(language.resources()) }
+    override val books: Flow<Map<Int, LocalizedBook>?> = language.locale.map { load(language.resources(), language.resourcesIn(Locale.ENGLISH)) }
 
-    private fun load(res: Resources): Map<Int, LocalizedBook> {
-        val english = res.inLocale(Locale.ENGLISH)
+    private fun load(res: Resources, english: Resources): Map<Int, LocalizedBook> {
         val names = res.getStringArray(R.array.book_names)
         val abbreviations = res.getStringArray(R.array.book_abbreviations)
         val aliases = res.getStringArray(R.array.book_search_aliases)
@@ -52,12 +50,6 @@ class ResourceBookNames @Inject constructor(private val language: AppLanguage) :
                 searchTerms = terms.map(::normalizeForSearch).filter { it.isNotEmpty() }.distinct(),
             )
         }
-    }
-
-    private fun Resources.inLocale(locale: Locale): Resources {
-        val config = Configuration(configuration).apply { setLocale(locale) }
-        @Suppress("DEPRECATION") // a throwaway Resources for the English names; no Context needed
-        return Resources(assets, displayMetrics, config)
     }
 }
 

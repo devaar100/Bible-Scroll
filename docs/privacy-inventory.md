@@ -20,7 +20,7 @@ app, or a third-party library with its own data handling.
 | Community vote (month, ministry id, when, sent) | user.db `community_votes` | data/community/CommunityVote.kt |
 | Settings (theme, background, accent, font size, red letters, Hide AI studies, translation, reminder on/time, widget verse/mode, streak grace day, onboarding done, one-off tips) | DataStore `settings.preferences_pb` | data/settings/*, data/reminder/ReminderSettings.kt, widget/WidgetVerseRepository.kt |
 | App language on Android 8–12 | SharedPreferences `app_language.xml` | data/settings/AppLanguage.kt |
-| Bible text (WEB, KJV) | bible.db (shipped in the APK) | data/bible/ |
+| Bible text (WEB, KJV, BSB, RV1909) | bible.db (shipped in the APK) | data/bible/ |
 | Plan catalogue | plans.db (rebuilt from APK assets) | data/plans/PlanCatalogDatabase.kt |
 | Downloaded studies and devotionals | content.db | core/content/db/ContentDatabase.kt |
 | Last manifest / Discover list / ministries list | files/content-cache/ | core/content/ContentCache.kt |

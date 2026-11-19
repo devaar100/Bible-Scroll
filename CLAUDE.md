@@ -22,7 +22,7 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 - [x] Session 30a: RV1909 and BSB built into bible.db (tools/build_bible_db.py, eBible sources, LICENCES.md, tools/bible_db_report.md: RV1909 remapped to KJV keys, 18 merged verses, psalm titles split). App side done in 31b
 - [x] Session 31a: localized plans/devotionals (pipeline `translate` with drift check; app shows them in the UI language), "studies are in English" note
 - [x] Session 31b: bible.db v2 (BibleDatabase.VERSION bumps re-copy the asset; asset user_version must match), translation_info.has_red_letters read raw (picker note), onboarding Bible step on Spanish UIs (RV1909/WEB), reminder verses checked in all four translations
-- [ ] Session 31c: wrap-up: Session 29 tests, secrets scan, APK size, signed-out end-to-end on a `qa` variant, docs/data-safety.md
+- [ ] Session 31c: wrap-up. Done: `qa` build type + docs/qa.md (checklist, size: AAB 18.3 MB, APK 13.9 MB), secrets scan of history (clean), docs/data-safety.md. All 63 instrumented tests pass on an SM-M146B (fixed Spanish book names showing in English: BookNames used a Resources sharing the AssetManager). qa run on the phone: onboarding (Spanish), feed, picker. Left: the rest of the docs/qa.md checklist (reminder, widget, Community test vote, backup restore, upgrade), by hand
 - [x] Verse of the Day (H1 card + widget mode; definition in docs/spec.md)
 - [x] H1 Home finished: Today's Reading (plans pager, Continue reading) and Verse Search (wheels + TalkBack dropdowns); card order in docs/spec.md
 - [x] S7 Help & feedback + Report a problem (email intent only; set `supportEmail` in app/build.gradle.kts before release)

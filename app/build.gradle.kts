@@ -48,6 +48,18 @@ android {
                 "proguard-rules.pro"
             )
         }
+        // Release code (R8, shrinking, no StrictMode, no debug tools) for end-to-end checks on a phone:
+        // debug-signed, installs beside the store app (separate data). Community shows test- ministries
+        // too; vote only on those, since real counters are shared. Not gated on supportEmail. See docs/qa.md.
+        create("qa") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".qa"
+            versionNameSuffix = "-qa"
+            signingConfig = signingConfigs.getByName("debug")
+            matchingFallbacks += "release"
+            buildConfigField("boolean", "QA", "true")
+        }
+        all { if (name != "qa") buildConfigField("boolean", "QA", "false") }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

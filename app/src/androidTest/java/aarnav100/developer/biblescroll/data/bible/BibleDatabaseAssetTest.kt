@@ -36,8 +36,8 @@ class BibleDatabaseAssetTest {
     }
 
     @Test
-    fun assetPassesRoomValidationAndHasBothTranslations() = runBlocking {
-        assertEquals(listOf("WEB", "KJV"), repo.translations().first().map { it.id })
+    fun assetPassesRoomValidationAndHasAllTranslations() = runBlocking {
+        assertEquals(listOf("WEB", "KJV", "BSB", "RV1909"), repo.translations().first().map { it.id })
         assertEquals(66, repo.books().first().size)
         assertEquals(31_102, db.bibleDao().observeVersesFrom("KJV", 1, 40_000).first().size)
     }

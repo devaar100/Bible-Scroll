@@ -19,6 +19,6 @@ abstract class CommunityModule {
     companion object {
         /** test:true ministries appear in debug builds only. */
         @Provides
-        fun provideCommunityConfig(): CommunityConfig = CommunityConfig(includeTest = BuildConfig.DEBUG)
+        fun provideCommunityConfig(): CommunityConfig = CommunityConfig(includeTest = BuildConfig.DEBUG || BuildConfig.QA)
     }
 }

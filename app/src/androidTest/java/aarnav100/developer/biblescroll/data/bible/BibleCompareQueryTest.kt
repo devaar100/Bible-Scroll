@@ -47,7 +47,9 @@ class BibleCompareQueryTest {
         val translations = repo.translations().first()
 
         assertEquals(translations.map { it.id }, verses.map { it.translationId })
-        assertTrue(verses.all { it.wordsOfJesus.isNotEmpty() })
+        // Red letters exactly where the source marks them (translation_info.has_red_letters: WEB, KJV).
+        val marked = translations.associate { it.id to it.hasRedLetters }
+        assertTrue(verses.all { it.wordsOfJesus.isNotEmpty() == marked.getValue(it.translationId) })
     }
 
     @Test

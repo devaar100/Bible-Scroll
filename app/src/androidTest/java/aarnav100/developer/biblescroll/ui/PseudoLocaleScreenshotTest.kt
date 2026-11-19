@@ -72,6 +72,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.activity.compose.LocalActivityResultRegistryOwner
+import androidx.activity.result.ActivityResultRegistry
+import androidx.activity.result.ActivityResultRegistryOwner
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.core.app.ActivityOptionsCompat
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -107,6 +112,8 @@ class PseudoLocaleScreenshotTest {
         assertTrue("en-XA resources missing: is isPseudoLocalesEnabled on for debug?", pseudo.getString(aarnav100.developer.biblescroll.R.string.settings_title).contains('['))
         rule.setContent {
             CompositionLocalProvider(
+                // createComposeRule's host provides none; screens with file pickers (DataErrorScreen) need one.
+                LocalActivityResultRegistryOwner provides NoOpResultRegistryOwner,
                 LocalContext provides pseudo,
                 LocalConfiguration provides config,
                 LocalResources provides pseudo.resources,
@@ -246,5 +253,12 @@ class PseudoLocaleScreenshotTest {
             Spacer(Modifier.weight(1f))
             AppNavigationBar(isSelected = { it.ordinal == 3 }, onSelect = {})
         }
+    }
+}
+
+/** Screenshots never launch anything. */
+private object NoOpResultRegistryOwner : ActivityResultRegistryOwner {
+    override val activityResultRegistry = object : ActivityResultRegistry() {
+        override fun <I, O> onLaunch(requestCode: Int, contract: ActivityResultContract<I, O>, input: I, options: ActivityOptionsCompat?) = Unit
     }
 }
