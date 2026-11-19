@@ -106,14 +106,23 @@
     <string name="share_permission_needed">Permite el acceso al almacenamiento para guardar imágenes.</string>
     <!-- Widget and widget verse dialog (B11) -->
     <string name="widget_name">Versículo</string>
-    <string name="widget_description">El versículo que elijas, en tu pantalla de inicio</string>
-    <string name="widget_dialog_body">¿Mostrar %1$s en el widget de tu pantalla de inicio?</string>
+    <string name="widget_description">El versículo que elijas, o el versículo del día, en tu pantalla de inicio</string>
+    <string name="widget_dialog_question">¿Qué quieres que muestre el widget?</string>
+    <string name="widget_mode_fixed">Un versículo fijo</string>
+    <string name="widget_mode_fixed_detail">%1$s, hasta que lo cambies</string>
+    <string name="widget_mode_votd_detail">Un versículo nuevo cada día, justo después de la medianoche</string>
     <string name="widget_dialog_not_placed">Tu widget de versículo todavía no está en la pantalla de inicio.</string>
     <string name="widget_dialog_manual">1. Mantén presionado un espacio vacío de tu pantalla de inicio y toca Widgets.\n2. Busca %1$s y arrastra el widget Versículo a tu pantalla de inicio.</string>
     <string name="widget_set">Usar</string>
     <string name="widget_add_to_home">Agregar a la pantalla de inicio</string>
     <string name="widget_cancel">Cancelar</string>
     <string name="widget_updated">Versículo del widget actualizado</string>
+
+    <!-- Versículo del día (H1, tarjeta de Inicio y widget) -->
+    <string name="votd_title">Versículo del día</string>
+    <string name="votd_read_in_context">Leer en contexto</string>
+    <string name="votd_fallback">%1$s no incluye este versículo, así que se muestra en %2$s</string>
+    <string name="votd_cd">%1$s: %2$s</string>
     <!-- Compare versions (B9) -->
     <string name="compare_title">%1$s en todas las versiones</string>
     <string name="compare_current">Actual</string>

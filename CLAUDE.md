@@ -23,7 +23,7 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 - [x] Session 31a: localized plans/devotionals (pipeline `translate` with drift check; app shows them in the UI language), "studies are in English" note
 - [ ] Session 31b: bundle RV1909, onboarding offer on Spanish phones, reminder verses in the chosen translation
 - [ ] Session 31c: wrap-up: Session 29 tests, secrets scan, APK size, signed-out end-to-end on a `qa` variant, docs/data-safety.md
-- [ ] Later: Verse of the Day (TBD in docs/spec.md)
+- [x] Verse of the Day (H1 card + widget mode; definition in docs/spec.md). Verse Search and Today's Reading cards: not built
 - [ ] Session 32: TBD
 - [ ] Session 33: C1/C2 Community anonymous monthly vote: local CommunityVote table + Firestore add-one counter (add host to docs/network-calls.md)
 - [ ] Session 34: TBD

@@ -1,6 +1,11 @@
 package aarnav100.developer.biblescroll.ui
 
+import aarnav100.developer.biblescroll.data.bible.model.Verse
+import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.settings.AppSettings
+import aarnav100.developer.biblescroll.data.votd.VotdVerse
+import aarnav100.developer.biblescroll.feature.home.VerseOfTheDayCard
+import java.time.LocalDate
 import aarnav100.developer.biblescroll.feature.bible.FeedTopBar
 import aarnav100.developer.biblescroll.feature.onboarding.FeatureTourStep
 import aarnav100.developer.biblescroll.feature.onboarding.Goal
@@ -93,6 +98,14 @@ class PseudoLocaleScreenshotTest {
         PermissionStep(time = LocalTime.of(8, 0), declined = true, onBack = {}, onAllow = {}, onNotNow = {}, onFinish = {})
     }
     @Test fun featureTour() = shot("onboarding_tour") { FeatureTourStep(TourVerses(), onBack = {}, onSkip = {}, onContinue = {}) }
+
+    @Test fun verseOfTheDayCard() = shot("home_verse_of_the_day", heightDp = 520) {
+        val verse = Verse("KJV", VerseRef(43, 3, 16), 1, "For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.", emptyList())
+        VerseOfTheDayCard(
+            votd = VotdVerse(LocalDate.of(2028, 3, 16), verse, "John 3:16", requestedTranslationId = "BSB", translationName = "King James Version"),
+            onReadInContext = {}, onShareImage = {}, onSetWidget = {}, onCopy = {},
+        )
+    }
 
     @Test fun feedTopBarAndTabs() = shot("feed_top_bar_and_tabs", heightDp = 240) {
         Column {

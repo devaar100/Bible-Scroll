@@ -106,14 +106,26 @@
     <string name="share_permission_needed">Allow storage access to save images.</string>
     <!-- Widget and widget verse dialog (B11) -->
     <string name="widget_name">Verse</string>
-    <string name="widget_description">A verse of your choice on your home screen</string>
-    <string name="widget_dialog_body">Show %1$s on your home screen widget?</string>
+    <string name="widget_description">A verse of your choice, or the Verse of the Day, on your home screen</string>
+    <string name="widget_dialog_question">What should your widget show?</string>
+    <string name="widget_mode_fixed">A fixed verse</string>
+    <!-- %1$s = verse reference, e.g. "John 3:16" -->
+    <string name="widget_mode_fixed_detail">%1$s, until you change it</string>
+    <string name="widget_mode_votd_detail">A new verse every day, just after midnight</string>
     <string name="widget_dialog_not_placed">Your verse widget isn’t on the home screen yet.</string>
     <string name="widget_dialog_manual">1. Touch and hold an empty spot on your home screen, then tap Widgets.\n2. Find %1$s and drag the Verse widget onto your home screen.</string>
     <string name="widget_set">Set</string>
     <string name="widget_add_to_home">Add to home screen</string>
     <string name="widget_cancel">Cancel</string>
     <string name="widget_updated">Widget verse updated</string>
+
+    <!-- Verse of the Day (H1 Home card, widget) -->
+    <string name="votd_title">Verse of the Day</string>
+    <string name="votd_read_in_context">Read in context</string>
+    <!-- %1$s = the reader's translation (e.g. "KJV"), %2$s = the one shown instead (e.g. "WEB") -->
+    <string name="votd_fallback">%1$s doesn’t have this verse, so it’s shown in %2$s</string>
+    <!-- TalkBack: %1$s = "Verse of the Day", %2$s = verse, reference and translation -->
+    <string name="votd_cd">%1$s: %2$s</string>
     <!-- Compare versions (B9) -->
     <string name="compare_title">%1$s in every version</string>
     <string name="compare_current">Reading</string>

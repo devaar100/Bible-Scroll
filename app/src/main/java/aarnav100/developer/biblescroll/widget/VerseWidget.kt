@@ -8,6 +8,7 @@ import aarnav100.developer.biblescroll.ui.theme.LightColors
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -43,6 +44,10 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 
 @EntryPoint
 @InstallIn(SingletonComponent::class)
@@ -52,13 +57,15 @@ interface WidgetEntryPoint {
 
 private val WidgetColors = ColorProviders(light = LightColors, dark = DarkColors)
 
-/** Home-screen verse widget. Follows light/dark via GlanceTheme; tap opens the verse in the feed. */
+/** Home-screen verse widget: a fixed verse or the Verse of the Day. Follows light/dark via GlanceTheme; tap opens the verse in the feed. */
 class VerseWidget : GlanceAppWidget() {
 
     override val sizeMode = SizeMode.Responsive(setOf(SMALL, MEDIUM))
 
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         val repo = EntryPointAccessors.fromApplication(context, WidgetEntryPoint::class.java).widgetVerses()
+        // Verse of the Day mode: pick up a date (or zone) change whenever the widget is drawn.
+        repo.refreshDate()
         provideContent {
             val display by repo.display.collectAsState(initial = null)
             GlanceTheme(colors = WidgetColors) {
@@ -94,6 +101,18 @@ private fun WidgetContent(context: Context, display: WidgetDisplay?) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (display != null) {
+            if (display.isVerseOfTheDay && medium) {
+                Text(
+                    text = LocalContext.current.getString(R.string.votd_title),
+                    maxLines = 1,
+                    style = TextStyle(
+                        color = GlanceTheme.colors.onSurfaceVariant,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 12.sp,
+                    ),
+                )
+                Spacer(GlanceModifier.height(6.dp))
+            }
             // Glance can't load bundled fonts, so Scripture uses the system serif here.
             Text(
                 text = display.text,
@@ -120,4 +139,32 @@ private fun WidgetContent(context: Context, display: WidgetDisplay?) {
 
 class VerseWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget: GlanceAppWidget = VerseWidget()
+
+    /** First widget placed: arm the Verse of the Day midnight redraw if that mode is on. */
+    override fun onEnabled(context: Context) {
+        super.onEnabled(context)
+        syncMidnightUpdate(context)
+    }
+
+    /** Last widget removed: drop the midnight alarm. */
+    override fun onDisabled(context: Context) {
+        super.onDisabled(context)
+        syncMidnightUpdate(context)
+    }
+
+    private fun syncMidnightUpdate(context: Context) {
+        val repo = EntryPointAccessors.fromApplication(context.applicationContext, WidgetEntryPoint::class.java).widgetVerses()
+        // Not goAsync: GlanceAppWidgetReceiver may already hold this broadcast. The work is one DataStore read.
+        widgetScope.launch {
+            try {
+                repo.syncMidnightUpdate()
+            } catch (e: Exception) {
+                Log.e("VerseWidget", "Couldn't sync the Verse of the Day redraw", e)
+            }
+        }
+    }
+
+    private companion object {
+        val widgetScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    }
 }

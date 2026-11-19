@@ -6,7 +6,8 @@ import aarnav100.developer.biblescroll.testing.FakeBibleRepository
 import aarnav100.developer.biblescroll.testing.FakeHomeScreenWidgets
 import aarnav100.developer.biblescroll.testing.FakePreferencesDataStore
 import aarnav100.developer.biblescroll.testing.FakeWidgetRefresher
-import aarnav100.developer.biblescroll.widget.WidgetVerseRepository
+import aarnav100.developer.biblescroll.testing.widgetVerseRepository
+import aarnav100.developer.biblescroll.widget.WidgetMode
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -35,7 +36,7 @@ class VerseSheetsViewModelTest {
 
     private val home = FakeHomeScreenWidgets()
     private val refresher = FakeWidgetRefresher()
-    private val widgetVerses = WidgetVerseRepository(FakePreferencesDataStore(), FakeBibleRepository(), refresher)
+    private val widgetVerses = widgetVerseRepository(FakePreferencesDataStore(), refresher = refresher)
 
     private fun kotlinx.coroutines.test.TestScope.viewModel() = VerseSheetsViewModel(FakeBibleRepository(), widgetVerses, home).also { vm ->
         backgroundScope.launch(UnconfinedTestDispatcher(testScheduler)) { vm.sheet.collect {} }
@@ -141,6 +142,28 @@ class VerseSheetsViewModelTest {
         vm.confirmWidgetVerse(pin = true)
 
         assertEquals(listOf(VerseSheetEvent.WidgetVerseSet), events)
+    }
+
+    @Test
+    fun homeCardOpensTheDialogWithVerseOfTheDayPreselected() = runTest {
+        val vm = viewModel()
+
+        vm.openWidgetConfirm(john316, WidgetMode.VERSE_OF_THE_DAY)
+
+        assertEquals(WidgetMode.VERSE_OF_THE_DAY, (vm.sheet.value as VerseSheet.WidgetConfirm).initialMode)
+    }
+
+    @Test
+    fun choosingVerseOfTheDaySwitchesModeAndKeepsTheFixedVerse() = runTest {
+        val vm = viewModel()
+        widgetVerses.setWidgetVerse(VerseRef(1, 1, 1), "WEB")
+
+        vm.openWidgetConfirm(john316)
+        vm.confirmWidgetVerse(pin = false, mode = WidgetMode.VERSE_OF_THE_DAY)
+
+        assertEquals(WidgetMode.VERSE_OF_THE_DAY, widgetVerses.mode.first())
+        // The fixed verse stays saved, so switching back restores it.
+        assertEquals(VerseRef(1, 1, 1), widgetVerses.widgetVerse.first().ref)
     }
 
     @Test

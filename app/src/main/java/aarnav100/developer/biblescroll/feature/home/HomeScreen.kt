@@ -8,7 +8,21 @@ import androidx.compose.foundation.verticalScroll
 import aarnav100.developer.biblescroll.feature.streak.StreakChip
 import aarnav100.developer.biblescroll.feature.streak.StreakSheet
 import aarnav100.developer.biblescroll.feature.streak.StreakViewModel
+import aarnav100.developer.biblescroll.data.bible.model.Verse
+import aarnav100.developer.biblescroll.feature.bible.VerseSheets
+import aarnav100.developer.biblescroll.feature.bible.copyVerse
+import aarnav100.developer.biblescroll.feature.bible.sheets.VerseSheetsViewModel
+import aarnav100.developer.biblescroll.widget.WidgetMode
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -42,7 +56,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-/** H1 is Phase 3. For now Home is a header (streak chip, Settings gear), the Library (H3) and Reading plans (H8). */
+/**
+ * H1 Home: header (streak chip, Settings gear), the Verse of the Day card, the restore notice, today's devotional,
+ * the Library (H3) and Reading plans (H8). The Verse Search and Today's Reading cards (spec H1) aren't built yet.
+ */
 @Composable
 fun HomeScreen(
     onOpenSettings: () -> Unit,
@@ -53,40 +70,81 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     libraryViewModel: LibraryViewModel = hiltViewModel(),
     streakViewModel: StreakViewModel = hiltViewModel(),
+    votdViewModel: VerseOfTheDayViewModel = hiltViewModel(),
+    sheetsViewModel: VerseSheetsViewModel = hiltViewModel(),
 ) {
     val library by libraryViewModel.uiState.collectAsStateWithLifecycle()
     val streak by streakViewModel.uiState.collectAsStateWithLifecycle()
+    val votd by votdViewModel.uiState.collectAsStateWithLifecycle()
+    val bookNames by votdViewModel.bookNames.collectAsStateWithLifecycle()
     var showStreak by rememberSaveable { mutableStateOf(false) }
-    Column(modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp)) {
-        Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                stringResource(R.string.tab_home),
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.weight(1f).semantics { heading() },
-            )
-            StreakChip(streak, onClick = {
-                streakViewModel.resetMonth()
-                showStreak = true
-            })
-            IconButton(onClick = onOpenSettings) {
-                Icon(Icons.Outlined.Settings, contentDescription = stringResource(R.string.settings_title))
-            }
-        }
-        RestoreNoticeCard()
-        DevotionalHomeCards(onOpen = onOpenDevotional, onOpenArchive = onOpenDevotionalArchive)
-        HomeEntry(
-            icon = Icons.Outlined.CollectionsBookmark,
-            title = stringResource(R.string.library_title),
-            subtitle = pluralStringResource(R.plurals.library_total, library.total, library.total),
-            onClick = onOpenLibrary,
-        )
-        HomeEntry(
-            icon = Icons.AutoMirrored.Outlined.MenuBook,
-            title = stringResource(R.string.plans_title),
-            subtitle = stringResource(R.string.plans_home_body),
-            onClick = onOpenPlans,
-        )
+    // A new day (or time zone) while the app was in the background shows on return.
+    LifecycleResumeEffect(votdViewModel) {
+        votdViewModel.onResume()
+        onPauseOrDispose { }
     }
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val copiedMessage = stringResource(R.string.feed_copied)
+    // Same copy format and confirmation as B7 in the feed.
+    val copyAndConfirm: (Verse, String, SnackbarHostState) -> Unit = remember(context, scope, copiedMessage) {
+        { verse, reference, host ->
+            context.copyVerse(verse, reference)
+            host.currentSnackbarData?.dismiss()
+            scope.launch { host.showSnackbar(copiedMessage, duration = SnackbarDuration.Short) }
+        }
+    }
+    Box(modifier.fillMaxSize()) {
+        Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp)) {
+            Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+                Text(
+                    stringResource(R.string.tab_home),
+                    style = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.weight(1f).semantics { heading() },
+                )
+                StreakChip(streak, onClick = {
+                    streakViewModel.resetMonth()
+                    showStreak = true
+                })
+                IconButton(onClick = onOpenSettings) {
+                    Icon(Icons.Outlined.Settings, contentDescription = stringResource(R.string.settings_title))
+                }
+            }
+            (votd as? VotdUiState.Ready)?.votd?.let { today ->
+                VerseOfTheDayCard(
+                    votd = today,
+                    onReadInContext = votdViewModel::readInContext,
+                    onShareImage = { sheetsViewModel.openShareImage(today.verse) },
+                    onSetWidget = { sheetsViewModel.openWidgetConfirm(today.verse, WidgetMode.VERSE_OF_THE_DAY) },
+                    onCopy = { copyAndConfirm(today.verse, today.reference, snackbarHostState) },
+                    modifier = Modifier.padding(top = 8.dp),
+                )
+            }
+            RestoreNoticeCard()
+            DevotionalHomeCards(onOpen = onOpenDevotional, onOpenArchive = onOpenDevotionalArchive)
+            HomeEntry(
+                icon = Icons.Outlined.CollectionsBookmark,
+                title = stringResource(R.string.library_title),
+                subtitle = pluralStringResource(R.plurals.library_total, library.total, library.total),
+                onClick = onOpenLibrary,
+            )
+            HomeEntry(
+                icon = Icons.AutoMirrored.Outlined.MenuBook,
+                title = stringResource(R.string.plans_title),
+                subtitle = stringResource(R.string.plans_home_body),
+                onClick = onOpenPlans,
+            )
+        }
+        SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter))
+    }
+    // B10 share-as-image and the B11 widget dialog, shared with the feed.
+    VerseSheets(
+        viewModel = sheetsViewModel,
+        bookNames = bookNames,
+        screenSnackbar = snackbarHostState,
+        copyAndConfirm = copyAndConfirm,
+    )
     if (showStreak) {
         StreakSheet(
             state = streak,

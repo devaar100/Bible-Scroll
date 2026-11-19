@@ -6,6 +6,10 @@ import aarnav100.developer.biblescroll.data.bible.BibleRepository
 import aarnav100.developer.biblescroll.data.bible.BookNames
 import aarnav100.developer.biblescroll.data.bible.OfflineBibleRepository
 import aarnav100.developer.biblescroll.data.bible.ResourceBookNames
+import aarnav100.developer.biblescroll.core.content.AndroidAssetSource
+import aarnav100.developer.biblescroll.data.votd.LocalClock
+import aarnav100.developer.biblescroll.data.votd.VotdSource
+import kotlinx.coroutines.Dispatchers
 import android.content.Context
 import androidx.room.Room
 import dagger.Binds
@@ -31,6 +35,15 @@ object BibleDatabaseModule {
 
     @Provides
     fun provideBibleDao(db: BibleDatabase): BibleDao = db.bibleDao()
+
+    /** Verse of the Day list (assets/votd.csv), parsed once per process. */
+    @Provides
+    @Singleton
+    fun provideVotdSource(@ApplicationContext context: Context): VotdSource =
+        VotdSource(AndroidAssetSource(context.assets), Dispatchers.IO)
+
+    @Provides
+    fun provideLocalClock(): LocalClock = LocalClock.System
 }
 
 @Module

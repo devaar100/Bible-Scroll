@@ -42,7 +42,7 @@
       </trans-unit>
       <trans-unit id="feed_verse_cd" resname="feed_verse_cd">
         <source>%1$s %2$s, %3$s</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; H1 Home tab</note>
         <note from="developer">TalkBack: one feed page = verse text, then reference and translation.</note>
         <note from="placeholders">Keep %1$s %2$s %3$s (you may reorder them).</note>
       </trans-unit>
@@ -52,11 +52,11 @@
       </trans-unit>
       <trans-unit id="feed_copy" resname="feed_copy">
         <source>Copy verse</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; H1 Home tab</note>
       </trans-unit>
       <trans-unit id="feed_copied" resname="feed_copied">
         <source>Verse copied</source>
-        <note from="where">B1 Bible feed; H11 Plan reader</note>
+        <note from="where">B1 Bible feed; H1 Home tab; H11 Plan reader</note>
       </trans-unit>
       <trans-unit id="feed_share_chooser" resname="feed_share_chooser">
         <source>Share verse</source>
@@ -151,11 +151,11 @@
       </trans-unit>
       <trans-unit id="actions_share_image" resname="actions_share_image">
         <source>Share as image</source>
-        <note from="where">B10 Share verse as image; B7 Verse actions sheet</note>
+        <note from="where">B10 Share verse as image; B7 Verse actions sheet; H1 Home tab</note>
       </trans-unit>
       <trans-unit id="actions_widget_verse" resname="actions_widget_verse">
         <source>Set as widget verse</source>
-        <note from="where">B11 Set as widget verse dialog; B7 Verse actions sheet</note>
+        <note from="where">B11 Set as widget verse dialog; B7 Verse actions sheet; H1 Home tab</note>
       </trans-unit>
       <trans-unit id="settings_title" resname="settings_title">
         <source>Settings</source>
@@ -397,13 +397,26 @@
         <note from="developer">Widget and widget verse dialog (B11)</note>
       </trans-unit>
       <trans-unit id="widget_description" resname="widget_description">
-        <source>A verse of your choice on your home screen</source>
+        <source>A verse of your choice, or the Verse of the Day, on your home screen</source>
         <note from="where">Widget picker</note>
       </trans-unit>
-      <trans-unit id="widget_dialog_body" resname="widget_dialog_body">
-        <source>Show %1$s on your home screen widget?</source>
+      <trans-unit id="widget_dialog_question" resname="widget_dialog_question">
+        <source>What should your widget show?</source>
         <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_mode_fixed" resname="widget_mode_fixed">
+        <source>A fixed verse</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+      </trans-unit>
+      <trans-unit id="widget_mode_fixed_detail" resname="widget_mode_fixed_detail">
+        <source>%1$s, until you change it</source>
+        <note from="where">B11 Set as widget verse dialog</note>
+        <note from="developer">%1$s = verse reference, e.g. "John 3:16"</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="widget_mode_votd_detail" resname="widget_mode_votd_detail">
+        <source>A new verse every day, just after midnight</source>
+        <note from="where">B11 Set as widget verse dialog</note>
       </trans-unit>
       <trans-unit id="widget_dialog_not_placed" resname="widget_dialog_not_placed">
         <source>Your verse widget isn’t on the home screen yet.</source>
@@ -429,6 +442,27 @@
       <trans-unit id="widget_updated" resname="widget_updated">
         <source>Widget verse updated</source>
         <note from="where">B1 Bible feed</note>
+      </trans-unit>
+      <trans-unit id="votd_title" resname="votd_title">
+        <source>Verse of the Day</source>
+        <note from="where">B11 Set as widget verse dialog; H1 Home tab; Home-screen widget</note>
+        <note from="developer">Verse of the Day (H1 Home card, widget)</note>
+      </trans-unit>
+      <trans-unit id="votd_read_in_context" resname="votd_read_in_context">
+        <source>Read in context</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="votd_fallback" resname="votd_fallback">
+        <source>%1$s doesn’t have this verse, so it’s shown in %2$s</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">%1$s = the reader's translation (e.g. "KJV"), %2$s = the one shown instead (e.g. "WEB")</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="votd_cd" resname="votd_cd">
+        <source>%1$s: %2$s</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">TalkBack: %1$s = "Verse of the Day", %2$s = verse, reference and translation</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="compare_title" resname="compare_title">
         <source>%1$s in every version</source>
@@ -2193,7 +2227,7 @@
       </trans-unit>
       <trans-unit id="two_parts" resname="two_parts">
         <source>%1$s · %2$s</source>
-        <note from="where">B10 Share verse as image; B8/D2 Verse study; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
+        <note from="where">B10 Share verse as image; B8/D2 Verse study; H1 Home tab; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
         <note from="developer">Two short labels shown together on one line, e.g. "Dark · Sepia". Change the separator if your language needs.</note>
         <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
       </trans-unit>

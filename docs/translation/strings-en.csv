@@ -8,10 +8,10 @@ feed_like,string,Like,B1 Bible feed: verse page,Bible feed (B1),
 feed_unlike,string,Unlike,B1 Bible feed: verse page,,
 feed_note,string,Note,B1 Bible feed: verse page,,
 feed_note_add,string,Add note,B1 Bible feed: verse page,,
-feed_verse_cd,string,"%1$s %2$s, %3$s",B1 Bible feed: verse page,"TalkBack: one feed page = verse text, then reference and translation.",%1$s %2$s %3$s
+feed_verse_cd,string,"%1$s %2$s, %3$s",B1 Bible feed: verse page; H1 Home tab,"TalkBack: one feed page = verse text, then reference and translation.",%1$s %2$s %3$s
 feed_share,string,Share,B1 Bible feed: verse page,,
-feed_copy,string,Copy verse,B1 Bible feed: verse page,,
-feed_copied,string,Verse copied,B1 Bible feed; H11 Plan reader,,
+feed_copy,string,Copy verse,B1 Bible feed: verse page; H1 Home tab,,
+feed_copied,string,Verse copied,B1 Bible feed; H1 Home tab; H11 Plan reader,,
 feed_share_chooser,string,Share verse,B7 Verse actions,,
 feed_translation_cd,string,Translation: %1$s. Change translation,B1 Bible feed: top bar,,%1$s
 feed_book_chapter_cd,string,%1$s. Choose book and chapter,B1 Bible feed: top bar,,%1$s
@@ -31,8 +31,8 @@ feed_liked_empty_hint,string,"Double-tap a verse, or tap its heart, to keep it h
 feed_verse_actions,string,Verse actions,B1 Bible feed: verse page,,
 actions_copy,string,Copy,B7 Verse actions sheet,Verse actions (B7),
 actions_compare,string,Compare versions,B7 Verse actions sheet,,
-actions_share_image,string,Share as image,B10 Share verse as image; B7 Verse actions sheet,,
-actions_widget_verse,string,Set as widget verse,B11 Set as widget verse dialog; B7 Verse actions sheet,,
+actions_share_image,string,Share as image,B10 Share verse as image; B7 Verse actions sheet; H1 Home tab,,
+actions_widget_verse,string,Set as widget verse,B11 Set as widget verse dialog; B7 Verse actions sheet; H1 Home tab,,
 settings_title,string,Settings,H1 Home tab; S1-S4 Settings,Settings (S1-S4),
 settings_back,string,Back,"H12 Plan days & notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked & bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings",,
 settings_general,string,General,S1-S4 Settings,,
@@ -91,14 +91,21 @@ share_saved,string,Saved to Pictures/%1$s,B10 Share verse as image,,%1$s
 share_failed,string,Couldn’t create the image. Try again.,B10 Share verse as image,,
 share_permission_needed,string,Allow storage access to save images.,B10 Share verse as image,,
 widget_name,string,Verse,App name in the launcher and system settings,Widget and widget verse dialog (B11),
-widget_description,string,A verse of your choice on your home screen,Widget picker,,
-widget_dialog_body,string,Show %1$s on your home screen widget?,B11 Set as widget verse dialog,,%1$s
+widget_description,string,"A verse of your choice, or the Verse of the Day, on your home screen",Widget picker,,
+widget_dialog_question,string,What should your widget show?,B11 Set as widget verse dialog,,
+widget_mode_fixed,string,A fixed verse,B11 Set as widget verse dialog,,
+widget_mode_fixed_detail,string,"%1$s, until you change it",B11 Set as widget verse dialog,"%1$s = verse reference, e.g. ""John 3:16""",%1$s
+widget_mode_votd_detail,string,"A new verse every day, just after midnight",B11 Set as widget verse dialog,,
 widget_dialog_not_placed,string,Your verse widget isn’t on the home screen yet.,B11 Set as widget verse dialog,,
 widget_dialog_manual,string,"1. Touch and hold an empty spot on your home screen, then tap Widgets.\n2. Find %1$s and drag the Verse widget onto your home screen.",B11 Set as widget verse dialog,,%1$s
 widget_set,string,Set,B11 Set as widget verse dialog,,
 widget_add_to_home,string,Add to home screen,B11 Set as widget verse dialog,,
 widget_cancel,string,Cancel,B11 Set as widget verse dialog,,
 widget_updated,string,Widget verse updated,B1 Bible feed,,
+votd_title,string,Verse of the Day,B11 Set as widget verse dialog; H1 Home tab; Home-screen widget,"Verse of the Day (H1 Home card, widget)",
+votd_read_in_context,string,Read in context,H1 Home tab,,
+votd_fallback,string,"%1$s doesn’t have this verse, so it’s shown in %2$s",H1 Home tab,"%1$s = the reader's translation (e.g. ""KJV""), %2$s = the one shown instead (e.g. ""WEB"")",%1$s %2$s
+votd_cd,string,%1$s: %2$s,H1 Home tab,"TalkBack: %1$s = ""Verse of the Day"", %2$s = verse, reference and translation",%1$s %2$s
 compare_title,string,%1$s in every version,B9 Compare versions,Compare versions (B9),%1$s
 compare_current,string,Reading,B9 Compare versions,,
 compare_missing,string,Not in this translation,B9 Compare versions,,
@@ -512,7 +519,7 @@ notes_tip,string,Your notes are stored on this phone. Export a copy any time.,"H
 notes_tip_export,string,Export,"H4-H7 Library lists (saved studies, studied, liked & bookmarked, notes)",,
 settings_language,string,Language,S2 Settings → General → Language,Language (S2),
 settings_language_system,string,System default,S2 Settings → General → Language,,
-two_parts,string,%1$s · %2$s,B10 Share verse as image; B8/D2 Verse study; H12 Plan days & notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings,"Two short labels shown together on one line, e.g. ""Dark · Sepia"". Change the separator if your language needs.",%1$s %2$s
+two_parts,string,%1$s · %2$s,B10 Share verse as image; B8/D2 Verse study; H1 Home tab; H12 Plan days & notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings,"Two short labels shown together on one line, e.g. ""Dark · Sepia"". Change the separator if your language needs.",%1$s %2$s
 plans_day_titled,string,Day %1$d · %2$s,"Plan day headings (H9, H11, H12)","A plan day with its title: ""Day 3 · The Good Shepherd"" (day number, title).",%1$d %2$s
 streak_day_cd,string,%1$s: %2$s,H2 Streak chip and sheet,"Screen reader text for one day in the streak calendar: ""Monday, 18 November 2026: Read"" (date, status).",%1$s %2$s
 study_english_only,string,Studies are in English for now.,B8/D2 Verse study,Shown on studies and Discover cards when the app language isn't English.,

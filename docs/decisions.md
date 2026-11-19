@@ -2,6 +2,18 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-18: Verse of the Day (H1)
+
+### 14. One curated verse per local month-day, same for everyone
+`assets/votd.csv` holds 366 rows; the phone's local date picks the row, so the verse changes at local midnight and matches for everyone on that date, every year. 02-29 has its own entry (leap years only). The text uses the reader's translation, falling back to WEB with a label.
+**Why:** predictable and shareable ("today's verse"), fully offline, no server or per-user state; the fallback keeps the card working for any future translation that omits a verse.
+**Revisit if:** a translation bundled later (e.g. RV1909) lacks many list verses (VotdAssetTest will fail), or people want a different verse from the reminder or widget.
+
+### 15. Widget Verse of the Day updates with an inexact, non-waking alarm
+B11 chooses "A fixed verse" or "Verse of the Day". The midnight redraw uses `setAndAllowWhileIdle(RTC)` 1 minute after local midnight, only while a widget is placed and in that mode; it's re-armed by the reminder reschedule receiver (boot, time set, time-zone change, app update), at app start, and when a widget is added or removed.
+**Why:** no SCHEDULE_EXACT_ALARM/USE_EXACT_ALARM permission, and no waking the phone just to redraw a widget: if it's asleep, the redraw runs as soon as the screen turns on.
+**Revisit if:** users report the widget showing yesterday's verse after waking the phone.
+
 ## 2026-11-18: Localized content (Session 31a)
 
 ### 12. Plans and devotionals carry their own translations; studies stay English

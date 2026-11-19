@@ -182,6 +182,7 @@ object BackupSettings {
         "widget_chapter" to Type.INT,
         "widget_verse" to Type.INT,
         "widget_translation" to Type.STRING,
+        "widget_mode" to Type.STRING, // fixed verse or Verse of the Day (B11); imported on its own, a fixed verse may be unset
     )
 
     /** Keys that only make sense on this phone, or are one-off UI state. BackupSettingsKeysTest checks every key is in one list. */

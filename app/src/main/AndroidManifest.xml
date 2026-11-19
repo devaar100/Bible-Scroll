@@ -79,6 +79,11 @@
             </intent-filter>
         </receiver>
 
+        <!-- Verse of the Day widget redraw just after local midnight. Fired by our own PendingIntent only. -->
+        <receiver
+            android:name=".widget.VotdWidgetAlarmReceiver"
+            android:exported="false" />
+
         <receiver
             android:name=".widget.VerseWidgetReceiver"
             android:exported="true"

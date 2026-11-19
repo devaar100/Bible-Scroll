@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.data.reminder
 
+import aarnav100.developer.biblescroll.widget.WidgetVerseRepository
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /** Runs [block] off the main thread while keeping the broadcast alive (goAsync) until it's done. */
-private fun BroadcastReceiver.runAsync(block: suspend () -> Unit) {
+internal fun BroadcastReceiver.runAsync(block: suspend () -> Unit) {
     val pending = goAsync()
     receiverScope.launch {
         try {
@@ -63,14 +64,24 @@ class ReminderAlarmReceiver : BroadcastReceiver() {
     }
 }
 
-/** Alarms don't survive reboot, and a clock/zone change moves "08:00 local": reschedule. */
+/**
+ * Alarms don't survive reboot, and a clock/zone change moves "08:00 local": reschedule. The same change can move
+ * the local date, so the Verse of the Day widget is redrawn and its midnight alarm re-armed here too.
+ */
 @AndroidEntryPoint
 class ReminderRescheduleReceiver : BroadcastReceiver() {
     @Inject lateinit var scheduler: ReminderScheduler
+    @Inject lateinit var widgetVerses: WidgetVerseRepository
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action !in RESCHEDULE_ACTIONS) return
-        runAsync { scheduler.syncFromStore() }
+        runAsync {
+            try {
+                scheduler.syncFromStore()
+            } finally {
+                widgetVerses.onDayOrClockChanged()
+            }
+        }
     }
 
     private companion object {

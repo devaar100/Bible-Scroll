@@ -1,0 +1,367 @@
+date,id,section
+01-01,ISA.43.19,Prophets
+01-02,1CO.14.33,Epistles
+01-03,MAT.19.14,Gospels and Acts
+01-04,PSA.37.23,Psalms
+01-05,2CO.5.20,Epistles
+01-06,NEH.2.18,Torah and history
+01-07,ISA.55.6,Prophets
+01-08,LUK.18.14,Gospels and Acts
+01-09,PRO.30.8,Wisdom
+01-10,1CO.11.1,Epistles
+01-11,HAG.2.9,Prophets
+01-12,EXO.33.18,Torah and history
+01-13,JHN.12.26,Gospels and Acts
+01-14,ROM.6.4,Epistles
+01-15,PSA.121.8,Psalms
+01-16,JHN.14.26,Gospels and Acts
+01-17,PRO.31.26,Wisdom
+01-18,EPH.6.16,Epistles
+01-19,REV.5.12,Revelation
+01-20,1TI.6.12,Epistles
+01-21,ISA.61.1,Prophets
+01-22,PSA.147.4,Psalms
+01-23,GEN.45.5,Torah and history
+01-24,ACT.2.21,Gospels and Acts
+01-25,ROM.8.16,Epistles
+01-26,ACT.5.29,Gospels and Acts
+01-27,1JN.1.7,Epistles
+01-28,PRO.4.7,Wisdom
+01-29,PSA.117.2,Psalms
+01-30,1PE.4.10,Epistles
+01-31,MAT.18.3,Gospels and Acts
+02-01,1KI.3.9,Torah and history
+02-02,ISA.42.3,Prophets
+02-03,MRK.4.39,Gospels and Acts
+02-04,ROM.8.14,Epistles
+02-05,PRO.3.9,Wisdom
+02-06,ROM.12.17,Epistles
+02-07,PSA.26.8,Psalms
+02-08,MAT.26.41,Gospels and Acts
+02-09,ISA.46.4,Prophets
+02-10,EST.4.14,Torah and history
+02-11,REV.3.8,Revelation
+02-12,1JN.4.11,Epistles
+02-13,MAT.11.30,Gospels and Acts
+02-14,COL.2.7,Epistles
+02-15,PSA.119.9,Psalms
+02-16,ISA.25.8,Prophets
+02-17,HEB.10.35,Epistles
+02-18,GEN.1.28,Torah and history
+02-19,PRO.4.18,Wisdom
+02-20,JHN.12.24,Gospels and Acts
+02-21,PSA.147.3,Psalms
+02-22,1CO.2.9,Epistles
+02-23,MAL.3.6,Prophets
+02-24,JHN.1.29,Gospels and Acts
+02-25,2TI.1.9,Epistles
+02-26,RUT.1.16,Torah and history
+02-27,LUK.11.13,Gospels and Acts
+02-28,ROM.6.22,Epistles
+02-29,MRK.6.31,Gospels and Acts
+03-01,PSA.107.9,Psalms
+03-02,ISA.61.3,Prophets
+03-03,PRO.15.13,Wisdom
+03-04,MAT.6.26,Gospels and Acts
+03-05,1JN.5.4,Epistles
+03-06,LUK.22.32,Gospels and Acts
+03-07,PHP.2.9,Epistles
+03-08,PSA.122.6,Psalms
+03-09,NUM.11.23,Torah and history
+03-10,COL.1.15,Epistles
+03-11,ISA.45.22,Prophets
+03-12,REV.1.8,Revelation
+03-13,JHN.15.15,Gospels and Acts
+03-14,PSA.107.29,Psalms
+03-15,COL.2.6,Epistles
+03-16,ECC.11.1,Wisdom
+03-17,HEB.12.14,Epistles
+03-18,EXO.20.12,Torah and history
+03-19,JHN.10.27,Gospels and Acts
+03-20,PRO.24.16,Wisdom
+03-21,DAN.2.22,Prophets
+03-22,NEH.9.17,Torah and history
+03-23,ROM.4.21,Epistles
+03-24,LUK.14.11,Gospels and Acts
+03-25,PSA.145.8,Psalms
+03-26,ISA.40.11,Prophets
+03-27,LUK.8.15,Gospels and Acts
+03-28,EPH.5.20,Epistles
+03-29,PHP.4.5,Epistles
+03-30,LUK.12.6,Gospels and Acts
+03-31,REV.2.10,Revelation
+04-01,PSA.103.1,Psalms
+04-02,ISA.32.17,Prophets
+04-03,1JN.3.2,Epistles
+04-04,PRO.25.21,Wisdom
+04-05,2TI.2.1,Epistles
+04-06,GEN.15.6,Torah and history
+04-07,MAT.5.13,Gospels and Acts
+04-08,PSA.96.1,Psalms
+04-09,PHP.3.7,Epistles
+04-10,MRK.11.24,Gospels and Acts
+04-11,JHN.6.35,Gospels and Acts
+04-12,1PE.1.8,Epistles
+04-13,JER.32.17,Prophets
+04-14,EZR.7.10,Torah and history
+04-15,PSA.103.14,Psalms
+04-16,JOS.3.5,Torah and history
+04-17,PRO.25.11,Wisdom
+04-18,JHN.14.15,Gospels and Acts
+04-19,PHP.4.9,Epistles
+04-20,2CO.1.3,Epistles
+04-21,EZK.37.5,Prophets
+04-22,ROM.15.5,Epistles
+04-23,JHN.15.4,Gospels and Acts
+04-24,PSA.149.4,Psalms
+04-25,PRO.11.14,Wisdom
+04-26,EXO.15.2,Torah and history
+04-27,EPH.6.17,Epistles
+04-28,JER.6.16,Prophets
+04-29,1TI.1.15,Epistles
+04-30,LUK.24.6,Gospels and Acts
+05-01,PSA.33.20,Psalms
+05-02,JHN.13.14,Gospels and Acts
+05-03,ZEC.9.9,Prophets
+05-04,REV.7.17,Revelation
+05-05,1CO.15.20,Epistles
+05-06,PRO.4.25,Wisdom
+05-07,1SA.12.24,Torah and history
+05-08,1PE.2.24,Epistles
+05-09,MRK.1.15,Gospels and Acts
+05-10,2CO.13.11,Epistles
+05-11,MAT.16.24,Gospels and Acts
+05-12,PSA.118.8,Psalms
+05-13,EPH.1.3,Epistles
+05-14,REV.19.6,Revelation
+05-15,JDG.6.12,Torah and history
+05-16,MAT.13.44,Gospels and Acts
+05-17,ISA.1.17,Prophets
+05-18,PRO.22.1,Wisdom
+05-19,JAS.4.6,Epistles
+05-20,PSA.139.1,Psalms
+05-21,2CO.4.7,Epistles
+05-22,MRK.10.27,Gospels and Acts
+05-23,ISA.58.10,Prophets
+05-24,ROM.14.19,Epistles
+05-25,JOB.42.5,Torah and history
+05-26,LUK.10.2,Gospels and Acts
+05-27,1CO.4.2,Epistles
+05-28,PSA.103.13,Psalms
+05-29,ISA.44.3,Prophets
+05-30,1KI.8.23,Torah and history
+05-31,JHN.9.25,Gospels and Acts
+06-01,PRO.10.19,Wisdom
+06-02,1JN.3.16,Epistles
+06-03,PSA.86.11,Psalms
+06-04,COL.3.16,Epistles
+06-05,ACT.17.28,Gospels and Acts
+06-06,MIC.7.7,Prophets
+06-07,JAS.3.17,Epistles
+06-08,PRO.31.25,Wisdom
+06-09,JHN.20.29,Gospels and Acts
+06-10,1CH.29.11,Torah and history
+06-11,ROM.14.8,Epistles
+06-12,PSA.143.8,Psalms
+06-13,MAT.23.11,Gospels and Acts
+06-14,JON.3.10,Prophets
+06-15,JAS.4.10,Epistles
+06-16,PRO.15.30,Wisdom
+06-17,1CO.15.10,Epistles
+06-18,LUK.2.14,Gospels and Acts
+06-19,EXO.19.5,Torah and history
+06-20,PSA.118.22,Psalms
+06-21,1JN.2.17,Epistles
+06-22,MAT.17.20,Gospels and Acts
+06-23,1CO.15.57,Epistles
+06-24,JHN.6.37,Gospels and Acts
+06-25,JON.4.11,Prophets
+06-26,JOB.23.10,Torah and history
+06-27,REV.21.3,Revelation
+06-28,PRO.17.1,Wisdom
+06-29,ROM.8.37,Epistles
+06-30,PSA.113.3,Psalms
+07-01,JHN.15.8,Gospels and Acts
+07-02,JOL.2.13,Prophets
+07-03,2CO.9.15,Epistles
+07-04,1SA.15.22,Torah and history
+07-05,PSA.33.12,Psalms
+07-06,JHN.1.4,Gospels and Acts
+07-07,2CO.1.4,Epistles
+07-08,ISA.40.8,Prophets
+07-09,EPH.2.14,Epistles
+07-10,PSA.1.2,Psalms
+07-11,ACT.20.24,Gospels and Acts
+07-12,PHP.3.20,Epistles
+07-13,DEU.4.29,Torah and history
+07-14,PRO.31.10,Wisdom
+07-15,AMO.5.14,Prophets
+07-16,JHN.3.30,Gospels and Acts
+07-17,ROM.13.8,Epistles
+07-18,LUK.16.10,Gospels and Acts
+07-19,PSA.24.4,Psalms
+07-20,HEB.10.23,Epistles
+07-21,GAL.5.16,Epistles
+07-22,REV.1.17,Revelation
+07-23,DEU.32.4,Torah and history
+07-24,PRO.21.2,Wisdom
+07-25,JHN.17.17,Gospels and Acts
+07-26,ISA.54.10,Prophets
+07-27,EPH.2.13,Epistles
+07-28,PSA.86.5,Psalms
+07-29,LUK.7.50,Gospels and Acts
+07-30,JOB.42.2,Torah and history
+07-31,1PE.3.8,Epistles
+08-01,MAL.3.16,Prophets
+08-02,LUK.6.27,Gospels and Acts
+08-03,GAL.6.10,Epistles
+08-04,DEU.33.27,Torah and history
+08-05,PHP.4.4,Epistles
+08-06,PRO.12.1,Wisdom
+08-07,MRK.9.35,Gospels and Acts
+08-08,PSA.24.3,Psalms
+08-09,ISA.35.4,Prophets
+08-10,MAT.20.28,Gospels and Acts
+08-11,REV.4.11,Revelation
+08-12,PSA.119.89,Psalms
+08-13,1JN.4.16,Epistles
+08-14,COL.1.27,Epistles
+08-15,MAT.6.1,Gospels and Acts
+08-16,PRO.20.7,Wisdom
+08-17,PSA.71.14,Psalms
+08-18,ROM.15.7,Epistles
+08-19,GEN.2.7,Torah and history
+08-20,JHN.14.2,Gospels and Acts
+08-21,1PE.1.22,Epistles
+08-22,LAM.3.26,Prophets
+08-23,PRO.10.12,Wisdom
+08-24,COL.3.12,Epistles
+08-25,MAT.24.35,Gospels and Acts
+08-26,JER.31.33,Prophets
+08-27,2CO.3.18,Epistles
+08-28,GEN.3.15,Torah and history
+08-29,PSA.33.5,Psalms
+08-30,MAT.19.26,Gospels and Acts
+08-31,JUD.1.21,Epistles
+09-01,PRO.13.20,Wisdom
+09-02,EZK.34.11,Prophets
+09-03,PSA.25.5,Psalms
+09-04,JHN.14.16,Gospels and Acts
+09-05,1TH.5.14,Epistles
+09-06,DEU.33.12,Torah and history
+09-07,JHN.4.14,Gospels and Acts
+09-08,2CO.10.5,Epistles
+09-09,JER.29.13,Prophets
+09-10,JHN.1.5,Gospels and Acts
+09-11,PSA.119.103,Psalms
+09-12,2PE.3.18,Epistles
+09-13,DEU.4.39,Torah and history
+09-14,REV.21.6,Revelation
+09-15,PHP.1.21,Epistles
+09-16,PRO.2.6,Wisdom
+09-17,MAT.25.21,Gospels and Acts
+09-18,JER.18.6,Prophets
+09-19,ROM.8.32,Epistles
+09-20,LUK.4.18,Gospels and Acts
+09-21,ROM.10.13,Epistles
+09-22,GEN.28.16,Torah and history
+09-23,PSA.112.7,Psalms
+09-24,HOS.10.12,Prophets
+09-25,1TI.6.6,Epistles
+09-26,PSA.107.28,Psalms
+09-27,JHN.12.46,Gospels and Acts
+09-28,PRO.3.27,Wisdom
+09-29,ROM.5.6,Epistles
+09-30,REV.1.18,Revelation
+10-01,MAT.21.9,Gospels and Acts
+10-02,NUM.14.18,Torah and history
+10-03,ROM.2.4,Epistles
+10-04,DAN.12.3,Prophets
+10-05,MAT.10.31,Gospels and Acts
+10-06,PRO.16.24,Wisdom
+10-07,GAL.5.13,Epistles
+10-08,PSA.115.1,Psalms
+10-09,1CO.13.1,Epistles
+10-10,LEV.19.18,Torah and history
+10-11,MAT.1.21,Gospels and Acts
+10-12,ROM.5.2,Epistles
+10-13,LUK.12.32,Gospels and Acts
+10-14,PSA.105.4,Psalms
+10-15,ISA.7.14,Prophets
+10-16,HEB.4.15,Epistles
+10-17,2CH.16.9,Torah and history
+10-18,PRO.14.29,Wisdom
+10-19,LUK.1.38,Gospels and Acts
+10-20,GAL.5.1,Epistles
+10-21,ZEC.14.9,Prophets
+10-22,1JN.2.1,Epistles
+10-23,MAT.9.37,Gospels and Acts
+10-24,PSA.103.2,Psalms
+10-25,GEN.1.26,Torah and history
+10-26,JAS.4.7,Epistles
+10-27,JHN.3.17,Gospels and Acts
+10-28,PRO.19.17,Wisdom
+10-29,ISA.55.1,Prophets
+10-30,PSA.96.3,Psalms
+10-31,1JN.4.4,Epistles
+11-01,LUK.12.7,Gospels and Acts
+11-02,REV.12.11,Revelation
+11-03,DEU.10.12,Torah and history
+11-04,EPH.1.7,Epistles
+11-05,JHN.15.11,Gospels and Acts
+11-06,JER.15.16,Prophets
+11-07,HEB.2.18,Epistles
+11-08,PSA.27.4,Psalms
+11-09,MRK.2.17,Gospels and Acts
+11-10,EPH.2.4,Epistles
+11-11,2KI.6.16,Torah and history
+11-12,PRO.29.25,Wisdom
+11-13,HAB.2.3,Prophets
+11-14,PSA.37.7,Psalms
+11-15,MRK.14.38,Gospels and Acts
+11-16,1TH.4.11,Epistles
+11-17,REV.22.17,Revelation
+11-18,TIT.3.4,Epistles
+11-19,JOB.28.28,Torah and history
+11-20,MRK.10.14,Gospels and Acts
+11-21,EPH.1.18,Epistles
+11-22,ECC.7.8,Wisdom
+11-23,HAB.3.19,Prophets
+11-24,PSA.1.3,Psalms
+11-25,HEB.13.15,Epistles
+11-26,1SA.30.6,Torah and history
+11-27,MAT.4.19,Gospels and Acts
+11-28,2CO.4.6,Epistles
+11-29,ACT.4.13,Gospels and Acts
+11-30,COL.3.1,Epistles
+12-01,LAM.5.21,Prophets
+12-02,MAT.25.40,Gospels and Acts
+12-03,PSA.37.3,Psalms
+12-04,GAL.3.28,Epistles
+12-05,RUT.2.12,Torah and history
+12-06,ECC.12.1,Wisdom
+12-07,ZEP.2.3,Prophets
+12-08,MAT.9.38,Gospels and Acts
+12-09,ROM.4.20,Epistles
+12-10,PSA.119.71,Psalms
+12-11,PHM.1.6,Epistles
+12-12,MAT.14.31,Gospels and Acts
+12-13,PRO.18.10,Wisdom
+12-14,ISA.48.17,Prophets
+12-15,EPH.5.8,Epistles
+12-16,LUK.15.10,Gospels and Acts
+12-17,GEN.39.2,Torah and history
+12-18,PSA.73.25,Psalms
+12-19,1CO.10.31,Epistles
+12-20,ISA.41.13,Prophets
+12-21,REV.22.13,Revelation
+12-22,MRK.4.40,Gospels and Acts
+12-23,ECC.3.4,Wisdom
+12-24,LUK.2.10,Gospels and Acts
+12-25,LUK.2.11,Gospels and Acts
+12-26,2TH.3.13,Epistles
+12-27,PSA.107.8,Psalms
+12-28,ROM.12.10,Epistles
+12-29,LUK.6.35,Gospels and Acts
+12-30,DEU.10.18,Torah and history
+12-31,PSA.90.1,Psalms
