@@ -233,7 +233,8 @@ def test_negated_banned_phrases_are_ignored(written, bible):
 
 def test_pipeline_wording_flags_even_when_negated(written, bible):
     for text in ("The cross references show this.", "The cross-reference in Romans helps.",
-                 "Not in the data given.", "This version says so.", "The words supplied here."):
+                 "Not in the data given.", "This version says so.", "The words supplied here.",
+                 "The book background says so."):
         written["didYouKnow"] = words(30, text)
         assert "pipeline_wording" in checks_named(outcome(written, bible)), text
 

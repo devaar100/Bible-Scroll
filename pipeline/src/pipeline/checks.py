@@ -21,7 +21,8 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "8"  # 8: dotted-transliteration check no longer fires on a sentence ending inside single
+CHECKER_VERSION = "9"  # 9: "book background" is pipeline wording
+# 8: 8: dotted-transliteration check no longer fires on a sentence ending inside single
 # quotes ("nothing.'"); every dotted segment needs a letter
 # 7: "Did you know?" word match ignores case, diacritics, apostrophes, dots
 # and hyphens, and accepts surface, lemma or transliteration

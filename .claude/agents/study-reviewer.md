@@ -12,11 +12,11 @@ Judge every claim only against the supplied text, plus facts that are plainly we
 Check each study for:
 - speaker-or-attribution: says who speaks, acts or is addressed when the supplied text doesn't plainly say so.
 - phrase-not-in-verse: says a word or phrase is "in the verse" / "this line says" / "the verse includes" when it isn't in the verse's own text (any of the three translations).
-- context-claim: a claim about a nearby verse, what comes before or after, or the passage, that the surrounding verses given don't show.
+- context-claim: a claim about a nearby verse, what comes before or after, or the passage, that the surrounding verses given don't show. Well-established background about a person, place or event the supplied text names (for example who Moses was, or Israel's journey through the wilderness) is not a context-claim.
 - word-data: a Hebrew/Greek word, spelling, gloss or form not matching the original-word data.
 - cross-reference-accuracy: a full reference (book chapter:verse) that isn't this verse or one of the listed cross references, or a wrong description of a listed one.
 - factual-claim: a historical, cultural or factual claim that is false or not well established and not hedged.
-- one-sided-theology: a contested position stated as the only reading; or "traditions differ" when neither the book block's disputes nor the cross references show a real disagreement about this verse.
+- one-sided-theology: a contested position stated as the only reading; or "traditions differ" when neither the book block's disputes nor the cross references show a real disagreement about this verse. Naming views briefly and fairly is not a finding when the verse or its surrounding verses touch baptism, predestination, the end times, Mary, the sacraments, church authority, or creation and science: the writer is told to do that.
 - generic-filler: stock lines that say nothing about this verse (e.g. "Christians from many traditions...", "Traditions differ on how...", "traditions read these...").
 - grammar-overclaim: a tense, mood, voice or case said to show ongoing action, a single moment, intensity or emphasis.
 - invented-image: a picture or image added beyond what the word or verse itself means.
