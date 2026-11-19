@@ -27,6 +27,8 @@ PYTHONPATH=src .venv/bin/python -m pipeline generate PHP --model claude-haiku-5-
 PYTHONPATH=src .venv/bin/python -m pipeline check      # auto-check written studies (see below)
 PYTHONPATH=src .venv/bin/python -m pipeline review     # review tool on http://127.0.0.1:8765
 PYTHONPATH=src .venv/bin/python -m pipeline progress   # counts by status per book
+PYTHONPATH=src .venv/bin/python -m pipeline report JHN.3.16 --reason "..."   # pull a reported study (see below)
+PYTHONPATH=src .venv/bin/python -m pipeline reports    # list reported studies (--all: resolved ones too)
 PYTHONPATH=src .venv/bin/python -m pipeline publish --dry-run   # what would change on the CDN
 PYTHONPATH=src .venv/bin/python -m pipeline publish    # build, confirm, deploy, verify
 PYTHONPATH=src .venv/bin/python -m pipeline bundle     # Gospels + Psalms into the app's assets
@@ -138,6 +140,27 @@ bump, since a bump changes every published book's hash and URL.
 - 3: current published shape.
 - 3, 2026-11-18 (no bump): optional unpublished `meta.effort`, `meta.maxTokens` (with `meta.promptVersion` =
   sha256(prompts/study.md)[:12]); rubric judgments gain `section`, `quote` and `verified`.
+- 3, 2026-11-19 (no bump): `checks.reasons[].check` may be `"report"` (from `pipeline report`; unpublished).
+
+## Reported studies (`report`, `reports`)
+
+When someone reports a problem with a published study (the app's Report a problem sheet sends an email):
+
+```sh
+PYTHONPATH=src .venv/bin/python -m pipeline report JHN.3.16 PSA.23.1 --reason "Says Herod died in 1 BC" [--by NAME]
+PYTHONPATH=src .venv/bin/python -m pipeline reports [--all]
+PYTHONPATH=src .venv/bin/python -m pipeline publish --dry-run   # lists the reported studies it leaves out
+```
+
+- `report` sets each study to `flagged` with a `checks.reasons` entry `{"check": "report", "message", "at", "by"?}` and
+  appends a line to `out/regenerate_queue.jsonl` (the review tool's Regenerate queue) with `"source": "report"`,
+  `contentVersion`, `promptVersion` and the previous status. All ids are checked first; a bad id changes nothing. A
+  study with no prose can't be reported. Reporting the same study for the same reason again is a no-op.
+- The report stays **open** until the prose is regenerated, edited or reviewed after it (`meta.generatedAt`, `editedAt`
+  or `reviewedAt` later than the report). While open, `publish` leaves the study out whatever its status, and
+  `check --recheck` keeps the reason, so nothing puts the reported text back on the CDN by accident.
+- The next `publish` drops reported verses from their book files (the book gets a new hash and URL). Run
+  `publish --dry-run` first: it lists each reported study with its reason.
 
 ## Generating prose (`generate`)
 

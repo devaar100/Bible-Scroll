@@ -26,6 +26,7 @@ from referencing import Registry, Resource
 
 from .books import BOOKS, BY_USFM
 from .paths import OUT, PIPELINE
+from .reports import open_reports
 from .store import StudyStore, parse_id
 
 PUBLISHABLE = ("auto_checked", "reviewed")
@@ -98,22 +99,34 @@ class Release:
     files: dict[str, bytes]              # site-relative path -> bytes
     left_out: dict[str, dict[str, int]]  # book -> {status: count} of studies not published
     discover_dropped: list[str]          # discover.txt ids that aren't publishable
+    reported: list[tuple[str, str]] = field(default_factory=list)  # (id, reason) held back by an open `pipeline report`
     devotionals_left_out: dict[str, dict[str, int]] = field(default_factory=dict)  # month -> {status: count}
 
 
 def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str] | None = None,
-                  devotionals=None) -> Release:
-    """devotionals: a DevotionalStore, or None for none (the manifest then lists no months)."""
+                  devotionals=None, ministries_path: Path | None = None) -> Release:
+    """
+    devotionals: a DevotionalStore, or None for none (the manifest then lists no months).
+    ministries_path: community/ministries.json by default; a missing file leaves manifest.community out.
+    """
+    from .community import MINISTRIES_FILE, load_ministries
     from .devotionals.publish import collect, month_files
 
     book_validator, manifest_validator = validators()
     by_book: dict[str, list[dict]] = {}
     left_out: dict[str, dict[str, int]] = {}
     published: set[str] = set()
+    reported: list[tuple[str, str]] = []
     for study_id in store.ids():  # Bible order
         study = store.load(study_id)
         book = study_id.split(".")[0]
-        if study.get("status") in PUBLISHABLE and study.get("meta", {}).get("model"):
+        reports = open_reports(study)
+        if reports:
+            # Held back whatever its status says: only regenerating, editing or reviewing it again clears a report.
+            reported.append((study_id, reports[-1]["message"]))
+            left_out.setdefault(book, {}).setdefault("reported", 0)
+            left_out[book]["reported"] += 1
+        elif study.get("status") in PUBLISHABLE and study.get("meta", {}).get("model"):
             by_book.setdefault(book, []).append(public_study(study))
             published.add(study_id)
         else:
@@ -151,13 +164,19 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
     files.update(month_data)
 
     body = {"books": books, "discover": discover_entry, "devotionals": {"months": month_entries}}
+    ministries = load_ministries(ministries_path or MINISTRIES_FILE)
+    if ministries is not None:
+        files["ministries.json"] = canonical_json(ministries)
+        body["community"] = {"url": prefix + "ministries.json", "count": len(ministries["ministries"]),
+                             "sha256": hashlib.sha256(files["ministries.json"]).hexdigest(),
+                             "bytes": len(files["ministries.json"])}
     release = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:12]
     manifest = {"formatVersion": FORMAT_VERSION, "schemaVersion": SCHEMA_VERSION, "release": release, **body}
     errors = [f"{e.json_path}: {e.message}" for e in manifest_validator.iter_errors(manifest)]
     if errors:
         raise ValueError(f"manifest fails schema/manifest.json: {errors[:5]}")
     files["manifest.json"] = canonical_json(manifest)
-    return Release(manifest, files, left_out, [i for i in wanted if i not in published], months.left_out)
+    return Release(manifest, files, left_out, [i for i in wanted if i not in published], reported, months.left_out)
 
 
 def write_site(release: Release, site: Path = SITE, keep_from: dict | None = None) -> list[str]:
@@ -230,12 +249,13 @@ class Diff:
     months_added: list[dict] = field(default_factory=list)
     months_changed: list[tuple[dict, dict]] = field(default_factory=list)
     months_removed: list[dict] = field(default_factory=list)
+    community_changed: bool = False
     upload_bytes: int = 0
 
     @property
     def any(self) -> bool:
         return bool(self.added or self.changed or self.removed or self.discover_before != self.discover_after
-                    or self.months_added or self.months_changed or self.months_removed)
+                    or self.months_added or self.months_changed or self.months_removed or self.community_changed)
 
 
 def diff(release: Release, live: dict | None, live_discover: list[str] | None = None) -> Diff:
@@ -263,6 +283,7 @@ def diff(release: Release, live: dict | None, live_discover: list[str] | None = 
             continue
         d.upload_bytes += entry["bytes"]
     d.months_removed = [m for name, m in old_months.items() if name not in new_months]
+    d.community_changed = (live or {}).get("community", {}).get("sha256") != release.manifest.get("community", {}).get("sha256")
     d.discover_before = live_discover or []
     d.discover_after = json.loads(release.files["discover.json"])["verses"]
     return d
@@ -310,6 +331,10 @@ def render_diff(d: Diff, release: Release, live: dict | None) -> str:
                      f"reviewed {old['reviewedCount']} -> {new['reviewedCount']}, {new['bytes']:,} bytes")
     for m in d.months_removed:
         lines.append(f"  - devotionals {m['month']}: nothing publishable any more (was {m['count']})")
+    if d.community_changed:
+        entry = release.manifest.get("community")
+        lines.append(f"  ~ ministries.json: {entry['count']} ministries, {entry['bytes']:,} bytes" if entry
+                     else "  - ministries.json: no longer published")
     flagged_days = {m: c["flagged"] for m, c in release.devotionals_left_out.items() if c.get("flagged")}
     if flagged_days:
         lines.append(f"  Devotionals left out as flagged: {sum(flagged_days.values())} in month(s) "
@@ -320,6 +345,9 @@ def render_diff(d: Diff, release: Release, live: dict | None) -> str:
     if flagged:
         lines.append(f"  Left out as flagged: {sum(flagged.values())} verse(s) in "
                      + ", ".join(f"{b} {n}" for b, n in flagged.items()))
+    if release.reported:
+        lines.append(f"  Left out as reported (`pipeline reports` lists them): {len(release.reported)} verse(s)")
+        lines.extend(f"    {study_id}: {reason}" for study_id, reason in release.reported)
     total = sum(b["verseCount"] for b in release.manifest["books"])
     days = sum(m["count"] for m in release.manifest["devotionals"]["months"])
     lines.append(f"Publishing {total:,} verses in {len(release.manifest['books'])} book(s) and {days} devotional(s); "

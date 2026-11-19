@@ -24,6 +24,9 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   changes. The AI rubric (rubric.py, claude-haiku-5-5) runs only after the free checks pass; API outages
   must leave a study unchanged, never flag it. Tests never call the API (fake clients).
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
+- Reports (`report <ids> --reason`, `reports`, reports.py): flag + `checks.reasons` check "report" + a line in
+  out/regenerate_queue.jsonl. An open report (no generatedAt/editedAt/reviewedAt after it) keeps the study out of
+  publish whatever its status, and `checks.apply` keeps open report reasons. Don't publish around it by editing status.
 - Plans (`python -m pipeline plans build|draft-topical|draft-chronological|validate|bundle`):
   schema/plan.json. Structural plans come from `plans/catalogue.py` and ship once they validate; AI-drafted
   plans (topical, chronological) ship only when status is "reviewed". Never overwrite a reviewed plan without
@@ -43,7 +46,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   faith-instead-of-medical-help and pipeline wording ("the theme", "related passages", "listed"). The model may cite
   only the passage's chapter and up to 6 related passages taken from out/studies crossReferences (store.
   related_passages; `draft` refuses to run without out/studies); extraVerses must come from that list. Reviewer:
-  the Haiku rubric (rubric.DEVOTIONAL_SYSTEM_PROMPT adds the health/Hebrews rules). Calendar seasons for "The cross"
+  the Haiku rubric (rubric.DEVOTIONAL_SYSTEM_PROMPT adds the health/Hebrews rules); `devotionals check
+  --reviewer-model claude-sonnet-5-5` uses Sonnet instead (about 20x the price per token). Calendar seasons for "The cross"
   and "Living hope" are "The cross"/"Resurrection" (Easter moves; no Easter-date assumptions).
 - Translations (`python -m pipeline translate plans|devotionals|estimate|status|flagged|approve --lang es`,
   translate/): claude-opus-5-5 translates, claude-sonnet-5-5 (a different model on purpose) checks meaning drift,
@@ -59,6 +63,9 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   deletes them. Never overwrite reviewed without --force; flagged only with --retry-flagged. Devotional translation
   refuses to run without the target Bible's text (RV1909, Session 30a). Prompts: prompts/translate.md, drift.md.
   Bump engine.CHECKER_VERSION when a translation check changes. Tests use fake clients.
+- Community (community.py): community/ministries.json (schema/ministries.json) is published as /ministries.json and
+  pinned in manifest.community. Ministry ids name Firestore docs (YYYY-MM_id): never rename or reuse one once featured.
+  test:true entries need ids starting test- (debug builds only). backend/scripts/seed-month.mjs reads the same file.
 - Bundled files in app assets are `*.json.gzip`, never `*.gz`: AAPT gunzips `.gz` assets and drops the suffix, so
   the app wouldn't find them (bundle.BUNDLED_SUFFIX; CDN files stay `.json.gz`).
 - Publishing: only auto_checked/reviewed studies go public, never check reasons or reviewer/editor names.

@@ -1,0 +1,40 @@
+{
+  "formatVersion": 1,
+  "ministries": [
+    {
+      "id": "test-river-bible-translation",
+      "name": "River Bible Translation (test)",
+      "description": {
+        "en": "Placeholder for testing the vote. Replace with real, vetted ministries before release.",
+        "es": "Marcador de prueba para la votación. Sustitúyelo por ministerios reales y verificados antes de publicar."
+      },
+      "website": "https://example.org/river",
+      "give_url": "https://example.org/river/give",
+      "months_featured": ["2026-11", "2026-12"],
+      "test": true
+    },
+    {
+      "id": "test-harbor-food-pantry",
+      "name": "Harbor Food Pantry (test)",
+      "description": {
+        "en": "Placeholder for testing the vote. Replace with real, vetted ministries before release.",
+        "es": "Marcador de prueba para la votación. Sustitúyelo por ministerios reales y verificados antes de publicar."
+      },
+      "website": "https://example.org/harbor",
+      "give_url": "https://example.org/harbor/give",
+      "months_featured": ["2026-11", "2026-12"],
+      "test": true
+    },
+    {
+      "id": "test-hillside-literacy",
+      "name": "Hillside Literacy (test)",
+      "description": {
+        "en": "Placeholder for testing the vote. Replace with real, vetted ministries before release."
+      },
+      "website": "https://example.org/hillside",
+      "give_url": "https://example.org/hillside/give",
+      "months_featured": ["2026-12"],
+      "test": true
+    }
+  ]
+}

@@ -415,7 +415,8 @@
             "rubric",
             "reviewer",
             "regenerate",
-            "generation"
+            "generation",
+            "report"
           ]
         },
         "message": {
@@ -427,7 +428,7 @@
           "type": "string"
         },
         "by": {
-          "description": "Reviewer, for reviewer/regenerate reasons.",
+          "description": "Reviewer, for reviewer/regenerate reasons; optional reporter name for report reasons.",
           "type": "string",
           "minLength": 1
         },

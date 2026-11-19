@@ -298,7 +298,10 @@ def check_study(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
 def apply(study: dict, outcome: Outcome, checker_version: str = CHECKER_VERSION) -> dict:
     """The study (or devotional) with the outcome written in (status + checks block). Reviewer reasons are kept."""
     updated = json.loads(json.dumps(study))
+    from .reports import open_reports
+    # Reviewer reasons stay; so do open `pipeline report` reasons, so a recheck can't clear a reported study.
     kept = [r for r in study.get("checks", {}).get("reasons", []) if r["check"] in ("reviewer", "regenerate")]
+    kept += open_reports(study)
     checks = {"checkedAt": now(), "checkerVersion": checker_version, "reasons": [*kept, *outcome.reasons]}
     if outcome.rubric:
         checks["rubric"] = outcome.rubric

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://biblescroll-content.web.app/schema/ministries.json",
+  "title": "Community spotlight ministries (C1/C2)",
+  "description": "Published as /ministries.json and pinned by sha256 in manifest.community. The app ignores entries with test:true in release builds. The seed script (backend/scripts/seed-month.mjs) reads the same file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["formatVersion", "ministries"],
+  "properties": {
+    "formatVersion": { "const": 1 },
+    "ministries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "website", "give_url", "months_featured"],
+        "properties": {
+          "id": {
+            "description": "Stable, used in Firestore doc ids (YYYY-MM_id). Never reuse or rename once featured.",
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$"
+          },
+          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "description": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["en"],
+            "properties": {
+              "en": { "type": "string", "minLength": 1, "maxLength": 240 },
+              "es": { "type": "string", "minLength": 1, "maxLength": 240 }
+            }
+          },
+          "website": { "type": "string", "pattern": "^https://" },
+          "give_url": { "type": "string", "pattern": "^https://" },
+          "months_featured": {
+            "description": "UTC months (YYYY-MM) in which this ministry is in the spotlight vote.",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }
+          },
+          "test": { "description": "Debug builds only; never shown in release.", "type": "boolean" }
+        }
+      }
+    }
+  }
+}

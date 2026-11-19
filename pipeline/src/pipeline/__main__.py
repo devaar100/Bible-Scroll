@@ -1,4 +1,4 @@
-"""python -m pipeline download|build|studies|generate|check|review|progress|publish|bundle|plans|devotionals|all  (from pipeline/, with src on the path)."""
+"""python -m pipeline download|build|studies|generate|check|review|progress|report|reports|publish|bundle|plans|devotionals|all  (from pipeline/, with src on the path)."""
 from __future__ import annotations
 
 import argparse
@@ -48,6 +48,14 @@ def main() -> None:
 
     sub.add_parser("progress", help="counts by status per book (also writes out/progress.md)")
 
+    rep = sub.add_parser("report", help="flag studies someone reported: status flagged, queued for regeneration, "
+                                        "kept out of publish until regenerated, edited or reviewed")
+    rep.add_argument("ids", nargs="+", help="study ids, e.g. JHN.3.16 PSA.23.1")
+    rep.add_argument("--reason", required=True, help="what's wrong (stored in the study's checks and the queue)")
+    rep.add_argument("--by", default=os.environ.get("PIPELINE_REVIEWER"), help="who recorded it (optional)")
+    reps = sub.add_parser("reports", help="list studies flagged by `pipeline report`")
+    reps.add_argument("--all", action="store_true", help="also list reports resolved since (prose regenerated, edited or reviewed)")
+
     publish = sub.add_parser("publish", help="package auto_checked/reviewed studies per book and deploy to Firebase Hosting")
     mode = publish.add_mutually_exclusive_group()
     mode.add_argument("--dry-run", action="store_true", help="show what would change against the live site; write nothing")
@@ -85,6 +93,8 @@ def main() -> None:
     dcheck = devo_sub.add_parser("check", help="auto-check drafted devotionals: status -> auto_checked or flagged")
     dcheck.add_argument("ids", nargs="*", help="only these (devotional-MM-DD)")
     dcheck.add_argument("--no-ai", action="store_true")
+    dcheck.add_argument("--reviewer-model", default=None, choices=["claude-haiku-5-5", "claude-sonnet-5-5"],
+                        help="AI reviewer for the rubric (default: claude-haiku-5-5, rubric.RUBRIC_MODEL)")
     dcheck.add_argument("--rubric-always", action="store_true")
     dcheck.add_argument("--recheck", action="store_true")
     dcheck.add_argument("--limit", type=int)
@@ -147,6 +157,8 @@ def main() -> None:
         from .store import Bible, StudyStore
         from .studies import STUDIES_DIR
         serve(StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB), args.reviewer, args.port)
+    if args.command in ("report", "reports"):
+        run_reports(args)
     if args.command == "publish":
         run_publish(args)
     if args.command == "bundle":
@@ -166,6 +178,27 @@ def main() -> None:
         table = render(count(StudyStore(STUDIES_DIR)))
         (OUT / "progress.md").write_text("# Study progress\n\n" + table + "\n")
         print(table)
+
+
+def run_reports(args) -> None:
+    import sys
+
+    from . import reports as r
+    from .store import StudyStore
+    from .studies import STUDIES_DIR
+
+    store = StudyStore(STUDIES_DIR)
+    if args.command == "reports":
+        print(r.render(r.list_reports(store, include_resolved=args.all)))
+        return
+    try:
+        results = r.report(store, args.ids, args.reason, by=args.by, queue=r.QUEUE)
+    except r.ReportError as error:
+        sys.exit(str(error))
+    for result in results:
+        print(f"{result.id}: flagged and queued in {r.QUEUE.relative_to(r.QUEUE.parents[1])}" if result.added
+              else f"{result.id}: already reported for this reason; unchanged")
+    print("Held back from publish until regenerated, edited or reviewed. `pipeline publish --dry-run` lists them.")
 
 
 def run_publish(args) -> None:
@@ -296,8 +329,8 @@ def run_devotionals(args) -> None:
         from .devotionals.checks import run
         judge = None
         if not args.no_ai:
-            from .rubric import AnthropicJudge
-            judge = AnthropicJudge()
+            from .rubric import RUBRIC_MODEL, AnthropicJudge
+            judge = AnthropicJudge(model=args.reviewer_model or RUBRIC_MODEL)
         summary = run(DevotionalStore(), days, bible, judge, recheck=args.recheck,
                       rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit)
         report = {"checked": summary.checked, "statuses": dict(summary.statuses), "reasons": dict(summary.reasons),
