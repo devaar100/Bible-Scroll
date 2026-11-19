@@ -79,12 +79,34 @@ def test_request_uses_model_effort_schema_and_verse_data(source, tmp_path, bible
     run(source, tmp_path / "o", w, bible_db)
     call = messages.calls[0]
     assert call["model"] == "claude-haiku-5-5"
-    assert call["output_config"]["effort"] == "high"
+    assert call["output_config"]["effort"] == "medium" and call["max_tokens"] == 16000
     assert call["output_config"]["format"]["schema"] == g.OUTPUT_SCHEMA
     assert "fallbacks" not in call  # Haiku 5.5 has no server-side fallback
     request = call["messages"][0]["content"]
     assert "John 3:16" in request and "ēgapēsen" in request and "1 John 4:9-10" in request
+    assert "John 3:16 (this verse): For God so loved" in request  # context lines carry full references
+    assert "Author: Anonymous" in request and "Note on the text:\n(none)" in request
     assert "{{" not in request
+
+
+def test_psalm_request_has_whole_psalm_and_labelled_heading(tmp_path):
+    import sqlite3
+    db_path = tmp_path / "bible.db"
+    db = sqlite3.connect(db_path)
+    db.execute("CREATE TABLE verses (translation_id TEXT, book_id INT, chapter INT, verse INT, text TEXT)")
+    db.execute("CREATE TABLE chapters (translation_id TEXT, book_id INT, chapter INT, superscription TEXT)")
+    db.executemany("INSERT INTO verses VALUES (?,?,?,?,?)",
+                   [(t, 19, 3, v, f"{t} verse {v}") for t in ("KJV", "WEB") for v in range(1, 9)])
+    db.executemany("INSERT INTO chapters VALUES (?,?,?,?)",
+                   [("KJV", 19, 3, "A Psalm of David."), ("WEB", 19, 3, "A Psalm by David.")])
+    db.commit()
+    db.close()
+    study = skeleton("PSA.3.8")
+    values = g.request_values(study, db_path)
+    assert values["context_heading"].startswith("The whole of Psalm 3")
+    lines = values["context_text"].splitlines()
+    assert lines[0] == "Heading (superscription) of Psalm 3: A Psalm by David."
+    assert len(lines) == 9 and lines[1].startswith("Psalm 3:1: ") and lines[8].startswith("Psalm 3:8 (this verse)")
 
 
 def test_fallback_enabled_for_sonnet(source, tmp_path, bible_db):

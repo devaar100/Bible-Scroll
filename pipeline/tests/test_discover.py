@@ -5,7 +5,7 @@ import sqlite3
 import pytest
 
 from pipeline import publish as p
-from pipeline.__main__ import WAVES
+from pipeline import waves
 from pipeline.discover import audit, render
 
 LIST = """JHN.3.16
@@ -64,7 +64,7 @@ def test_wave_and_discover_json_use_the_same_list_in_order(monkeypatch, tmp_path
     path.write_text("ROM.5.8\nJHN.3.16\nGEN.1.1\n")
     monkeypatch.setattr(p, "DISCOVER_FILE", path)
     monkeypatch.setattr(p.load_discover, "__defaults__", (path,))
-    assert WAVES["discover"]() == ["ROM.5.8", "JHN.3.16", "GEN.1.1"]
+    assert waves.wave_ids(waves.load().get("discover"), []) == ["ROM.5.8", "JHN.3.16", "GEN.1.1"]
     for study_id in ("JHN.3.16", "ROM.5.8"):
         put(store, {**written, "id": study_id, "status": "auto_checked"})
     release = p.build_release(store, "")  # discover_ids defaults to load_discover()

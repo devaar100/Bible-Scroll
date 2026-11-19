@@ -17,8 +17,10 @@ import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
+from functools import lru_cache
 from pathlib import Path
 
+from . import context as ctx
 from .books import BOOKS, BY_USFM
 from .devotionals.generate import Prompt, fill
 from .paths import APP_BIBLE_DB, PIPELINE
@@ -29,10 +31,9 @@ from .usage import Usage, output_stats, request_log
 
 PROMPT_FILE = PIPELINE / "prompts" / "study.md"
 LIMITS_FILE = PIPELINE / "checks" / "limits.json"
-DEFAULT_MODEL = "claude-opus-5-5"
-DEFAULT_EFFORT = "high"
-MAX_TOKENS = 32000
-CONTEXT_VERSES = 3  # verses either side shown as context
+DEFAULT_MODEL = "claude-haiku-5-5"  # launch decision 2026-11-19: Haiku 5.5 at medium for all generation
+DEFAULT_EFFORT = "medium"
+MAX_TOKENS = 16000
 
 #: Models that accept the server-side refusal fallback (fallbacks="default"). Haiku 5.5 has none.
 FALLBACK_MODELS = {"claude-opus-5-5", "claude-sonnet-5-5", "claude-fable-5-2"}
@@ -51,15 +52,20 @@ def limits(path: Path = LIMITS_FILE) -> dict[str, dict[str, int]]:
     return json.loads(path.read_text())["words"]
 
 
+def _book_name(book_id: int) -> str:
+    """A reference names one psalm: "Psalm 23:1", not "Psalms 23:1"."""
+    return "Psalm" if book_id == 19 else BOOKS[book_id - 1].name
+
+
 def verse_label(key: tuple[int, int, int]) -> str:
-    return f"{BOOKS[key[0] - 1].name} {key[1]}:{key[2]}"
+    return f"{_book_name(key[0])} {key[1]}:{key[2]}"
 
 
 def ref_label(ref: str) -> str:
     """'2CO.12.9-2CO.12.10' -> '2 Corinthians 12:9-10'."""
     start, _, end = ref.partition("-")
     b, c, v = start.split(".")
-    label = f"{BY_USFM[b].name} {c}:{v}"
+    label = f"{_book_name(BY_USFM[b].id)} {c}:{v}"
     if end:
         _, c2, v2 = end.split(".")
         label += f"-{v2}" if c2 == c else f"-{c2}:{v2}"
@@ -93,6 +99,44 @@ def split_request(prompt: Prompt, word_limits: dict | None = None) -> tuple[str,
     return head.rstrip(), fill(marker + tail, values)
 
 
+@lru_cache(maxsize=8)
+def _book_rows(bible_db: Path, translation: str, book: int) -> dict[tuple[int, int, int], str]:
+    with sqlite3.connect(f"file:{bible_db}?mode=ro", uri=True) as db:
+        rows = db.execute("SELECT chapter, verse, text FROM verses WHERE translation_id = ? AND book_id = ? "
+                          "AND verse > 0", (translation, book)).fetchall()
+    return {(book, c, v): t for c, v, t in rows}
+
+
+def _superscription(bible_db: Path, book: int, chapter: int) -> str | None:
+    """The psalm's heading in WEB words. Only where the KJV has a heading too: WEB stores Psalm 119's acrostic
+    letters (ALEPH...) there, which aren't a heading."""
+    with sqlite3.connect(f"file:{bible_db}?mode=ro", uri=True) as db:
+        rows = dict(db.execute("SELECT translation_id, superscription FROM chapters WHERE book_id = ? AND chapter = ? "
+                               "AND translation_id IN ('KJV', 'WEB')", (book, chapter)).fetchall())
+    if not (rows.get("KJV") or "").strip():
+        return None
+    return (rows.get("WEB") or "").strip() or None
+
+
+def context_block(key: tuple[int, int, int], bible_db: Path = APP_BIBLE_DB) -> tuple[str, str]:
+    """(heading, text): the surrounding WEB verses, each with its full reference, this verse marked.
+    Psalms of up to 30 verses come whole, after their heading (superscription) labelled as such."""
+    rows = _book_rows(bible_db, "WEB", key[0])
+    keys = ctx.context_keys(key, rows.keys())
+    lines = []
+    whole = ctx.whole_psalm(key, rows.keys())
+    heading = (f"The whole of Psalm {key[1]} (World English Bible):" if whole
+               else "Surrounding verses (World English Bible):")
+    if key[0] == ctx.PSALMS:
+        title = _superscription(bible_db, key[0], key[1])
+        lines.append(f"Heading (superscription) of Psalm {key[1]}: {title}" if title
+                     else f"Psalm {key[1]} has no heading (superscription).")
+    for k in keys:
+        mark = " (this verse)" if k == key else ""
+        lines.append(f"{verse_label(k)}{mark}: {rows[k]}")
+    return heading, "\n".join(lines)
+
+
 def request_values(study: dict, bible_db: Path = APP_BIBLE_DB, word_limits: dict | None = None) -> dict:
     key = parse_id(study["id"])
     b, c, v = key
@@ -100,16 +144,20 @@ def request_values(study: dict, bible_db: Path = APP_BIBLE_DB, word_limits: dict
     web = _verse_rows(bible_db, "WEB", b, c, v, v)
     if not kjv or not web:
         raise LookupError(f"No KJV/WEB text for {study['id']} in {bible_db}")
-    around = _verse_rows(bible_db, "WEB", b, c, max(1, v - CONTEXT_VERSES), v + CONTEXT_VERSES)
+    heading, context_text = context_block(key, bible_db)
     words = study["originalLanguage"]["words"]
     word_limits = word_limits or limits()
+    usfm = BOOKS[b - 1].usfm
     values = {
         "verse_label": verse_label(key),
         "kjv_text": kjv[0][1],
         "web_text": web[0][1],
-        "context_text": " ".join(f"[{n}] {t}" for n, t in around),
-        "original_words": "\n".join(f"- {w['transliteration']} ({w['surface']}) = {w['gloss']}" for w in words)
-                          or "(none listed)",
+        "context_heading": heading,
+        "context_text": context_text,
+        "book_background": ctx.book_background(usfm) or "(none)",
+        "text_note": ctx.text_note(key) or "(none)",
+        "original_words": "\n".join(f"- {ctx.clean_translit(w['transliteration'])} ({w['surface']}) = {w['gloss']}"
+                                    for w in words) or "(none listed)",
         "cross_references": "\n".join(f"- {ref_label(x['ref'])}" for x in study["crossReferences"])
                             or "(none)",
         **{f"{k}_words": f"{lim['min']}-{lim['max']}" for k, lim in word_limits.items()},

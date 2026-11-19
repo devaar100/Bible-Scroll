@@ -7,15 +7,6 @@ import os
 from pathlib import Path
 
 
-def _discover_wave() -> list[str]:
-    from .publish import load_discover
-    return load_discover()  # the same strict loader publish uses for discover.json, so the order matches
-
-
-#: Named verse sets for `batch estimate|submit --wave NAME`. Each returns study ids in display order.
-WAVES = {"discover": _discover_wave}
-
-
 def main() -> None:
     parser = argparse.ArgumentParser(prog="pipeline", description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -34,7 +25,7 @@ def main() -> None:
 
     gen = sub.add_parser("generate", help="write study prose with Claude, one direct request per verse (status generated)")
     gen.add_argument("ids", nargs="+", help="books, chapters or verses: PHP, PHP.4, PHP.4.13")
-    gen.add_argument("--model", default=None, help="Claude model id (default claude-opus-5-5)")
+    gen.add_argument("--model", default=None, help="Claude model id (default claude-haiku-5-5)")
     gen.add_argument("--effort", default=None, choices=["low", "medium", "high", "xhigh", "max"],
                      help="output effort (default high)")
     gen.add_argument("--out", help="write to this folder instead of out/studies (e.g. out/test_haiku)")
@@ -102,20 +93,29 @@ def main() -> None:
     dbundle.add_argument("--date", help="YYYY-MM-DD release date (default: today)")
     batch = sub.add_parser("batch", help="study prose via the Message Batches API (claude-haiku-5-5, effort medium)")
     batch_sub = batch.add_subparsers(dest="batch_command", required=True)
-    for name, text in (("estimate", "verse count and projected cost; sends nothing"),
-                       ("submit", "submit attempt 1 for the verses")):
+    for name, text in (("estimate", "verse count and projected cost; sends nothing (--wave all: every wave)"),
+                       ("submit", "submit attempt 1 for the verses, in batches of at most waves.yaml batch_size")):
         b = batch_sub.add_parser(name, help=text)
         b.add_argument("ids", nargs="*", help="books, chapters or verses (PHP, PHP.4, PHP.4.13)")
-        b.add_argument("--wave", choices=sorted(WAVES), help="a named set of verses instead of ids (discover = discover.txt, in order)")
+        b.add_argument("--wave", help="a wave from waves.yaml instead of ids (discover = discover.txt, in order)")
         b.add_argument("--out", help="write studies to this folder instead of out/studies")
-        b.add_argument("--force", action="store_true", help="include verses that already have prose (never reviewed/edited)")
+        b.add_argument("--force", action="store_true",
+                       help="include verses that already have prose or failed twice (never reviewed/edited)")
         b.add_argument("--limit", type=int, help="only the first N verses still to send, in list order")
     batch_sub.choices["estimate"].add_argument("--count-tokens", action="store_true",
                                                help="measure the fixed block with the free token-counting endpoint")
-    batch_sub.add_parser("status", help="poll open batches and print the summary")
-    collect = batch_sub.add_parser("collect", help="write ended batches, run checks + Haiku rubric, submit one retry batch")
-    collect.add_argument("--no-retry", action="store_true", help="don't submit the retry batch")
+    batch_sub.add_parser("status", help="poll open batches, write the summaries")
+    collect = batch_sub.add_parser("collect", help="write ended batches, run checks + Haiku rubric, submit one retry round")
+    collect.add_argument("--no-retry", action="store_true", help="don't submit the retry round")
     collect.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    bcheck = batch_sub.add_parser("check", help="re-run the checks on collected verses (no generation, no retry)")
+    bcheck.add_argument("--wave", help="only this wave")
+    bcheck.add_argument("--recheck", action="store_true", help="also verses already auto_checked/flagged")
+    bcheck.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    batch_sub.add_parser("report", help="write out/batch_runs/<wave>/generate_summary.json + check_summary.json "
+                                        "and print them (no API calls)")
+    bback = batch_sub.add_parser("backup", help="zip out/ and state/ into backups/ (same as `pipeline backup`)")
+    bback.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
     sub.add_parser("discover", help="audit discover.txt: bad ids, duplicates, verses whose Hebrew/Greek numbering differs")
     bk = sub.add_parser("backup", help="zip out/ and state/ into backups/")
     bk.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
@@ -397,77 +397,117 @@ def run_generate(args) -> None:
 def run_batch(args) -> None:
     from . import batch as bt
     from . import generate as g
-    from .paths import APP_BIBLE_DB, SOURCE_DB
-    from .publish import DISCOVER_FILE
+    from . import waves as wv
+    from .paths import APP_BIBLE_DB, PIPELINE, SOURCE_DB
     from .store import Bible, StudyStore
+
+    if args.batch_command == "backup":
+        target = bt.backup(Path(args.dest) if args.dest else PIPELINE / "backups")
+        print(f"Backed up out/ and state/ to {target}")
+        return
 
     state = bt.State()
     source = StudyStore(g.STUDIES_DIR)
+    plan_cfg = wv.load()
 
     def show(step: str) -> None:
-        print(f"\n== {step} summary")
+        folders = bt.write_summaries(state)
+        print(f"\n== {step} summary (files: {', '.join(str(f.relative_to(PIPELINE)) for f in folders.values())})")
         print(json.dumps(bt.summary(state), indent=2))
 
-    def chosen() -> list[str]:
-        if bool(args.ids) == bool(args.wave):
-            raise SystemExit("Give either verse ids or --wave (e.g. --wave discover).")
-        if args.ids:
-            return g.select_ids(source, args.ids)
+    def wave_list(name: str) -> list[str]:
         try:
-            ids = WAVES[args.wave]()
+            ids = wv.wave_ids(plan_cfg.get(name), source.ids())
+        except KeyError as error:
+            raise SystemExit(str(error))
         except ValueError as error:
             raise SystemExit(f"{error}. Run `python -m pipeline discover` for the full list of problems.")
         if not ids:
-            raise SystemExit(f"The {args.wave} wave has no verses ({DISCOVER_FILE.name} is empty).")
+            raise SystemExit(f"The {name} wave has no verses.")
         return ids
 
     if args.batch_command in ("estimate", "submit"):
+        if bool(args.ids) == bool(args.wave):
+            raise SystemExit("Give either verse ids or --wave (e.g. --wave discover).")
+        if args.wave == "all" and args.batch_command == "submit":
+            raise SystemExit("Submit one wave at a time (--wave all is for estimate only).")
         target = StudyStore(out_dir(args.out))
-        ids = chosen()
-        todo, skipped = bt.plan(ids, target, state, force=args.force)
-        if args.limit is not None:
-            if args.limit < 1:
-                raise SystemExit("--limit must be at least 1")
-            if len(todo) > args.limit:
-                skipped[f"beyond --limit {args.limit}"] = len(todo) - args.limit
-                todo = todo[:args.limit]
         fixed = bt.load_fixed()
-    if args.batch_command == "estimate":
-        cal = bt.find_calibration()
-        if args.count_tokens:
+        if args.count_tokens if args.batch_command == "estimate" else False:
             import anthropic
             fixed_tokens, how = bt.count_fixed_tokens(anthropic.Anthropic(), fixed), "counted"
         else:
-            # English prose runs about 4 characters per token. A measured per-request ratio would overstate it
-            # (requests carry fixed overhead that isn't prompt text), so the plain estimate is the safer one.
+            # English prose runs about 4 characters per token; submit counts the block exactly before sending.
             fixed_tokens, how = round(len(fixed.system) / 4), "approx (chars/4; --count-tokens for exact)"
+
+        def planned(ids: list[str], earlier: set[str]) -> tuple[list[str], dict]:
+            todo, skipped = bt.plan(ids, target, state, force=args.force)
+            dup = [i for i in todo if i in earlier]
+            if dup:
+                skipped["in an earlier wave"] = len(dup)
+                todo = [i for i in todo if i not in earlier]
+            if args.limit is not None:
+                if args.limit < 1:
+                    raise SystemExit("--limit must be at least 1")
+                if len(todo) > args.limit:
+                    skipped[f"beyond --limit {args.limit}"] = len(todo) - args.limit
+                    todo = todo[:args.limit]
+            return todo, skipped
+
+    if args.batch_command == "estimate":
+        cal = bt.find_calibration()
+        names = plan_cfg.names if args.wave == "all" else [args.wave] if args.wave else [None]
+        rows, earlier = [], set()
+        for name in names:
+            ids = wave_list(name) if name else g.select_ids(source, args.ids)
+            todo, skipped = planned(ids, earlier)
+            earlier.update(todo)
+            rows.append(bt.estimate_row(name or "ids", ids, todo, skipped, fixed, fixed_tokens, cal, source,
+                                        plan_cfg.batch_size, APP_BIBLE_DB))
         report = {
             "model": bt.MODEL, "effort": bt.EFFORT, "maxTokens": bt.MAX_TOKENS, "cacheTtl": bt.CACHE_TTL,
-            "requested": len(ids), "toSend": len(todo), "skipped": dict(skipped),
+            "batchSize": plan_cfg.batch_size, "promptVersion": fixed.prompt_version, "promptHash": fixed.system_hash,
+            "booksHash": fixed.books_hash,
             "fixedBlock": {"tokens": fixed_tokens, "how": how, "chars": len(fixed.system),
-                           "minimum": bt.MIN_CACHE_TOKENS, "ok": fixed_tokens >= bt.MIN_CACHE_TOKENS,
-                           "systemHash": fixed.system_hash},
-            "promptVersion": fixed.prompt_version,
+                           "minimum": bt.MIN_CACHE_TOKENS, "ok": fixed_tokens >= bt.MIN_CACHE_TOKENS},
+            "calibration": None if cal is None else {
+                "from": str(cal.folder.relative_to(g.PIPELINE)), "verses": cal.verses,
+                "outputPerVerse": round(cal.output_per_verse),
+                "flaggedShare": None if cal.retry_rate is None else round(cal.retry_rate, 3)},
+            "waves": rows,
         }
-        if cal:
-            report["calibration"] = {"from": str(cal.folder.relative_to(g.PIPELINE)), "verses": cal.verses,
-                                     "inputPerVerse": round(cal.input_per_verse), "outputPerVerse": round(cal.output_per_verse),
-                                     "flaggedShare": None if cal.retry_rate is None else round(cal.retry_rate, 3)}
-            report["projection"] = bt.project(len(todo), fixed_tokens, cal)
-            report["per100Verses"] = bt.project(100, fixed_tokens, cal)
         print(json.dumps(report, indent=2))
+        print()
+        print(bt.estimate_table(rows))
         print("Nothing was sent." if not args.count_tokens else "Only token counting was called (free).")
         return
+
+    if args.batch_command == "report":
+        show("report")
+        return
+
     import anthropic
     client = anthropic.Anthropic()
     if args.batch_command == "submit":
+        ids = wave_list(args.wave) if args.wave else g.select_ids(source, args.ids)
+        todo, skipped = planned(ids, set())
         target.directory.mkdir(parents=True, exist_ok=True)
         print(f"{len(todo)} to send; skipped {dict(skipped)}")
-        bt.submit(client, todo, 1, target, state, fixed, source, APP_BIBLE_DB)
+        bt.submit(client, todo, 1, target, state, fixed, source, APP_BIBLE_DB, wave=args.wave or "adhoc",
+                  batch_size=plan_cfg.batch_size)
         show("submit")
     elif args.batch_command == "status":
         bt.refresh(client, state)
         show("status")
+    elif args.batch_command == "check":
+        judge = None
+        if not args.no_ai:
+            from .rubric import AnthropicJudge
+            judge = AnthropicJudge()
+        statuses = bt.check_collected(state, Bible(SOURCE_DB, APP_BIBLE_DB), judge, wave=args.wave,
+                                      recheck=args.recheck)
+        print(f"Checked: {dict(statuses)}")
+        show("check")
     elif args.batch_command == "collect":
         bt.refresh(client, state)
         judge = None
@@ -477,14 +517,17 @@ def run_batch(args) -> None:
         retry = bt.collect(client, state, source, Bible(SOURCE_DB, APP_BIBLE_DB), judge)
         show("collect")
         if retry and not args.no_retry:
-            by_dir: dict[str, list[str]] = {}
+            groups: dict[tuple[str, str], list[str]] = {}
+            placed: set[str] = set()
             for record in state.batches:
                 for i in record["ids"]:
-                    if i in retry and i not in sum(by_dir.values(), []):
-                        by_dir.setdefault(record["outDir"], []).append(i)
-            for folder, ids in by_dir.items():
-                print(f"Retrying {len(ids)} verses (attempt 2): {', '.join(ids)}")
-                bt.submit(client, ids, 2, StudyStore(Path(folder)), state, bt.load_fixed(), source, APP_BIBLE_DB)
+                    if i in retry and i not in placed:
+                        groups.setdefault((record["outDir"], record.get("wave") or "adhoc"), []).append(i)
+                        placed.add(i)
+            for (folder, wave), ids in groups.items():
+                print(f"Retrying {len(ids)} verses (attempt 2, wave {wave})")
+                bt.submit(client, ids, 2, StudyStore(Path(folder)), state, bt.load_fixed(), source, APP_BIBLE_DB,
+                          wave=wave, batch_size=plan_cfg.batch_size)
             show("retry submit")
         elif retry:
             print(f"{len(retry)} verses need a retry; run collect without --no-retry to submit them.")

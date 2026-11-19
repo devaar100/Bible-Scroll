@@ -2,6 +2,13 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-19: Launch content run
+
+### 17. Every study is generated and reviewed by Claude Haiku 5.5 at effort "medium"
+The launch run (waves.yaml: discover, Mark, Matthew, Luke, John, Psalms) uses claude-haiku-5-5 at effort medium for generation (Message Batches, max_tokens 16,000, a max_tokens stop counts as a failed attempt) and for the AI reviewer. No Opus or Sonnet anywhere in it. Code checks reject references outside the verses shown, verse-number/position wording, sections more than 20% over or under their range, pipeline wording, dotted transliterations and Hebrew/Greek words not in the verse data; a flagged verse is regenerated once, then marked `failed` and never published. Model, effort, max_tokens and prompt hashes are in every study's meta.
+**Why:** your call (2026-11-19). One cheap model keeps the whole run near $12 (estimate for 6,476 verses incl. retries and review) and one cache namespace; the stricter prompt and the code checks carry most of the safety.
+**Revisit if:** the flagged or failed share climbs well above the pilot's ~8%, unverified reviewer quotes become common, or reviewers find errors the checks missed (then raise generation or review for that wave only).
+
 ## 2026-11-18: Community vote (Session 33)
 
 ### 16. An anonymous, add-only counter: "+1 for ministry X in month M"

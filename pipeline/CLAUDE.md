@@ -12,16 +12,23 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
 - Prose: `generate <ids> --model --effort --out --force --workers` (generate.py, prompts/study.md), direct
   Messages API, one request per verse; writes only the six prose sections, status `generated`. `--out` keeps
   test runs out of out/studies; `check --out` checks them. Prices for cost reports live in usage.py.
-- Batch prose: `batch estimate|submit|status|collect` (batch.py): Haiku 5.5, effort medium, cached 1h system
-  block (study.md System + the Request's fixed tail; keep `FIXED_TAIL_MARKER` in step with study.md). max_tokens 16,000;
-  a max_tokens stop is a failed attempt. Per-request token logs and output stats go in state/ and the summaries. One retry
-  batch; a second failure -> status `failed` (never published). Batch ids live in state/ (gitignored):
-  `backup` zips out/ + state/ before collecting.
+- Launch run (decision 2026-11-19): ALL generation and ALL checking use claude-haiku-5-5 at effort "medium". No Opus
+  or Sonnet in it; `generate` defaults to Haiku/medium/16,000 too.
+- Batch prose: `batch estimate|submit|status|collect|check|report|backup` (batch.py): Haiku 5.5, effort medium, cached
+  1h system block (study.md System + the Request's fixed tail; keep `FIXED_TAIL_MARKER` in step with study.md).
+  max_tokens 16,000; a max_tokens stop is a failed attempt. Waves in waves.yaml (waves.py, strict mini-parser, no
+  YAML dependency), at most batch_size (500) requests per batch. Summaries: out/batch_runs/<wave>/generate_summary.json
+  + check_summary.json (and all/). One retry round; a second failure -> status `failed` (never published). Batch ids
+  live in state/ (gitignored): `backup` zips out/ + state/ before collecting.
+- Study request input: context.py is shared by the request and the reference check (4 verses each side within the
+  book; whole psalm if <= 30 verses, plus its heading labelled as superscription). prompts/books.json (book
+  background, textNotes) is read by the user before any batch; only a textNote allows a manuscript remark.
 - Discover: discover.txt (one id per line, display order) feeds both `batch --wave discover` and publish's
   discover.json through publish.load_discover. Keep it the single loader so the order can't diverge.
   `python -m pipeline discover` audits it; never edit discover.txt for the user.
-- Checks: rules in `checks/` (banned.txt, pipeline_wording.txt, limits.json; lengths pass up to 20% over max); bump `CHECKER_VERSION` in checks.py when a check
-  changes. The AI rubric (rubric.py, claude-haiku-5-5) runs only after the free checks pass; API outages
+- Checks: rules in `checks/` (banned.txt, pipeline_wording.txt, limits.json; lengths pass up to 20% over max); code
+  checks also reject verse-number/position wording and dotted transliterations. Bump `CHECKER_VERSION` in checks.py
+  when a check changes. The AI rubric (rubric.py, claude-haiku-5-5) runs only after the free checks pass; API outages
   must leave a study unchanged, never flag it. Tests never call the API (fake clients).
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
 - Reports (`report <ids> --reason`, `reports`, reports.py): flag + `checks.reasons` check "report" + a line in

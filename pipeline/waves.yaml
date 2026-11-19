@@ -1,0 +1,21 @@
+# Launch content run (decision 2026-11-19): every wave is generated and reviewed by claude-haiku-5-5 at effort
+# "medium" (batch.MODEL / batch.EFFORT, rubric.RUBRIC_MODEL). Waves run top to bottom.
+#   source: discover.txt  -> publish.load_discover (the single loader, so the order matches discover.json)
+#   books: [USFM, ...]    -> every built study of those books, in Bible order
+# Each wave is sent in batches of at most batch_size requests. Finished verses (written, reviewed, edited,
+# failed twice or in an open batch) are skipped; reviewed and edited studies are never overwritten.
+# Read by pipeline/waves.py, which accepts only this shape (no general YAML parser in the dependencies).
+batch_size: 500
+waves:
+  - name: discover
+    source: discover.txt
+  - name: mark
+    books: [MRK]
+  - name: matthew
+    books: [MAT]
+  - name: luke
+    books: [LUK]
+  - name: john
+    books: [JHN]
+  - name: psalms
+    books: [PSA]

@@ -141,6 +141,8 @@ bump, since a bump changes every published book's hash and URL.
 - 3, 2026-11-18 (no bump): optional unpublished `meta.effort`, `meta.maxTokens` (with `meta.promptVersion` =
   sha256(prompts/study.md)[:12]); rubric judgments gain `section`, `quote` and `verified`.
 - 3, 2026-11-19 (no bump): `checks.reasons[].check` may be `"report"` (from `pipeline report`; unpublished).
+- 3, 2026-11-19 (no bump): optional unpublished `meta.promptHash` (sha256 of the cached system block sent),
+  `meta.booksHash` (sha256 of prompts/books.json) and `meta.wave`; check names `verse_position` and `dotted_translit`.
 
 ## Reported studies (`report`, `reports`)
 
@@ -182,11 +184,25 @@ prose sections with Claude, one direct Messages API request per verse (`src/pipe
 
 ## Batch generation (`batch`)
 
-`python -m pipeline batch estimate|submit [ids | --wave discover] [--limit N] [--out DIR] [--force]`, then `batch status` and
-`batch collect`, writes prose through the Message Batches API (`src/pipeline/batch.py`): `claude-haiku-5-5`, effort
-`medium`, `max_tokens` 16,000, one request per verse, half the direct price. `--wave discover` takes the verses
-from `discover.txt` in file order. It uses the same loader as `publish`, so `discover.json` lists the same verses
-in the same order (minus any not yet auto_checked/reviewed).
+`python -m pipeline batch estimate|submit [ids | --wave NAME] [--limit N] [--out DIR] [--force]`, then `batch status`,
+`batch collect`, `batch check`, `batch report` and `batch backup`, writes prose through the Message Batches API
+(`src/pipeline/batch.py`): `claude-haiku-5-5`, effort `medium`, `max_tokens` 16,000, one request per verse, half the
+direct price. The reviewer is the same model at the same effort: no Opus or Sonnet in the launch run
+(docs/decisions.md, 2026-11-19).
+
+**Waves** (`waves.yaml`, read by `waves.py`): discover (`discover.txt`, in file order), mark, matthew, luke, john,
+psalms, run top to bottom. `batch_size` (500) caps the requests per batch; a wave is sent as several batches.
+Finished verses are skipped (written, reviewed/edited, failed twice, in an open batch, or in an earlier wave when
+estimating several), and so are verses with no WEB text (Luke 17:36), which need a person. `--wave discover` uses
+the same loader as `publish`, so `discover.json` lists the same verses in the same order (minus any not yet
+auto_checked/reviewed). `batch estimate --wave all` prints a table for every wave.
+
+**Request input** (generate.py, context.py, prompts/books.json): KJV and WEB text, then the context: 4 verses
+either side within the book (crossing chapters), each with its full reference; Psalms of up to 30 verses come
+whole, and every psalm's heading is shown labelled as its superscription. Then the book background and any note on
+the text from `prompts/books.json` (read by a person before any batch; only those notes allow a manuscript
+remark), the original words with clean transliterations (no syllable dots or stress capitals), and the cross
+references.
 
 `python -m pipeline discover` audits `discover.txt` (one id per line, e.g. `PHP.4.13`; `#` comments allowed). It
 reports malformed ids, verses missing from source.db or the app's KJV/WEB text, duplicates, and verses whose
@@ -205,19 +221,26 @@ It never edits the file. Malformed ids or duplicates stop `--wave discover` and 
 - `submit`: attempt 1. `custom_id` is the verse id with `.` → `_` (`PHP_2_17`), since the API allows only
   `[A-Za-z0-9_-]`.
 - `status`: polls open batches.
+- `check`: re-runs the checks on collected verses (`--wave`, `--recheck`, `--no-ai`); no generation, no retry.
+- `report`: rewrites the summary files from state/ and the study files, without calling the API.
+- `backup`: same as `python -m pipeline backup`.
 - `collect`: writes ended batches (never over a reviewed or edited study), runs the free checks and the Haiku
-  rubric, then submits **one** retry batch for verses that were flagged or produced nothing usable. That covers
+  rubric, then submits **one** retry round for verses that were flagged or produced nothing usable. That covers
   `max_tokens`, refusal, bad JSON, errored and expired results. A second failure sets status `failed`, which is
   never published and goes into the review queue with `flagged`. Use `--no-retry` to hold the retry and `--no-ai`
   to run free checks only.
-- Every step prints a summary: counts by status, each batch's `cacheWriteTokens`/`cacheReadTokens`, cost so far
-  (batch + rubric), the `meta.promptVersion` hashes found in the studies, output tokens (max, median, number of
-  requests above 8,000, max/median thinking, `max_tokens` stops), sections over their maximum by band (up to 20%,
-  20-50%, more than 50% over) and the number of rubric reviews with an unverified quote.
+- Every step except estimate writes `out/batch_runs/<wave>/generate_summary.json` and `check_summary.json` (and
+  `all/`), then prints a short summary. generate_summary: counts by status and outcome, retries (verses and
+  batches), output tokens (max, median, above 8,000, thinking max/median, `max_tokens` stops), cache reads and
+  writes, cost, prompt versions and prompt hashes, per batch. check_summary: counts by status, reasons by check,
+  sections over their maximum by band (up to 20%, 20-50%, more than 50% over) in total and per section, rubric
+  reviews/unverified quotes/cost, how many historicalContext sections open with "This verse"/"The verse"/"Verse",
+  and the 5 commonest first four words per section (report only).
 - Each collected batch keeps a per-request log in the state file: stop reason, thinking tokens, written tokens
   (output minus thinking), cache reads and writes. Direct-mode `generate` writes the same log and stats to
   `generate_summary.json`.
-- Each study's `meta` records model, effort, maxTokens and promptVersion (the prompt hash).
+- Each study's `meta` records model, effort, maxTokens, promptVersion (sha256 of study.md), promptHash (sha256 of
+  the system block sent), booksHash, batchId, wave and attempts.
 - State lives in `state/batches.json` (gitignored). It holds batch ids, attempts per verse, failures and usage, and
   is saved before and right after every API call.
 
@@ -235,7 +258,9 @@ v3) listing every reason with its check name and section.
 | schema | anything `schema/study.json` rejects |
 | length | a section under its minimum, or more than 20% over its maximum, in `checks/limits.json` (up to 20% over passes) |
 | reference | a Bible reference in the prose that doesn't parse or isn't a KJV verse (e.g. "John 3:99", "Hezekiah 3:5", a backwards range). Relative "v. 17" is checked against the study's own chapter |
-| reference_not_allowed | a real reference outside the verse's own chapter (which holds the context verses) and its listed cross references. A whole-chapter reference passes if it is the verse's chapter or contains a listed reference |
+| reference_not_allowed | a real reference outside the verses the request showed (the verse and its context, `context.context_keys`) and its listed cross references. A whole-chapter reference passes if it is the verse's chapter or contains a listed reference |
+| verse_position | a nearby verse named by number or position: "verse 5", "vv. 3-4", "the next/previous verse", "two verses later" |
+| dotted_translit | a transliteration with syllable dots ("be.re.Shit"); e.g./i.e.-style abbreviations pass |
 | original_language | a Strong's number, a Hebrew/Greek word, or a "Greek word *x*" transliteration that isn't in this verse's word list (points, accents and leading zeros ignored) |
 | banned_phrase | any line of `checks/banned.txt` (plain phrases, or `re:` regexes), unless negated: "not", "no", "never", "nor", "without" or "n't" within the 4 words before it in the same clause |
 | pipeline_wording | any line of `checks/pipeline_wording.txt` ("cross references", "supplied", "the data", "this version"); never excused by negation |

@@ -147,7 +147,22 @@
           "type": "string",
           "pattern": "^[0-9a-f]{12}$"
         },
-        "batchId": {
+        "promptHash": {
+        "description": "sha256 of the cached system block sent (batch mode)[:12]; same hash = same instructions.",
+        "type": "string",
+        "pattern": "^[0-9a-f]{12}$"
+      },
+      "booksHash": {
+        "description": "sha256(prompts/books.json)[:12]: the book background and text notes in the request (batch mode).",
+        "type": "string",
+        "pattern": "^[0-9a-f]{12}$"
+      },
+      "wave": {
+        "description": "waves.yaml wave the verse was sent in (batch mode).",
+        "type": "string",
+        "minLength": 1
+      },
+      "batchId": {
           "description": "Message Batch that wrote the prose (batch mode only).",
           "type": "string",
           "minLength": 1

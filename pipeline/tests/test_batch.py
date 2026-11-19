@@ -123,7 +123,7 @@ def test_submit_saves_batch_id_and_attempts(setup):
     assert saved["batches"][0]["id"] == "msgbatch_1" and saved["attempts"] == {"JHN.3.16": 1}
     request = s.client.messages.batches.created[0][0]
     assert request["custom_id"] == "JHN_3_16"
-    assert bt.plan(["JHN.3.16"], s.target, s.state)[1]["in an open batch"] == 1
+    assert bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)[1]["in an open batch"] == 1
 
 
 def test_collect_writes_checks_and_logs_cache(setup):
@@ -136,10 +136,13 @@ def test_collect_writes_checks_and_logs_cache(setup):
     assert study["meta"]["promptVersion"] == s.fixed.prompt_version and study["meta"]["batchId"] == "msgbatch_1"
     assert study["meta"]["attempts"] == 1
     assert list(validator().iter_errors(study)) == []
+    assert study["meta"]["promptHash"] == s.fixed.system_hash and study["meta"]["maxTokens"] == 16000
     summary = bt.summary(s.state)
     assert summary["statuses"] == {"auto_checked": 1}
-    assert summary["batches"][0]["cacheWriteTokens"] == 600 and summary["promptVersions"] == {s.fixed.prompt_version: 1}
     assert summary["rubricUsd"] > 0 and summary["generationUsd"] > 0
+    gen = bt.generate_summary(s.state)
+    assert gen["batches"][0]["cacheWriteTokens"] == 600 and gen["promptVersions"] == {s.fixed.prompt_version: 1}
+    assert gen["outputTokens"]["requests"] == 1 and "medianThinkingTokens" in gen["outputTokens"]
 
 
 def test_max_tokens_retries_once_then_fails(setup):
@@ -181,7 +184,7 @@ def test_collect_never_overwrites_reviewed(setup, written):
     s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok({**s.prose, "meaning": "x"})}
     collect(s, None)
     assert s.target.load("JHN.3.16") == reviewed
-    assert bt.plan(["JHN.3.16"], s.target, s.state)[1]["reviewed/edited"] == 1
+    assert bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)[1]["reviewed/edited"] == 1
 
 
 def test_failed_is_not_published():
@@ -205,3 +208,66 @@ def test_backup_zips_out_and_state(tmp_path):
     (state / "batches.json").write_text("{}")
     target = bt.backup(tmp_path / "backups", (out, state))
     assert set(zipfile.ZipFile(target).namelist()) == {"out/studies/JHN.3.16.json", "state/batches.json"}
+
+
+def test_submit_splits_into_batches_of_at_most_batch_size(setup, monkeypatch):
+    s = setup
+    monkeypatch.setattr(bt, "params", lambda study, fixed, bible_db: {"model": bt.MODEL})  # no verse text needed
+    for i in ("JHN.3.17", "JHN.3.18", "JHN.3.19"):
+        put(s.source, skeleton(i))
+    records = bt.submit(s.client, ["JHN.3.16", "JHN.3.17", "JHN.3.18", "JHN.3.19"], 1, s.target, s.state, s.fixed,
+                        s.source, s.bible_db, log=lambda _: None, wave="john", batch_size=3)
+    assert [len(r["ids"]) for r in records] == [3, 1]
+    assert [len(c) for c in s.client.messages.batches.created] == [3, 1]
+    assert all(r["wave"] == "john" for r in records)
+
+
+def test_failed_twice_is_skipped_unless_force(setup):
+    s = setup
+    s.state.data["attempts"]["JHN.3.16"] = bt.MAX_ATTEMPTS
+    todo, skipped = bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)
+    assert todo == [] and skipped["failed twice (status failed)"] == 1
+    assert bt.plan(["JHN.3.16"], s.target, s.state, force=True, bible_db=s.bible_db)[0] == ["JHN.3.16"]
+
+
+def test_summaries_written_per_wave_and_all(setup, tmp_path):
+    s = setup
+    bt.submit(s.client, ["JHN.3.16"], 1, s.target, s.state, s.fixed, s.source, s.bible_db, log=lambda _: None,
+              wave="john")
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(s.prose, write=600)}
+    collect(s, FakeJudge(RubricResult(RUBRIC_OK, [])))
+    folders = bt.write_summaries(s.state, tmp_path / "runs")
+    assert set(folders) == {"john", "all"}
+    gen = json.loads((tmp_path / "runs" / "john" / "generate_summary.json").read_text())
+    chk = json.loads((tmp_path / "runs" / "john" / "check_summary.json").read_text())
+    assert gen["statuses"] == {"auto_checked": 1} and gen["retries"] == {"verses": 0, "batches": 0}
+    assert gen["promptHashes"] == {s.fixed.system_hash: 1} and gen["costUsd"] > 0
+    assert chk["rubric"]["reviews"] == 1 and chk["rubric"]["costUsd"] > 0
+    assert set(chk["overLength"]["total"]) == {"up to 20% over", "20-50% over", "more than 50% over"}
+    assert chk["openings"]["meaning"][0]["count"] == 1
+
+
+def test_waves_file_loads_in_order():
+    from pipeline import waves
+    w = waves.load()
+    assert w.names == ["discover", "mark", "matthew", "luke", "john", "psalms"]
+    assert w.batch_size == 500 and w.get("discover").source == "discover.txt" and w.get("mark").books == ("MRK",)
+    ids = ["MAT.1.1", "MRK.1.1", "MRK.1.2", "PSA.1.1"]
+    assert waves.wave_ids(w.get("mark"), ids) == ["MRK.1.1", "MRK.1.2"]
+
+
+def test_waves_file_rejects_unknown_lines(tmp_path):
+    from pipeline import waves
+    bad = tmp_path / "waves.yaml"
+    bad.write_text("batch_size: 500\nwaves:\n  - name: mark\n    book: [MRK]\n")
+    with pytest.raises(ValueError):
+        waves.load(bad)
+    bad.write_text("batch_size: 900\nwaves:\n  - name: mark\n    books: [MRK]\n")
+    with pytest.raises(ValueError):
+        waves.load(bad)
+
+
+def test_verse_without_web_text_is_skipped(setup):
+    s = setup
+    todo, skipped = bt.plan(["JHN.3.17"], s.target, s.state, bible_db=s.bible_db)  # fixture has only 3:16 in WEB
+    assert todo == [] and skipped["no WEB text (needs a person)"] == 1
