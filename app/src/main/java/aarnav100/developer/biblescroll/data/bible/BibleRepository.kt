@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.data.bible
 
+import android.database.sqlite.SQLiteException
 import aarnav100.developer.biblescroll.data.bible.model.Book
 import aarnav100.developer.biblescroll.data.bible.model.Chapter
 import aarnav100.developer.biblescroll.data.bible.model.Testament
@@ -40,7 +41,19 @@ class OfflineBibleRepository @Inject constructor(
     private val bookNames: BookNames = BookNames.Stored,
 ) : BibleRepository {
 
-    override fun translations() = dao.observeTranslations().map { list -> list.map { it.toModel() } }
+    override fun translations() = dao.observeTranslations().map { list ->
+        val info = translationInfo()
+        list.map { it.toModel(hasRedLetters = info[it.id] ?: true) }
+    }
+
+    /** Read-only asset data: read once per repository. Empty if the table is missing (old asset, test DB). */
+    @Volatile private var info: Map<String, Boolean>? = null
+
+    private suspend fun translationInfo(): Map<String, Boolean> = info ?: try {
+        dao.translationInfo(TRANSLATION_INFO_QUERY).associate { it.id to it.hasRedLetters }
+    } catch (e: SQLiteException) {
+        emptyMap()
+    }.also { info = it }
 
     /** In the app's language; emits again when it changes, so names in open screens follow. */
     override fun books() = combine(dao.observeBooks(), bookNames.books) { list, names ->
@@ -85,7 +98,7 @@ private const val MAX_KEYS_PER_QUERY = 900
 
 private fun VerseRef.packedKey(): Long = bookId * 1_000_000L + chapter * 1_000L + verse
 
-private fun TranslationEntity.toModel() = Translation(id, name, languageCode, licence)
+private fun TranslationEntity.toModel(hasRedLetters: Boolean) = Translation(id, name, languageCode, licence, hasRedLetters)
 
 private fun BookEntity.toModel() = Book(
     id = id,

@@ -620,6 +620,14 @@
         <source>Clear, contemporary English translated straight from the Hebrew and Greek.</source>
         <note from="where">B5 Translation picker</note>
       </trans-unit>
+      <trans-unit id="translation_desc_RV1909" resname="translation_desc_RV1909">
+        <source>The classic Spanish Reina-Valera translation, 1909 revision, in the public domain.</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
+      <trans-unit id="translations_no_red_letters" resname="translations_no_red_letters">
+        <source>This translation doesn’t mark the words of Jesus, so none are shown in red.</source>
+        <note from="where">B5 Translation picker</note>
+      </trans-unit>
       <trans-unit id="onb_promise" resname="onb_promise">
         <source>Swap a few minutes of scrolling for a verse that stays with you.</source>
         <note from="where">O1-O8 Onboarding</note>
@@ -636,6 +644,14 @@
       <trans-unit id="onb_continue" resname="onb_continue">
         <source>Continue</source>
         <note from="where">O1-O8 Onboarding; O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_bible_title" resname="onb_bible_title">
+        <source>Which Bible would you like to read?</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="onb_bible_note" resname="onb_bible_note">
+        <source>You can change it any time in the reader.</source>
+        <note from="where">O1-O8 Onboarding</note>
       </trans-unit>
       <trans-unit id="onb_skip" resname="onb_skip">
         <source>Skip</source>

@@ -39,9 +39,14 @@ It writes `app/src/main/assets/bible.db` (24.4 MiB with four translations; about
 
 **App side:** a new `bible.db` reaches existing installs only after `BibleDatabase.VERSION` is bumped (the destructive
 fallback re-copies the asset). Per-translation metadata the Room entities don't have (attribution, `has_red_letters`,
-English/Spanish descriptions, source URL and SHA-256) is in the `translation_info` table, which Room ignores.
+English/Spanish descriptions, source URL and SHA-256) is in the `translation_info` table, which Room ignores
+(the app reads `has_red_letters` with a raw query, BibleDao.translationInfo).
 
-If you change an `@Entity` in `data/bible/`, bump `BibleDatabase.version`, build once, then rerun the script.
+To bump the version without new sources: raise `BibleDatabase.VERSION`, run `./gradlew assembleDebug` (exports
+the new schema JSON), then rerun the script, or, if no `@Entity` changed (same identity hash), just
+`sqlite3 app/src/main/assets/bible.db "PRAGMA user_version = N"`. Version 2 was done that way (Session 31b).
+
+If you change an `@Entity` in `data/bible/`, bump `BibleDatabase.VERSION`, build once, then rerun the script.
 
 ### Licence status (checked 2026-11-17 on the eBible.org pages above)
 

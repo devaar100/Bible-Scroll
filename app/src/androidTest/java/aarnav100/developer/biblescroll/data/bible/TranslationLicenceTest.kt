@@ -7,6 +7,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -45,6 +46,13 @@ class TranslationLicenceTest {
             }
         }
         assertTrue(problems.joinToString("\n"), problems.isEmpty())
+    }
+
+    /** translation_info is read raw beside Room's tables; the asset's flags reach the model. */
+    @Test
+    fun redLetterFlagsComeFromTranslationInfo() = runBlocking {
+        val flags = OfflineBibleRepository(db.bibleDao()).translations().first().associate { it.id to it.hasRedLetters }
+        assertEquals(mapOf("WEB" to true, "KJV" to true, "BSB" to false, "RV1909" to false), flags)
     }
 
     private companion object {

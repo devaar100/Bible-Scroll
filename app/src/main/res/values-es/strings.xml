@@ -170,11 +170,15 @@
     <string name="translation_desc_WEB">Inglés moderno y fácil de leer. Una actualización de dominio público de la American Standard Version de 1901.</string>
     <string name="translation_desc_KJV">La traducción clásica de 1611 en inglés tradicional, querida por su poesía.</string>
     <string name="translation_desc_BSB">Inglés claro y actual, traducido directamente del hebreo y el griego.</string>
+    <string name="translation_desc_RV1909">La clásica traducción Reina-Valera en su revisión de 1909, de dominio público.</string>
+    <string name="translations_no_red_letters">Esta traducción no marca las palabras de Jesús, así que ninguna aparece en rojo.</string>
     <!-- Onboarding (O2-O8) -->
     <string name="onb_promise">Cambia unos minutos de scroll por un versículo que se queda contigo.</string>
     <string name="onb_promise_detail">Gratis. Sin anuncios y sin cuenta.</string>
     <string name="onb_get_started">Empezar</string>
     <string name="onb_continue">Continuar</string>
+    <string name="onb_bible_title">¿Qué Biblia quieres leer?</string>
+    <string name="onb_bible_note">Puedes cambiarla cuando quieras en el lector.</string>
     <string name="onb_skip">Omitir</string>
     <string name="onb_back">Atrás</string>
     <string name="onb_page_indicator">Página %1$d de %2$d</string>

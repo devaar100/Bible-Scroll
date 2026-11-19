@@ -12,6 +12,8 @@ import aarnav100.developer.biblescroll.feature.onboarding.Goal
 import aarnav100.developer.biblescroll.feature.onboarding.GoalResponseStep
 import aarnav100.developer.biblescroll.feature.onboarding.GoalStep
 import aarnav100.developer.biblescroll.feature.onboarding.OnboardingUiState
+import aarnav100.developer.biblescroll.feature.onboarding.BibleStep
+import aarnav100.developer.biblescroll.data.bible.model.Translation
 import aarnav100.developer.biblescroll.feature.onboarding.PermissionStep
 import aarnav100.developer.biblescroll.feature.onboarding.PlanStep
 import aarnav100.developer.biblescroll.feature.onboarding.TimingStep
@@ -122,6 +124,15 @@ class PseudoLocaleScreenshotTest {
     @Test fun dataBackup() = shot("data_backup") { DataBackupContent(busy = false, onBack = {}, onExport = {}, onImport = {}) }
     @Test fun dataError() = shot("data_error") { DataErrorScreen(checking = false, onRetry = {}, onSaveCopy = {}, savedResults = emptyFlow()) }
     @Test fun welcome() = shot("onboarding_welcome") { WelcomeStep(onGetStarted = {}) }
+    @Test fun bible() = shot("onboarding_bible") {
+        BibleStep(
+            options = listOf(
+                Translation("RV1909", "Reina-Valera 1909", "es", "PD", hasRedLetters = false),
+                Translation("WEB", "World English Bible", "en", "PD"),
+            ),
+            selectedId = "RV1909", onSelect = {}, onBack = {}, onContinue = {},
+        )
+    }
     @Test fun goal() = shot("onboarding_goal") { GoalStep(selected = Goal.entries.first(), onSelect = {}, onBack = {}, onContinue = {}) }
     @Test fun timing() = shot("onboarding_timing") { TimingStep(selected = null, onSelect = {}, onBack = {}, onContinue = {}) }
     @Test fun goalResponse() = shot("onboarding_goal_response") { GoalResponseStep(goal = Goal.entries.first(), verse = null, onBack = {}, onContinue = {}) }

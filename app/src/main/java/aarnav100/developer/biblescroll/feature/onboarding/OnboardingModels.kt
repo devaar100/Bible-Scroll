@@ -5,8 +5,11 @@ import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import androidx.annotation.StringRes
 import java.time.LocalTime
 
-/** O2-O8. O1 is the system splash, held by MainActivity. */
-enum class OnboardingStep { Welcome, Tour, Goal, GoalResponse, Timing, Plan, Permission }
+/**
+ * O2-O8. O1 is the system splash, held by MainActivity. [Bible] (RV1909 or WEB) comes right after O2 and only
+ * when the app is in Spanish; declared in flow order because the transition direction uses the ordinal.
+ */
+enum class OnboardingStep { Welcome, Bible, Tour, Goal, GoalResponse, Timing, Plan, Permission }
 
 /** O4 answer. [verse] is shown on O5 and becomes the first verse in the feed. Public-domain text from the bundled DB. */
 enum class Goal(

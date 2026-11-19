@@ -106,6 +106,14 @@ private fun TranslationRow(translation: Translation, selected: Boolean, onClick:
                     Spacer(Modifier.height(4.dp))
                     Text(stringResource(res), style = MaterialTheme.typography.bodyMedium)
                 }
+                if (!translation.hasRedLetters) {
+                    Spacer(Modifier.height(4.dp))
+                    Text(
+                        stringResource(R.string.translations_no_red_letters),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = colors.onSurfaceVariant,
+                    )
+                }
                 Spacer(Modifier.height(8.dp))
                 Text(
                     text = translation.licence,
@@ -144,10 +152,12 @@ private fun OfflineBadge() {
     }
 }
 
+/** One-line description in the UI language (also used by the onboarding Bible step). */
 @StringRes
-private fun translationDescription(id: String): Int? = when (id) {
+internal fun translationDescription(id: String): Int? = when (id) {
     "WEB" -> R.string.translation_desc_WEB
     "KJV" -> R.string.translation_desc_KJV
     "BSB" -> R.string.translation_desc_BSB
+    "RV1909" -> R.string.translation_desc_RV1909
     else -> null
 }

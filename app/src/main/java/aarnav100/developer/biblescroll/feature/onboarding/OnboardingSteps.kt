@@ -1,6 +1,8 @@
 package aarnav100.developer.biblescroll.feature.onboarding
 
 import aarnav100.developer.biblescroll.R
+import aarnav100.developer.biblescroll.data.bible.model.Translation
+import aarnav100.developer.biblescroll.feature.bible.picker.translationDescription
 import aarnav100.developer.biblescroll.feature.bible.redLetterText
 import aarnav100.developer.biblescroll.feature.settings.ReminderTimeDialog
 import aarnav100.developer.biblescroll.feature.settings.formatReminderTime
@@ -209,6 +211,7 @@ private fun <T> QuizStep(
     onSelect: (T) -> Unit,
     onBack: () -> Unit,
     onContinue: () -> Unit,
+    note: String? = null,
 ) {
     StepScaffold(
         onBack = onBack,
@@ -216,6 +219,10 @@ private fun <T> QuizStep(
     ) {
         Spacer(Modifier.height(8.dp))
         StepTitle(title)
+        if (note != null) {
+            Spacer(Modifier.height(12.dp))
+            Text(note, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         Spacer(Modifier.height(24.dp))
         Column(Modifier.selectableGroup(), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             options.forEach { option ->
@@ -252,6 +259,29 @@ private fun OptionCard(label: String, detail: String?, selected: Boolean, onClic
             RadioButton(selected = selected, onClick = null)
         }
     }
+}
+
+// ---- Bible (Spanish UI only, after O2) ----
+
+@Composable
+internal fun BibleStep(
+    options: List<Translation>,
+    selectedId: String?,
+    onSelect: (String) -> Unit,
+    onBack: () -> Unit,
+    onContinue: () -> Unit,
+) {
+    QuizStep(
+        title = stringResource(R.string.onb_bible_title),
+        note = stringResource(R.string.onb_bible_note),
+        options = options,
+        selected = options.firstOrNull { it.id == selectedId },
+        label = { it.name },
+        detail = { t -> translationDescription(t.id)?.let { stringResource(it) } },
+        onSelect = { onSelect(it.id) },
+        onBack = onBack,
+        onContinue = onContinue,
+    )
 }
 
 @Composable

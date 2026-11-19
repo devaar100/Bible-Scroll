@@ -6,6 +6,7 @@ import aarnav100.developer.biblescroll.data.reminder.NotificationAccess
 import aarnav100.developer.biblescroll.data.reminder.ReminderRepository
 import aarnav100.developer.biblescroll.data.reminder.ReminderScheduler
 import aarnav100.developer.biblescroll.data.reminder.ReminderSettings
+import aarnav100.developer.biblescroll.data.settings.ContentLanguage
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.user.LocalUserDataRepository
 import aarnav100.developer.biblescroll.testing.FakeBibleRepository
@@ -48,7 +49,7 @@ class OnboardingViewModelTest {
     }
 
     private val dataStore = FakePreferencesDataStore()
-    private val bible = FakeBibleRepository()
+    private var bible = FakeBibleRepository()
     private val userData = LocalUserDataRepository(FakeUserDao()) { 1L }
     private val reminders = ReminderRepository(dataStore)
     private val scheduler = RecordingScheduler(reminders)
@@ -59,7 +60,10 @@ class OnboardingViewModelTest {
     fun setUp() = Dispatchers.setMain(UnconfinedTestDispatcher())
 
     @After
-    fun tearDown() = Dispatchers.resetMain()
+    fun tearDown() {
+        Dispatchers.resetMain()
+        ContentLanguage.set("en")
+    }
 
     private fun TestScope.viewModel(handle: SavedStateHandle = SavedStateHandle()) = OnboardingViewModel(
         handle, bible, ReaderPreferences(dataStore), userData, reminders, scheduler, access, onboarding,
@@ -91,6 +95,63 @@ class OnboardingViewModelTest {
                 assertEquals(expected, vm.step)
             }
         assertFalse(vm.onBack()) // O2: let the system handle it
+    }
+
+    @Test
+    fun spanishUiOffersRv1909AfterWelcomeAndSavesItOnFinish() = runTest {
+        ContentLanguage.set("es")
+        bible = FakeBibleRepository(withSpanish = true)
+        val vm = viewModel()
+        vm.onGetStarted()
+        assertEquals(OnboardingStep.Bible, vm.step)
+        assertEquals(listOf("RV1909", "WEB"), vm.uiState.value.bibleOptions.map { it.id })
+        assertEquals("RV1909", vm.uiState.value.bibleChoice) // preselected
+        vm.onBibleSelected("SHORT") // not offered: ignored
+        assertEquals("RV1909", vm.uiState.value.bibleChoice)
+
+        vm.onBibleContinue()
+        assertEquals(OnboardingStep.Tour, vm.step)
+        assertEquals("RV1909", vm.uiState.value.tour.card?.verse?.translationId) // tour follows the pick
+        // Not saved before finishing.
+        assertEquals("WEB", ReaderPreferences(dataStore).translationId.first())
+
+        vm.onGoalSelected(Goal.Understanding)
+        vm.onTourSkip()
+        vm.onReminderToggle(false)
+        vm.onPlanContinue()
+        assertEquals("RV1909", ReaderPreferences(dataStore).translationId.first())
+        assertEquals(VerseRef(19, 119, 105), userData.lastReadingPosition())
+
+        assertTrue(vm.onBack()) // Plan -> Tour -> Bible
+        assertTrue(vm.onBack())
+        assertEquals(OnboardingStep.Bible, vm.step)
+    }
+
+    @Test
+    fun spanishUiCanKeepEnglish() = runTest {
+        ContentLanguage.set("es")
+        bible = FakeBibleRepository(withSpanish = true)
+        val vm = viewModel()
+        vm.onGetStarted()
+        vm.onBibleSelected("WEB")
+        vm.onBibleContinue()
+        vm.onTourSkip()
+        vm.onReminderToggle(false)
+        vm.onPlanContinue()
+        assertEquals("WEB", ReaderPreferences(dataStore).translationId.first())
+    }
+
+    @Test
+    fun noBibleStepInEnglishOrWithoutRv1909() = runTest {
+        bible = FakeBibleRepository(withSpanish = true)
+        viewModel().also { it.onGetStarted() }.let { assertEquals(OnboardingStep.Tour, it.step) }
+
+        ContentLanguage.set("es")
+        bible = FakeBibleRepository(withSpanish = false)
+        val vm = viewModel()
+        vm.onGetStarted()
+        assertEquals(OnboardingStep.Tour, vm.step)
+        assertTrue(vm.uiState.value.bibleOptions.isEmpty())
     }
 
     @Test

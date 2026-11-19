@@ -83,7 +83,8 @@ class FakeUserDao : UserDao {
  * A tiny two-translation Bible: Genesis 1:1-3, Psalm 119:105, John 3:15-17 and John 14:6. "SHORT" lacks John 3:16, to test a
  * mark on a verse that a translation omits (like WEB Acts 8:37).
  */
-class FakeBibleRepository : BibleRepository {
+/** [withSpanish] adds RV1909 (es, no red letters) with the same verses. */
+class FakeBibleRepository(private val withSpanish: Boolean = false) : BibleRepository {
     private val refs = listOf(
         VerseRef(1, 1, 1), VerseRef(1, 1, 2), VerseRef(1, 1, 3),
         VerseRef(19, 119, 105),
@@ -93,12 +94,13 @@ class FakeBibleRepository : BibleRepository {
     private val byTranslation: Map<String, List<Verse>> = mapOf(
         "WEB" to refs.toVerses("WEB"),
         "SHORT" to refs.filterNot { it == VerseRef(43, 3, 16) }.toVerses("SHORT"),
-    )
+    ) + if (withSpanish) mapOf("RV1909" to refs.toVerses("RV1909")) else emptyMap()
 
     fun ordinalOf(translationId: String, ref: VerseRef) = byTranslation.getValue(translationId).first { it.ref == ref }.ordinal
 
     override fun translations() = flowOf(
-        listOf(Translation("WEB", "World English Bible", "en", "PD"), Translation("SHORT", "Short", "en", "PD")),
+        listOf(Translation("WEB", "World English Bible", "en", "PD"), Translation("SHORT", "Short", "en", "PD")) +
+            if (withSpanish) listOf(Translation("RV1909", "Reina-Valera 1909", "es", "PD", hasRedLetters = false)) else emptyList(),
     )
 
     override fun books() = flowOf(

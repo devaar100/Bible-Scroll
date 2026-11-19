@@ -173,11 +173,15 @@
     <string name="translation_desc_WEB">Modern, readable English. A public-domain update of the 1901 American Standard Version.</string>
     <string name="translation_desc_KJV">The classic 1611 translation in traditional English, loved for its poetry.</string>
     <string name="translation_desc_BSB">Clear, contemporary English translated straight from the Hebrew and Greek.</string>
+    <string name="translation_desc_RV1909">The classic Spanish Reina-Valera translation, 1909 revision, in the public domain.</string>
+    <string name="translations_no_red_letters">This translation doesn’t mark the words of Jesus, so none are shown in red.</string>
     <!-- Onboarding (O2-O8) -->
     <string name="onb_promise">Swap a few minutes of scrolling for a verse that stays with you.</string>
     <string name="onb_promise_detail">Free to use. No ads, no account.</string>
     <string name="onb_get_started">Get started</string>
     <string name="onb_continue">Continue</string>
+    <string name="onb_bible_title">Which Bible would you like to read?</string>
+    <string name="onb_bible_note">You can change it any time in the reader.</string>
     <string name="onb_skip">Skip</string>
     <string name="onb_back">Back</string>
     <string name="onb_page_indicator">Page %1$d of %2$d</string>

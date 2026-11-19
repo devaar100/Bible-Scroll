@@ -1,7 +1,11 @@
 package aarnav100.developer.biblescroll.data.bible
 
+import androidx.room.ColumnInfo
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RawQuery
+import androidx.sqlite.db.SimpleSQLiteQuery
+import androidx.sqlite.db.SupportSQLiteQuery
 import kotlinx.coroutines.flow.Flow
 
 /** Read-only access to the bundled Bible. Room runs Flow queries off the main thread. */
@@ -10,6 +14,13 @@ interface BibleDao {
 
     @Query("SELECT * FROM translations ORDER BY sort_order")
     fun observeTranslations(): Flow<List<TranslationEntity>>
+
+    /**
+     * translation_info isn't a Room table (tools/build_bible_db.py adds it beside Room's), so it's read raw.
+     * Use [TRANSLATION_INFO_QUERY]. Throws SQLiteException on a database without the table.
+     */
+    @RawQuery
+    suspend fun translationInfo(query: SupportSQLiteQuery): List<TranslationInfoRow>
 
     @Query("SELECT * FROM books ORDER BY id")
     fun observeBooks(): Flow<List<BookEntity>>
@@ -84,3 +95,10 @@ interface BibleDao {
     )
     suspend fun ordinalAtOrAfter(translationId: String, bookId: Int, chapter: Int, verse: Int): Int?
 }
+
+val TRANSLATION_INFO_QUERY = SimpleSQLiteQuery("SELECT id, has_red_letters FROM translation_info")
+
+data class TranslationInfoRow(
+    @ColumnInfo(name = "id") val id: String,
+    @ColumnInfo(name = "has_red_letters") val hasRedLetters: Boolean,
+)

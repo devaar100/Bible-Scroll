@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.feature.onboarding
 
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
+import aarnav100.developer.biblescroll.data.bible.model.Translation
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.onboarding.OnboardingRepository
@@ -8,6 +9,7 @@ import aarnav100.developer.biblescroll.data.reminder.NotificationAccess
 import aarnav100.developer.biblescroll.data.reminder.ReminderRepository
 import aarnav100.developer.biblescroll.data.reminder.ReminderScheduler
 import aarnav100.developer.biblescroll.data.reminder.ReminderSettings
+import aarnav100.developer.biblescroll.data.settings.ContentLanguage
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.user.UserDataRepository
 import androidx.compose.runtime.Immutable
@@ -59,6 +61,10 @@ data class OnboardingUiState(
     /** O8: the reader said no (or the system did); show the "you can turn it on later" note. */
     val permissionDeclined: Boolean = false,
     val tour: TourVerses = TourVerses(),
+    /** Bible step: RV1909 then WEB, as bible.db has them. Empty when the step isn't offered. */
+    val bibleOptions: List<Translation> = emptyList(),
+    /** Bible step pick; null until the step is shown (it preselects RV1909). */
+    val bibleChoice: String? = null,
 )
 
 /**
@@ -86,11 +92,21 @@ class OnboardingViewModel @Inject constructor(
     private val reminderOn = savedState.getStateFlow(KEY_REMINDER_ON, true)
     private val reminderMinute = savedState.getStateFlow(KEY_REMINDER_MINUTE, ReminderSettings.DEFAULT_TIME.toMinuteOfDay())
     private val declined = savedState.getStateFlow(KEY_DECLINED, false)
+    /** Bible step pick, saved as the reader's translation only when onboarding finishes. */
+    private val bibleChoice = savedState.getStateFlow<String?>(KEY_BIBLE, null)
+
+    /** Spanish UI and RV1909 in bible.db: offer it after O2. Read once; onboarding is a single sitting. */
+    private val bibleOptions: StateFlow<List<Translation>> = bible.translations()
+        .map { all -> if (ContentLanguage.code.value == SPANISH) BIBLE_OFFER.mapNotNull { id -> all.firstOrNull { it.id == id } } else emptyList() }
+        .map { if (it.any { t -> t.id == SPANISH_BIBLE }) it else emptyList() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     /** Guards against a double tap finishing twice. Not saved: a finish interrupted by process death just runs again. */
     private var finishing = false
 
-    private val translationId: Flow<String> = combine(readerPreferences.translationId, bible.translations()) { preferred, all ->
+    /** The Bible step's pick if any, else the saved preference; always one bible.db has. */
+    private val translationId: Flow<String> = combine(readerPreferences.translationId, bibleChoice, bible.translations()) { saved, picked, all ->
+        val preferred = picked ?: saved
         all.firstOrNull { it.id == preferred }?.id ?: all.firstOrNull()?.id ?: preferred
     }.distinctUntilChanged()
 
@@ -123,8 +139,10 @@ class OnboardingViewModel @Inject constructor(
         )
     }
 
-    val uiState: StateFlow<OnboardingUiState> = combine(answers, declined, goalVerse, tourVerses) { a, d, verse, tour ->
-        a.copy(permissionDeclined = d, goalVerse = verse, tour = tour)
+    val uiState: StateFlow<OnboardingUiState> = combine(
+        answers, declined, goalVerse, tourVerses, combine(bibleOptions, bibleChoice, ::Pair),
+    ) { a, d, verse, tour, (options, choice) ->
+        a.copy(permissionDeclined = d, goalVerse = verse, tour = tour, bibleOptions = options, bibleChoice = choice)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), initialState())
 
     /** Synchronous first frame from the saved state, so a restored flow doesn't flash O2. */
@@ -136,10 +154,22 @@ class OnboardingViewModel @Inject constructor(
         reminderOn = reminderOn.value,
         reminderTime = reminderMinute.value.let { LocalTime.of(it / 60, it % 60) },
         permissionDeclined = declined.value,
+        bibleChoice = bibleChoice.value,
     )
 
     // O2
-    fun onGetStarted() = push(OnboardingStep.Tour)
+    fun onGetStarted() {
+        if (bibleOptions.value.isEmpty()) return push(OnboardingStep.Tour)
+        if (bibleChoice.value == null) savedState[KEY_BIBLE] = SPANISH_BIBLE
+        push(OnboardingStep.Bible)
+    }
+
+    // Bible (Spanish UI only)
+    fun onBibleSelected(id: String) {
+        if (bibleOptions.value.any { it.id == id }) savedState[KEY_BIBLE] = id
+    }
+
+    fun onBibleContinue() = push(OnboardingStep.Tour)
 
     // O3
     fun onTourContinue() = push(OnboardingStep.Goal)
@@ -230,6 +260,7 @@ class OnboardingViewModel @Inject constructor(
                 // Pre-13 phones with notifications switched off: leave it off, S6 explains how to fix it.
                 reminders.setEnabled(withReminder && access.canPost())
                 scheduler.syncFromStore()
+                bibleChoice.value?.let { readerPreferences.setTranslationId(it) }
                 if (goalRef != null) userData.saveReadingPosition(translationId.first(), goalRef)
                 onboarding.markComplete()
             }
@@ -243,6 +274,12 @@ class OnboardingViewModel @Inject constructor(
         const val KEY_REMINDER_ON = "onb_reminder_on"
         const val KEY_REMINDER_MINUTE = "onb_reminder_minute"
         const val KEY_DECLINED = "onb_permission_declined"
+        const val KEY_BIBLE = "onb_bible"
+
+        const val SPANISH = "es"
+        const val SPANISH_BIBLE = "RV1909"
+        /** Bible step options in display order: the Spanish Bible first, then the default English one. */
+        val BIBLE_OFFER = listOf(SPANISH_BIBLE, "WEB") // WEB: the app default (ReaderPreferences)
 
         val TOUR_FEED = listOf(VerseRef(19, 23, 1), VerseRef(19, 23, 2), VerseRef(19, 23, 3), VerseRef(19, 23, 4))
         val TOUR_LIKED = VerseRef(19, 46, 1)

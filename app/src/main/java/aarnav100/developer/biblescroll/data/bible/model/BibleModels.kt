@@ -5,6 +5,8 @@ data class Translation(
     val name: String,
     val languageCode: String,
     val licence: String,
+    /** False when the source marks no words of Jesus (BSB, RV1909), so nothing shows in red. */
+    val hasRedLetters: Boolean = true,
 )
 
 enum class Testament { OLD, NEW }

@@ -45,6 +45,13 @@ fun OnboardingScreen(viewModel: OnboardingViewModel = hiltViewModel()) {
         ) { step ->
             when (step) {
                 OnboardingStep.Welcome -> WelcomeStep(onGetStarted = viewModel::onGetStarted)
+                OnboardingStep.Bible -> BibleStep(
+                    options = state.bibleOptions,
+                    selectedId = state.bibleChoice,
+                    onSelect = viewModel::onBibleSelected,
+                    onBack = { viewModel.onBack() },
+                    onContinue = viewModel::onBibleContinue,
+                )
                 OnboardingStep.Tour -> FeatureTourStep(
                     tour = state.tour,
                     onBack = { viewModel.onBack() },
