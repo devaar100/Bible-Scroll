@@ -258,6 +258,13 @@ def run_publish(args) -> None:
     if deploying and not (config["firebaseProject"] and base_url):
         sys.exit("Set firebaseProject and baseUrl in pipeline/publish.json before deploying (see README).")
     from .devotionals.store import DevotionalStore
+    from .community import load_ministries, release_problems
+    try:
+        community_problems = release_problems(load_ministries())
+    except ValueError as error:
+        community_problems = [str(error)]
+    if community_problems:
+        sys.exit("Not publishing: ministries.json fails the release checks:\n  " + "\n  ".join(community_problems))
     release = p.build_release(StudyStore(STUDIES_DIR), base_url, devotionals=DevotionalStore())
     live = p.fetch_live_manifest(base_url) if base_url else None
     live_discover = p.fetch_live_discover(base_url) if live else []

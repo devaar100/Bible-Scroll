@@ -73,6 +73,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
 - Community (community.py): community/ministries.json (schema/ministries.json) is published as /ministries.json and
   pinned in manifest.community. Ministry ids name Firestore docs (YYYY-MM_id): never rename or reuse one once featured.
   test:true entries need ids starting test- (debug and qa builds only). backend/scripts/seed-month.mjs reads the same file.
+  load_ministries (run by every publish, incl. --dry-run) fails if website/give_url isn't https or give_url's registrable
+  domain differs from website's (community.registrable_domain: built-in two-label suffix list, no PSL dependency).
 - Bundled files in app assets are `*.json.gzip`, never `*.gz`: AAPT gunzips `.gz` assets and drops the suffix, so
   the app wouldn't find them (bundle.BUNDLED_SUFFIX; CDN files stay `.json.gz`).
 - Publishing: only auto_checked/reviewed studies go public, never check reasons or reviewer/editor names.

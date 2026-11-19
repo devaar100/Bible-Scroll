@@ -5,7 +5,7 @@ import json
 import pytest
 
 from pipeline import publish as p
-from pipeline.community import MINISTRIES_FILE, featured, load_ministries
+from pipeline.community import MINISTRIES_FILE, featured, load_ministries, release_problems
 
 GOOD = {
     "formatVersion": 1,
@@ -40,6 +40,11 @@ def test_missing_file_is_none(tmp_path):
     (lambda d: d["ministries"][0].update(amount="$5"), "Additional properties"),
     (lambda d: d["ministries"][1].update(id="river-translation"), "used twice"),
     (lambda d: d["ministries"][1].update(id="harbor"), "must have ids starting with test-"),
+    (lambda d: d["ministries"][0].update(give_url="https://donate-river.example/give"),
+     "give_url is on donate-river.example but website is on example.org"),
+    (lambda d: d["ministries"][0].update(give_url="https://example.org.evil.com/give"), "give_url is on evil.com"),
+    (lambda d: d["ministries"][0].update(give_url="https://user@example.org/give"), "plain host name"),
+    (lambda d: d["ministries"][0].update(give_url="https://example.org:8443/give"), "plain host name"),
 ])
 def test_bad_files_fail_loudly(tmp_path, change, problem):
     data = copy.deepcopy(GOOD)
@@ -81,3 +86,45 @@ def test_dry_run_shows_a_ministries_change(store, tmp_path):
 
     same = dict(live, community=release.manifest["community"])
     assert not p.diff(release, same).community_changed
+
+
+def test_give_url_may_use_a_subdomain_of_the_website():
+    data = copy.deepcopy(GOOD)
+    data["ministries"][0].update(website="https://www.example.org.uk/", give_url="https://donate.example.org.uk/now")
+    from pipeline.community import link_problems
+    assert link_problems(data["ministries"][0]) == []
+
+
+@pytest.mark.parametrize("host, domain", [
+    ("example.org", "example.org"), ("www.give.Example.ORG.", "example.org"),
+    ("shop.example.org.uk", "example.org.uk"), ("a.b.example.com.au", "example.com.au"),
+])
+def test_registrable_domain(host, domain):
+    from pipeline.community import registrable_domain
+    assert registrable_domain(host) == domain
+
+
+def test_http_link_is_reported_by_the_link_check():
+    from pipeline.community import link_problems
+    m = dict(GOOD["ministries"][0], give_url="http://example.org/give")
+    assert link_problems(m) == ["river-translation: give_url isn't https: http://example.org/give"]
+
+
+@pytest.mark.parametrize("website, give_url, ok", [
+    ("https://www.obolodisanpietro.va/en.html", "https://www.peterspence.va/donate", True),
+    ("https://www.peterspence.va/", "https://www.obolodisanpietro.va/it/dona.html", True),
+    ("https://www.obolodisanpietro.va/", "https://peterspence.example.org/donate", False),
+    ("https://www.vatican.va/", "https://www.peterspence.va/", False),  # only the listed pair, not all of .va
+])
+def test_alternate_domain_allow_list(website, give_url, ok):
+    from pipeline.community import link_problems
+    m = dict(GOOD["ministries"][0], website=website, give_url=give_url)
+    assert (link_problems(m) == []) is ok
+
+
+def test_release_checks():
+    real = {"formatVersion": 1, "ministries": [GOOD["ministries"][0]]}
+    assert release_problems(real) == []
+    assert any("missing" in x for x in release_problems(None))
+    assert release_problems({"formatVersion": 1, "ministries": []}) == ["no ministries: a release needs at least one entry"]
+    assert release_problems(GOOD) == ["test-harbor: test entry in a release publish (remove it, or publish the real list)"]

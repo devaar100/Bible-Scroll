@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from jsonschema import Draft202012Validator
 
@@ -31,9 +32,72 @@ def load_ministries(path: Path = MINISTRIES_FILE) -> dict | None:
             seen.add(m["id"])
             if m.get("test") and not m["id"].startswith("test-"):
                 problems.append(f"{m['id']}: test entries must have ids starting with test- (keeps them apart in Firestore)")
+            problems.extend(link_problems(m))
     if problems:
         raise ValueError(f"{path.name}:\n  " + "\n  ".join(problems))
     return data
+
+
+# Public suffixes with two labels that ministry sites are likely to use. The full Public Suffix List would need a
+# new dependency; a host under a multi-label suffix that isn't listed here is compared on its last two labels,
+# which is stricter (e.g. "a.example.co.xx" vs "b.example.co.xx" would differ), never looser.
+TWO_LABEL_SUFFIXES = frozenset({
+    "co.uk", "org.uk", "ac.uk", "gov.uk", "me.uk", "ltd.uk", "plc.uk",
+    "com.au", "org.au", "net.au", "asn.au", "co.nz", "org.nz", "co.za", "org.za", "co.in", "org.in",
+    "com.br", "org.br", "com.mx", "org.mx", "com.ar", "org.ar", "co.ke", "or.ke", "co.jp", "or.jp",
+    "co.kr", "or.kr", "com.sg", "org.sg", "com.ph", "org.ph", "com.ng", "org.ng", "co.ug", "or.ug",
+})
+
+
+# Registrable domains that belong to the same organisation, so a give_url on one may go with a website on another.
+# Add a set only after confirming both domains are the organisation's own (record the evidence in
+# docs/ministry-criteria.md).
+ALTERNATE_DOMAINS: tuple[frozenset[str], ...] = (
+    frozenset({"obolodisanpietro.va", "peterspence.va"}),  # Peter's Pence (Holy See): Italian and English names
+)
+
+
+def same_organisation(a: str, b: str) -> bool:
+    return a == b or any(a in group and b in group for group in ALTERNATE_DOMAINS)
+
+
+def registrable_domain(host: str) -> str:
+    """'www.give.example.org' -> 'example.org'; 'shop.example.org.uk' -> 'example.org.uk'. Lowercase, no trailing dot."""
+    labels = host.lower().rstrip(".").split(".")
+    take = 3 if len(labels) >= 3 and ".".join(labels[-2:]) in TWO_LABEL_SUFFIXES else 2
+    return ".".join(labels[-take:])
+
+
+def link_problems(ministry: dict) -> list[str]:
+    """website and give_url must be plain https links, and give_url must be on the website's registrable domain."""
+    problems, hosts = [], {}
+    for field in ("website", "give_url"):
+        parts = urlsplit(ministry[field])
+        if parts.scheme != "https":
+            problems.append(f"{ministry['id']}: {field} isn't https: {ministry[field]}")
+        elif not parts.hostname or "." not in parts.hostname or parts.username or parts.password or parts.port:
+            problems.append(f"{ministry['id']}: {field} needs a plain host name (no login, no port): {ministry[field]}")
+        else:
+            hosts[field] = registrable_domain(parts.hostname)
+    if len(hosts) == 2 and not same_organisation(hosts["website"], hosts["give_url"]):
+        problems.append(f"{ministry['id']}: give_url is on {hosts['give_url']} but website is on {hosts['website']}; "
+                        "donations must go to the ministry's own domain (or add a confirmed pair to community.ALTERNATE_DOMAINS)")
+    return problems
+
+
+def release_problems(data: dict | None) -> list[str]:
+    """
+    Extra rules for a real publish (and its --dry-run), on top of load_ministries(): the file must exist, list at
+    least one ministry, and hold no test entries (those are for debug builds and the emulator only).
+    """
+    if data is None:
+        return [f"{MINISTRIES_FILE.name} is missing: a release must publish the ministry list"]
+    problems = []
+    if not data["ministries"]:
+        problems.append("no ministries: a release needs at least one entry")
+    problems.extend(f"{m['id']}: test entry in a release publish (remove it, or publish the real list)"
+                    for m in data["ministries"] if m.get("test") or m["id"].startswith("test-"))
+    return problems
 
 
 def featured(data: dict, month: str, include_test: bool = False) -> list[dict]:
