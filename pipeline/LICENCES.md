@@ -22,6 +22,8 @@ it reviewed before the app ships content built from these sources.
 | OpenBible.info cross references | Cross references with votes | CC BY 4.0 | OK |
 | Treasury of Scripture Knowledge (CrossWire SWORD module `TSK` 1.4) | Cross references | Public Domain | OK |
 | App KJV verse list (`app/src/main/assets/bible.db`) | Target versification only | See `tools/README.md` | (already documented) |
+| Berean Standard Bible (eBible.org `engbsb`) | Bundled Bible text (BSB) | Public domain (dedicated 30 April 2023) | OK |
+| Reina-Valera 1909 (eBible.org `spaRV1909`) | Bundled Bible text (RV1909) | Public domain | OK (see notes) |
 
 ## STEPBible data (TAHOT, TAGNT, TBESH, TBESG, TVTMS)
 
@@ -113,6 +115,47 @@ It has no permission notice and is covered by STEPBible's CC BY 4.0. **OK.**
 - **Attribution:** none required. Suggested courtesy: *"Treasury of Scripture Knowledge (c. 1880), public
   domain; digital edition by CrossWire Bible Society."*
 - The commercial "TSK Enhanced/Expanded" editions are a different, copyrighted work. Use only this module.
+
+## Bible translations bundled in bible.db (checked 2026-11-18)
+
+Built by `tools/build_bible_db.py`; the report of every verse that doesn't map one-to-one is `tools/bible_db_report.md`.
+WEB and KJV are documented in `tools/README.md`.
+
+### Berean Standard Bible (BSB)
+
+- **Source:** https://eBible.org/Scriptures/engbsb_usfm.zip (details: https://ebible.org/find/details.php?id=engbsb).
+  eBible.org "English Berean Standard Bible", contributor "BSB Publishing, LLC", page "Last updated 2026-10-30";
+  the zip's `copr.htm` says "Public Domain … from source files dated 30 Oct 2026". SHA-256 of the file used:
+  `75ca91d5a5c69ca4cbdeabdb03ea1a458db20cf3966abe15d86df086acf7fbc4`.
+- **Licence:** public domain. The official site (https://berean.bible/terms.htm) says: "The Berean Bible and Majority
+  Bible texts are officially dedicated to the public domain as of April 30, 2023." and "All uses are freely permitted."
+  eBible.org's page and the zip both say "Public Domain".
+- **Attribution:** not required ("Attribution Notice (appreciated but not required)"). We show: *"The Holy Bible,
+  Berean Standard Bible, BSB. Dedicated to the public domain. Source: eBible.org (engbsb)."*
+- **Condition (a request, not a licence term):** "For derivative works that vary from the official text, we
+  respectfully request that the Berean name is not used." We only remove markup, footnotes, headings and Strong's
+  numbers; the words are unchanged, so we use the name. **Do not edit BSB verse text.**
+- **Red letters:** the source has no `\wj` markup, so `has_red_letters = 0`.
+- **Versification:** KJV numbering; 16 verses (Matthew 17:21, Acts 8:37, …) are omitted by the translation, not lost.
+
+### Reina-Valera 1909 (RV1909)
+
+- **Source:** https://eBible.org/Scriptures/spaRV1909_usfm.zip (details: https://ebible.org/find/details.php?id=spaRV1909).
+  "Santa Biblia — Reina Valera 1909", "Translation by: Reina y Valera", page "Last updated 2013-12-13"; the zip's
+  `copr.htm` says "Public Domain … Dominio Público … from source files dated 10 Aug 2015". SHA-256:
+  `56937c2be9ad278aed91370d6a15a98fe976f275d0cbaa6e26910291d949c7a5`.
+- **Licence:** public domain (published 1909; eBible.org and the file both state "Public Domain" / "Dominio
+  Público"). There is no official publisher site for the 1909 text to check against; the eBible.org statement is the
+  only one available. **FLAG (low):** confirm public-domain status for the target countries with a lawyer, as for KJV.
+- **Attribution:** none required. We show: *"Santa Biblia, Reina-Valera 1909. Dominio público. Source: eBible.org
+  (spaRV1909)."*
+- **Red letters:** no `\wj` markup, so `has_red_letters = 0`.
+- **Changes we make (all listed in `tools/bible_db_report.md`):** markup, `\add` brackets and Strong's numbers removed
+  (words kept); psalm titles moved from verse 1 to the chapter superscription for the 116 psalms KJV titles; the 22
+  Hebrew letter headings in Psalm 119 removed; 15 shifted verse blocks put back under their KJV references; 11 places
+  where the source merged 2–9 verses into one kept whole under the first KJV reference (18 KJV references have no RV1909
+  verse of their own). Verse text itself is not edited. The source keeps chapter-initial capitals ("JEHOVÁ es mi
+  pastor") and some Pauline subscriptions in final verses (e.g. 2 Corinthians 13:14); we keep them as published.
 
 ## Before shipping study content: to do
 

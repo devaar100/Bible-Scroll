@@ -10,12 +10,18 @@ Generates `app/src/main/assets/bible.db`, which Room copies on first launch (`cr
 |---|---|---|
 | KJV (`eng-kjv2006`) | https://ebible.org/find/details.php?id=eng-kjv2006 | https://eBible.org/Scriptures/eng-kjv2006_usfm.zip |
 | WEB (`engwebp`, Protestant canon) | https://ebible.org/find/details.php?id=engwebp | https://eBible.org/Scriptures/engwebp_usfm.zip |
+| BSB (`engbsb`) | https://ebible.org/find/details.php?id=engbsb | https://eBible.org/Scriptures/engbsb_usfm.zip |
+| RV1909 (`spaRV1909`) | https://ebible.org/find/details.php?id=spaRV1909 | https://eBible.org/Scriptures/spaRV1909_usfm.zip |
 
 ```sh
 mkdir -p ~/bible-src && cd ~/bible-src
-curl -fLO https://eBible.org/Scriptures/eng-kjv2006_usfm.zip
-curl -fLO https://eBible.org/Scriptures/engwebp_usfm.zip
+for id in eng-kjv2006 engwebp engbsb spaRV1909; do curl -fLO https://eBible.org/Scriptures/${id}_usfm.zip; done
+shasum -a 256 *_usfm.zip   # compare with tools/bible_db_report.md → Sources
 ```
+
+The committed bible.db was built from the files whose SHA-256s are in `tools/bible_db_report.md`. eBible.org updates
+these files in place; if a hash differs, the rebuilt text may differ too (the report and `pipeline/tests/test_bible_db.py`
+show what changed). Same files in, byte-identical bible.db out.
 
 Don't commit the zips. Only the generated `bible.db` goes in the repo.
 
@@ -23,8 +29,17 @@ Don't commit the zips. Only the generated `bible.db` goes in the repo.
 
 ```sh
 ./gradlew assembleDebug            # exports the Room schema the script reads
-python3 tools/build_bible_db.py --kjv ~/bible-src/eng-kjv2006_usfm.zip --web ~/bible-src/engwebp_usfm.zip
+python3 tools/build_bible_db.py --kjv ~/bible-src/eng-kjv2006_usfm.zip --web ~/bible-src/engwebp_usfm.zip \
+    --bsb ~/bible-src/engbsb_usfm.zip --rv1909 ~/bible-src/spaRV1909_usfm.zip
+cd pipeline && .venv/bin/python -m pytest -q tests/test_bible_db.py   # counts, spot checks, RV1909 mapping
 ```
+
+It writes `app/src/main/assets/bible.db` (24.4 MiB with four translations; about 9 MB deflated in the AAB) and
+`tools/bible_db_report.md` (every verse missing, extra, moved or merged, per translation).
+
+**App side:** a new `bible.db` reaches existing installs only after `BibleDatabase.VERSION` is bumped (the destructive
+fallback re-copies the asset). Per-translation metadata the Room entities don't have (attribution, `has_red_letters`,
+English/Spanish descriptions, source URL and SHA-256) is in the `translation_info` table, which Room ignores.
 
 If you change an `@Entity` in `data/bible/`, bump `BibleDatabase.version`, build once, then rerun the script.
 
@@ -45,6 +60,10 @@ If you change an `@Entity` in `data/bible/`, bump `BibleDatabase.version`, build
 - Removes KJV `¶` marks. Keeps KJV supplied words (`\add`, usually italic) as plain text.
 - Skips verses that have no text in a translation (WEB Luke 17:36, Acts 8:37, 15:34, 24:7,
   Romans 16:25 exist there only as footnotes). WEB puts Romans 16:25–27 at 14:24–26.
+- Drops `\qa` acrostic headings (BSB) and empty `\d` titles (BSB Zechariah 12).
+- RV1909: remaps the Spanish chapter divisions to KJV keys (`RV1909_SHIFTS`, `RV1909_MERGES`), splits psalm titles out
+  of verse 1 where KJV has a title, removes Psalm 119's letter headings. Fails loudly if any rule doesn't match.
+- Licence status of BSB and RV1909: `pipeline/LICENCES.md` → "Bible translations bundled in bible.db".
 
 ## Release checklist: study content
 
