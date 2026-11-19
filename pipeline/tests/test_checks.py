@@ -23,7 +23,7 @@ def test_clean_study_passes(written, bible):
 
 
 def test_length_limits(written, bible):
-    written["didYouKnow"] = words(5)
+    written["didYouKnow"] = words(5, "ēgapēsen")
     written["meaning"] = words(400)
     o = outcome(written, bible)
     assert o.status == "flagged"
@@ -36,7 +36,7 @@ def test_schema_failure_flags(written, bible):
 
 
 def test_references_must_exist(written, bible):
-    written["theology"] = words(50, "Compare Romans 5:8 and Romans 8:28 with John 3:99 and Hezekiah 3:5.")
+    written["theology"] = words(80, "Compare Romans 5:8 and Romans 8:28 with John 3:99 and Hezekiah 3:5.")
     o = outcome(written, bible)
     messages = [r["message"] for r in o.reasons if r["check"] == "reference"]
     assert len(messages) == 2
@@ -56,11 +56,12 @@ def test_hebrew_points_ignored(written, bible):
         {"surface": "בְּרֵאשִׁ֖ית", "lemma": "רֵאשִׁית", "transliteration": "be.re.Shit", "strongs": "H7225G",
          "gloss": "in beginning", "morphology": "HR/Ncfsa"}]}
     written["meaning"] = words(60, "The word רֵאשִׁית (rendered from ראשית, H7225) and the Hebrew word bereshit.")
+    written["didYouKnow"] = words(30, "The opening word bereshit joins in and beginning.")
     assert outcome(written, bible).reasons == []
 
 
 def test_banned_phrases(written, bible):
-    written["theology"] = words(60, "Scholars all agree this proves that everyone was saved.")
+    written["theology"] = words(80, "Scholars all agree this proves that everyone was saved.")
     msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "banned_phrase"]
     assert any("Scholars all agree" in m for m in msgs) and any("proves that" in m for m in msgs)
 
@@ -69,8 +70,9 @@ class FakeJudge:
     def __init__(self, result=None, error=None):
         self.result, self.error, self.calls = result, error, 0
 
-    def judge(self, study, verse_text):
+    def judge(self, study, verse_text, supplied=None):
         self.calls += 1
+        self.supplied = supplied
         if self.error:
             raise self.error
         return self.result
@@ -158,15 +160,68 @@ def test_length_band(n, band):
 
 
 def test_references_must_stay_in_the_allowed_set(written, bible):
-    # Context verses (4 either side), own chapter, listed cross references and a chapter holding one are allowed.
-    written["theology"] = words(60, "See John 3:12, John 3:20, John 3, Romans 5:8, 1 John 4:9-10, Romans 5.")
+    # The verse itself, its own chapter, listed cross references and a chapter holding one are allowed.
+    written["theology"] = words(80, "See John 3:16, John 3, Romans 5:8, 1 John 4:9-10, Romans 5.")
     assert outcome(written, bible).reasons == []
-    written["theology"] = words(60, "Compare Romans 8:28, John 1:12, John 3:2 and Genesis 1.")
+    written["theology"] = words(80, "Compare Romans 8:28, John 1:12, John 3:2 and Genesis 1.")
     msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "reference_not_allowed"]
     assert len(msgs) == 4 and any("Romans 8:28" in m for m in msgs) and any("Genesis 1" in m for m in msgs)
     assert any("John 3:2”" in m for m in msgs)  # same chapter but not shown
-    written["theology"] = words(60, "Romans 5:8-9 goes one verse past the listed reference.")
+    written["theology"] = words(80, "Romans 5:8-9 goes one verse past the listed reference.")
     assert checks_named(outcome(written, bible)) == ["reference_not_allowed"]
+
+
+def test_surrounding_verses_are_not_cited_by_reference(written, bible):
+    # Shown as context (4 either side), but described by what they say, never cited.
+    written["theology"] = words(80, "See John 3:12 and John 3:20.")
+    msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "reference_not_allowed"]
+    assert len(msgs) == 2 and "describe surrounding verses" in msgs[0]
+
+
+@pytest.mark.parametrize("text", [
+    "Traditions differ on how worship is shaped.",
+    "Christians from different traditions read this with warmth.",
+    "Christians from many traditions pray it.",
+    "Many traditions read these words at funerals.",
+    "Not all traditions differ on how they sing it.",  # never excused by negation
+])
+def test_generic_traditions_lines_flag(written, bible, text):
+    written["theology"] = words(80, text)
+    assert checks_named(outcome(written, bible)) == ["generic_traditions"]
+
+
+def test_specific_traditions_wording_passes(written, bible):
+    written["theology"] = words(80, "Catholic and Protestant readers differ on what this says about baptism.")
+    assert outcome(written, bible).reasons == []
+
+
+def test_translit_form(written, bible):
+    written["originalLanguage"] = {"language": "greek", "textBasis": "critical", "words": [
+        {"surface": "ἕως", "lemma": "ἕως", "transliteration": "he'ōs", "strongs": "G2193", "gloss": "until",
+         "morphology": "ADV"}]}
+    written["didYouKnow"] = words(30, "The little word he’ōs marks a limit.")
+    o = outcome(written, bible)
+    # it still names the word (the DYK matcher ignores apostrophes), but the spelling check rejects the raw form
+    assert checks_named(o) == ["translit_form"]
+    assert any("heōs" in r["message"] for r in o.reasons if r["check"] == "translit_form")
+    written["didYouKnow"] = words(30, "The little word heōs marks a limit.")
+    assert outcome(written, bible).reasons == []
+    written["originalLanguage"] = {"language": "hebrew", "textBasis": "leningrad", "words": [
+        {"surface": "הוֹדוּ־", "lemma": "יָדָה", "transliteration": "ho.Du-", "strongs": "H3034", "gloss": "give thanks",
+         "morphology": "HVhv2mp"},
+        {"surface": "עַל", "lemma": "עַל", "transliteration": "'al", "strongs": "H5921", "gloss": "on",
+         "morphology": "HR"}]}
+    written["didYouKnow"] = words(30, "The command hodu- is plural, and 'al means on.")
+    o = outcome(written, bible)
+    assert checks_named(o) == ["translit_form"] and "“hodu”" in o.reasons[0]["message"]
+    written["didYouKnow"] = words(30, "The command hodu is plural, and 'al means on.")  # Hebrew ayin mark stays
+    assert outcome(written, bible).reasons == []
+
+
+def test_rubric_gets_the_text_the_writer_was_given(written, bible):
+    judge = FakeJudge(RubricResult(RUBRIC_OK, []))
+    outcome(written, bible, judge)
+    assert judge.supplied is None or "John 3:16" in judge.supplied
 
 
 def test_negated_banned_phrases_are_ignored(written, bible):
@@ -217,3 +272,7 @@ def test_clean_translit():
     assert clean_translit("ro.'I") == "ro'i"
     assert clean_translit("Yah.weh") == "Yahweh"
     assert clean_translit("agapaō") == "agapaō"
+    assert clean_translit("ho.Du-") == "hodu" and clean_translit("'al-") == "'al"  # no trailing maqqef hyphen
+    assert clean_translit("he'ōs", greek=True) == "heōs"
+    assert clean_translit("Hi'erosoluma", greek=True) == "Hierosoluma"
+    assert clean_translit("ye.shu.'Ot") == "yeshu'ot"  # Hebrew aleph/ayin marks stay

@@ -137,10 +137,18 @@ gitignored. Back that folder up, or decide on a durable home, before reviewing a
 **Schema changelog.** `schemaVersion` is bumped only when the published shape changes (the fields that reach
 the CDN book files and app bundle). Pipeline-only fields (`meta`, `checks`) can grow optional fields without a
 bump, since a bump changes every published book's hash and URL.
-- 3: current published shape.
+There are two numbers. The **published** `schemaVersion` (book files and manifest.json: `publish.SCHEMA_VERSION`,
+`schema/book.json`, `schema/manifest.json`) is **2**, and the app reads up to `ContentVersions.MAX_SCHEMA_VERSION`
+= 2. Internal study files in out/studies are `schemaVersion` **3** (`studies.SCHEMA_VERSION`, `schema/study.json`).
+3 added only pipeline-side things (status `failed`, `meta.promptVersion`/`batchId`/`attempts`), so the
+published shape didn't change.
+- Published 2: current published shape (manifest gained optional `devotionals` and `community`; the app defaults both).
+- Internal 3: status `failed`; `meta.promptVersion`, `batchId`, `attempts` (unpublished).
 - 3, 2026-11-18 (no bump): optional unpublished `meta.effort`, `meta.maxTokens` (with `meta.promptVersion` =
   sha256(prompts/study.md)[:12]); rubric judgments gain `section`, `quote` and `verified`.
 - 3, 2026-11-19 (no bump): `checks.reasons[].check` may be `"report"` (from `pipeline report`; unpublished).
+- 3, 2026-11-19 (no bump): optional unpublished `meta.source` (`"claude-code-subagent"`: a Claude Code test-round
+  study in out/cc_test/, refused by publish and bundle) and `meta.round`.
 - 3, 2026-11-19 (no bump): optional unpublished `meta.promptHash` (sha256 of the cached system block sent),
   `meta.booksHash` (sha256 of prompts/books.json) and `meta.wave`; check names `verse_position` and `dotted_translit`.
 

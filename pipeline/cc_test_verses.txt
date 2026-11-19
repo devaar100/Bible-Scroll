@@ -1,0 +1,23 @@
+# Claude Code test rounds (out/cc_test/roundN, jobs/cc_roundN): 20 verses, never published.
+# Known 10 (the first 10 of discover.txt)
+LUK.6.38
+ECC.9.10
+PSA.100.4
+EPH.4.2
+JHN.1.12
+PSA.43.5
+SNG.8.6
+MAT.18.21
+PSA.37.5
+JER.17.8
+# Fresh 10
+ROM.8.28
+LUK.23.34
+PHP.4.13
+MAT.5.44
+JHN.3.16
+PSA.23.1
+GEN.1.1
+ISA.53.5
+1CO.13.4
+JAS.1.5

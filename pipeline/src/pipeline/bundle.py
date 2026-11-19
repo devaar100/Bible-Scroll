@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from .paths import REPO
-from .publish import SITE, _site_path, canonical_json
+from .publish import SITE, _site_path, canonical_json, refuse_test_path
 
 BUNDLED_BOOKS = ("MAT", "MRK", "LUK", "JHN", "PSA")
 #: Not ".gz": Android's asset packager (AAPT) gunzips *.gz assets and drops the suffix, so the app would find
@@ -32,6 +32,8 @@ class BundleResult:
 
 
 def bundle(site: Path = SITE, assets: Path = ASSETS, books: tuple[str, ...] = BUNDLED_BOOKS) -> BundleResult:
+    refuse_test_path(site)
+    refuse_test_path(assets)
     manifest_path = site / "manifest.json"
     if not manifest_path.exists():
         raise FileNotFoundError(f"No {manifest_path}: run `python -m pipeline publish --local` first to build the release")

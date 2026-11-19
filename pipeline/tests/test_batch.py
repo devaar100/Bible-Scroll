@@ -62,7 +62,7 @@ class FakeJudge:
     def __init__(self, result):
         self.result, self.usage, self.model = result, Usage(), "claude-haiku-5-5"
 
-    def judge(self, study, verse_text):
+    def judge(self, study, verse_text, supplied=None):
         self.usage.add(SimpleNamespace(input_tokens=2000, output_tokens=500))
         return self.result
 
@@ -271,3 +271,31 @@ def test_verse_without_web_text_is_skipped(setup):
     s = setup
     todo, skipped = bt.plan(["JHN.3.17"], s.target, s.state, bible_db=s.bible_db)  # fixture has only 3:16 in WEB
     assert todo == [] and skipped["no WEB text (needs a person)"] == 1
+
+
+def test_stale_picks_only_old_prompt_verses_and_restarts_attempts(setup):
+    s = setup
+    submit(s)
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(s.prose)}
+    collect(s, FakeJudge(RubricResult(RUBRIC_OK, [])))
+    current = s.target.load("JHN.3.16")["meta"]["promptVersion"]
+    todo, skipped = bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db, stale_prompt=current)
+    assert todo == [] and skipped["already on the current prompt"] == 1
+    todo, _ = bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db, stale_prompt="000000000000")
+    assert todo == ["JHN.3.16"]
+    bt.restart_attempts(s.state, todo, s.target)
+    assert s.state.attempts("JHN.3.16") == 0
+    assert s.state.data["regenerated"]["JHN.3.16"][0] == {
+        "fromPromptVersion": current, "previousAttempts": 1, "at": s.state.data["regenerated"]["JHN.3.16"][0]["at"]}
+    submit(s, round_=1)
+    assert s.state.attempts("JHN.3.16") == 1  # a flag on this attempt still gets one retry
+
+
+def test_restart_attempts_is_idempotent(setup):
+    s = setup
+    put(s.target, {**skeleton("JHN.3.16"), "meta": {"model": "m", "generatedAt": "2026-11-18T00:00:00+00:00",
+                                                    "promptVersion": "000000000000"}})
+    s.state.data["attempts"]["JHN.3.16"] = 1
+    bt.restart_attempts(s.state, ["JHN.3.16"], s.target)
+    bt.restart_attempts(s.state, ["JHN.3.16"], s.target)  # a submit that stopped before sending, then a re-run
+    assert len(s.state.data["regenerated"]["JHN.3.16"]) == 1 and s.state.attempts("JHN.3.16") == 0

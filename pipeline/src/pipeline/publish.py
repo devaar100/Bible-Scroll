@@ -25,11 +25,31 @@ from jsonschema import Draft202012Validator
 from referencing import Registry, Resource
 
 from .books import BOOKS, BY_USFM
+from .offline import require_online
 from .paths import OUT, PIPELINE
 from .reports import open_reports
 from .store import StudyStore, parse_id
 
 PUBLISHABLE = ("auto_checked", "reviewed")
+#: Studies written by Claude Code subagents in a test round (out/cc_test/roundN/) are test artifacts: publish and
+#: bundle refuse a folder under cc_test and any study whose meta.source marks it, whatever its status.
+CC_TEST_PART = "cc_test"
+CC_TEST_SOURCE = "claude-code-subagent"
+
+
+class TestArtifactError(ValueError):
+    pass
+
+
+def refuse_test_path(path: Path) -> None:
+    if CC_TEST_PART in Path(path).resolve().parts:
+        raise TestArtifactError(f"{path} is under {CC_TEST_PART}/: test-round studies are never published or bundled")
+
+
+def refuse_test_study(study: dict) -> None:
+    if (study.get("meta") or {}).get("source") == CC_TEST_SOURCE:
+        raise TestArtifactError(f"{study.get('id')}: meta.source is {CC_TEST_SOURCE!r} (a test artifact); "
+                                "it must never be published")
 SITE = OUT / "site"
 STATE = OUT / "publish_state.json"
 CONFIG = PIPELINE / "publish.json"
@@ -112,6 +132,7 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
     from .community import MINISTRIES_FILE, load_ministries
     from .devotionals.publish import collect, month_files
 
+    refuse_test_path(store.directory)
     book_validator, manifest_validator = validators()
     by_book: dict[str, list[dict]] = {}
     left_out: dict[str, dict[str, int]] = {}
@@ -119,6 +140,7 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
     reported: list[tuple[str, str]] = []
     for study_id in store.ids():  # Bible order
         study = store.load(study_id)
+        refuse_test_study(study)
         book = study_id.split(".")[0]
         reports = open_reports(study)
         if reports:
@@ -180,6 +202,7 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
 
 
 def write_site(release: Release, site: Path = SITE, keep_from: dict | None = None) -> list[str]:
+    refuse_test_path(site)
     """
     Write the release to [site]. Book files referenced by [keep_from] (the live manifest) are kept too,
     so clients holding the previous manifest can still download. Anything else is removed.
@@ -230,6 +253,7 @@ def fetch_live_manifest(base_url: str) -> dict | None:
     request = urllib.request.Request(base_url.rstrip("/") + "/manifest.json",
                                      headers={"User-Agent": "study-publisher/1", "Cache-Control": "no-cache"})
     try:
+        require_online("fetch the live manifest")
         with urllib.request.urlopen(request, timeout=30) as response:
             return json.loads(response.read())
     except urllib.error.HTTPError as error:
@@ -291,6 +315,7 @@ def diff(release: Release, live: dict | None, live_discover: list[str] | None = 
 
 def fetch_live_discover(base_url: str) -> list[str]:
     try:
+        require_online("fetch the live discover.json")
         with urllib.request.urlopen(base_url.rstrip("/") + "/discover.json", timeout=30) as response:
             return json.loads(response.read()).get("verses", [])
     except (urllib.error.URLError, ValueError):
@@ -369,6 +394,7 @@ def deploy(project: str, release: str, preview: bool = False) -> str:
     else:
         command = ["firebase", "deploy", "--only", "hosting", "--project", project,
                    "--message", f"study release {release}"]
+    require_online("deploy to Firebase")
     result = subprocess.run(command, cwd=PIPELINE, capture_output=True, text=True, timeout=900)
     if result.returncode != 0:
         raise RuntimeError(f"{' '.join(command)} failed:\n{result.stdout}\n{result.stderr}")
@@ -385,6 +411,7 @@ def verify_live(base_url: str, release: Release) -> list[str]:
              *({"book": f"devotionals {m['month']}", **m} for m in release.manifest["devotionals"]["months"])]
     for book in files:
         request = urllib.request.Request(book["url"], headers={"Accept-Encoding": "identity"})
+        require_online("verify the live release")
         with urllib.request.urlopen(request, timeout=60) as response:
             data = response.read()
             content_type = response.headers.get("Content-Type", "")

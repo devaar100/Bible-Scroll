@@ -1,5 +1,12 @@
-"""Shared fixtures: a tiny source.db and bible.db, and a factory for written (AI-filled) studies."""
-import copy
+"""Shared fixtures: a tiny source.db and bible.db, and a factory for written (AI-filled) studies.
+
+Tests run offline: PIPELINE_OFFLINE=1 is set before pipeline is imported, so creating an API client raises and
+every socket connection is blocked (pipeline.offline)."""
+import os
+
+os.environ["PIPELINE_OFFLINE"] = "1"
+
+import copy  # noqa: E402
 import json
 import sqlite3
 
@@ -82,8 +89,8 @@ WRITTEN = {
     "meaning": words(60),
     "historicalContext": words(60),
     "lifeInBibleTimes": words(50),
-    "theology": words(60),
-    "didYouKnow": words(30),
+    "theology": words(80),
+    "didYouKnow": words(30, "The verb ēgapēsen is in the past tense."),
     "applyIt": words(40),
     "citations": [{"source": "STEP Bible", "licence": "CC BY 4.0", "url": "https://stepbible.github.io/STEPBible-Data/"}],
     "status": "generated",

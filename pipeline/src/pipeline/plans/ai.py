@@ -53,7 +53,9 @@ class AnthropicDrafter:
     def __init__(self, client=None, model: str = MODEL):
         import anthropic
 
-        self.client = client or anthropic.Anthropic()
+        from ..offline import anthropic_client
+
+        self.client = client or anthropic_client()
         self.model = model
 
     def draft(self, system: str, prompt: str, schema: dict, max_tokens: int = 64000) -> Draft:

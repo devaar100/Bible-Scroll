@@ -47,12 +47,16 @@ def whole_psalm(key: Key, verses) -> bool:
 
 # ---- Transliteration ------------------------------------------------------------------------------------
 
-def clean_translit(text: str) -> str:
+def clean_translit(text: str, greek: bool = False) -> str:
     """'be.re.Shit' -> 'bereshit', "ro.'I" -> "ro'i", 'Yah.weh' -> 'Yahweh': no dots, stress capitals lowered.
-    A capital at the start of a word stays (names)."""
+    A capital at the start of a word stays (names). A trailing hyphen (a Hebrew maqqef: 'hodu-') is dropped.
+    greek: also drop apostrophes ("he'ōs" -> 'heōs'); TAGNT puts one after a rough breathing's h, whereas in
+    Hebrew they stand for aleph and ayin and stay."""
     out = []
     for word in re.split(r"(\s+)", text):
-        bare = word.replace(".", "")
+        bare = word.replace(".", "").rstrip("-")
+        if greek:
+            bare = re.sub(r"['’ʼ]", "", bare)
         out.append(bare[:1] + bare[1:].lower() if bare else bare)
     return "".join(out)
 

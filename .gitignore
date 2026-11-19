@@ -21,6 +21,7 @@ pipeline/data/
 pipeline/out/
 pipeline/state/
 pipeline/backups/
+pipeline/jobs/
 pipeline/.venv/
 pipeline/.firebase/
 __pycache__/

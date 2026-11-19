@@ -8,6 +8,7 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 
+from .offline import require_online
 from .paths import MANIFEST, RAW
 from .sources import SOURCES, Source
 
@@ -22,6 +23,7 @@ def _fetch(source: Source, force: bool) -> dict:
         print(f"  get  {source.url}")
         request = urllib.request.Request(source.url, headers={"User-Agent": USER_AGENT})
         tmp = target.with_suffix(target.suffix + ".part")
+        require_online(f"download {source.url}")
         with urllib.request.urlopen(request, timeout=120) as response, open(tmp, "wb") as out:
             shutil.copyfileobj(response, out)
         tmp.replace(target)

@@ -148,8 +148,9 @@ def protected(study: dict | None) -> bool:
 
 
 def plan(ids: list[str], target: StudyStore, state: State, force: bool = False,
-         bible_db: Path = APP_BIBLE_DB) -> tuple[list[str], Counter]:
-    """(verses to send as attempt 1, why the others are skipped)."""
+         bible_db: Path = APP_BIBLE_DB, stale_prompt: str | None = None) -> tuple[list[str], Counter]:
+    """(verses to send as attempt 1, why the others are skipped).
+    stale_prompt: only verses already written with a promptVersion other than this one (a regeneration)."""
     from .store import parse_id
 
     todo, skipped = [], Counter()
@@ -163,6 +164,13 @@ def plan(ids: list[str], target: StudyStore, state: State, force: bool = False,
             skipped["reviewed/edited"] += 1
         elif study_id in busy:
             skipped["in an open batch"] += 1
+        elif stale_prompt is not None:
+            if not (existing and is_written(existing)):
+                skipped["not written yet (--stale regenerates only)"] += 1
+            elif existing.get("meta", {}).get("promptVersion") == stale_prompt:
+                skipped["already on the current prompt"] += 1
+            else:
+                todo.append(study_id)
         elif state.attempts(study_id) >= MAX_ATTEMPTS and not force:
             skipped["failed twice (status failed)"] += 1
         elif existing and is_written(existing) and not force:
@@ -170,6 +178,22 @@ def plan(ids: list[str], target: StudyStore, state: State, force: bool = False,
         else:
             todo.append(study_id)
     return todo, skipped
+
+
+def restart_attempts(state: State, ids: list[str], target: StudyStore) -> None:
+    """A regeneration (--stale: a new prompt; --force: a rerun) starts a fresh attempt count, so it gets its own
+    retry. The old prompt version and attempt count are kept in state["regenerated"]."""
+    log = state.data.setdefault("regenerated", {})
+    for i in ids:
+        old = target.load(i).get("meta", {}) if target.path(i).exists() else {}
+        last = (log.get(i) or [{}])[-1]
+        if state.attempts(i) == 0 and last.get("fromPromptVersion") == old.get("promptVersion"):
+            continue  # already restarted (an earlier submit stopped before sending)
+        log.setdefault(i, []).append({"fromPromptVersion": old.get("promptVersion"),
+                                      "previousAttempts": state.attempts(i), "at": now()})
+        state.data["attempts"][i] = 0
+        state.data["failures"].pop(i, None)
+    state.save()
 
 
 # ---- Estimate ---------------------------------------------------------------------------------------------
@@ -302,32 +326,45 @@ def submit(client, ids: list[str], round_: int, target: StudyStore, state: State
     if not ids:
         log("Nothing to submit.")
         return []
+    fixed_tokens = check_fixed_tokens(client, fixed, log)
+    records = []
+    for start in range(0, len(ids), batch_size):
+        chunk = ids[start:start + batch_size]
+        requests = [{"custom_id": custom_id(i), "params": params(source.load(i), fixed, bible_db)} for i in chunk]
+        records.append(send(client, requests, round_, target, state, fixed, fixed_tokens, log, wave=wave))
+    return records
+
+
+def check_fixed_tokens(client, fixed: Fixed, log=print) -> int:
     fixed_tokens = count_fixed_tokens(client, fixed)
     log(f"Fixed system block: {fixed_tokens} tokens (hash {fixed.system_hash}, TTL {CACHE_TTL})")
     if fixed_tokens < MIN_CACHE_TOKENS:
         raise SystemExit(f"The fixed block is {fixed_tokens} tokens, under the {MIN_CACHE_TOKENS}-token cache "
                          "minimum, so nothing would be cached. Not submitting.")
-    records = []
-    for start in range(0, len(ids), batch_size):
-        chunk = ids[start:start + batch_size]
-        requests = [{"custom_id": custom_id(i), "params": params(source.load(i), fixed, bible_db)} for i in chunk]
-        record = {"id": None, "round": round_, "wave": wave, "ids": chunk, "model": MODEL, "effort": EFFORT,
-                  "maxTokens": MAX_TOKENS, "promptVersion": fixed.prompt_version, "systemHash": fixed.system_hash,
-                  "booksHash": fixed.books_hash, "fixedTokens": fixed_tokens, "outDir": str(target.directory),
-                  "createdAt": now(), "processingStatus": "submitting", "collectedAt": None, "usage": None}
-        state.batches.append(record)
-        state.save()  # the verses are recorded as in flight before the API call
-        batch = client.messages.batches.create(requests=requests)
-        record["id"] = batch.id
-        record["processingStatus"] = batch.processing_status
-        for i in chunk:
-            state.data["attempts"][i] = state.attempts(i) + 1
-            state.data["failures"].pop(i, None)
-        state.save()
-        log(f"Submitted batch {batch.id}: {len(chunk)} verses (attempt {round_}"
-            f"{', wave ' + wave if wave else ''})")
-        records.append(record)
-    return records
+    return fixed_tokens
+
+
+def send(client, requests: list[dict], round_: int, target: StudyStore, state: State, fixed: Fixed,
+         fixed_tokens: int, log=print, *, wave: str | None = None, extra: dict | None = None) -> dict:
+    """One Message Batch of ready-made requests ({custom_id, params}); recorded in state before the API call."""
+    chunk = [study_id_of(r["custom_id"]) for r in requests]
+    record = {"id": None, "round": round_, "wave": wave, "ids": chunk, "model": MODEL, "effort": EFFORT,
+              "maxTokens": MAX_TOKENS, "promptVersion": fixed.prompt_version, "systemHash": fixed.system_hash,
+              "booksHash": fixed.books_hash, "fixedTokens": fixed_tokens, "outDir": str(target.directory),
+              "createdAt": now(), "processingStatus": "submitting", "collectedAt": None, "usage": None,
+              **(extra or {})}
+    state.batches.append(record)
+    state.save()  # the verses are recorded as in flight before the API call
+    batch = client.messages.batches.create(requests=requests)
+    record["id"] = batch.id
+    record["processingStatus"] = batch.processing_status
+    for i in chunk:
+        state.data["attempts"][i] = state.attempts(i) + 1
+        state.data["failures"].pop(i, None)
+    state.save()
+    log(f"Submitted batch {batch.id}: {len(chunk)} verses (attempt {round_}"
+        f"{', wave ' + wave if wave else ''})")
+    return record
 
 
 def refresh(client, state: State, log=print) -> None:

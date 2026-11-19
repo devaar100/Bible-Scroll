@@ -157,6 +157,16 @@
         "type": "string",
         "pattern": "^[0-9a-f]{12}$"
       },
+      "source": {
+        "description": "Who wrote the prose when it wasn't the Messages API: \"claude-code-subagent\" marks a Claude Code test-round study (out/cc_test/), which publish and bundle refuse (not published).",
+        "type": "string",
+        "enum": ["claude-code-subagent"]
+      },
+      "round": {
+        "description": "Claude Code test round the study was written in (with source; not published).",
+        "type": "integer",
+        "minimum": 1
+      },
       "wave": {
         "description": "waves.yaml wave the verse was sent in (batch mode).",
         "type": "string",
@@ -431,7 +441,12 @@
             "reviewer",
             "regenerate",
             "generation",
-            "report"
+            "report",
+            "verse_position",
+            "dotted_translit",
+            "generic_traditions",
+            "translit_form",
+            "context_mismatch"
           ]
         },
         "message": {
@@ -556,6 +571,53 @@
             "verified": {
               "description": "True if the quote appears verbatim (whitespace-normalised) in that section.",
               "type": "boolean"
+            }
+          }
+        },
+        "contextMismatch": {
+          "description": "Studies (checker 5+): claims about nearby verses or about what the verse contains, each with the reviewer's supporting quote from the text the writer was given. Unpublished.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "claims"
+          ],
+          "properties": {
+            "claims": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "section",
+                  "claim",
+                  "support",
+                  "supported"
+                ],
+                "properties": {
+                  "section": {
+                    "type": "string"
+                  },
+                  "claim": {
+                    "description": "Short quote from the section.",
+                    "type": "string"
+                  },
+                  "support": {
+                    "description": "Supporting words from the text the writer was given; empty if none.",
+                    "type": "string"
+                  },
+                  "supported": {
+                    "type": "boolean"
+                  },
+                  "verified": {
+                    "description": "True if the claim quote appears verbatim in that section.",
+                    "type": "boolean"
+                  },
+                  "supportFound": {
+                    "description": "True if the support quote appears in the text the writer was given.",
+                    "type": "boolean"
+                  }
+                }
+              }
             }
           }
         }

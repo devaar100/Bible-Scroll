@@ -20,6 +20,8 @@ from datetime import datetime, timezone
 from typing import Protocol
 
 import anthropic
+
+from ..offline import anthropic_client
 from jsonschema import Draft202012Validator, ValidationError
 
 from ..paths import PIPELINE
@@ -227,7 +229,7 @@ def _call(client: anthropic.Anthropic, model: str, system: str, content: str, sc
 
 class AnthropicTranslator:
     def __init__(self, client: anthropic.Anthropic | None = None, model: str = TRANSLATE_MODEL):
-        self.client = client or anthropic.Anthropic()
+        self.client = client or anthropic_client()
         self.model = model
         self.usage = Usage()
 
@@ -241,7 +243,7 @@ class AnthropicTranslator:
 
 class AnthropicDriftChecker:
     def __init__(self, client: anthropic.Anthropic | None = None, model: str = DRIFT_MODEL):
-        self.client = client or anthropic.Anthropic()
+        self.client = client or anthropic_client()
         self.model = model
         self.usage = Usage()
 

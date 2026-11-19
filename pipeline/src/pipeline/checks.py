@@ -21,13 +21,19 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "4"  # 4: allowed set = the verses shown (context.py) + cross refs; verse-position wording;
+CHECKER_VERSION = "7"  # 7: "Did you know?" word match ignores case, diacritics, apostrophes, dots
+# and hyphens, and accepts surface, lemma or transliteration
+# 6: length limits from limits.json (graceShare, per-section grace/hardCap; theology 70-95,
+# cap 115); "Did you know?" must name one of the verse's listed original words
+# 5: full references only to the verse itself and listed cross references (not context
+# verses); generic "traditions" lines; Greek apostrophes / trailing hyphens in cited words; rubric contextMismatch
+# 4: allowed set = the verses shown (context.py) + cross refs; verse-position wording;
 # dotted transliterations
 # 3: allowed-reference set, 20% length tolerance, pipeline wording, negated banned phrases
 # 2: English words after "Greek word" aren't treated as transliterations
 PROSE_FIELDS = ("meaning", "historicalContext", "lifeInBibleTimes", "theology", "didYouKnow", "applyIt")
 #: Studies pass a section up to this share over its maximum; above it (or under the minimum) they are flagged.
-LENGTH_TOLERANCE = 0.2
+LENGTH_TOLERANCE = 0.2  # kept for old callers; limits.json "graceShare" is the setting now
 
 
 def _load_phrases(path: Path) -> list[tuple[str, re.Pattern]]:
@@ -52,16 +58,24 @@ class Rules:
     limits: dict[str, dict[str, int]]
     banned: list[tuple[str, re.Pattern]]
     pipeline_wording: list[tuple[str, re.Pattern]] = field(default_factory=list)
+    generic_lines: list[tuple[str, re.Pattern]] = field(default_factory=list)
+    grace: float = 0.0  # limits file "graceShare": the share over max that still passes, unless a section says otherwise
 
     @classmethod
     def load(cls, directory: Path = CHECKS_DIR, limits_file: str = "limits.json",
              fields: tuple[str, ...] = PROSE_FIELDS) -> "Rules":
-        limits = json.loads((directory / limits_file).read_text())["words"]
+        data = json.loads((directory / limits_file).read_text())
+        limits = data["words"]
         missing = set(fields) - set(limits)
         if missing:
             raise ValueError(f"{limits_file} has no limits for {sorted(missing)}")
+        for section, lim in limits.items():
+            ceiling = upper_limit(lim, data.get("graceShare", 0.0))
+            if not (0 < lim["min"] <= lim["max"] <= ceiling):
+                raise ValueError(f"{limits_file}: {section} needs 0 < min <= max <= hardCap")
         return cls(limits, _load_phrases(directory / "banned.txt"),
-                   _load_phrases(directory / "pipeline_wording.txt"))
+                   _load_phrases(directory / "pipeline_wording.txt"),
+                   _load_phrases(directory / "generic_lines.txt"), data.get("graceShare", 0.0))
 
 
 def reason(check: str, message: str, section: str | None = None) -> dict:
@@ -77,17 +91,70 @@ def check_schema(study: dict, validator: Draft202012Validator) -> list[dict]:
     return [reason("schema", f"{e.json_path}: {e.message}") for e in validator.iter_errors(study)]
 
 
+def upper_limit(lim: dict, grace: float = 0.0) -> int:
+    """The most words a section may have and still pass. "hardCap" wins (no grace band on top of it); otherwise
+    max plus the section's "grace" share (or the file's graceShare), rounded down."""
+    if "hardCap" in lim:
+        return int(lim["hardCap"])
+    return int(lim["max"] * (1 + lim.get("grace", grace)) + 1e-9)
+
+
+#: Length bands, in order. "over range, allowed" is the grace band (up to 20% over by default; up to the
+#: hard cap for a section that has one). Under range and over limit are rejected.
+BANDS = ("under range", "within range", "over range, allowed", "over limit")
+
+
+def band(words: int, lim: dict, grace: float = 0.0) -> str:
+    if words < lim["min"]:
+        return "under range"
+    if words <= lim["max"]:
+        return "within range"
+    return "over range, allowed" if words <= upper_limit(lim, grace) else "over limit"
+
+
+def band_counts(studies, rules: "Rules", fields: tuple[str, ...] = PROSE_FIELDS) -> dict:
+    """{"total": {band: n}, "bySection": {section: {band: n}}} over the sections of [studies]."""
+    total = {b: 0 for b in BANDS}
+    by_section = {f: {b: 0 for b in BANDS} for f in fields}
+    for st in studies:
+        for f in fields:
+            b = band(len(st.get(f, "").split()), rules.limits[f], rules.grace)
+            total[b] += 1
+            by_section[f][b] += 1
+    return {"total": total, "bySection": by_section}
+
+
+def describe_limits(rules: "Rules", fields: tuple[str, ...] = PROSE_FIELDS) -> str:
+    """limits.json as enforced: prompt range, the allowed ceiling and where it comes from."""
+    lines = []
+    for f in fields:
+        lim = rules.limits[f]
+        how = (f"hard cap {lim['hardCap']}, no grace band" if "hardCap" in lim
+               else f"grace {lim.get('grace', rules.grace):.0%}")
+        lines.append(f"  {f:<18} prompt {lim['min']}-{lim['max']}  passes {lim['min']}-{upper_limit(lim, rules.grace)}"
+                     f"  ({how})")
+    return "\n".join(lines)
+
+
 def check_lengths(study: dict, rules: Rules, fields: tuple[str, ...] = PROSE_FIELDS,
-                  optional: tuple[str, ...] = (), tolerance: float = 0.0) -> list[dict]:
-    """Flags a section under its minimum or more than [tolerance] (a share) over its maximum."""
+                  optional: tuple[str, ...] = (), tolerance: float | None = None) -> list[dict]:
+    """Flags a section under its minimum or over its ceiling (upper_limit: hardCap, else max + grace).
+    tolerance: a share that overrides the file's graceShare (sections with a hardCap or their own grace keep it)."""
+    grace = rules.grace if tolerance is None else tolerance
     out = []
     for section in fields:
         if section in optional and section not in study:
             continue
         words = len(study.get(section, "").split())
-        lo, hi = rules.limits[section]["min"], rules.limits[section]["max"]
-        if words < lo or words > hi * (1 + tolerance):
-            allowed = f"{lo}-{hi}" + (f" (+{tolerance:.0%} tolerance)" if tolerance else "")
+        lim = rules.limits[section]
+        ceiling = upper_limit(lim, grace)
+        if words < lim["min"] or words > ceiling:
+            if "hardCap" in lim:
+                allowed = f"{lim['min']}-{lim['max']} (hard cap {ceiling})"
+            elif ceiling > lim["max"]:
+                allowed = f"{lim['min']}-{lim['max']} (up to {ceiling} with the {lim.get('grace', grace):.0%} grace band)"
+            else:
+                allowed = f"{lim['min']}-{lim['max']}"
             out.append(reason("length", f"{words} words; allowed {allowed}", section))
     return out
 
@@ -122,12 +189,10 @@ def _expand(book: int, start: tuple[int, int | None], end: tuple[int, int | None
 
 
 def allowed_verses(study: dict, bible: Bible) -> set[tuple[int, int, int]]:
-    """The verses the request showed (the verse and its context, context.context_keys) and every listed
-    cross reference."""
-    from .context import context_keys
-
+    """The verse itself and every listed cross reference. Surrounding verses shown with the request are
+    described by what they say, never cited by reference."""
     key = parse_id(study["id"])
-    allowed = set(context_keys(key, (k for k in bible.verses if k[0] == key[0]))) | {key}
+    allowed = {key}
     for x in study.get("crossReferences", []):
         first, _, last = x["ref"].partition("-")
         fb, fc, fv = parse_id(first)
@@ -138,9 +203,10 @@ def allowed_verses(study: dict, bible: Bible) -> set[tuple[int, int, int]]:
 
 def check_allowed_references(study: dict, bible: Bible, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
     """
-    A reference must stay inside the allowed set: the verse, the context verses the request showed, and the
-    listed cross references. A whole-chapter reference passes if it is the verse's own chapter or contains a
-    listed cross reference. References that don't exist are reported by check_references instead.
+    A reference must stay inside the allowed set: the verse itself and the listed cross references (not the
+    surrounding verses the request showed: those are described by what they say). A whole-chapter reference
+    passes if it is the verse's own chapter or contains a listed cross reference. References that don't exist
+    are reported by check_references instead.
     """
     here = parse_id(study["id"])
     allowed = allowed_verses(study, bible)
@@ -151,11 +217,12 @@ def check_allowed_references(study: dict, bible: Bible, fields: tuple[str, ...] 
                 continue
             span = _expand(ref.book_id, ref.start, ref.end, bible.verses)
             whole_chapters = ref.start[1] is None
-            ok = (span & allowed) if whole_chapters else span <= allowed
+            own_chapter = whole_chapters and ref.book_id == here[0] and ref.start[0] <= here[1] <= ref.end[0]
+            ok = (own_chapter or span & allowed) if whole_chapters else span <= allowed
             if not ok:
                 out.append(reason("reference_not_allowed",
-                                  f"“{ref.text}” isn't a verse shown with this one or a listed cross reference",
-                                  section))
+                                  f"“{ref.text}” isn't this verse or a listed cross reference (describe "
+                                  "surrounding verses by what they say)", section))
     return out
 
 
@@ -262,6 +329,19 @@ def check_pipeline_wording(study: dict, rules: Rules, fields: tuple[str, ...] = 
     return out
 
 
+def check_generic_lines(study: dict, rules: Rules, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """Stock "traditions" sentences (checks/generic_lines.txt) that say nothing about this verse. Never excused
+    by negation; flagged studies are regenerated in the retry round."""
+    out = []
+    for section in fields:
+        for phrase, pattern in rules.generic_lines:
+            m = pattern.search(study.get(section, ""))
+            if m:
+                out.append(reason("generic_traditions", f"“{m.group(0)}”: say traditions differ only where they "
+                                  "really disagree about this verse", section))
+    return out
+
+
 # Nearby verses by number or position: "verse 5", "vv. 3-4", "the next verse", "two verses later".
 _VERSE_POSITION = [
     re.compile(r"\b(?:verses?|vv?\.)\s*\d+", re.IGNORECASE),
@@ -300,14 +380,82 @@ def check_dotted_translit(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -
     return out
 
 
+def check_translit_form(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """A cited word written the raw way: a Greek transliteration with TAGNT's stray apostrophe ("he'ōs" for
+    heōs) or a word with its trailing maqqef hyphen ("hodu-" for hodu)."""
+    from .context import clean_translit
+
+    lang = study.get("originalLanguage", {})
+    greek = lang.get("language") == "greek"
+    bad = set()
+    for w in lang.get("words", []):
+        raw = w.get("transliteration", "").replace(".", "").lower()  # as STEPBible writes it, minus dots
+        if raw.endswith("-") and len(raw) > 2:
+            bad.add(raw)
+        if greek and re.search(r"['’ʼ]", raw):
+            bad.add(raw.rstrip("-"))
+    out = []
+    for section in fields:
+        text = re.sub(r"[’ʼ]", "'", study.get(section, ""))  # he’ōs counts as he'ōs
+        for form in sorted(bad):
+            m = re.search(rf"(?<![\w'’]){re.escape(form)}(?![\w])", text, re.IGNORECASE)
+            if m:
+                out.append(reason("translit_form", f"“{m.group(0)}”: write it as "
+                                  f"“{clean_translit(form, greek)}”", section))
+    return out
+
+
+#: Dropped before matching a "Did you know?" word: apostrophes (Greek breathing marks, Hebrew aleph/ayin), dots
+#: (syllable breaks), hyphens and the Hebrew maqqef/paseq. Diacritics (macrons, accents, niqqud, cantillation)
+#: are dropped separately via NFD.
+_DYK_DROP = re.compile(r"['’ʼʻ`´.\-‐‑–־׀]")
+
+
+def dyk_norm(text: str) -> str:
+    """Case-, diacritic-, apostrophe-, dot- and hyphen-insensitive form used by check_did_you_know_word:
+    'Pe.ri' -> 'peri', "he'ōs" -> 'heos', 'hodu-' -> 'hodu', 'ēgapēsen' -> 'egapesen', 'מַה־' -> 'מה'."""
+    import unicodedata
+
+    decomposed = unicodedata.normalize("NFD", text)
+    bare = "".join(c for c in decomposed if not unicodedata.combining(c))
+    return _DYK_DROP.sub("", unicodedata.normalize("NFC", bare)).casefold()
+
+
+def dyk_forms(word: dict, greek: bool) -> set[str]:
+    """Every accepted spelling of one listed word: surface, lemma, raw and cleaned transliteration (normalised)."""
+    from .context import clean_translit
+
+    raw = [word.get("surface", ""), word.get("lemma", ""), word.get("transliteration", ""),
+           clean_translit(word.get("transliteration", ""), greek)]
+    return {f for f in (dyk_norm(r).strip() for r in raw) if f}
+
+
+def check_did_you_know_word(study: dict) -> list[dict]:
+    """ "Did you know?" is about a word of this verse: it must name at least one listed original word, as its
+    surface form, lemma or (cleaned) transliteration, ignoring case, diacritics, apostrophes, dots and hyphens
+    (dyk_norm). Verses with no word data are skipped."""
+    lang = study.get("originalLanguage", {})
+    text = dyk_norm(study.get("didYouKnow", ""))
+    if not lang.get("words") or not text:
+        return []
+    greek = lang.get("language") == "greek"
+    for w in lang["words"]:
+        for form in dyk_forms(w, greek):
+            if re.search(rf"(?<!\w){re.escape(form)}(?!\w)", text):
+                return []
+    return [reason("did_you_know_word", "names none of this verse's original words; it must be about a word of "
+                   "this verse, written as listed", "didYouKnow")]
+
+
 def free_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012Validator) -> list[dict]:
     reasons = check_schema(study, validator)
     if any(r["check"] == "schema" for r in reasons) and "originalLanguage" not in study:
         return reasons  # too broken to check further
-    return [*reasons, *check_lengths(study, rules, tolerance=LENGTH_TOLERANCE), *check_references(study, bible),
+    return [*reasons, *check_lengths(study, rules), *check_references(study, bible),
             *check_allowed_references(study, bible), *check_original_language(study, bible),
-            *check_banned(study, rules), *check_pipeline_wording(study, rules), *check_verse_position(study),
-            *check_dotted_translit(study)]
+            *check_banned(study, rules), *check_pipeline_wording(study, rules), *check_generic_lines(study, rules),
+            *check_verse_position(study), *check_dotted_translit(study), *check_translit_form(study),
+            *check_did_you_know_word(study)]
 
 
 # ---- Orchestration ----------------------------------------------------------------------------------
@@ -331,13 +479,25 @@ def check_study(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
     if judge is not None and (rubric_always or not reasons):
         from .rubric import RubricUnavailable
         try:
-            result = judge.judge(study, bible.text(parse_id(study["id"])) or "")
+            result = judge.judge(study, bible.text(parse_id(study["id"])) or "", supplied=supplied_for(study, bible))
         except RubricUnavailable as error:
             # API down, rate limited, etc.: not the study's fault. Leave it for the next run.
             return Outcome("unchanged", reasons, None, str(error))
         rubric = result.rubric
         reasons += result.reasons
     return Outcome("flagged" if reasons else "auto_checked", reasons, rubric)
+
+
+def supplied_for(study: dict, bible: Bible) -> str | None:
+    """The text the writer was given (generate.supplied_text), for the rubric's contextMismatch item. None when
+    the app's Bible lacks the verse's KJV/WEB text (such a verse can't be generated either)."""
+    if bible.bible_db is None:
+        return None
+    from .generate import supplied_text
+    try:
+        return supplied_text(study, bible.bible_db)
+    except LookupError:
+        return None
 
 
 def apply(study: dict, outcome: Outcome, checker_version: str = CHECKER_VERSION) -> dict:

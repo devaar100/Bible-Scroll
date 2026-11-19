@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 from pathlib import Path
 
 
@@ -100,8 +101,13 @@ def main() -> None:
         b.add_argument("--wave", help="a wave from waves.yaml instead of ids (discover = discover.txt, in order)")
         b.add_argument("--out", help="write studies to this folder instead of out/studies")
         b.add_argument("--force", action="store_true",
-                       help="include verses that already have prose or failed twice (never reviewed/edited)")
+                       help="include verses that already have prose or failed twice (never reviewed/edited); "
+                            "they start a fresh attempt count")
+        b.add_argument("--run", help="label for an ids run (default adhoc): its summaries go to "
+                                     "out/batch_runs/<label>/; retries keep the label")
         b.add_argument("--limit", type=int, help="only the first N verses still to send, in list order")
+        b.add_argument("--stale", action="store_true",
+                       help="only verses already written with an older prompt (regenerate; fresh attempt count)")
     batch_sub.choices["estimate"].add_argument("--count-tokens", action="store_true",
                                                help="measure the fixed block with the free token-counting endpoint")
     batch_sub.add_parser("status", help="poll open batches, write the summaries")
@@ -116,6 +122,40 @@ def main() -> None:
                                         "and print them (no API calls)")
     bback = batch_sub.add_parser("backup", help="zip out/ and state/ into backups/ (same as `pipeline backup`)")
     bback.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
+    prep = sub.add_parser("prepare", help="write the exact batch requests to jobs/NAME/ (batch-NNN.jsonl, manifest.json, "
+                                          "schedule.json); sends nothing")
+    which = prep.add_mutually_exclusive_group(required=True)
+    which.add_argument("--ids", help="file with one verse id per line (# comments allowed)")
+    which.add_argument("--wave", help="a wave from waves.yaml (discover = discover.txt, in order)")
+    prep.add_argument("--limit", type=int, help="only the first N verses")
+    prep.add_argument("--out", required=True, help="new job folder, e.g. jobs/discover_test10/")
+    prep.add_argument("--studies-out", help="where `batch collect` writes the studies (default out/studies)")
+    rp = sub.add_parser("replay", help="every code check on the studies in DIR (no AI); prints limits and length bands")
+    rp.add_argument("dir", help="a folder of study files, e.g. out/cc_test/round1")
+    sm = sub.add_parser("submit", help="send the next pending batch file of a prepared job (refuses on prompt drift)")
+    sm.add_argument("job", help="jobs/NAME")
+    sm.add_argument("--next", action="store_true", required=True, help="the next pending batch file (one per call)")
+    sm.add_argument("--dry-run", action="store_true", help="all checks, nothing sent (works with PIPELINE_OFFLINE=1)")
+    cc = sub.add_parser("cctest", help="Claude Code test rounds (out/cc_test/roundN; test artifacts, never published)")
+    cc_sub = cc.add_subparsers(dest="cc_command", required=True)
+    m = cc_sub.add_parser("merge", help="one study-writer reply -> out/cc_test/roundN/ID.json")
+    m.add_argument("--round", type=int, required=True)
+    m.add_argument("--job", required=True, help="jobs/cc_roundN")
+    m.add_argument("id")
+    m.add_argument("reply", help="file holding the writer's reply")
+    m.add_argument("--model", required=True, help="the model the subagent actually ran on (from its transcript)")
+    m.add_argument("--attempt", type=int, default=1)
+    pk = cc_sub.add_parser("packet", help="print reviewer input for studies")
+    pk.add_argument("--round", type=int, required=True)
+    pk.add_argument("ids", nargs="+")
+    pk.add_argument("--from", dest="src", help="read the studies from this folder (canaries: out/studies)")
+    pk.add_argument("--prefix", default="", help='id prefix in the packet, e.g. "canary:"')
+    vf = cc_sub.add_parser("verify", help="check reviewer findings' studyQuotes verbatim; write review.json")
+    vf.add_argument("--round", type=int, required=True)
+    vf.add_argument("findings", nargs="+", help="reviewer JSON files")
+    vf.add_argument("--canaries-from", help="folder holding the canary studies (out/studies; read only)")
+    rpt = cc_sub.add_parser("report", help="print the round table")
+    rpt.add_argument("--round", type=int, required=True)
     sub.add_parser("discover", help="audit discover.txt: bad ids, duplicates, verses whose Hebrew/Greek numbering differs")
     bk = sub.add_parser("backup", help="zip out/ and state/ into backups/")
     bk.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
@@ -135,6 +175,10 @@ def main() -> None:
         build_studies()
     if args.command == "check":
         run_check(args)
+    if args.command in ("prepare", "replay", "submit"):
+        run_jobs(args)
+    if args.command == "cctest":
+        run_cctest(args)
     if args.command == "generate":
         run_generate(args)
     if args.command == "batch":
@@ -429,19 +473,25 @@ def run_batch(args) -> None:
     if args.batch_command in ("estimate", "submit"):
         if bool(args.ids) == bool(args.wave):
             raise SystemExit("Give either verse ids or --wave (e.g. --wave discover).")
+        if args.run and (args.wave or not re.fullmatch(r"[A-Za-z0-9_-]+", args.run) or args.run in plan_cfg.names
+                         or args.run == "all"):
+            raise SystemExit("--run takes a label of letters, digits, _ and - for an ids run, not a wave name.")
         if args.wave == "all" and args.batch_command == "submit":
             raise SystemExit("Submit one wave at a time (--wave all is for estimate only).")
         target = StudyStore(out_dir(args.out))
         fixed = bt.load_fixed()
         if args.count_tokens if args.batch_command == "estimate" else False:
-            import anthropic
-            fixed_tokens, how = bt.count_fixed_tokens(anthropic.Anthropic(), fixed), "counted"
+            from .offline import anthropic_client
+            fixed_tokens, how = bt.count_fixed_tokens(anthropic_client(), fixed), "counted"
         else:
             # English prose runs about 4 characters per token; submit counts the block exactly before sending.
             fixed_tokens, how = round(len(fixed.system) / 4), "approx (chars/4; --count-tokens for exact)"
 
         def planned(ids: list[str], earlier: set[str]) -> tuple[list[str], dict]:
-            todo, skipped = bt.plan(ids, target, state, force=args.force)
+            if args.stale and args.force:
+                raise SystemExit("--stale and --force don't mix: --stale already picks written verses.")
+            todo, skipped = bt.plan(ids, target, state, force=args.force,
+                                    stale_prompt=fixed.prompt_version if args.stale else None)
             dup = [i for i in todo if i in earlier]
             if dup:
                 skipped["in an earlier wave"] = len(dup)
@@ -486,14 +536,16 @@ def run_batch(args) -> None:
         show("report")
         return
 
-    import anthropic
-    client = anthropic.Anthropic()
+    from .offline import anthropic_client
+    client = anthropic_client()
     if args.batch_command == "submit":
         ids = wave_list(args.wave) if args.wave else g.select_ids(source, args.ids)
         todo, skipped = planned(ids, set())
         target.directory.mkdir(parents=True, exist_ok=True)
         print(f"{len(todo)} to send; skipped {dict(skipped)}")
-        bt.submit(client, todo, 1, target, state, fixed, source, APP_BIBLE_DB, wave=args.wave or "adhoc",
+        if (args.stale or args.force) and todo:
+            bt.restart_attempts(state, todo, target)
+        bt.submit(client, todo, 1, target, state, fixed, source, APP_BIBLE_DB, wave=args.wave or args.run or "adhoc",
                   batch_size=plan_cfg.batch_size)
         show("submit")
     elif args.batch_command == "status":
@@ -531,6 +583,70 @@ def run_batch(args) -> None:
             show("retry submit")
         elif retry:
             print(f"{len(retry)} verses need a retry; run collect without --no-retry to submit them.")
+
+
+def run_jobs(args) -> None:
+    from . import jobs
+    from .store import StudyStore
+
+    def here(p: str) -> Path:
+        path = Path(p)
+        return path if path.is_absolute() else (Path.cwd() / path)
+
+    if args.command == "prepare":
+        from . import waves as wv
+        from .generate import STUDIES_DIR
+        source = StudyStore(STUDIES_DIR)
+        ids = jobs.read_ids(here(args.ids)) if args.ids else jobs.wave_ids(args.wave, source)
+        if args.limit is not None:
+            if args.limit < 1:
+                raise SystemExit("--limit must be at least 1")
+            ids = ids[:args.limit]
+        manifest = jobs.prepare(ids, here(args.out), source=source, batch_size=wv.load().batch_size,
+                                studies_out=here(args.studies_out) if args.studies_out else None)
+        print(json.dumps({k: v for k, v in manifest.items() if k not in ("ids", "files")}, indent=2))
+    elif args.command == "replay":
+        report = jobs.replay(here(args.dir))
+        if report["rejected"]:
+            raise SystemExit(f"{len(report['rejected'])} rejected: {', '.join(report['rejected'])}")
+    elif args.command == "submit":
+        info = jobs.submit_next(here(args.job), dry_run=args.dry_run)
+        if info and not args.dry_run:
+            print(f"Submitted {info['file']} as {info['batchId']}; then `pipeline batch status` / `batch collect`.")
+
+
+def run_cctest(args) -> None:
+    from . import cctest as cc
+    from .store import StudyStore
+
+    if args.cc_command == "merge":
+        study = cc.merge(args.round, Path(args.job), args.id, Path(args.reply).read_text(), args.model, args.attempt)
+        print(f"{study['id']}: written to {cc.round_dir(args.round)} (attempt {args.attempt})")
+    elif args.cc_command == "packet":
+        store = StudyStore(Path(args.src)) if args.src else StudyStore(cc.round_dir(args.round))
+        print("\n\n".join(cc.packet(store.load(i), prefix=args.prefix) for i in args.ids))
+    elif args.cc_command == "verify":
+        studies = {}
+        rd = StudyStore(cc.round_dir(args.round))
+        studies.update({i: rd.load(i) for i in rd.ids()})
+        if args.canaries_from:
+            canary = StudyStore(Path(args.canaries_from))
+            merged = {"studies": []}
+            for f in args.findings:
+                merged["studies"] += json.loads(Path(f).read_text())["studies"]
+            for e in merged["studies"]:
+                if e["id"].startswith("canary:"):
+                    studies[e["id"]] = canary.load(e["id"].removeprefix("canary:"))
+        else:
+            merged = {"studies": [s for f in args.findings for s in json.loads(Path(f).read_text())["studies"]]}
+        review = cc.verify(args.round, merged, studies)
+        (cc.round_dir(args.round) / "review.json").write_text(json.dumps(review, indent=2, ensure_ascii=False) + "\n")
+        kept = sum(len(v) for v in review["findings"].values())
+        print(f"Kept {kept} findings; discarded {len(review['discarded'])}")
+        for d in review["discarded"]:
+            print(f"  discarded {d['id']}: {d['why']}: {d['finding'].get('studyQuote', '')[:100]!r}")
+    elif args.cc_command == "report":
+        print(cc.report(args.round))
 
 
 def run_check(args) -> None:

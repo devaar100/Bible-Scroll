@@ -146,6 +146,7 @@ def request_values(study: dict, bible_db: Path = APP_BIBLE_DB, word_limits: dict
         raise LookupError(f"No KJV/WEB text for {study['id']} in {bible_db}")
     heading, context_text = context_block(key, bible_db)
     words = study["originalLanguage"]["words"]
+    greek = study["originalLanguage"].get("language") == "greek"
     word_limits = word_limits or limits()
     usfm = BOOKS[b - 1].usfm
     values = {
@@ -156,13 +157,21 @@ def request_values(study: dict, bible_db: Path = APP_BIBLE_DB, word_limits: dict
         "context_text": context_text,
         "book_background": ctx.book_background(usfm) or "(none)",
         "text_note": ctx.text_note(key) or "(none)",
-        "original_words": "\n".join(f"- {ctx.clean_translit(w['transliteration'])} ({w['surface']}) = {w['gloss']}"
-                                    for w in words) or "(none listed)",
+        "original_words": "\n".join(f"- {ctx.clean_translit(w['transliteration'], greek)} ({w['surface']}) = "
+                                    f"{w['gloss']}" for w in words) or "(none listed)",
         "cross_references": "\n".join(f"- {ref_label(x['ref'])}" for x in study["crossReferences"])
                             or "(none)",
         **{f"{k}_words": f"{lim['min']}-{lim['max']}" for k, lim in word_limits.items()},
     }
     return values
+
+
+def supplied_text(study: dict, bible_db: Path = APP_BIBLE_DB, prompt_file: Path = PROMPT_FILE) -> str:
+    """The verse part of the request (verse, KJV/WEB text, surrounding verses, book background, original words,
+    related passages), exactly as the writer saw it in batch mode, without the fixed instructions. The rubric's
+    contextMismatch item quotes its support from this text."""
+    head, _ = split_request(Prompt.load(prompt_file))
+    return fill(head, request_values(study, bible_db))
 
 
 def parse_sections(text: str | None) -> dict[str, str]:
@@ -191,9 +200,9 @@ class StudyWriter:
     """Direct Messages API calls. Credentials from the environment (ANTHROPIC_API_KEY or `ant auth login`)."""
 
     def __init__(self, model: str = DEFAULT_MODEL, effort: str = DEFAULT_EFFORT, client=None):
-        import anthropic
+        from .offline import anthropic_client
 
-        self.client = client or anthropic.Anthropic()
+        self.client = client or anthropic_client()
         self.model = model
         self.effort = effort
         self.usage = Usage()
