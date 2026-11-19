@@ -1,0 +1,25 @@
+rules_version = '2';
+
+// Community vote counters (C1/C2). Docs: community_votes/{YYYY-MM_ministryId} {count, opensAt, closesAt}.
+// Clients are never authenticated and send no identifiers. The only write a client can make is
+// "count + 1" on an existing document while its month is open. Documents are created by the seed script
+// (admin credentials bypass these rules). See docs/decisions.md and docs/network-calls.md.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /community_votes/{voteId} {
+      allow read: if true;
+      allow create, delete: if false;
+      allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['count'])
+        && resource.data.count is int
+        && request.resource.data.count is int
+        && request.resource.data.count == resource.data.count + 1
+        && request.time >= resource.data.opensAt
+        && request.time < resource.data.closesAt;
+    }
+
+    // Nothing else exists; deny everything else explicitly.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

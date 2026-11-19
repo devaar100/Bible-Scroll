@@ -1,0 +1,8 @@
+# Admin credentials never live in the repo (seed script reads GOOGLE_APPLICATION_CREDENTIALS).
+*service-account*.json
+*-key.json
+*.pem
+node_modules/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log

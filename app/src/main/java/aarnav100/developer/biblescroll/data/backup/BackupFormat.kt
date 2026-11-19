@@ -9,6 +9,7 @@ import aarnav100.developer.biblescroll.data.user.ChapterReadEntity
 import aarnav100.developer.biblescroll.data.user.NoteEntity
 import aarnav100.developer.biblescroll.data.user.ReadingPositionEntity
 import aarnav100.developer.biblescroll.data.user.VerseMarkEntity
+import aarnav100.developer.biblescroll.data.community.CommunityVoteEntity
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -49,10 +50,11 @@ data class BackupTables(
     @SerialName("plan_day_progress") val planDayProgress: List<PlanDayProgressRow> = emptyList(),
     @SerialName("custom_plans") val customPlans: List<CustomPlanRow> = emptyList(),
     @SerialName("devotional_progress") val devotionalProgress: List<DevotionalProgressRow> = emptyList(),
+    @SerialName("community_votes") val communityVotes: List<CommunityVoteRow> = emptyList(),
 ) {
     val rowCount: Int
         get() = verseMarks.size + readingPositions.size + chapterReads.size + notes.size + streakDays.size +
-            planEnrollments.size + planDayProgress.size + customPlans.size + devotionalProgress.size
+            planEnrollments.size + planDayProgress.size + customPlans.size + devotionalProgress.size + communityVotes.size
 }
 
 /** Likes, bookmarks, studied verses and saved studies. */
@@ -160,6 +162,16 @@ data class DevotionalProgressRow(
     @SerialName("updated_at") val updatedAt: Long,
 )
 
+/** C1 Community: this phone's vote for a month (user.db v10). */
+@Serializable
+data class CommunityVoteRow(
+    val month: String,
+    @SerialName("ministry_id") val ministryId: String,
+    @SerialName("voted_at") val votedAt: Long,
+    val sent: Boolean,
+    @SerialName("updated_at") val updatedAt: Long,
+)
+
 /** Settings in the shared DataStore and whether they travel in an export. */
 object BackupSettings {
     enum class Type { BOOLEAN, INT, STRING }
@@ -253,3 +265,7 @@ fun CustomPlanRow.toEntity() = CustomPlanEntity(
 
 fun DevotionalProgressEntity.toRow() = DevotionalProgressRow(readFor, devotionalId, contentVersion, finishedAt, updatedAt)
 fun DevotionalProgressRow.toEntity() = DevotionalProgressEntity(readFor, devotionalId, contentVersion, finishedAt, updatedAt)
+
+fun CommunityVoteEntity.toRow() = CommunityVoteRow(month, ministryId, votedAt, sent, updatedAt)
+
+fun CommunityVoteRow.toEntity() = CommunityVoteEntity(month, ministryId, votedAt, sent, updatedAt)

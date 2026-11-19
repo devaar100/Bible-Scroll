@@ -1,5 +1,9 @@
 package aarnav100.developer.biblescroll.feature.devotionals
 
+import aarnav100.developer.biblescroll.feature.report.ContentType
+import aarnav100.developer.biblescroll.feature.report.ReportContext
+import aarnav100.developer.biblescroll.feature.report.ReportProblemSheet
+import androidx.compose.material.icons.outlined.Flag
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.core.content.DevotionalState
 import aarnav100.developer.biblescroll.core.content.model.Devotional
@@ -96,6 +100,7 @@ private fun StoryPager(state: DevotionalReaderUiState, devotional: Devotional, o
     val pager = rememberPagerState { pages.size }
     val scope = rememberCoroutineScope()
     var sharing by rememberSaveable { mutableStateOf<Int?>(null) }
+    var reporting by rememberSaveable { mutableStateOf(false) }
     val next = { if (pager.currentPage < pages.lastIndex) scope.launch { pager.animateScrollToPage(pager.currentPage + 1) } }
     val previous = { if (pager.currentPage > 0) scope.launch { pager.animateScrollToPage(pager.currentPage - 1) } }
     val nextLabel = stringResource(R.string.devo_next_page)
@@ -157,9 +162,28 @@ private fun StoryPager(state: DevotionalReaderUiState, devotional: Devotional, o
             }
         }
         StoryProgress(pages.size, pager.currentPage, cover, Modifier.align(Alignment.TopCenter).padding(top = 12.dp, start = 16.dp, end = 16.dp))
-        IconButton(onClick = onClose, modifier = Modifier.align(Alignment.TopEnd).padding(top = 20.dp, end = 4.dp)) {
-            Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.devo_close), tint = cover.ink)
+        Row(Modifier.align(Alignment.TopEnd).padding(top = 20.dp, end = 4.dp)) {
+            IconButton(onClick = { reporting = true }) {
+                Icon(Icons.Outlined.Flag, contentDescription = stringResource(R.string.report_title), tint = cover.ink)
+            }
+            IconButton(onClick = onClose) {
+                Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.devo_close), tint = cover.ink)
+            }
         }
+    }
+    if (reporting) {
+        // On a verse page, name the verse too: a wrong-verse report then says which one.
+        val versePage = pages.getOrNull(pager.currentPage) as? StoryPage.VersePage
+        ReportProblemSheet(
+            ReportContext(
+                contentType = ContentType.DEVOTIONAL,
+                contentId = devotional.id,
+                reference = versePage?.let { stringResource(R.string.two_parts, devotional.title, it.reference) } ?: devotional.title,
+                translationId = state.translationId,
+                contentVersion = devotional.contentVersion,
+            ),
+            onDismiss = { reporting = false },
+        )
     }
     val shared = sharing?.let { pages.getOrNull(it) as? StoryPage.VersePage }
     if (shared != null) {

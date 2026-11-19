@@ -87,6 +87,10 @@ interface UserDao {
     @Query("SELECT * FROM reading_positions ORDER BY updated_at DESC LIMIT 1")
     suspend fun latestPosition(): ReadingPositionEntity?
 
+    /** H1 "Continue reading": follows reading as it happens. */
+    @Query("SELECT * FROM reading_positions ORDER BY updated_at DESC LIMIT 1")
+    fun observeLatestPosition(): Flow<ReadingPositionEntity?>
+
     @Query("SELECT * FROM reading_positions WHERE book_id = :bookId")
     suspend fun positionForBook(bookId: Int): ReadingPositionEntity?
 

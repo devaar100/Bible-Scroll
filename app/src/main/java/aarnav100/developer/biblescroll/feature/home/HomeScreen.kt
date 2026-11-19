@@ -1,5 +1,7 @@
 package aarnav100.developer.biblescroll.feature.home
 
+import aarnav100.developer.biblescroll.feature.study.VerseStudySheet
+import aarnav100.developer.biblescroll.feature.study.VerseStudyViewModel
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.feature.devotionals.DevotionalHomeCards
 import aarnav100.developer.biblescroll.feature.library.LibraryViewModel
@@ -9,6 +11,7 @@ import aarnav100.developer.biblescroll.feature.streak.StreakChip
 import aarnav100.developer.biblescroll.feature.streak.StreakSheet
 import aarnav100.developer.biblescroll.feature.streak.StreakViewModel
 import aarnav100.developer.biblescroll.data.bible.model.Verse
+import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.feature.bible.VerseSheets
 import aarnav100.developer.biblescroll.feature.bible.copyVerse
 import aarnav100.developer.biblescroll.feature.bible.sheets.VerseSheetsViewModel
@@ -57,8 +60,9 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 /**
- * H1 Home: header (streak chip, Settings gear), the Verse of the Day card, the restore notice, today's devotional,
- * the Library (H3) and Reading plans (H8). The Verse Search and Today's Reading cards (spec H1) aren't built yet.
+ * H1 Home, top to bottom: header (streak chip, Settings gear), the one-time restore notice when present, Verse of the
+ * Day, Today's Reading, Today's Devotional, Verse Search, Library (H3), Reading plans (H8). Every card follows its
+ * Flow live; the scroll position is saved and restored with the tab.
  */
 @Composable
 fun HomeScreen(
@@ -67,12 +71,18 @@ fun HomeScreen(
     onOpenPlans: () -> Unit,
     onOpenDevotional: (date: String) -> Unit,
     onOpenDevotionalArchive: () -> Unit,
+    onOpenPlanDay: (enrollmentId: String, day: Int) -> Unit,
     modifier: Modifier = Modifier,
     libraryViewModel: LibraryViewModel = hiltViewModel(),
     streakViewModel: StreakViewModel = hiltViewModel(),
     votdViewModel: VerseOfTheDayViewModel = hiltViewModel(),
     sheetsViewModel: VerseSheetsViewModel = hiltViewModel(),
+    studyViewModel: VerseStudyViewModel = hiltViewModel(),
+    readingViewModel: TodaysReadingViewModel = hiltViewModel(),
+    searchViewModel: VerseSearchViewModel = hiltViewModel(),
 ) {
+    val reading by readingViewModel.items.collectAsStateWithLifecycle()
+    val search by searchViewModel.uiState.collectAsStateWithLifecycle()
     val library by libraryViewModel.uiState.collectAsStateWithLifecycle()
     val streak by streakViewModel.uiState.collectAsStateWithLifecycle()
     val votd by votdViewModel.uiState.collectAsStateWithLifecycle()
@@ -111,6 +121,7 @@ fun HomeScreen(
                     Icon(Icons.Outlined.Settings, contentDescription = stringResource(R.string.settings_title))
                 }
             }
+            RestoreNoticeCard()
             (votd as? VotdUiState.Ready)?.votd?.let { today ->
                 VerseOfTheDayCard(
                     votd = today,
@@ -118,11 +129,29 @@ fun HomeScreen(
                     onShareImage = { sheetsViewModel.openShareImage(today.verse) },
                     onSetWidget = { sheetsViewModel.openWidgetConfirm(today.verse, WidgetMode.VERSE_OF_THE_DAY) },
                     onCopy = { copyAndConfirm(today.verse, today.reference, snackbarHostState) },
+                    onStudy = { studyViewModel.open(today.verse.ref) },
                     modifier = Modifier.padding(top = 8.dp),
                 )
             }
-            RestoreNoticeCard()
+            reading?.let { items ->
+                TodaysReadingCard(
+                    items = items,
+                    onOpenPlanDay = onOpenPlanDay,
+                    onContinue = readingViewModel::continueReading,
+                    onOpenBible = { readingViewModel.continueReading(VerseRef(1, 1, 1)) },
+                    modifier = Modifier.padding(top = 16.dp),
+                )
+            }
             DevotionalHomeCards(onOpen = onOpenDevotional, onOpenArchive = onOpenDevotionalArchive)
+            VerseSearchCard(
+                state = search,
+                onSelectBook = searchViewModel::selectBook,
+                onSelectChapter = searchViewModel::selectChapter,
+                onSelectVerse = searchViewModel::selectVerse,
+                onRead = searchViewModel::read,
+                onStudy = { studyViewModel.open(search.selection) },
+                modifier = Modifier.padding(top = 16.dp),
+            )
             HomeEntry(
                 icon = Icons.Outlined.CollectionsBookmark,
                 title = stringResource(R.string.library_title),
@@ -145,6 +174,8 @@ fun HomeScreen(
         screenSnackbar = snackbarHostState,
         copyAndConfirm = copyAndConfirm,
     )
+    // B8 for the Verse of the Day; "Go to verse" switches to the Bible tab.
+    VerseStudySheet(studyViewModel)
     if (showStreak) {
         StreakSheet(
             state = streak,

@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.discover
 
+import aarnav100.developer.biblescroll.feature.study.StudyMessage
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import androidx.compose.foundation.layout.Box

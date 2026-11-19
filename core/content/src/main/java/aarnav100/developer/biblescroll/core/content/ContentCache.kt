@@ -3,7 +3,7 @@ package aarnav100.developer.biblescroll.core.content
 import java.io.File
 
 /**
- * The last manifest.json and discover.json fetched, kept on disk so Discover works offline. Writes are
+ * The last manifest.json, discover.json and ministries.json fetched, kept on disk so Discover and Community work offline. Writes are
  * atomic (temp file + rename), so a crash never leaves a half-written file.
  */
 class ContentCache(private val directory: File) {
@@ -22,5 +22,6 @@ class ContentCache(private val directory: File) {
     companion object {
         const val MANIFEST = "manifest.json"
         const val DISCOVER = "discover.json"
+        const val MINISTRIES = "ministries.json"
     }
 }

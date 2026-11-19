@@ -6,7 +6,12 @@ plugins {
     alias(libs.plugins.hilt)
     alias(libs.plugins.room)
     alias(libs.plugins.baselineprofile)
+    alias(libs.plugins.licensee)
 }
+
+/** S7 support address. Replace the placeholder before a release; release builds stop while it's unset. */
+val supportEmail = "<YOUR ADDRESS>"
+val supportEmailUnset = !supportEmail.contains('@')
 
 android {
     namespace = "aarnav100.developer.biblescroll"
@@ -22,6 +27,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // S7 "Report a problem" / "Send feedback": the address reports are emailed to. Defined here only.
+        buildConfigField("String", "SUPPORT_EMAIL", "\"$supportEmail\"")
     }
 
     buildTypes {
@@ -51,6 +59,15 @@ android {
         // types (benchmarkRelease, nonMinifiedRelease) don't see src/release.
         buildConfig = true
     }
+}
+
+// S8 Legal → Open-source libraries. Licensee runs at build time only: it reads every runtime dependency's POM,
+// fails the build on a licence not allowed below, and bundles the list as an asset (app/cash/licensee/artifacts.json).
+// No runtime library: the app parses that JSON itself.
+licensee {
+    allow("Apache-2.0")
+    allow("BSD-3-Clause")
+    bundleAndroidAsset.set(true)
 }
 
 baselineProfile {
@@ -105,6 +122,9 @@ dependencies {
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.material3)
 
+    // Custom Tabs (Community: ministry websites and "Give directly")
+    implementation(libs.androidx.browser)
+
     // Coil
     implementation(libs.coil.compose)
 
@@ -113,6 +133,7 @@ dependencies {
     implementation(project(":core:plans"))
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler) // @HiltWorker in the app (CommunityVoteWorker)
 
     // Installs the Baseline Profile on sideloaded/non-Play installs too.
     implementation(libs.androidx.profileinstaller)
@@ -122,6 +143,7 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.retrofit) // fakes for :core:content's FirestoreApi (Retrofit Response)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -136,5 +158,15 @@ if (providers.gradleProperty("composeReports").orNull == "true") {
     composeCompiler {
         reportsDestination = layout.buildDirectory.dir("compose_compiler")
         metricsDestination = layout.buildDirectory.dir("compose_compiler")
+    }
+}
+
+// Don't ship a release whose "Report a problem" emails go nowhere.
+// Only the shipping build type: benchmark and baseline-profile builds keep working.
+tasks.matching { it.name == "preReleaseBuild" }.configureEach {
+    doFirst {
+        if (supportEmailUnset) {
+            throw GradleException("Set supportEmail in app/build.gradle.kts (S7 support address) before building a release.")
+        }
     }
 }

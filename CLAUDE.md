@@ -11,7 +11,7 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 - No Firebase Auth, no App Check, no Firebase Analytics, no Crashlytics, and no other analytics, crash-reporting, ads or tracking SDK. No AD_ID permission in the merged manifest.
 - Crashes come from Play Console vitals; keep R8 on so the release bundle carries the mapping file.
 - Allowed network calls only: static content downloads from our CDN (no user identifiers), and from Session 33 one anonymous Community vote counter in Cloud Firestore (add-one only, no IDs, no auth).
-- Any new network call (host, library, worker or widget) must be added to docs/network-calls.md in the same change. HTTPS only (network_security_config.xml).
+- Any new network call (host, library, worker or widget) must be added to docs/network-calls.md in the same change, and new stored or outgoing data to docs/privacy-inventory.md. After changing privacy_* strings: `python3 tools/build_privacy_page.py`. HTTPS only (network_security_config.xml).
 - Keep updatedAt columns and tombstones on user tables: the Session 29 import merge depends on them.
 - New user.db table or column: bump UserDatabase.VERSION, add it to data/backup/BackupFormat.kt (row class + entity mappers) and its merge key in BackupMerge.kt/BackupValidator.kt. ExportCoversSchemaTest fails until you do. New DataStore key: list it in BackupSettings.EXPORTED or NOT_EXPORTED.
 - Backup rules are include-only (res/xml/backup_rules.xml, data_extraction_rules.xml): a new file that holds user data must be added there, or it won't survive a phone change.
@@ -19,13 +19,17 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 
 ## Phase 4 checklist (Data & Community)
 - [x] Session 29: S9 Data & backup: Auto Backup rules, export/import with newest-change-wins merge on updatedAt, restore fix-ups, no-delete DB safety
-- [ ] Session 30a: Reina-Valera 1909 in the pipeline (eBible source, LICENCES.md, versification report: 18 shifted verses, psalm titles in verse 1)
+- [x] Session 30a: RV1909 and BSB built into bible.db (tools/build_bible_db.py, eBible sources, LICENCES.md, tools/bible_db_report.md: RV1909 remapped to KJV keys, 18 merged verses, psalm titles split). App side still to do: bump BibleDatabase.VERSION, read translation_info, onboarding offer (31b)
 - [x] Session 31a: localized plans/devotionals (pipeline `translate` with drift check; app shows them in the UI language), "studies are in English" note
 - [ ] Session 31b: bundle RV1909, onboarding offer on Spanish phones, reminder verses in the chosen translation
 - [ ] Session 31c: wrap-up: Session 29 tests, secrets scan, APK size, signed-out end-to-end on a `qa` variant, docs/data-safety.md
-- [x] Verse of the Day (H1 card + widget mode; definition in docs/spec.md). Verse Search and Today's Reading cards: not built
+- [x] Verse of the Day (H1 card + widget mode; definition in docs/spec.md)
+- [x] H1 Home finished: Today's Reading (plans pager, Continue reading) and Verse Search (wheels + TalkBack dropdowns); card order in docs/spec.md
+- [x] S7 Help & feedback + Report a problem (email intent only; set `supportEmail` in app/build.gradle.kts before release)
+- [x] B8 Verse study from the feed (B7 "Study this verse", VOTD card), shared D2/B8 StudySession + StudyStateContent; debug-only study import (src/debug)
+- [x] S5 Widget guide, S8 Legal (privacy, licences, sources, Licensee library list), S1 rows, docs/privacy-inventory.md, web/privacy/ (generated; host on a separate Firebase site, see web/README.md). Lawyer review list in docs/privacy-inventory.md
 - [ ] Session 32: TBD
-- [ ] Session 33: C1/C2 Community anonymous monthly vote: local CommunityVote table + Firestore add-one counter (add host to docs/network-calls.md)
+- [x] Session 33: C1/C2 Community anonymous monthly vote: local CommunityVote table (user.db v10) + Firestore REST add-one counter (backend/: rules, emulator tests need JDK 21, seed script). Fill pipeline/community/ministries.json with real ministries before release
 - [ ] Session 34: TBD
 
 ## Stack

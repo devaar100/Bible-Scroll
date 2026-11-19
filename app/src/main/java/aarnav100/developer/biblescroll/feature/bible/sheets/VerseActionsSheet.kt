@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.automirrored.outlined.CompareArrows
 import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -25,8 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 
 /**
- * B7: actions for one verse. Study actions (B8) are deliberately absent until Phase 2.
- * Swipe down / back calls [onDismiss] and the feed stays where it was.
+ * B7: actions for one verse. "Study this verse" opens B8 (shown when [onStudy] is given: the Bible feed and the
+ * Verse of the Day card). Swipe down / back calls [onDismiss] and the feed stays where it was.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,6 +38,7 @@ fun VerseActionsSheet(
     onShareAsImage: () -> Unit,
     onSetWidgetVerse: () -> Unit,
     onDismiss: () -> Unit,
+    onStudy: (() -> Unit)? = null,
 ) {
     ModalBottomSheet(onDismissRequest = onDismiss, dragHandle = { SheetDragHandle() }) {
         Column(Modifier.padding(bottom = 16.dp)) {
@@ -45,6 +47,7 @@ fun VerseActionsSheet(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp),
             )
+            onStudy?.let { ActionRow(Icons.Outlined.School, stringResource(R.string.actions_study), it) }
             ActionRow(Icons.Outlined.ContentCopy, stringResource(R.string.actions_copy), onCopy)
             ActionRow(Icons.AutoMirrored.Outlined.CompareArrows, stringResource(R.string.actions_compare), onCompare)
             ActionRow(Icons.Outlined.Image, stringResource(R.string.actions_share_image), onShareAsImage)

@@ -53,7 +53,7 @@ class BackupImportExportTest {
         val tables = json["tables"] as JsonObject
         assertEquals(
             setOf("verse_marks", "reading_positions", "chapter_reads", "notes", "streak_days", "plan_enrollments",
-                "plan_day_progress", "custom_plans", "devotional_progress"),
+                "plan_day_progress", "custom_plans", "devotional_progress", "community_votes"),
             tables.keys,
         )
         assertEquals(setOf("theme_mode", "reminder_minute_of_day", "translation_id"), (json["settings"] as JsonObject).keys)

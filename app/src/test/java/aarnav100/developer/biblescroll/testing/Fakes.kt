@@ -64,6 +64,7 @@ class FakeUserDao : UserDao {
     }
 
     override suspend fun latestPosition() = positions.value.values.maxByOrNull { it.updatedAt }
+    override fun observeLatestPosition() = positions.map { m -> m.values.maxByOrNull { it.updatedAt } }
     override suspend fun positionForBook(bookId: Int) = positions.value[bookId]
     override fun observePositionForBook(bookId: Int) = positions.map { it[bookId] }
     override suspend fun upsertPosition(position: ReadingPositionEntity) {

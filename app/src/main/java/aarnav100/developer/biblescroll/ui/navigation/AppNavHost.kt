@@ -22,6 +22,9 @@ import aarnav100.developer.biblescroll.feature.settings.GeneralSettingsScreen
 import aarnav100.developer.biblescroll.feature.settings.NotificationsScreen
 import aarnav100.developer.biblescroll.feature.settings.SettingsScreen
 import aarnav100.developer.biblescroll.feature.settings.DataBackupScreen
+import aarnav100.developer.biblescroll.feature.settings.HelpScreen
+import aarnav100.developer.biblescroll.feature.settings.LegalScreen
+import aarnav100.developer.biblescroll.feature.settings.WidgetGuideScreen
 import aarnav100.developer.biblescroll.feature.settings.StorageScreen
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,6 +41,9 @@ import kotlinx.serialization.Serializable
 @Serializable data object NotificationsRoute
 @Serializable data object StorageRoute
 @Serializable data object DataBackupRoute
+@Serializable data object HelpRoute
+@Serializable data object LegalRoute
+@Serializable data object WidgetGuideRoute
 
 /** H3 Library and its lists (H4-H7), pushed over the Home tab. screen = LibraryScreen name. */
 @Serializable data object LibraryRoute
@@ -84,6 +90,7 @@ fun AppNavHost(
                 onOpenPlans = { navController.navigate(PlansRoute) },
                 onOpenDevotional = { navController.navigate(DevotionalRoute(it)) },
                 onOpenDevotionalArchive = { navController.navigate(DevotionalArchiveRoute) },
+                onOpenPlanDay = { id, day -> navController.navigate(PlanReaderRoute(id, day)) },
             )
         }
         composable<DevotionalRoute> {
@@ -152,6 +159,9 @@ fun AppNavHost(
                 onOpenNotifications = { navController.navigate(NotificationsRoute) },
                 onOpenStorage = { navController.navigate(StorageRoute) },
                 onOpenDataBackup = { navController.navigate(DataBackupRoute) },
+                onOpenHelp = { navController.navigate(HelpRoute) },
+                onOpenWidgetGuide = { navController.navigate(WidgetGuideRoute) },
+                onOpenLegal = { navController.navigate(LegalRoute) },
             )
         }
         composable<GeneralSettingsRoute> {
@@ -166,5 +176,8 @@ fun AppNavHost(
         composable<NotificationsRoute> { NotificationsScreen(onBack = back) }
         composable<StorageRoute> { StorageScreen(onBack = back) }
         composable<DataBackupRoute> { DataBackupScreen(onBack = back) }
+        composable<HelpRoute> { HelpScreen(onBack = back, onOpenPrivacy = { navController.navigate(LegalRoute) }) }
+        composable<LegalRoute> { LegalScreen(onBack = back) }
+        composable<WidgetGuideRoute> { WidgetGuideScreen(onBack = back) }
     }
 }

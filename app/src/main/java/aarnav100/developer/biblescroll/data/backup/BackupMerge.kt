@@ -30,6 +30,8 @@ class MergeResult(val write: BackupTables, val summary: ImportSummary)
  * Nothing on this phone is ever removed. Turned-off flags and custom-plan tombstones are rows like any other,
  * so a newer "unliked" or "deleted" wins, and an older one doesn't undo a newer change.
  * Deleted notes leave no row, so a note deleted here comes back if the file still has it.
+ * Community votes are the exception: one per month and final, so a month this phone already voted in keeps its
+ * vote whatever the file says; only months with no vote here are added.
  */
 fun mergeBackup(existing: BackupTables, incoming: BackupTables): MergeResult {
     val marks = pick(existing.verseMarks, incoming.verseMarks, { Triple(it.bookId, it.chapter, it.verse) }, { it.updatedAt })
@@ -41,6 +43,8 @@ fun mergeBackup(existing: BackupTables, incoming: BackupTables): MergeResult {
     val days = pick(existing.planDayProgress, incoming.planDayProgress, { it.enrollmentId to it.dayNumber }, { it.updatedAt })
     val custom = pick(existing.customPlans, incoming.customPlans, { it.id }, { it.updatedAt })
     val devotionals = pick(existing.devotionalProgress, incoming.devotionalProgress, { it.readFor }, { it.updatedAt })
+    val votedHere = existing.communityVotes.map { it.month }.toSet()
+    val votes = incoming.communityVotes.filter { it.month !in votedHere }
 
     val write = BackupTables(
         verseMarks = marks.written,
@@ -52,6 +56,7 @@ fun mergeBackup(existing: BackupTables, incoming: BackupTables): MergeResult {
         planDayProgress = days.written,
         customPlans = custom.written,
         devotionalProgress = devotionals.written,
+        communityVotes = votes,
     )
     val summary = ImportSummary(
         notesAdded = notes.added.size,

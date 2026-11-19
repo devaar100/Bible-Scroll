@@ -45,6 +45,9 @@ sealed interface PlanReaderUiState {
     @Immutable
     data class Ready(
         val enrollmentId: String,
+        /** The plan's id and the version of the copy saved when it was started (sent with "Report a problem"). */
+        val planId: String,
+        val planContentVersion: String,
         val planTitle: String,
         val dayNumber: Int,
         val totalDays: Int,
@@ -113,6 +116,8 @@ class PlanReaderViewModel internal constructor(
         val next = (1..detail.plan.totalDays).firstOrNull { it !in detail.done && it != route.dayNumber }
         PlanReaderUiState.Ready(
             enrollmentId = route.enrollmentId,
+            planId = detail.file.id,
+            planContentVersion = detail.file.contentVersion,
             planTitle = detail.plan.title,
             dayNumber = route.dayNumber,
             totalDays = detail.plan.totalDays,

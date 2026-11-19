@@ -281,7 +281,7 @@
     <string name="study_original_aramaic">The Aramaic, word by word</string>
     <string name="study_original_greek">The Greek, word by word</string>
     <string name="study_cross_references">Cross references</string>
-    <string name="study_open_reference">Read in the Bible</string>
+    <string name="study_open_reference">Go to verse</string>
     <string name="study_reference_note">On “%1$s”</string>
     <string name="study_sources">Sources</string>
     <string name="study_ai_assisted">AI-assisted, checked automatically</string>
@@ -650,4 +650,230 @@
     <string name="streak_day_cd">%1$s: %2$s</string>
     <!-- Shown on studies and Discover cards when the app language isn't English. -->
     <string name="study_english_only">Studies are in English for now.</string>
+
+    <!-- S7 Help & feedback -->
+    <string name="help_title">Help &amp; feedback</string>
+    <string name="help_summary">Report a problem, send feedback, common questions</string>
+    <string name="help_report_summary">Something wrong in a study, devotional, plan or the app</string>
+    <string name="help_feedback">Send feedback</string>
+    <string name="help_feedback_summary">Ideas, praise or anything else</string>
+    <string name="help_faq_header">Common questions</string>
+    <string name="help_expanded">Expanded</string>
+    <string name="help_collapsed">Collapsed</string>
+    <string name="help_q_reading">How do I read and move between verses?</string>
+    <string name="help_a_reading">Swipe up for the next verse and down for the previous one. Tap the book name at the top to jump to a book and chapter; “Continue” picks up where you left off in that book. Double-tap a verse to like it, or press and hold to copy it.</string>
+    <string name="help_q_likes">Where do my likes and notes go?</string>
+    <string name="help_a_likes">Use the heart and note buttons beside a verse. Everything you like, bookmark or write is in Home → Your library, and it’s saved on this phone only.</string>
+    <string name="help_q_translations">Which translations are there?</string>
+    <string name="help_a_translations">The World English Bible (WEB) and the King James Version (KJV) are built in and work offline. Tap the translation name at the top of the feed to switch. Verse actions → Compare versions shows a verse in every translation.</string>
+    <string name="help_q_studies">What does “AI-assisted” mean on a study?</string>
+    <string name="help_a_studies">Each study was written once with help from an AI model, using openly licensed sources (original-language word data and cross-reference lists) that are named at the end of the study. Every study is checked automatically, and studies marked “reviewed by a person” were also read by someone. Nothing is generated while you read. To turn studies off, go to Settings → General → Hide AI studies. If something looks wrong, use Report a problem.</string>
+    <string name="help_q_backup">How do I keep my data when I change phones?</string>
+    <string name="help_a_backup">If Google backup is turned on in your phone’s settings, Android may restore your notes, likes, plans and settings on a new phone. To be sure, go to Settings → Data &amp; backup → Export my data, move the file to the new phone and choose Import there.</string>
+    <string name="help_q_reminders">How do reminders and the widget work?</string>
+    <string name="help_a_reminders">Turn on a daily reminder and pick its time in Settings → Notifications. For the home screen widget, open Verse actions on any verse and choose Set as widget verse; you can keep that verse or show the Verse of the Day, which changes just after midnight.</string>
+    <string name="help_q_privacy">What do you know about me?</string>
+    <string name="help_a_privacy">Nothing. There’s no account, no ads and no analytics. Your notes, likes and settings stay on your phone. The app only goes online to download study and devotional files, without anything that identifies you. Reports and feedback are emails you send yourself, so we only see your email address if you send one.</string>
+
+    <!-- Report a problem sheet (S7, studies, devotional reader, plan reader) -->
+    <string name="report_title">Report a problem</string>
+    <string name="report_question">What’s wrong?</string>
+    <string name="report_type_factual">Factual error</string>
+    <string name="report_type_unfair">Unfair or one-sided</string>
+    <string name="report_type_offensive">Offensive or inappropriate</string>
+    <string name="report_type_wrong_text">Wrong verse or translation text</string>
+    <string name="report_type_app_bug">App bug</string>
+    <string name="report_type_other">Something else</string>
+    <string name="report_note_label">Add a note (optional)</string>
+    <!-- Characters typed / maximum, e.g. "120/1500" -->
+    <string name="report_note_counter">%1$d/%2$d</string>
+    <string name="report_privacy">Your email will show us your address. We may use your report to correct the content.</string>
+    <string name="report_send">Open email</string>
+    <string name="report_cancel">Cancel</string>
+    <string name="report_no_email_title">No email app found</string>
+    <!-- %1$s = support email address -->
+    <string name="report_no_email_body">Copy this text and email it to %1$s from any email account.</string>
+    <string name="report_address_label">Send to</string>
+    <string name="report_copy">Copy text</string>
+    <string name="report_copied">Report copied</string>
+    <string name="report_close">Close</string>
+
+    <!-- Community (C1 monthly spotlight vote, C2 past spotlights) -->
+    <string name="community_intro">Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.</string>
+    <!-- %1$s = month and year, e.g. "December 2026" -->
+    <string name="community_round_title">%1$s spotlight</string>
+    <!-- %1$s = local date and time, e.g. "Dec 31, 2026, 6:00 PM" -->
+    <string name="community_open_until">Voting is open until %1$s</string>
+    <string name="community_vote">Vote</string>
+    <string name="community_vote_cd">Vote for %1$s</string>
+    <string name="community_website">Website</string>
+    <string name="community_website_cd">%1$s website</string>
+    <string name="community_give">Give directly</string>
+    <string name="community_give_cd">Give to %1$s directly</string>
+    <string name="community_no_money">The app handles no money. Giving happens on each ministry’s own website.</string>
+    <string name="community_confirm_title">Vote for %1$s?</string>
+    <string name="community_confirm_body">Your vote is anonymous and can’t be changed this month.</string>
+    <string name="community_confirm_vote">Vote</string>
+    <string name="community_confirm_cancel">Cancel</string>
+    <string name="community_pick_counted">You voted for %1$s. Thank you.</string>
+    <string name="community_pick_pending">You voted for %1$s. It will be sent when you’re online.</string>
+    <string name="community_pick_not_counted">Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.</string>
+    <string name="community_your_pick">Your pick</string>
+    <plurals name="community_votes">
+        <item quantity="one">%1$d vote</item>
+        <item quantity="other">%1$d votes</item>
+    </plurals>
+    <string name="community_no_spotlight_title">No spotlight right now</string>
+    <string name="community_no_spotlight_body">When the next monthly vote opens, it will be here.</string>
+    <string name="community_unavailable">The spotlight list couldn’t be loaded. Check your connection and try again.</string>
+    <string name="community_retry">Try again</string>
+    <string name="community_past_title">Past spotlights</string>
+    <string name="community_most_votes">Most votes</string>
+    <string name="community_totals_offline">Totals need a connection.</string>
+    <string name="community_result_counted">Thanks! Your vote was counted.</string>
+    <string name="community_result_pending">Saved. Your vote will be sent when you’re online.</string>
+    <string name="community_result_refused">This month’s vote isn’t taking votes right now. Try again later.</string>
+    <string name="community_result_closed">Voting for this month has closed.</string>
+    <string name="community_result_already">You’ve already voted this month.</string>
+    <string name="community_open_failed">Couldn’t open the page.</string>
+
+    <!-- B8 Verse study (feed), word sheet, Hide AI view -->
+    <string name="actions_study">Study this verse</string>
+    <string name="study_section_ai">AI-assisted</string>
+    <string name="study_hidden_data_note">AI-written sections are hidden. Showing the original language, cross references and sources.</string>
+    <string name="study_save_study">Save study</string>
+    <string name="study_study_saved">Study saved</string>
+    <string name="study_word_details">Word details</string>
+    <!-- TalkBack for a word chip: %1$s = transliteration, %2$s = meaning here -->
+    <string name="study_word_cd">%1$s: %2$s</string>
+    <string name="study_word_lemma">Dictionary form</string>
+    <string name="study_word_transliteration">Pronunciation</string>
+    <string name="study_word_gloss">Meaning here</string>
+    <string name="study_word_morphology">Grammar code</string>
+    <string name="study_word_strongs">Strong’s number</string>
+    <!-- A study's source: %1$s = dataset, %2$s = licence, e.g. "OpenBible.info (CC BY 4.0)" -->
+    <string name="study_citation">%1$s (%2$s)</string>
+
+    <!-- Privacy (S8 Privacy and web/privacy/, generated from these strings by tools/build_privacy_page.py).
+         Source of truth: docs/privacy-inventory.md. Never say data "never leaves" the phone. -->
+    <string name="privacy_title">Privacy</string>
+    <!-- %1$s = date, e.g. "18 November 2026" -->
+    <string name="privacy_updated">Last updated: %1$s</string>
+    <string name="privacy_intro">We don’t track you. There’s no account, no ads and no analytics, and the app contains no tracking or crash-reporting code. This page explains what the app keeps on your phone and the few things that leave it.</string>
+    <string name="privacy_on_phone_title">What stays on your phone</string>
+    <string name="privacy_on_phone">Your notes, likes, bookmarks, reading plans, reading progress, streak, Community vote and settings are stored in the app on this phone. We can’t see them.</string>
+    <string name="privacy_leaves_title">What leaves your phone</string>
+    <string name="privacy_leaves_content">Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</string>
+    <string name="privacy_leaves_vote">Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.</string>
+    <string name="privacy_leaves_email">Emails you choose to send: Report a problem and Send feedback open your own email app with a message you can read and change first. Nothing is sent unless you send it. If you do, we see your email address and what you wrote, and we may use it to correct the content.</string>
+    <string name="privacy_leaves_links">Links you open: a ministry’s Website and Give directly buttons open its page in your browser. That site’s own privacy policy applies. The app handles no money.</string>
+    <string name="privacy_android_title">What Android and Google Play do</string>
+    <string name="privacy_android_backup">If backup is turned on in your phone’s settings, Android may save a copy of your notes, plans and settings to your own Google account. On Android 12 and later, the app allows this only when Android can encrypt the backup end to end, which needs a screen lock. If you use Export my data, the file goes wherever you save it.</string>
+    <string name="privacy_android_crashes">If you let your phone share usage and diagnostics with Google, Google Play may send us crash statistics. The app has no crash-reporting code of its own.</string>
+    <string name="privacy_delete_title">Deleting your data</string>
+    <string name="privacy_delete">Uninstalling the app, or clearing its data, deletes everything it stored on this phone. A backup in your Google account follows your Google account settings. Community votes can’t be deleted because they aren’t linked to anyone. To ask us to delete an email you sent, write to us.</string>
+    <string name="privacy_contact_title">Contact</string>
+    <!-- %1$s = support email address -->
+    <string name="privacy_contact">Questions about privacy: %1$s</string>
+    <string name="privacy_changes">If this changes, we’ll update this page and the app before the change takes effect.</string>
+
+    <!-- S8 Legal -->
+    <string name="legal_title">Legal</string>
+    <string name="legal_summary">Privacy, licences and sources</string>
+    <string name="legal_translations">Scripture translations</string>
+    <string name="legal_licence">Licence</string>
+    <string name="legal_attribution">Attribution</string>
+    <string name="legal_sources">Study sources</string>
+    <string name="legal_source_step" translatable="false">Hebrew and Greek data: STEP Bible (www.STEPBible.org), based on work at Tyndale House Cambridge. CC BY 4.0. Source: STEPBible.github.io/STEPBible-Data. Modified (reformatted, re-versified to KJV).</string>
+    <string name="legal_source_openbible" translatable="false">Cross references: OpenBible.info (www.openbible.info/labs/cross-references), CC BY 4.0. Modified (re-versified to KJV).</string>
+    <string name="legal_source_tsk" translatable="false">Treasury of Scripture Knowledge (c. 1880), public domain; digital edition by CrossWire Bible Society.</string>
+    <string name="legal_source_lexicons">Word meanings come from the STEP Bible tagged Hebrew and Greek texts above. A few dictionary forms come from STEP Bible’s brief lexicons (TBESH, TBESG; CC BY 4.0). No lexicon definitions are included.</string>
+    <string name="legal_studies_title">How studies are made</string>
+    <string name="legal_studies_body">Each study was written once by an AI model (Anthropic’s Claude) from the sources above: the original-language data and cross references come from those datasets, not from the AI. Every study is checked automatically, partly by a second AI model. Studies are not individually reviewed by a person unless they say “reviewed by a person”. If something looks wrong, please tell us.</string>
+    <string name="legal_fonts">Fonts</string>
+    <string name="legal_font_literata" translatable="false">Literata. Copyright 2017 The Literata Project Authors. SIL Open Font License 1.1.</string>
+    <string name="legal_font_inter" translatable="false">Inter. Copyright 2016 The Inter Project Authors. SIL Open Font License 1.1.</string>
+    <string name="legal_libraries">Open-source libraries</string>
+    <plurals name="legal_libraries_count">
+        <item quantity="one">This app uses %1$d open-source library.</item>
+        <item quantity="other">This app uses %1$d open-source libraries.</item>
+    </plurals>
+    <string name="legal_libraries_unavailable">The library list isn’t available in this build.</string>
+    <string name="legal_licence_texts">Licence texts</string>
+    <string name="legal_versions">App and content</string>
+    <string name="legal_app_version">App version: %1$s</string>
+    <string name="legal_content_release">Study content release: %1$s</string>
+    <string name="legal_content_none">Study content: not downloaded yet</string>
+    <plurals name="legal_study_books">
+        <item quantity="one">Studies on this phone: %1$d book</item>
+        <item quantity="other">Studies on this phone: %1$d books</item>
+    </plurals>
+    <string name="legal_bible_db">Bible text database: version %1$d</string>
+    <string name="legal_contact">Contact</string>
+    <string name="legal_close">Close</string>
+
+    <!-- S5 Widget guide -->
+    <string name="widget_guide_title">Widget guide</string>
+    <string name="widget_guide_summary">Put a verse on your home screen</string>
+    <string name="widget_guide_intro">The Verse widget shows a verse on your home screen. Tap it to open that verse in the app.</string>
+    <string name="widget_guide_fixed_body">Shows the verse you choose until you change it. In the Bible feed, open Verse actions and choose Set as widget verse.</string>
+    <string name="widget_guide_votd_body">Shows the Verse of the Day, which changes just after midnight. Choose it from the Verse of the Day card on Home, or under Set as widget verse.</string>
+    <!-- %1$s = "A fixed verse" or "Verse of the Day" -->
+    <string name="widget_guide_current">Your widget is set to: %1$s</string>
+    <string name="widget_guide_preview">Preview</string>
+    <string name="widget_guide_placed">Your widget is on your home screen.</string>
+    <string name="widget_guide_manual_title">Add it yourself</string>
+    <string name="widget_guide_step1">Touch and hold an empty spot on your home screen.</string>
+    <string name="widget_guide_step2">Tap Widgets.</string>
+    <!-- %1$s = app name -->
+    <string name="widget_guide_step3">Find %1$s, then touch and hold the Verse widget and drag it onto your home screen.</string>
+
+    <!-- S7 Privacy row -->
+    <string name="help_privacy_summary">What the app keeps on your phone, and what leaves it</string>
+    <!-- Licence names (proper names, not translated) -->
+    <string name="legal_text_apache" translatable="false">Apache License 2.0</string>
+    <string name="legal_text_protobuf" translatable="false">BSD 3-Clause License (Protocol Buffers, Google)</string>
+    <string name="legal_text_literata" translatable="false">SIL Open Font License 1.1 (Literata)</string>
+    <string name="legal_text_inter" translatable="false">SIL Open Font License 1.1 (Inter)</string>
+    <!-- Numbered step, e.g. "1." -->
+    <string name="widget_guide_step_number">%1$d.</string>
+    <!-- TalkBack for the widget preview: %1$s = verse text, %2$s = reference and translation -->
+    <string name="widget_guide_preview_cd">Widget preview: %1$s, %2$s</string>
+
+    <!-- H1 Today's Reading (calm: no "behind", no guilt) -->
+    <string name="home_todays_reading">Today’s reading</string>
+    <!-- Pager position for TalkBack: "2 of 3" -->
+    <string name="home_reading_page_of">%1$d of %2$d</string>
+    <plurals name="home_plan_finished">
+        <item quantity="one">You read the whole plan, %1$d day. Well done.</item>
+        <item quantity="other">You read all %1$d days. Well done.</item>
+    </plurals>
+    <!-- %1$s = date -->
+    <string name="home_plan_starts">Starts %1$s</string>
+    <string name="home_plan_caught_up">You’re up to date. The next day is here if you’d like to read ahead.</string>
+    <string name="home_plan_day_of">Day %1$d of %2$d</string>
+    <plurals name="home_plan_minutes">
+        <item quantity="one">About %1$d minute</item>
+        <item quantity="other">About %1$d minutes</item>
+    </plurals>
+    <string name="home_plan_read_day">Read now</string>
+    <string name="home_plan_read_ahead">Read ahead</string>
+    <string name="home_plan_preview">Take a look</string>
+    <string name="home_plan_look_back">Look back</string>
+    <string name="home_continue_title">Continue reading</string>
+    <string name="home_continue_action">Open in the Bible</string>
+    <string name="home_start_title">Start reading</string>
+    <string name="home_start_body">Open the Bible and swipe up for the next verse.</string>
+    <string name="home_start_action">Open the Bible</string>
+
+    <!-- H1 Verse Search -->
+    <string name="home_verse_search">Find a verse</string>
+    <string name="home_wheel_book">Book</string>
+    <string name="home_wheel_chapter">Chapter</string>
+    <string name="home_wheel_verse">Verse</string>
+    <!-- TalkBack for a wheel: %1$s = "Book", %2$s = current value -->
+    <string name="home_wheel_cd">%1$s: %2$s</string>
+    <string name="home_wheel_previous">Previous</string>
+    <string name="home_wheel_next">Next</string>
+    <string name="home_verse_search_read">Read</string>
 </resources>

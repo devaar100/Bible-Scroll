@@ -1,6 +1,8 @@
 package aarnav100.developer.biblescroll.data.user
 
 import aarnav100.developer.biblescroll.data.backup.BackupDao
+import aarnav100.developer.biblescroll.data.community.CommunityVoteDao
+import aarnav100.developer.biblescroll.data.community.CommunityVoteEntity
 import aarnav100.developer.biblescroll.data.devotionals.DevotionalProgressDao
 import aarnav100.developer.biblescroll.data.devotionals.DevotionalProgressEntity
 import aarnav100.developer.biblescroll.data.plans.CustomPlanDao
@@ -19,7 +21,7 @@ import androidx.room.RoomDatabase
     entities = [
         VerseMarkEntity::class, ReadingPositionEntity::class, ChapterReadEntity::class, NoteEntity::class,
         StreakDayEntity::class, PlanEnrollmentEntity::class, PlanDayProgressEntity::class,
-        CustomPlanEntity::class, DevotionalProgressEntity::class,
+        CustomPlanEntity::class, DevotionalProgressEntity::class, CommunityVoteEntity::class,
     ],
     version = UserDatabase.VERSION,
     exportSchema = true,
@@ -32,6 +34,7 @@ import androidx.room.RoomDatabase
         AutoMigration(from = 6, to = 7), // adds plan_enrollments and plan_day_progress (H8-H10)
         AutoMigration(from = 7, to = 8), // adds custom_plans (H13/H14)
         AutoMigration(from = 8, to = 9), // adds devotional_progress (H16)
+        AutoMigration(from = 9, to = 10), // adds community_votes (C1)
     ],
 )
 abstract class UserDatabase : RoomDatabase() {
@@ -40,6 +43,7 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun planProgressDao(): PlanProgressDao
     abstract fun customPlanDao(): CustomPlanDao
     abstract fun devotionalProgressDao(): DevotionalProgressDao
+    abstract fun communityVoteDao(): CommunityVoteDao
     abstract fun backupDao(): BackupDao
 
     companion object {
@@ -49,6 +53,6 @@ abstract class UserDatabase : RoomDatabase() {
          * Bump with every schema change, and add the new table or column to data/backup/BackupFormat.kt:
          * ExportCoversSchemaTest fails until export covers the latest exported schema.
          */
-        const val VERSION = 9
+        const val VERSION = 10
     }
 }

@@ -6,6 +6,8 @@ import aarnav100.developer.biblescroll.data.settings.AppLanguage
 import aarnav100.developer.biblescroll.data.reminder.ReminderNotifier
 import aarnav100.developer.biblescroll.data.reminder.ReminderScheduler
 import aarnav100.developer.biblescroll.widget.WidgetVerseRepository
+import aarnav100.developer.biblescroll.data.community.CommunityRepository
+import aarnav100.developer.biblescroll.data.community.CommunityVoteWorker
 import aarnav100.developer.biblescroll.core.content.BundledContent
 import aarnav100.developer.biblescroll.core.content.BundledDevotionals
 import aarnav100.developer.biblescroll.core.content.work.StudyRefreshWorker
@@ -32,6 +34,7 @@ class BibleScrollApplication : Application(), Configuration.Provider {
     @Inject lateinit var bundledDevotionals: BundledDevotionals
     @Inject lateinit var planImporter: PlanImporter
     @Inject lateinit var widgetVerses: WidgetVerseRepository
+    @Inject lateinit var community: CommunityRepository
     @Inject lateinit var workerFactory: HiltWorkerFactory
 
     /** WorkManager is initialised on demand with Hilt's factory (default initializer removed in the manifest). */
@@ -64,6 +67,14 @@ class BibleScrollApplication : Application(), Configuration.Provider {
                 widgetVerses.syncMidnightUpdate()
             } catch (e: Exception) {
                 Log.e("BibleScrollApp", "Couldn't arm the Verse of the Day widget redraw", e)
+            }
+        }
+        // Community votes saved while offline: send them once there's a network (WorkManager).
+        appScope.launch {
+            try {
+                if (community.hasPending()) CommunityVoteWorker.schedule(this@BibleScrollApplication)
+            } catch (e: Exception) {
+                Log.e("BibleScrollApp", "Couldn't check for unsent Community votes", e)
             }
         }
         // First launch after Android restored a backup: fix settings that point at missing data.

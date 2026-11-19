@@ -175,6 +175,20 @@ class UserDatabaseMigrationTest {
         }
     }
 
+    @Test
+    fun migrate9To10AddsCommunityVotesAndKeepsDevotionals() {
+        helper.createDatabase(TEST_DB, 9).use { db ->
+            db.execSQL("INSERT INTO devotional_progress (read_for, devotional_id, content_version, finished_at, updated_at) VALUES ('2026-11-18', 'devotional-11-18', 'v', 1, 1)")
+        }
+        helper.runMigrationsAndValidate(TEST_DB, 10, true, *USER_DB_MIGRATIONS).use { db ->
+            db.query("SELECT COUNT(*) FROM devotional_progress").use { it.moveToFirst(); assertEquals(1, it.getInt(0)) }
+            db.execSQL("INSERT INTO community_votes (month, ministry_id, voted_at, sent, updated_at) VALUES ('2026-12', 'river', 1, 0, 1)")
+            // One vote per month: the month is the primary key.
+            db.execSQL("INSERT OR IGNORE INTO community_votes (month, ministry_id, voted_at, sent, updated_at) VALUES ('2026-12', 'harbor', 2, 0, 2)")
+            db.query("SELECT ministry_id FROM community_votes").use { it.moveToFirst(); assertEquals("river", it.getString(0)); assertEquals(1, it.count) }
+        }
+    }
+
     private companion object {
         const val TEST_DB = "user-migration-test.db"
     }

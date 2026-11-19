@@ -21,6 +21,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.MenuBook
 import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.School
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -53,6 +54,7 @@ fun VerseOfTheDayCard(
     onShareImage: () -> Unit,
     onSetWidget: () -> Unit,
     onCopy: () -> Unit,
+    onStudy: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val jesusColor = BibleScrollTheme.extendedColors.wordsOfJesus
@@ -62,6 +64,7 @@ fun VerseOfTheDayCard(
     val shareLabel = stringResource(R.string.actions_share_image)
     val widgetLabel = stringResource(R.string.actions_widget_verse)
     val copyLabel = stringResource(R.string.feed_copy)
+    val studyLabel = stringResource(R.string.actions_study)
     val fallback = if (votd.fellBack) {
         stringResource(R.string.votd_fallback, votd.requestedTranslationId, votd.verse.translationId)
     } else {
@@ -81,6 +84,7 @@ fun VerseOfTheDayCard(
                     contentDescription = spoken
                     customActions = listOf(
                         CustomAccessibilityAction(readLabel) { onReadInContext(); true },
+                        CustomAccessibilityAction(studyLabel) { onStudy(); true },
                         CustomAccessibilityAction(shareLabel) { onShareImage(); true },
                         CustomAccessibilityAction(widgetLabel) { onSetWidget(); true },
                         CustomAccessibilityAction(copyLabel) { onCopy(); true },
@@ -123,6 +127,7 @@ fun VerseOfTheDayCard(
             Spacer(Modifier.height(4.dp))
             FlowRow(Modifier.fillMaxWidth()) {
                 CardAction(Icons.AutoMirrored.Outlined.MenuBook, readLabel, onReadInContext)
+                CardAction(Icons.Outlined.School, studyLabel, onStudy)
                 CardAction(Icons.Outlined.Image, shareLabel, onShareImage)
                 CardAction(Icons.Outlined.Widgets, widgetLabel, onSetWidget)
                 CardAction(Icons.Outlined.ContentCopy, copyLabel, onCopy)

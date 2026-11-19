@@ -1,5 +1,12 @@
 package aarnav100.developer.biblescroll.feature.plans
 
+import aarnav100.developer.biblescroll.feature.report.ContentType
+import aarnav100.developer.biblescroll.feature.report.ReportContext
+import aarnav100.developer.biblescroll.feature.report.ReportProblemSheet
+import androidx.compose.material.icons.outlined.Flag
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import aarnav100.developer.biblescroll.ui.text.localizedList
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.bible.model.Verse
@@ -122,6 +129,7 @@ private fun ReaderContent(
         }
     }
     val pagerState = rememberPagerState { s.pages.size }
+    var reporting by rememberSaveable { mutableStateOf(false) }
     Box(Modifier.fillMaxSize()) {
         VerticalPager(state = pagerState, beyondViewportPageCount = 1, key = { it }, modifier = Modifier.fillMaxSize()) { index ->
             when (val page = s.pages[index]) {
@@ -156,6 +164,24 @@ private fun ReaderContent(
             modifier = Modifier.align(Alignment.TopCenter).padding(top = 16.dp),
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
+        IconButton(onClick = { reporting = true }, modifier = Modifier.align(Alignment.TopEnd).padding(4.dp)) {
+            Icon(Icons.Outlined.Flag, contentDescription = stringResource(R.string.report_title))
+        }
+    }
+    if (reporting) {
+        // On a verse, name it: a wrong-verse report then says which one. Otherwise the plan and day.
+        val verse = (s.pages.getOrNull(pagerState.currentPage) as? ReaderPage.VersePage)?.verse
+        val where = verse?.reference(s.bookNames) ?: stringResource(R.string.plans_reader_day, s.dayNumber, s.totalDays)
+        ReportProblemSheet(
+            ReportContext(
+                contentType = ContentType.PLAN,
+                contentId = "${s.planId} day ${s.dayNumber}",
+                reference = stringResource(R.string.two_parts, s.planTitle, where),
+                translationId = s.translationId,
+                contentVersion = s.planContentVersion,
+            ),
+            onDismiss = { reporting = false },
+        )
     }
 
     VerseSheets(viewModel = sheetsViewModel, bookNames = s.bookNames, screenSnackbar = snackbar, copyAndConfirm = copyAndConfirm)

@@ -30,6 +30,9 @@ interface UserDataRepository {
     /** Most recently read verse across all books, or null on first launch. */
     suspend fun lastReadingPosition(): VerseRef?
 
+    /** The latest reading place in any book, live (H1 Today's Reading → Continue reading). */
+    fun observeLastReadingPosition(): Flow<VerseRef?>
+
     /** Where the reader last was in [bookId], or null if they haven't read it yet. */
     suspend fun readingPosition(bookId: Int): VerseRef?
     fun observeReadingPosition(bookId: Int): Flow<VerseRef?>
@@ -95,6 +98,8 @@ class LocalUserDataRepository internal constructor(
     override suspend fun deleteNote(ref: VerseRef) = dao.deleteNote(ref.bookId, ref.chapter, ref.verse)
 
     override suspend fun lastReadingPosition() = dao.latestPosition()?.toRef()
+
+    override fun observeLastReadingPosition() = dao.observeLatestPosition().map { it?.toRef() }.distinctUntilChanged()
 
     override suspend fun readingPosition(bookId: Int) = dao.positionForBook(bookId)?.toRef()
 

@@ -1,9 +1,16 @@
 package aarnav100.developer.biblescroll.feature.discover
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import aarnav100.developer.biblescroll.feature.report.ContentType
+import aarnav100.developer.biblescroll.feature.report.ReportContext
+import aarnav100.developer.biblescroll.feature.report.ReportProblemSheet
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.core.content.StudyState
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
-import aarnav100.developer.biblescroll.feature.study.StudyBody
+import aarnav100.developer.biblescroll.feature.study.StudyStateContent
 import aarnav100.developer.biblescroll.feature.study.StudyVerseHeader
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,12 +31,10 @@ import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.CheckCircle
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconToggleButton
-import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -37,13 +42,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -62,6 +64,20 @@ fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltVie
         viewModel.readInContext(target)
     }
     val available = state.study is StudyState.Available && !state.hidden
+    var reporting by rememberSaveable { mutableStateOf(false) }
+    (state.study as? StudyState.Available)?.study?.takeIf { reporting }?.let { study ->
+        ReportProblemSheet(
+            ReportContext(
+                contentType = ContentType.STUDY,
+                contentId = study.id,
+                reference = reference,
+                translationId = state.translationId,
+                contentVersion = study.contentVersion,
+                promptHash = study.promptVersion,
+            ),
+            onDismiss = { reporting = false },
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -121,64 +137,10 @@ fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltVie
         ) {
             StudyVerseHeader(reference, state.verseText)
             Spacer(Modifier.height(12.dp))
-            when {
-                state.hidden -> StudyMessage(
-                    stringResource(R.string.study_hidden_title), stringResource(R.string.study_hidden_body),
-                    action = stringResource(R.string.study_hidden_show), onAction = viewModel::showStudies,
-                )
-                else -> when (val s = state.study) {
-                    is StudyState.Available -> StudyBody(s.study, state.crossReferences, onOpenReference = readInContext)
-                    is StudyState.Loading -> StudyLoading(s)
-                    is StudyState.NotDownloaded -> when (s.reason) {
-                        StudyState.NotDownloaded.Reason.OFFLINE -> StudyMessage(
-                            stringResource(R.string.study_offline_title),
-                            stringResource(R.string.study_offline_body, state.bookName),
-                        )
-                        StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED -> StudyMessage(
-                            stringResource(R.string.study_failed_title), stringResource(R.string.study_failed_body),
-                            action = stringResource(R.string.study_retry), onAction = viewModel::retry,
-                        )
-                    }
-                    is StudyState.Unavailable -> when (s.reason) {
-                        StudyState.Unavailable.Reason.NO_STUDY -> StudyMessage(
-                            stringResource(R.string.study_none_title), stringResource(R.string.study_none_body),
-                        )
-                        StudyState.Unavailable.Reason.APP_UPDATE_REQUIRED -> StudyMessage(
-                            stringResource(R.string.study_update_title), stringResource(R.string.study_update_body),
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun StudyLoading(state: StudyState.Loading) {
-    Column(Modifier.fillMaxWidth().padding(vertical = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        val fraction = state.progress?.fraction
-        if (state.progress == null) {
-            CircularProgressIndicator()
-        } else {
-            Text(stringResource(R.string.study_downloading), style = MaterialTheme.typography.bodyMedium)
-            Spacer(Modifier.height(12.dp))
-            if (fraction != null) LinearProgressIndicator(progress = { fraction }, modifier = Modifier.fillMaxWidth())
-            else LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        }
-    }
-}
-
-/** A calm, explained state (offline, hidden, nothing yet) with an optional action. Never an error screen. */
-@Composable
-fun StudyMessage(title: String, body: String, action: String? = null, onAction: () -> Unit = {}) {
-    Column(Modifier.fillMaxWidth().padding(vertical = 24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(title, style = MaterialTheme.typography.titleMedium, textAlign = TextAlign.Center)
-        Spacer(Modifier.height(8.dp))
-        Text(body, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center)
-        if (action != null) {
-            Spacer(Modifier.height(16.dp))
-            Button(onClick = onAction) { Text(action) }
+            StudyStateContent(
+                state, dataOnlyWhenHidden = false, onRetry = viewModel::retry, onShowStudies = viewModel::showStudies,
+                onOpenReference = readInContext, onReport = { reporting = true },
+            )
         }
     }
 }

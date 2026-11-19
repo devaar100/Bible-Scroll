@@ -2,6 +2,18 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-18: Community vote (Session 33)
+
+### 16. An anonymous, add-only counter: "+1 for ministry X in month M"
+Each vote is one Firestore REST commit with an increment-by-1 transform on `community_votes/{YYYY-MM_ministryId}`. No account, no Auth, no App Check, no Firebase SDK, no identifier of any kind; the phone remembers its own pick in user.db (`community_votes`). Rules (`backend/firestore.rules`, emulator-tested) allow only `count` to change, only by exactly +1, only between `opensAt` and `closesAt`; clients can't create or delete. Months are UTC; the app shows them in local time and blocks voting outside the window, the server enforces it.
+**Accepted trade-offs:**
+- One vote per month **per install**, not per person: clearing data or reinstalling allows a new vote, and nothing server-side can tell. Fine for a "spotlight", not for anything with money attached.
+- A vote whose request reached the server but whose reply was lost is retried and counted twice. Rare; accepted rather than adding a request id (an identifier).
+- Without Auth or App Check, anyone can send +1s outside the app (one per request). The rules stop resets, decrements and big jumps, not repetition.
+- Votes are final: rules forbid decrements, so the app has no "change my vote". Import (S9) never replaces a month this phone already voted in.
+**Why:** keeps the "no account, no tracking" promise while letting readers pick which ministry is featured; the app handles no money ("Give directly" opens the ministry's own page).
+**Revisit if:** counts look manipulated (rate-limit via a Cloud Function or App Check, and update docs/network-calls.md), or the spotlight ever drives money decisions.
+
 ## 2026-11-18: Verse of the Day (H1)
 
 ### 14. One curated verse per local month-day, same for everyone

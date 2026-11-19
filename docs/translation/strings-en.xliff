@@ -4,7 +4,7 @@
     <body>
       <trans-unit id="app_name" resname="app_name">
         <source>Bible Scroll</source>
-        <note from="where">App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S6 Settings → Notifications</note>
+        <note from="where">App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S1-S4 Settings; S6 Settings → Notifications</note>
         <note from="developer">Brand name: keep as is.</note>
       </trans-unit>
       <trans-unit id="tab_community" resname="tab_community">
@@ -406,7 +406,7 @@
       </trans-unit>
       <trans-unit id="widget_mode_fixed" resname="widget_mode_fixed">
         <source>A fixed verse</source>
-        <note from="where">B11 Set as widget verse dialog</note>
+        <note from="where">B11 Set as widget verse dialog; S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="widget_mode_fixed_detail" resname="widget_mode_fixed_detail">
         <source>%1$s, until you change it</source>
@@ -433,7 +433,7 @@
       </trans-unit>
       <trans-unit id="widget_add_to_home" resname="widget_add_to_home">
         <source>Add to home screen</source>
-        <note from="where">B11 Set as widget verse dialog</note>
+        <note from="where">B11 Set as widget verse dialog; S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="widget_cancel" resname="widget_cancel">
         <source>Cancel</source>
@@ -445,7 +445,7 @@
       </trans-unit>
       <trans-unit id="votd_title" resname="votd_title">
         <source>Verse of the Day</source>
-        <note from="where">B11 Set as widget verse dialog; H1 Home tab; Home-screen widget</note>
+        <note from="where">B11 Set as widget verse dialog; H1 Home tab; Home-screen widget; S1-S4 Settings</note>
         <note from="developer">Verse of the Day (H1 Home card, widget)</note>
       </trans-unit>
       <trans-unit id="votd_read_in_context" resname="votd_read_in_context">
@@ -953,7 +953,7 @@
       </trans-unit>
       <trans-unit id="study_close" resname="study_close">
         <source>Close study</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study; D2 Deep study page</note>
         <note from="developer">B8/D2 study</note>
       </trans-unit>
       <trans-unit id="study_mark_studied" resname="study_mark_studied">
@@ -1021,7 +1021,7 @@
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_open_reference" resname="study_open_reference">
-        <source>Read in the Bible</source>
+        <source>Go to verse</source>
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_reference_note" resname="study_reference_note">
@@ -1043,56 +1043,56 @@
       </trans-unit>
       <trans-unit id="study_downloading" resname="study_downloading">
         <source>Downloading studies for this book…</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_offline_title" resname="study_offline_title">
         <source>Not available offline</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_offline_body" resname="study_offline_body">
         <source>Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="study_failed_title" resname="study_failed_title">
         <source>Couldn\'t download this study</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_failed_body" resname="study_failed_body">
         <source>Something went wrong on the way. Try again in a moment.</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_retry" resname="study_retry">
         <source>Try again</source>
-        <note from="where">D1 Discover tab; D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="study_none_title" resname="study_none_title">
         <source>No study for this verse yet</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_none_body" resname="study_none_body">
         <source>Studies are being written and checked a few books at a time.</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_update_title" resname="study_update_title">
         <source>Update the app to read this study</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_update_body" resname="study_update_body">
         <source>This study uses a newer format than your version of the app.</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_hidden_title" resname="study_hidden_title">
         <source>Studies are hidden</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_hidden_body" resname="study_hidden_body">
         <source>You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_hidden_show" resname="study_hidden_show">
         <source>Show studies again</source>
-        <note from="where">D1 Discover tab; D2 Deep study page</note>
+        <note from="where">B8/D2 Verse study; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="discover_read_study" resname="discover_read_study">
         <source>Read the study</source>
@@ -2227,7 +2227,7 @@
       </trans-unit>
       <trans-unit id="two_parts" resname="two_parts">
         <source>%1$s · %2$s</source>
-        <note from="where">B10 Share verse as image; B8/D2 Verse study; H1 Home tab; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
+        <note from="where">B10 Share verse as image; C1 Community tab; H1 Home tab; H11 Plan reader; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
         <note from="developer">Two short labels shown together on one line, e.g. "Dark · Sepia". Change the separator if your language needs.</note>
         <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
       </trans-unit>
@@ -2247,6 +2247,747 @@
         <source>Studies are in English for now.</source>
         <note from="where">B8/D2 Verse study</note>
         <note from="developer">Shown on studies and Discover cards when the app language isn't English.</note>
+      </trans-unit>
+      <trans-unit id="help_title" resname="help_title">
+        <source>Help &amp; feedback</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">S7 Help &amp; feedback</note>
+      </trans-unit>
+      <trans-unit id="help_summary" resname="help_summary">
+        <source>Report a problem, send feedback, common questions</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_report_summary" resname="help_report_summary">
+        <source>Something wrong in a study, devotional, plan or the app</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_feedback" resname="help_feedback">
+        <source>Send feedback</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_feedback_summary" resname="help_feedback_summary">
+        <source>Ideas, praise or anything else</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_faq_header" resname="help_faq_header">
+        <source>Common questions</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_expanded" resname="help_expanded">
+        <source>Expanded</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_collapsed" resname="help_collapsed">
+        <source>Collapsed</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_reading" resname="help_q_reading">
+        <source>How do I read and move between verses?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_reading" resname="help_a_reading">
+        <source>Swipe up for the next verse and down for the previous one. Tap the book name at the top to jump to a book and chapter; “Continue” picks up where you left off in that book. Double-tap a verse to like it, or press and hold to copy it.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_likes" resname="help_q_likes">
+        <source>Where do my likes and notes go?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_likes" resname="help_a_likes">
+        <source>Use the heart and note buttons beside a verse. Everything you like, bookmark or write is in Home → Your library, and it’s saved on this phone only.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_translations" resname="help_q_translations">
+        <source>Which translations are there?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_translations" resname="help_a_translations">
+        <source>The World English Bible (WEB) and the King James Version (KJV) are built in and work offline. Tap the translation name at the top of the feed to switch. Verse actions → Compare versions shows a verse in every translation.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_studies" resname="help_q_studies">
+        <source>What does “AI-assisted” mean on a study?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_studies" resname="help_a_studies">
+        <source>Each study was written once with help from an AI model, using openly licensed sources (original-language word data and cross-reference lists) that are named at the end of the study. Every study is checked automatically, and studies marked “reviewed by a person” were also read by someone. Nothing is generated while you read. To turn studies off, go to Settings → General → Hide AI studies. If something looks wrong, use Report a problem.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_backup" resname="help_q_backup">
+        <source>How do I keep my data when I change phones?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_backup" resname="help_a_backup">
+        <source>If Google backup is turned on in your phone’s settings, Android may restore your notes, likes, plans and settings on a new phone. To be sure, go to Settings → Data &amp; backup → Export my data, move the file to the new phone and choose Import there.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_reminders" resname="help_q_reminders">
+        <source>How do reminders and the widget work?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_reminders" resname="help_a_reminders">
+        <source>Turn on a daily reminder and pick its time in Settings → Notifications. For the home screen widget, open Verse actions on any verse and choose Set as widget verse; you can keep that verse or show the Verse of the Day, which changes just after midnight.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_q_privacy" resname="help_q_privacy">
+        <source>What do you know about me?</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="help_a_privacy" resname="help_a_privacy">
+        <source>Nothing. There’s no account, no ads and no analytics. Your notes, likes and settings stay on your phone. The app only goes online to download study and devotional files, without anything that identifies you. Reports and feedback are emails you send yourself, so we only see your email address if you send one.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="report_title" resname="report_title">
+        <source>Report a problem</source>
+        <note from="where">B8/D2 Verse study; H11 Plan reader; H16 Devotional reader; S1-S4 Settings; app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+        <note from="developer">Report a problem sheet (S7, studies, devotional reader, plan reader)</note>
+      </trans-unit>
+      <trans-unit id="report_question" resname="report_question">
+        <source>What’s wrong?</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_factual" resname="report_type_factual">
+        <source>Factual error</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_unfair" resname="report_type_unfair">
+        <source>Unfair or one-sided</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_offensive" resname="report_type_offensive">
+        <source>Offensive or inappropriate</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_wrong_text" resname="report_type_wrong_text">
+        <source>Wrong verse or translation text</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_app_bug" resname="report_type_app_bug">
+        <source>App bug</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_type_other" resname="report_type_other">
+        <source>Something else</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt</note>
+      </trans-unit>
+      <trans-unit id="report_note_label" resname="report_note_label">
+        <source>Add a note (optional)</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_note_counter" resname="report_note_counter">
+        <source>%1$d/%2$d</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+        <note from="developer">Characters typed / maximum, e.g. "120/1500"</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="report_privacy" resname="report_privacy">
+        <source>Your email will show us your address. We may use your report to correct the content.</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_send" resname="report_send">
+        <source>Open email</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_cancel" resname="report_cancel">
+        <source>Cancel</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_no_email_title" resname="report_no_email_title">
+        <source>No email app found</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_no_email_body" resname="report_no_email_body">
+        <source>Copy this text and email it to %1$s from any email account.</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+        <note from="developer">%1$s = support email address</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="report_address_label" resname="report_address_label">
+        <source>Send to</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_copy" resname="report_copy">
+        <source>Copy text</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_copied" resname="report_copied">
+        <source>Report copied</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="report_close" resname="report_close">
+        <source>Close</source>
+        <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
+      </trans-unit>
+      <trans-unit id="community_intro" resname="community_intro">
+        <source>Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.</source>
+        <note from="where">C1 Community tab</note>
+        <note from="developer">Community (C1 monthly spotlight vote, C2 past spotlights)</note>
+      </trans-unit>
+      <trans-unit id="community_round_title" resname="community_round_title">
+        <source>%1$s spotlight</source>
+        <note from="where">C1 Community tab</note>
+        <note from="developer">%1$s = month and year, e.g. "December 2026"</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_open_until" resname="community_open_until">
+        <source>Voting is open until %1$s</source>
+        <note from="where">C1 Community tab</note>
+        <note from="developer">%1$s = local date and time, e.g. "Dec 31, 2026, 6:00 PM"</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_vote" resname="community_vote">
+        <source>Vote</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_vote_cd" resname="community_vote_cd">
+        <source>Vote for %1$s</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_website" resname="community_website">
+        <source>Website</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_website_cd" resname="community_website_cd">
+        <source>%1$s website</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_give" resname="community_give">
+        <source>Give directly</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_give_cd" resname="community_give_cd">
+        <source>Give to %1$s directly</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_no_money" resname="community_no_money">
+        <source>The app handles no money. Giving happens on each ministry’s own website.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_confirm_title" resname="community_confirm_title">
+        <source>Vote for %1$s?</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_confirm_body" resname="community_confirm_body">
+        <source>Your vote is anonymous and can’t be changed this month.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_confirm_vote" resname="community_confirm_vote">
+        <source>Vote</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_confirm_cancel" resname="community_confirm_cancel">
+        <source>Cancel</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_pick_counted" resname="community_pick_counted">
+        <source>You voted for %1$s. Thank you.</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_pick_pending" resname="community_pick_pending">
+        <source>You voted for %1$s. It will be sent when you’re online.</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_pick_not_counted" resname="community_pick_not_counted">
+        <source>Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_your_pick" resname="community_your_pick">
+        <source>Your pick</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_votes[one]" resname="community_votes[one]">
+        <source>%1$d vote</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_votes[other]" resname="community_votes[other]">
+        <source>%1$d votes</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_no_spotlight_title" resname="community_no_spotlight_title">
+        <source>No spotlight right now</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_no_spotlight_body" resname="community_no_spotlight_body">
+        <source>When the next monthly vote opens, it will be here.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_unavailable" resname="community_unavailable">
+        <source>The spotlight list couldn’t be loaded. Check your connection and try again.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_retry" resname="community_retry">
+        <source>Try again</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_past_title" resname="community_past_title">
+        <source>Past spotlights</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_most_votes" resname="community_most_votes">
+        <source>Most votes</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_totals_offline" resname="community_totals_offline">
+        <source>Totals need a connection.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_result_counted" resname="community_result_counted">
+        <source>Thanks! Your vote was counted.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_result_pending" resname="community_result_pending">
+        <source>Saved. Your vote will be sent when you’re online.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_result_refused" resname="community_result_refused">
+        <source>This month’s vote isn’t taking votes right now. Try again later.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_result_closed" resname="community_result_closed">
+        <source>Voting for this month has closed.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_result_already" resname="community_result_already">
+        <source>You’ve already voted this month.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_open_failed" resname="community_open_failed">
+        <source>Couldn’t open the page.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="actions_study" resname="actions_study">
+        <source>Study this verse</source>
+        <note from="where">B7 Verse actions sheet; B8/D2 Verse study; H1 Home tab</note>
+        <note from="developer">B8 Verse study (feed), word sheet, Hide AI view</note>
+      </trans-unit>
+      <trans-unit id="study_section_ai" resname="study_section_ai">
+        <source>AI-assisted</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_hidden_data_note" resname="study_hidden_data_note">
+        <source>AI-written sections are hidden. Showing the original language, cross references and sources.</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_save_study" resname="study_save_study">
+        <source>Save study</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_study_saved" resname="study_study_saved">
+        <source>Study saved</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_details" resname="study_word_details">
+        <source>Word details</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_cd" resname="study_word_cd">
+        <source>%1$s: %2$s</source>
+        <note from="where">B8/D2 Verse study</note>
+        <note from="developer">TalkBack for a word chip: %1$s = transliteration, %2$s = meaning here</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="study_word_lemma" resname="study_word_lemma">
+        <source>Dictionary form</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_transliteration" resname="study_word_transliteration">
+        <source>Pronunciation</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_gloss" resname="study_word_gloss">
+        <source>Meaning here</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_morphology" resname="study_word_morphology">
+        <source>Grammar code</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_word_strongs" resname="study_word_strongs">
+        <source>Strong’s number</source>
+        <note from="where">B8/D2 Verse study</note>
+      </trans-unit>
+      <trans-unit id="study_citation" resname="study_citation">
+        <source>%1$s (%2$s)</source>
+        <note from="where">B8/D2 Verse study</note>
+        <note from="developer">A study's source: %1$s = dataset, %2$s = licence, e.g. "OpenBible.info (CC BY 4.0)"</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="privacy_title" resname="privacy_title">
+        <source>Privacy</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">Privacy (S8 Privacy and web/privacy/, generated from these strings by tools/build_privacy_page.py). Source of truth: docs/privacy-inventory.md. Never say data "never leaves" the phone.</note>
+      </trans-unit>
+      <trans-unit id="privacy_updated" resname="privacy_updated">
+        <source>Last updated: %1$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">%1$s = date, e.g. "18 November 2026"</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="privacy_intro" resname="privacy_intro">
+        <source>We don’t track you. There’s no account, no ads and no analytics, and the app contains no tracking or crash-reporting code. This page explains what the app keeps on your phone and the few things that leave it.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_on_phone_title" resname="privacy_on_phone_title">
+        <source>What stays on your phone</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_on_phone" resname="privacy_on_phone">
+        <source>Your notes, likes, bookmarks, reading plans, reading progress, streak, Community vote and settings are stored in the app on this phone. We can’t see them.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_leaves_title" resname="privacy_leaves_title">
+        <source>What leaves your phone</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_leaves_content" resname="privacy_leaves_content">
+        <source>Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_leaves_vote" resname="privacy_leaves_vote">
+        <source>Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_leaves_email" resname="privacy_leaves_email">
+        <source>Emails you choose to send: Report a problem and Send feedback open your own email app with a message you can read and change first. Nothing is sent unless you send it. If you do, we see your email address and what you wrote, and we may use it to correct the content.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_leaves_links" resname="privacy_leaves_links">
+        <source>Links you open: a ministry’s Website and Give directly buttons open its page in your browser. That site’s own privacy policy applies. The app handles no money.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_android_title" resname="privacy_android_title">
+        <source>What Android and Google Play do</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_android_backup" resname="privacy_android_backup">
+        <source>If backup is turned on in your phone’s settings, Android may save a copy of your notes, plans and settings to your own Google account. On Android 12 and later, the app allows this only when Android can encrypt the backup end to end, which needs a screen lock. If you use Export my data, the file goes wherever you save it.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_android_crashes" resname="privacy_android_crashes">
+        <source>If you let your phone share usage and diagnostics with Google, Google Play may send us crash statistics. The app has no crash-reporting code of its own.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_delete_title" resname="privacy_delete_title">
+        <source>Deleting your data</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_delete" resname="privacy_delete">
+        <source>Uninstalling the app, or clearing its data, deletes everything it stored on this phone. A backup in your Google account follows your Google account settings. Community votes can’t be deleted because they aren’t linked to anyone. To ask us to delete an email you sent, write to us.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_contact_title" resname="privacy_contact_title">
+        <source>Contact</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_contact" resname="privacy_contact">
+        <source>Questions about privacy: %1$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">%1$s = support email address</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="privacy_changes" resname="privacy_changes">
+        <source>If this changes, we’ll update this page and the app before the change takes effect.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_title" resname="legal_title">
+        <source>Legal</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">S8 Legal</note>
+      </trans-unit>
+      <trans-unit id="legal_summary" resname="legal_summary">
+        <source>Privacy, licences and sources</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_translations" resname="legal_translations">
+        <source>Scripture translations</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_licence" resname="legal_licence">
+        <source>Licence</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_attribution" resname="legal_attribution">
+        <source>Attribution</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_sources" resname="legal_sources">
+        <source>Study sources</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_source_lexicons" resname="legal_source_lexicons">
+        <source>Word meanings come from the STEP Bible tagged Hebrew and Greek texts above. A few dictionary forms come from STEP Bible’s brief lexicons (TBESH, TBESG; CC BY 4.0). No lexicon definitions are included.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_studies_title" resname="legal_studies_title">
+        <source>How studies are made</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_studies_body" resname="legal_studies_body">
+        <source>Each study was written once by an AI model (Anthropic’s Claude) from the sources above: the original-language data and cross references come from those datasets, not from the AI. Every study is checked automatically, partly by a second AI model. Studies are not individually reviewed by a person unless they say “reviewed by a person”. If something looks wrong, please tell us.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_fonts" resname="legal_fonts">
+        <source>Fonts</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_libraries" resname="legal_libraries">
+        <source>Open-source libraries</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_libraries_count[one]" resname="legal_libraries_count[one]">
+        <source>This app uses %1$d open-source library.</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_libraries_count[other]" resname="legal_libraries_count[other]">
+        <source>This app uses %1$d open-source libraries.</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_libraries_unavailable" resname="legal_libraries_unavailable">
+        <source>The library list isn’t available in this build.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_licence_texts" resname="legal_licence_texts">
+        <source>Licence texts</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_versions" resname="legal_versions">
+        <source>App and content</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_app_version" resname="legal_app_version">
+        <source>App version: %1$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_content_release" resname="legal_content_release">
+        <source>Study content release: %1$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_content_none" resname="legal_content_none">
+        <source>Study content: not downloaded yet</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_study_books[one]" resname="legal_study_books[one]">
+        <source>Studies on this phone: %1$d book</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_study_books[other]" resname="legal_study_books[other]">
+        <source>Studies on this phone: %1$d books</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_bible_db" resname="legal_bible_db">
+        <source>Bible text database: version %1$d</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="legal_contact" resname="legal_contact">
+        <source>Contact</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="legal_close" resname="legal_close">
+        <source>Close</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_title" resname="widget_guide_title">
+        <source>Widget guide</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">S5 Widget guide</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_summary" resname="widget_guide_summary">
+        <source>Put a verse on your home screen</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_intro" resname="widget_guide_intro">
+        <source>The Verse widget shows a verse on your home screen. Tap it to open that verse in the app.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_fixed_body" resname="widget_guide_fixed_body">
+        <source>Shows the verse you choose until you change it. In the Bible feed, open Verse actions and choose Set as widget verse.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_votd_body" resname="widget_guide_votd_body">
+        <source>Shows the Verse of the Day, which changes just after midnight. Choose it from the Verse of the Day card on Home, or under Set as widget verse.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_current" resname="widget_guide_current">
+        <source>Your widget is set to: %1$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">%1$s = "A fixed verse" or "Verse of the Day"</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_preview" resname="widget_guide_preview">
+        <source>Preview</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_placed" resname="widget_guide_placed">
+        <source>Your widget is on your home screen.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_manual_title" resname="widget_guide_manual_title">
+        <source>Add it yourself</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_step1" resname="widget_guide_step1">
+        <source>Touch and hold an empty spot on your home screen.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_step2" resname="widget_guide_step2">
+        <source>Tap Widgets.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_step3" resname="widget_guide_step3">
+        <source>Find %1$s, then touch and hold the Verse widget and drag it onto your home screen.</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">%1$s = app name</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="help_privacy_summary" resname="help_privacy_summary">
+        <source>What the app keeps on your phone, and what leaves it</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">S7 Privacy row</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_step_number" resname="widget_guide_step_number">
+        <source>%1$d.</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">Numbered step, e.g. "1."</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="widget_guide_preview_cd" resname="widget_guide_preview_cd">
+        <source>Widget preview: %1$s, %2$s</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">TalkBack for the widget preview: %1$s = verse text, %2$s = reference and translation</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_todays_reading" resname="home_todays_reading">
+        <source>Today’s reading</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">H1 Today's Reading (calm: no "behind", no guilt)</note>
+      </trans-unit>
+      <trans-unit id="home_reading_page_of" resname="home_reading_page_of">
+        <source>%1$d of %2$d</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">Pager position for TalkBack: "2 of 3"</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_finished[one]" resname="home_plan_finished[one]">
+        <source>You read the whole plan, %1$d day. Well done.</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_finished[other]" resname="home_plan_finished[other]">
+        <source>You read all %1$d days. Well done.</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_starts" resname="home_plan_starts">
+        <source>Starts %1$s</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">%1$s = date</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_caught_up" resname="home_plan_caught_up">
+        <source>You’re up to date. The next day is here if you’d like to read ahead.</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_plan_day_of" resname="home_plan_day_of">
+        <source>Day %1$d of %2$d</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_minutes[one]" resname="home_plan_minutes[one]">
+        <source>About %1$d minute</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_minutes[other]" resname="home_plan_minutes[other]">
+        <source>About %1$d minutes</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_plan_read_day" resname="home_plan_read_day">
+        <source>Read now</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_plan_read_ahead" resname="home_plan_read_ahead">
+        <source>Read ahead</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_plan_preview" resname="home_plan_preview">
+        <source>Take a look</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_plan_look_back" resname="home_plan_look_back">
+        <source>Look back</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_continue_title" resname="home_continue_title">
+        <source>Continue reading</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_continue_action" resname="home_continue_action">
+        <source>Open in the Bible</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_start_title" resname="home_start_title">
+        <source>Start reading</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_start_body" resname="home_start_body">
+        <source>Open the Bible and swipe up for the next verse.</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_start_action" resname="home_start_action">
+        <source>Open the Bible</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_verse_search" resname="home_verse_search">
+        <source>Find a verse</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">H1 Verse Search</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_book" resname="home_wheel_book">
+        <source>Book</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_chapter" resname="home_wheel_chapter">
+        <source>Chapter</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_verse" resname="home_wheel_verse">
+        <source>Verse</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_cd" resname="home_wheel_cd">
+        <source>%1$s: %2$s</source>
+        <note from="where">H1 Home tab</note>
+        <note from="developer">TalkBack for a wheel: %1$s = "Book", %2$s = current value</note>
+        <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_previous" resname="home_wheel_previous">
+        <source>Previous</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_wheel_next" resname="home_wheel_next">
+        <source>Next</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_verse_search_read" resname="home_verse_search_read">
+        <source>Read</source>
+        <note from="where">H1 Home tab</note>
       </trans-unit>
       <trans-unit id="book_names[0]" resname="book_names[0]">
         <source>Genesis</source>

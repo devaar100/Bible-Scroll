@@ -1,5 +1,7 @@
 package aarnav100.developer.biblescroll.feature.bible
 
+import aarnav100.developer.biblescroll.feature.study.VerseStudySheet
+import aarnav100.developer.biblescroll.feature.study.VerseStudyViewModel
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.feature.bible.picker.BookPickerSheet
@@ -74,6 +76,7 @@ fun BibleScreen(
     pickerViewModel: BookPickerViewModel = hiltViewModel(),
     noteViewModel: VerseNoteViewModel = hiltViewModel(),
     sheetsViewModel: VerseSheetsViewModel = hiltViewModel(),
+    studyViewModel: VerseStudyViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     // Startup is "fully drawn" once real verses are on screen, not at the loading spinner.
@@ -197,7 +200,10 @@ fun BibleScreen(
                 bookNames = s.bookNames,
                 screenSnackbar = snackbarHostState,
                 copyAndConfirm = copyAndConfirm,
+                onStudy = { studyViewModel.open(it.ref) },
             )
+            // B8 over the feed: the pager underneath never moves while it's open.
+            VerseStudySheet(studyViewModel)
 
             val noteState by noteViewModel.uiState.collectAsStateWithLifecycle()
             (noteState as? VerseNoteUiState.Open)?.let { open ->
@@ -213,13 +219,15 @@ fun BibleScreen(
     }
 }
 
-/** B7 actions, B9 compare and the Session 7 stubs. None of them move the feed. Also used by the plan reader (H11). */
+/** B7 actions, B9 compare, B10 share image and B11 widget. None of them move the feed. Also used by the plan reader (H11) and Home. */
 @Composable
 internal fun VerseSheets(
     viewModel: VerseSheetsViewModel,
     bookNames: Map<Int, String>,
     screenSnackbar: SnackbarHostState,
     copyAndConfirm: (Verse, String, SnackbarHostState) -> Unit,
+    /** B7 "Study this verse" (opens B8); null hides it. */
+    onStudy: ((Verse) -> Unit)? = null,
 ) {
     val sheet by viewModel.sheet.collectAsStateWithLifecycle()
     when (val open = sheet) {
@@ -236,6 +244,7 @@ internal fun VerseSheets(
                 onShareAsImage = { viewModel.openShareImage(open.verse) },
                 onSetWidgetVerse = { viewModel.openWidgetConfirm(open.verse) },
                 onDismiss = viewModel::close,
+                onStudy = onStudy?.let { study -> { viewModel.close(); study(open.verse) } },
             )
         }
         is VerseSheet.Compare -> {

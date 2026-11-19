@@ -20,7 +20,10 @@ import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Backup
+import androidx.compose.material.icons.outlined.Gavel
+import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.FormatSize
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Palette
@@ -45,7 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-/** S1. Only Phase 1 sections that exist are listed; later ones appear when they're built. */
+/** S1: every Settings section (S2 General, S6 Notifications, Storage, S9 Data & backup, S5 Widget guide, S7 Help, S8 Legal). */
 @Composable
 fun SettingsScreen(
     onBack: () -> Unit,
@@ -53,6 +56,9 @@ fun SettingsScreen(
     onOpenNotifications: () -> Unit,
     onOpenStorage: () -> Unit,
     onOpenDataBackup: () -> Unit,
+    onOpenHelp: () -> Unit,
+    onOpenWidgetGuide: () -> Unit,
+    onOpenLegal: () -> Unit,
 ) {
     SettingsPage(title = stringResource(R.string.settings_title), onBack = onBack) {
         NavRow(Icons.Outlined.Tune, stringResource(R.string.settings_general), stringResource(R.string.settings_general_summary), onOpenGeneral)
@@ -74,6 +80,14 @@ fun SettingsScreen(
             stringResource(R.string.settings_data_backup_summary),
             onOpenDataBackup,
         )
+        NavRow(Icons.Outlined.Widgets, stringResource(R.string.widget_guide_title), stringResource(R.string.widget_guide_summary), onOpenWidgetGuide)
+        NavRow(
+            Icons.AutoMirrored.Outlined.HelpOutline,
+            stringResource(R.string.help_title),
+            stringResource(R.string.help_summary),
+            onOpenHelp,
+        )
+        NavRow(Icons.Outlined.Gavel, stringResource(R.string.legal_title), stringResource(R.string.legal_summary), onOpenLegal)
     }
 }
 
@@ -228,7 +242,7 @@ fun FontSizeScreen(onBack: () -> Unit, viewModel: SettingsViewModel = hiltViewMo
 }
 
 @Composable
-private fun NavRow(icon: ImageVector, title: String, summary: String, onClick: () -> Unit) {
+internal fun NavRow(icon: ImageVector, title: String, summary: String, onClick: () -> Unit) {
     ListItem(
         headlineContent = { Text(title) },
         supportingContent = { Text(summary) },

@@ -278,7 +278,7 @@
     <string name="study_original_aramaic">El arameo, palabra por palabra</string>
     <string name="study_original_greek">El griego, palabra por palabra</string>
     <string name="study_cross_references">Referencias cruzadas</string>
-    <string name="study_open_reference">Leer en la Biblia</string>
+    <string name="study_open_reference">Ir al versículo</string>
     <string name="study_reference_note">Sobre “%1$s”</string>
     <string name="study_sources">Fuentes</string>
     <string name="study_ai_assisted">Hecho con ayuda de IA, revisado automáticamente</string>
@@ -647,4 +647,203 @@
     <string name="streak_day_cd">%1$s: %2$s</string>
     <!-- Shown on studies and Discover cards when the app language isn't English. -->
     <string name="study_english_only">Por ahora, los estudios están en inglés.</string>
+
+    <!-- S7 Ayuda y comentarios -->
+    <string name="help_title">Ayuda y comentarios</string>
+    <string name="help_summary">Informar de un problema, enviar comentarios, preguntas frecuentes</string>
+    <string name="help_report_summary">Algo incorrecto en un estudio, un devocional, un plan o la app</string>
+    <string name="help_feedback">Enviar comentarios</string>
+    <string name="help_feedback_summary">Ideas, elogios o cualquier otra cosa</string>
+    <string name="help_faq_header">Preguntas frecuentes</string>
+    <string name="help_expanded">Desplegado</string>
+    <string name="help_collapsed">Plegado</string>
+    <string name="help_q_reading">¿Cómo leo y paso de un versículo a otro?</string>
+    <string name="help_a_reading">Desliza hacia arriba para ver el siguiente versículo y hacia abajo para volver al anterior. Toca el nombre del libro arriba para ir a un libro y capítulo; “Continuar” retoma donde lo dejaste en ese libro. Toca dos veces un versículo para darle me gusta, o mantenlo pulsado para copiarlo.</string>
+    <string name="help_q_likes">¿Dónde quedan mis me gusta y mis notas?</string>
+    <string name="help_a_likes">Usa los botones de corazón y de nota junto a cada versículo. Todo lo que marques con me gusta, guardes o escribas está en Inicio → Tu biblioteca, y se guarda solo en este teléfono.</string>
+    <string name="help_q_translations">¿Qué traducciones hay?</string>
+    <string name="help_a_translations">La World English Bible (WEB) y la King James Version (KJV) vienen incluidas y funcionan sin conexión. Toca el nombre de la traducción arriba en el feed para cambiarla. Opciones del versículo → Comparar versiones muestra un versículo en todas las traducciones.</string>
+    <string name="help_q_studies">¿Qué significa “hecho con ayuda de IA” en un estudio?</string>
+    <string name="help_a_studies">Cada estudio se escribió una sola vez con ayuda de un modelo de IA, a partir de fuentes con licencia abierta (datos de las palabras en el idioma original y listas de referencias cruzadas) que se nombran al final del estudio. Todos los estudios se revisan automáticamente, y los marcados como “revisado por una persona” también los leyó alguien. No se genera nada mientras lees. Para desactivar los estudios, ve a Ajustes → General → Ocultar estudios con IA. Si algo parece incorrecto, usa Informar de un problema.</string>
+    <string name="help_q_backup">¿Cómo conservo mis datos al cambiar de teléfono?</string>
+    <string name="help_a_backup">Si la copia de seguridad de Google está activada en los ajustes del teléfono, Android puede restaurar tus notas, me gusta, planes y ajustes en el teléfono nuevo. Para asegurarte, ve a Ajustes → Datos y copia de seguridad → Exportar mis datos, pasa el archivo al teléfono nuevo y elige Importar allí.</string>
+    <string name="help_q_reminders">¿Cómo funcionan los recordatorios y el widget?</string>
+    <string name="help_a_reminders">Activa un recordatorio diario y elige la hora en Ajustes → Notificaciones. Para el widget de la pantalla de inicio, abre Opciones del versículo en cualquier versículo y elige Usar en el widget; puedes dejar ese versículo o mostrar el versículo del día, que cambia justo después de la medianoche.</string>
+    <string name="help_q_privacy">¿Qué saben de mí?</string>
+    <string name="help_a_privacy">Nada. No hay cuenta, ni anuncios, ni analíticas. Tus notas, me gusta y ajustes se quedan en tu teléfono. La app solo se conecta para descargar archivos de estudios y devocionales, sin nada que te identifique. Los informes y comentarios son correos que envías tú, así que solo vemos tu dirección de correo si nos escribes.</string>
+
+    <!-- Hoja Informar de un problema -->
+    <string name="report_title">Informar de un problema</string>
+    <string name="report_question">¿Qué ocurre?</string>
+    <string name="report_type_factual">Error en los datos</string>
+    <string name="report_type_unfair">Injusto o parcial</string>
+    <string name="report_type_offensive">Ofensivo o inapropiado</string>
+    <string name="report_type_wrong_text">Versículo o texto de la traducción incorrecto</string>
+    <string name="report_type_app_bug">Error de la app</string>
+    <string name="report_type_other">Otra cosa</string>
+    <string name="report_note_label">Añade una nota (opcional)</string>
+    <string name="report_note_counter">%1$d/%2$d</string>
+    <string name="report_privacy">Tu correo nos mostrará tu dirección. Podemos usar tu informe para corregir el contenido.</string>
+    <string name="report_send">Abrir correo</string>
+    <string name="report_cancel">Cancelar</string>
+    <string name="report_no_email_title">No se encontró una app de correo</string>
+    <string name="report_no_email_body">Copia este texto y envíalo a %1$s desde cualquier cuenta de correo.</string>
+    <string name="report_address_label">Enviar a</string>
+    <string name="report_copy">Copiar texto</string>
+    <string name="report_copied">Informe copiado</string>
+    <string name="report_close">Cerrar</string>
+
+    <!-- Comunidad (C1 votación mensual, C2 destacados anteriores) -->
+    <string name="community_intro">Cada mes, vota por un ministerio para destacarlo. Tu voto es anónimo: sin cuenta, sin nombre, sin nada que te identifique.</string>
+    <string name="community_round_title">Destacado de %1$s</string>
+    <string name="community_open_until">La votación está abierta hasta el %1$s</string>
+    <string name="community_vote">Votar</string>
+    <string name="community_vote_cd">Votar por %1$s</string>
+    <string name="community_website">Sitio web</string>
+    <string name="community_website_cd">Sitio web de %1$s</string>
+    <string name="community_give">Donar directamente</string>
+    <string name="community_give_cd">Donar directamente a %1$s</string>
+    <string name="community_no_money">La app no maneja dinero. Las donaciones se hacen en el sitio web de cada ministerio.</string>
+    <string name="community_confirm_title">¿Votar por %1$s?</string>
+    <string name="community_confirm_body">Tu voto es anónimo y no se puede cambiar este mes.</string>
+    <string name="community_confirm_vote">Votar</string>
+    <string name="community_confirm_cancel">Cancelar</string>
+    <string name="community_pick_counted">Votaste por %1$s. Gracias.</string>
+    <string name="community_pick_pending">Votaste por %1$s. Se enviará cuando tengas conexión.</string>
+    <string name="community_pick_not_counted">Tu voto por %1$s no se pudo enviar antes de que cerrara la votación, así que no se contó.</string>
+    <string name="community_your_pick">Tu elección</string>
+    <plurals name="community_votes">
+        <item quantity="one">%1$d voto</item>
+        <item quantity="other">%1$d votos</item>
+    </plurals>
+    <string name="community_no_spotlight_title">No hay ningún destacado por ahora</string>
+    <string name="community_no_spotlight_body">Cuando se abra la próxima votación mensual, aparecerá aquí.</string>
+    <string name="community_unavailable">No se pudo cargar la lista de destacados. Revisa tu conexión e inténtalo de nuevo.</string>
+    <string name="community_retry">Reintentar</string>
+    <string name="community_past_title">Destacados anteriores</string>
+    <string name="community_most_votes">Más votado</string>
+    <string name="community_totals_offline">Los totales necesitan conexión.</string>
+    <string name="community_result_counted">¡Gracias! Tu voto se contó.</string>
+    <string name="community_result_pending">Guardado. Tu voto se enviará cuando tengas conexión.</string>
+    <string name="community_result_refused">La votación de este mes no está recibiendo votos ahora. Inténtalo más tarde.</string>
+    <string name="community_result_closed">La votación de este mes ya cerró.</string>
+    <string name="community_result_already">Ya votaste este mes.</string>
+    <string name="community_open_failed">No se pudo abrir la página.</string>
+
+    <!-- B8 Estudio del versículo, hoja de palabra, vista sin IA -->
+    <string name="actions_study">Estudiar este versículo</string>
+    <string name="study_section_ai">Con ayuda de IA</string>
+    <string name="study_hidden_data_note">Las secciones escritas con IA están ocultas. Se muestran el idioma original, las referencias cruzadas y las fuentes.</string>
+    <string name="study_save_study">Guardar estudio</string>
+    <string name="study_study_saved">Estudio guardado</string>
+    <string name="study_word_details">Detalles de la palabra</string>
+    <string name="study_word_cd">%1$s: %2$s</string>
+    <string name="study_word_lemma">Forma de diccionario</string>
+    <string name="study_word_transliteration">Pronunciación</string>
+    <string name="study_word_gloss">Significado aquí</string>
+    <string name="study_word_morphology">Código gramatical</string>
+    <string name="study_word_strongs">Número Strong</string>
+    <string name="study_citation">%1$s (%2$s)</string>
+
+    <!-- Privacidad (S8 y web/privacy/, generada desde estas cadenas) -->
+    <string name="privacy_title">Privacidad</string>
+    <string name="privacy_updated">Última actualización: %1$s</string>
+    <string name="privacy_intro">No te rastreamos. No hay cuenta, ni anuncios, ni analíticas, y la app no contiene código de rastreo ni de informes de fallos. Esta página explica qué guarda la app en tu teléfono y las pocas cosas que salen de él.</string>
+    <string name="privacy_on_phone_title">Lo que se queda en tu teléfono</string>
+    <string name="privacy_on_phone">Tus notas, me gusta, marcadores, planes de lectura, progreso de lectura, racha, voto de la Comunidad y ajustes se guardan en la app de este teléfono. Nosotros no podemos verlos.</string>
+    <string name="privacy_leaves_title">Lo que sale de tu teléfono</string>
+    <string name="privacy_leaves_content">Descargas de contenido: cuando la app descarga estudios, devocionales o las listas de Descubrir y Comunidad, pide archivos a nuestro servidor de contenido, alojado por Google (Firebase Hosting). Las peticiones no llevan ninguna cuenta ni identificador del dispositivo, pero, como cualquier petición por internet, muestran tu dirección IP a Google.</string>
+    <string name="privacy_leaves_vote">Voto de la Comunidad: si votas, la app envía “+1 para este ministerio este mes” a un contador alojado por Google (Cloud Firestore). No lleva ninguna cuenta ni identificador del dispositivo, y el contador solo guarda un número, pero Google ve tu dirección IP con la petición. Mostrar los totales funciona igual. Tu elección se queda en tu teléfono.</string>
+    <string name="privacy_leaves_email">Correos que decides enviar: Informar de un problema y Enviar comentarios abren tu propia app de correo con un mensaje que puedes leer y cambiar antes. No se envía nada a menos que lo envíes tú. Si lo haces, vemos tu dirección de correo y lo que escribiste, y podemos usarlo para corregir el contenido.</string>
+    <string name="privacy_leaves_links">Enlaces que abres: los botones Sitio web y Donar directamente de un ministerio abren su página en tu navegador. Se aplica la política de privacidad de ese sitio. La app no maneja dinero.</string>
+    <string name="privacy_android_title">Lo que hacen Android y Google Play</string>
+    <string name="privacy_android_backup">Si la copia de seguridad está activada en los ajustes del teléfono, Android puede guardar una copia de tus notas, planes y ajustes en tu propia cuenta de Google. En Android 12 y versiones posteriores, la app solo lo permite cuando Android puede cifrar la copia de extremo a extremo, para lo que hace falta un bloqueo de pantalla. Si usas Exportar mis datos, el archivo va donde lo guardes.</string>
+    <string name="privacy_android_crashes">Si permites que tu teléfono comparta datos de uso y diagnóstico con Google, Google Play puede enviarnos estadísticas de fallos. La app no tiene código propio de informes de fallos.</string>
+    <string name="privacy_delete_title">Borrar tus datos</string>
+    <string name="privacy_delete">Desinstalar la app, o borrar sus datos, elimina todo lo que guardó en este teléfono. Una copia de seguridad en tu cuenta de Google sigue los ajustes de tu cuenta de Google. Los votos de la Comunidad no se pueden borrar porque no están vinculados a nadie. Para pedirnos que borremos un correo que nos enviaste, escríbenos.</string>
+    <string name="privacy_contact_title">Contacto</string>
+    <string name="privacy_contact">Preguntas sobre privacidad: %1$s</string>
+    <string name="privacy_changes">Si esto cambia, actualizaremos esta página y la app antes de que el cambio entre en vigor.</string>
+
+    <!-- S8 Legal -->
+    <string name="legal_title">Legal</string>
+    <string name="legal_summary">Privacidad, licencias y fuentes</string>
+    <string name="legal_translations">Traducciones de la Biblia</string>
+    <string name="legal_licence">Licencia</string>
+    <string name="legal_attribution">Atribución</string>
+    <string name="legal_sources">Fuentes de los estudios</string>
+    <string name="legal_source_lexicons">Los significados de las palabras vienen de los textos hebreos y griegos etiquetados de STEP Bible citados arriba. Algunas formas de diccionario vienen de los léxicos breves de STEP Bible (TBESH, TBESG; CC BY 4.0). No se incluyen definiciones de léxicos.</string>
+    <string name="legal_studies_title">Cómo se hacen los estudios</string>
+    <string name="legal_studies_body">Cada estudio se escribió una sola vez con un modelo de IA (Claude, de Anthropic) a partir de las fuentes de arriba: los datos del idioma original y las referencias cruzadas vienen de esas fuentes, no de la IA. Todos los estudios se revisan automáticamente, en parte con un segundo modelo de IA. Los estudios no los revisa una persona uno por uno, salvo los que dicen “revisado por una persona”. Si algo parece incorrecto, avísanos.</string>
+    <string name="legal_fonts">Tipografías</string>
+    <string name="legal_libraries">Bibliotecas de código abierto</string>
+    <plurals name="legal_libraries_count">
+        <item quantity="one">Esta app usa %1$d biblioteca de código abierto.</item>
+        <item quantity="other">Esta app usa %1$d bibliotecas de código abierto.</item>
+    </plurals>
+    <string name="legal_libraries_unavailable">La lista de bibliotecas no está disponible en esta versión.</string>
+    <string name="legal_licence_texts">Textos de las licencias</string>
+    <string name="legal_versions">App y contenido</string>
+    <string name="legal_app_version">Versión de la app: %1$s</string>
+    <string name="legal_content_release">Versión del contenido de estudios: %1$s</string>
+    <string name="legal_content_none">Contenido de estudios: aún no descargado</string>
+    <plurals name="legal_study_books">
+        <item quantity="one">Estudios en este teléfono: %1$d libro</item>
+        <item quantity="other">Estudios en este teléfono: %1$d libros</item>
+    </plurals>
+    <string name="legal_bible_db">Base de datos del texto bíblico: versión %1$d</string>
+    <string name="legal_contact">Contacto</string>
+    <string name="legal_close">Cerrar</string>
+
+    <!-- S5 Guía del widget -->
+    <string name="widget_guide_title">Guía del widget</string>
+    <string name="widget_guide_summary">Pon un versículo en tu pantalla de inicio</string>
+    <string name="widget_guide_intro">El widget Versículo muestra un versículo en tu pantalla de inicio. Tócalo para abrir ese versículo en la app.</string>
+    <string name="widget_guide_fixed_body">Muestra el versículo que elijas hasta que lo cambies. En el feed de la Biblia, abre Opciones del versículo y elige Usar en el widget.</string>
+    <string name="widget_guide_votd_body">Muestra el versículo del día, que cambia justo después de la medianoche. Elígelo desde la tarjeta Versículo del día en Inicio, o en Usar en el widget.</string>
+    <string name="widget_guide_current">Tu widget muestra: %1$s</string>
+    <string name="widget_guide_preview">Vista previa</string>
+    <string name="widget_guide_placed">Tu widget está en la pantalla de inicio.</string>
+    <string name="widget_guide_manual_title">Añádelo tú</string>
+    <string name="widget_guide_step1">Mantén pulsado un espacio vacío de la pantalla de inicio.</string>
+    <string name="widget_guide_step2">Toca Widgets.</string>
+    <string name="widget_guide_step3">Busca %1$s, mantén pulsado el widget Versículo y arrástralo a la pantalla de inicio.</string>
+
+    <string name="help_privacy_summary">Qué guarda la app en tu teléfono y qué sale de él</string>
+    <string name="widget_guide_step_number">%1$d.</string>
+    <string name="widget_guide_preview_cd">Vista previa del widget: %1$s, %2$s</string>
+
+    <!-- H1 Lectura de hoy -->
+    <string name="home_todays_reading">Lectura de hoy</string>
+    <string name="home_reading_page_of">%1$d de %2$d</string>
+    <plurals name="home_plan_finished">
+        <item quantity="one">Leíste el plan completo, %1$d día. ¡Bien hecho!</item>
+        <item quantity="other">Leíste los %1$d días. ¡Bien hecho!</item>
+    </plurals>
+    <string name="home_plan_starts">Empieza el %1$s</string>
+    <string name="home_plan_caught_up">Vas al día. El siguiente día está aquí si quieres adelantarte.</string>
+    <string name="home_plan_day_of">Día %1$d de %2$d</string>
+    <plurals name="home_plan_minutes">
+        <item quantity="one">Aprox. %1$d minuto</item>
+        <item quantity="other">Aprox. %1$d minutos</item>
+    </plurals>
+    <string name="home_plan_read_day">Leer ahora</string>
+    <string name="home_plan_read_ahead">Adelantar lectura</string>
+    <string name="home_plan_preview">Echar un vistazo</string>
+    <string name="home_plan_look_back">Volver a verlo</string>
+    <string name="home_continue_title">Seguir leyendo</string>
+    <string name="home_continue_action">Abrir en la Biblia</string>
+    <string name="home_start_title">Empieza a leer</string>
+    <string name="home_start_body">Abre la Biblia y desliza hacia arriba para ver el siguiente versículo.</string>
+    <string name="home_start_action">Abrir la Biblia</string>
+
+    <!-- H1 Buscar un versículo -->
+    <string name="home_verse_search">Buscar un versículo</string>
+    <string name="home_wheel_book">Libro</string>
+    <string name="home_wheel_chapter">Capítulo</string>
+    <string name="home_wheel_verse">Versículo</string>
+    <string name="home_wheel_cd">%1$s: %2$s</string>
+    <string name="home_wheel_previous">Anterior</string>
+    <string name="home_wheel_next">Siguiente</string>
+    <string name="home_verse_search_read">Leer</string>
 </resources>

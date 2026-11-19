@@ -17,7 +17,7 @@ import androidx.room.RoomDatabase
         ChapterEntity::class,
         VerseEntity::class,
     ],
-    version = 1,
+    version = BibleDatabase.VERSION,
     exportSchema = true,
 )
 abstract class BibleDatabase : RoomDatabase() {
@@ -26,5 +26,8 @@ abstract class BibleDatabase : RoomDatabase() {
     companion object {
         const val ASSET_PATH = "bible.db"
         const val FILE_NAME = "bible.db"
+
+        /** Shown in S8 Legal → App and content. */
+        const val VERSION = 1
     }
 }

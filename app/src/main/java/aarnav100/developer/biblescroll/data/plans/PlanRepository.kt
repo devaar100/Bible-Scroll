@@ -33,6 +33,10 @@ data class MyPlan(
     val startDate: LocalDate,
     val reminder: LocalTime?,
     val completed: Boolean,
+    /** When it was started (epoch ms): H1 orders active plans most recently started first. */
+    val startedAt: Long = 0,
+    /** When the last day was read (epoch ms), or null. */
+    val completedAt: Long? = null,
 )
 
 /** H9: the full plan. [custom] = one the reader built (H13/H14), which can be deleted. */
@@ -214,10 +218,12 @@ fun PlanEnrollmentEntity.toMyPlan(daysDone: Int) = MyPlan(
     enrollmentId = id, planId = planId, title = planTitle, totalDays = totalDays, daysDone = daysDone,
     minutesPerDay = minutesPerDay, startDate = LocalDate.parse(startDate),
     reminder = reminderMinuteOfDay?.let(PlanSchedule::timeOf), completed = completedAt != null,
+    startedAt = createdAt, completedAt = completedAt,
 )
 
 fun EnrollmentRow.toMyPlan() = MyPlan(
     enrollmentId = id, planId = planId, title = planTitle, totalDays = totalDays, daysDone = daysDone,
     minutesPerDay = minutesPerDay, startDate = LocalDate.parse(startDate),
     reminder = reminderMinuteOfDay?.let(PlanSchedule::timeOf), completed = completedAt != null,
+    startedAt = createdAt, completedAt = completedAt,
 )

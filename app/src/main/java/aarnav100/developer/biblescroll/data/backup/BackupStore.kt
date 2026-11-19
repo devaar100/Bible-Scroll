@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.data.backup
 
+import aarnav100.developer.biblescroll.data.community.CommunityVoteEntity
 import aarnav100.developer.biblescroll.data.devotionals.DevotionalProgressEntity
 import aarnav100.developer.biblescroll.data.plans.CustomPlanEntity
 import aarnav100.developer.biblescroll.data.plans.PlanDayProgressEntity
@@ -28,6 +29,7 @@ interface BackupDao {
     @Query("SELECT * FROM plan_day_progress") suspend fun planDayProgress(): List<PlanDayProgressEntity>
     @Query("SELECT * FROM custom_plans") suspend fun customPlans(): List<CustomPlanEntity>
     @Query("SELECT * FROM devotional_progress") suspend fun devotionalProgress(): List<DevotionalProgressEntity>
+    @Query("SELECT * FROM community_votes") suspend fun communityVotes(): List<CommunityVoteEntity>
 
     @Upsert suspend fun upsertVerseMarks(rows: List<VerseMarkEntity>)
     @Upsert suspend fun upsertReadingPositions(rows: List<ReadingPositionEntity>)
@@ -38,6 +40,7 @@ interface BackupDao {
     @Upsert suspend fun upsertPlanDayProgress(rows: List<PlanDayProgressEntity>)
     @Upsert suspend fun upsertCustomPlans(rows: List<CustomPlanEntity>)
     @Upsert suspend fun upsertDevotionalProgress(rows: List<DevotionalProgressEntity>)
+    @Upsert suspend fun upsertCommunityVotes(rows: List<CommunityVoteEntity>)
 }
 
 /** The user database as backup rows. Abstracted so merge and import are testable without Room. */
@@ -68,6 +71,7 @@ class RoomBackupStore @Inject constructor(private val db: UserDatabase) : Backup
             dao.upsertPlanDayProgress(write.planDayProgress.map { it.toEntity() })
             dao.upsertCustomPlans(write.customPlans.map { it.toEntity() })
             dao.upsertDevotionalProgress(write.devotionalProgress.map { it.toEntity() })
+            dao.upsertCommunityVotes(write.communityVotes.map { it.toEntity() })
         }
     }
 
@@ -81,5 +85,6 @@ class RoomBackupStore @Inject constructor(private val db: UserDatabase) : Backup
         planDayProgress = dao.planDayProgress().map { it.toRow() },
         customPlans = dao.customPlans().map { it.toRow() },
         devotionalProgress = dao.devotionalProgress().map { it.toRow() },
+        communityVotes = dao.communityVotes().map { it.toRow() },
     )
 }

@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.testing
 
 import aarnav100.developer.biblescroll.data.backup.BackupStore
+import aarnav100.developer.biblescroll.data.backup.CommunityVoteRow
 import aarnav100.developer.biblescroll.data.backup.BackupTables
 import aarnav100.developer.biblescroll.data.backup.ChapterReadRow
 import aarnav100.developer.biblescroll.data.backup.CustomPlanRow
@@ -43,6 +44,7 @@ fun upsert(base: BackupTables, write: BackupTables) = BackupTables(
     planDayProgress = merge(base.planDayProgress, write.planDayProgress) { it.enrollmentId to it.dayNumber },
     customPlans = merge(base.customPlans, write.customPlans) { it.id },
     devotionalProgress = merge(base.devotionalProgress, write.devotionalProgress) { it.readFor },
+    communityVotes = merge(base.communityVotes, write.communityVotes) { it.month },
 )
 
 private fun <T, K> merge(base: List<T>, write: List<T>, key: (T) -> K): List<T> =
@@ -78,4 +80,5 @@ fun everyTable(at: Long = 1_000) = BackupTables(
     planDayProgress = listOf(PlanDayProgressRow("e1", 1, completed = true, completedAt = at, updatedAt = at)),
     customPlans = listOf(customPlan("custom-1", at)),
     devotionalProgress = listOf(DevotionalProgressRow("2026-11-17", "devotional-1117", "v1", at, at)),
+    communityVotes = listOf(CommunityVoteRow("2026-11", "river-relief", at, sent = true, updatedAt = at)),
 )

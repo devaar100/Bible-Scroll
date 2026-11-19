@@ -1,5 +1,5 @@
 id,kind,english,where,note,placeholders
-app_name,string,Bible Scroll,App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S6 Settings → Notifications,Brand name: keep as is.,
+app_name,string,Bible Scroll,App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S1-S4 Settings; S6 Settings → Notifications,Brand name: keep as is.,
 tab_community,string,Community,Bottom tab bar; C1 Community tab,,
 tab_discover,string,Discover,Bottom tab bar,,
 tab_home,string,Home,Bottom tab bar; H1 Home tab,,
@@ -93,16 +93,16 @@ share_permission_needed,string,Allow storage access to save images.,B10 Share ve
 widget_name,string,Verse,App name in the launcher and system settings,Widget and widget verse dialog (B11),
 widget_description,string,"A verse of your choice, or the Verse of the Day, on your home screen",Widget picker,,
 widget_dialog_question,string,What should your widget show?,B11 Set as widget verse dialog,,
-widget_mode_fixed,string,A fixed verse,B11 Set as widget verse dialog,,
+widget_mode_fixed,string,A fixed verse,B11 Set as widget verse dialog; S1-S4 Settings,,
 widget_mode_fixed_detail,string,"%1$s, until you change it",B11 Set as widget verse dialog,"%1$s = verse reference, e.g. ""John 3:16""",%1$s
 widget_mode_votd_detail,string,"A new verse every day, just after midnight",B11 Set as widget verse dialog,,
 widget_dialog_not_placed,string,Your verse widget isn’t on the home screen yet.,B11 Set as widget verse dialog,,
 widget_dialog_manual,string,"1. Touch and hold an empty spot on your home screen, then tap Widgets.\n2. Find %1$s and drag the Verse widget onto your home screen.",B11 Set as widget verse dialog,,%1$s
 widget_set,string,Set,B11 Set as widget verse dialog,,
-widget_add_to_home,string,Add to home screen,B11 Set as widget verse dialog,,
+widget_add_to_home,string,Add to home screen,B11 Set as widget verse dialog; S1-S4 Settings,,
 widget_cancel,string,Cancel,B11 Set as widget verse dialog,,
 widget_updated,string,Widget verse updated,B1 Bible feed,,
-votd_title,string,Verse of the Day,B11 Set as widget verse dialog; H1 Home tab; Home-screen widget,"Verse of the Day (H1 Home card, widget)",
+votd_title,string,Verse of the Day,B11 Set as widget verse dialog; H1 Home tab; Home-screen widget; S1-S4 Settings,"Verse of the Day (H1 Home card, widget)",
 votd_read_in_context,string,Read in context,H1 Home tab,,
 votd_fallback,string,"%1$s doesn’t have this verse, so it’s shown in %2$s",H1 Home tab,"%1$s = the reader's translation (e.g. ""KJV""), %2$s = the one shown instead (e.g. ""WEB"")",%1$s %2$s
 votd_cd,string,%1$s: %2$s,H1 Home tab,"TalkBack: %1$s = ""Verse of the Day"", %2$s = verse, reference and translation",%1$s %2$s
@@ -219,7 +219,7 @@ storage_book_bundled[one],plurals,Included with the app · %1$d study,Settings �
 storage_book_bundled[other],plurals,Included with the app · %1$d studies,Settings → Storage,,%1$d
 settings_hide_ai_studies,string,Hide AI studies,S1-S4 Settings,S2: Hide AI studies,
 settings_hide_ai_studies_summary,string,"Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.",S1-S4 Settings,,
-study_close,string,Close study,D2 Deep study page,B8/D2 study,
+study_close,string,Close study,B8/D2 Verse study; D2 Deep study page,B8/D2 study,
 study_mark_studied,string,Mark as studied,D2 Deep study page,,
 study_studied,string,Studied,D2 Deep study page,,
 study_not_studied,string,Not studied,D2 Deep study page,,
@@ -236,24 +236,24 @@ study_original_hebrew,string,"The Hebrew, word by word",B8/D2 Verse study,,
 study_original_aramaic,string,"The Aramaic, word by word",B8/D2 Verse study,,
 study_original_greek,string,"The Greek, word by word",B8/D2 Verse study,,
 study_cross_references,string,Cross references,B8/D2 Verse study,,
-study_open_reference,string,Read in the Bible,B8/D2 Verse study,,
+study_open_reference,string,Go to verse,B8/D2 Verse study,,
 study_reference_note,string,On “%1$s”,B8/D2 Verse study,,%1$s
 study_sources,string,Sources,B8/D2 Verse study,,
 study_ai_assisted,string,"AI-assisted, checked automatically",B8/D2 Verse study,,
 study_reviewed,string,"AI-assisted, reviewed by a person",B8/D2 Verse study,,
-study_downloading,string,Downloading studies for this book…,D2 Deep study page,,
-study_offline_title,string,Not available offline,D2 Deep study page,,
-study_offline_body,string,Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.,D2 Deep study page,,%1$s
-study_failed_title,string,Couldn\'t download this study,D2 Deep study page,,
-study_failed_body,string,Something went wrong on the way. Try again in a moment.,D2 Deep study page,,
-study_retry,string,Try again,D1 Discover tab; D2 Deep study page,,
-study_none_title,string,No study for this verse yet,D2 Deep study page,,
-study_none_body,string,Studies are being written and checked a few books at a time.,D2 Deep study page,,
-study_update_title,string,Update the app to read this study,D2 Deep study page,,
-study_update_body,string,This study uses a newer format than your version of the app.,D2 Deep study page,,
-study_hidden_title,string,Studies are hidden,D2 Deep study page,,
-study_hidden_body,string,"You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.",D2 Deep study page,,
-study_hidden_show,string,Show studies again,D1 Discover tab; D2 Deep study page,,
+study_downloading,string,Downloading studies for this book…,B8/D2 Verse study,,
+study_offline_title,string,Not available offline,B8/D2 Verse study,,
+study_offline_body,string,Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.,B8/D2 Verse study,,%1$s
+study_failed_title,string,Couldn\'t download this study,B8/D2 Verse study,,
+study_failed_body,string,Something went wrong on the way. Try again in a moment.,B8/D2 Verse study,,
+study_retry,string,Try again,B8/D2 Verse study; D1 Discover tab,,
+study_none_title,string,No study for this verse yet,B8/D2 Verse study,,
+study_none_body,string,Studies are being written and checked a few books at a time.,B8/D2 Verse study,,
+study_update_title,string,Update the app to read this study,B8/D2 Verse study,,
+study_update_body,string,This study uses a newer format than your version of the app.,B8/D2 Verse study,,
+study_hidden_title,string,Studies are hidden,B8/D2 Verse study,,
+study_hidden_body,string,"You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.",B8/D2 Verse study,,
+study_hidden_show,string,Show studies again,B8/D2 Verse study; D1 Discover tab,,
 discover_read_study,string,Read the study,D1 Discover tab,D1 Discover,
 discover_open_to_read,string,Open to read the study.,D1 Discover tab,,
 discover_hidden_title,string,Discover is turned off,D1 Discover tab,,
@@ -519,10 +519,180 @@ notes_tip,string,Your notes are stored on this phone. Export a copy any time.,"H
 notes_tip_export,string,Export,"H4-H7 Library lists (saved studies, studied, liked & bookmarked, notes)",,
 settings_language,string,Language,S2 Settings → General → Language,Language (S2),
 settings_language_system,string,System default,S2 Settings → General → Language,,
-two_parts,string,%1$s · %2$s,B10 Share verse as image; B8/D2 Verse study; H1 Home tab; H12 Plan days & notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings,"Two short labels shown together on one line, e.g. ""Dark · Sepia"". Change the separator if your language needs.",%1$s %2$s
+two_parts,string,%1$s · %2$s,B10 Share verse as image; C1 Community tab; H1 Home tab; H11 Plan reader; H12 Plan days & notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings,"Two short labels shown together on one line, e.g. ""Dark · Sepia"". Change the separator if your language needs.",%1$s %2$s
 plans_day_titled,string,Day %1$d · %2$s,"Plan day headings (H9, H11, H12)","A plan day with its title: ""Day 3 · The Good Shepherd"" (day number, title).",%1$d %2$s
 streak_day_cd,string,%1$s: %2$s,H2 Streak chip and sheet,"Screen reader text for one day in the streak calendar: ""Monday, 18 November 2026: Read"" (date, status).",%1$s %2$s
 study_english_only,string,Studies are in English for now.,B8/D2 Verse study,Shown on studies and Discover cards when the app language isn't English.,
+help_title,string,Help & feedback,S1-S4 Settings,S7 Help & feedback,
+help_summary,string,"Report a problem, send feedback, common questions",S1-S4 Settings,,
+help_report_summary,string,"Something wrong in a study, devotional, plan or the app",S1-S4 Settings,,
+help_feedback,string,Send feedback,S1-S4 Settings,,
+help_feedback_summary,string,"Ideas, praise or anything else",S1-S4 Settings,,
+help_faq_header,string,Common questions,S1-S4 Settings,,
+help_expanded,string,Expanded,S1-S4 Settings,,
+help_collapsed,string,Collapsed,S1-S4 Settings,,
+help_q_reading,string,How do I read and move between verses?,S1-S4 Settings,,
+help_a_reading,string,"Swipe up for the next verse and down for the previous one. Tap the book name at the top to jump to a book and chapter; “Continue” picks up where you left off in that book. Double-tap a verse to like it, or press and hold to copy it.",S1-S4 Settings,,
+help_q_likes,string,Where do my likes and notes go?,S1-S4 Settings,,
+help_a_likes,string,"Use the heart and note buttons beside a verse. Everything you like, bookmark or write is in Home → Your library, and it’s saved on this phone only.",S1-S4 Settings,,
+help_q_translations,string,Which translations are there?,S1-S4 Settings,,
+help_a_translations,string,The World English Bible (WEB) and the King James Version (KJV) are built in and work offline. Tap the translation name at the top of the feed to switch. Verse actions → Compare versions shows a verse in every translation.,S1-S4 Settings,,
+help_q_studies,string,What does “AI-assisted” mean on a study?,S1-S4 Settings,,
+help_a_studies,string,"Each study was written once with help from an AI model, using openly licensed sources (original-language word data and cross-reference lists) that are named at the end of the study. Every study is checked automatically, and studies marked “reviewed by a person” were also read by someone. Nothing is generated while you read. To turn studies off, go to Settings → General → Hide AI studies. If something looks wrong, use Report a problem.",S1-S4 Settings,,
+help_q_backup,string,How do I keep my data when I change phones?,S1-S4 Settings,,
+help_a_backup,string,"If Google backup is turned on in your phone’s settings, Android may restore your notes, likes, plans and settings on a new phone. To be sure, go to Settings → Data & backup → Export my data, move the file to the new phone and choose Import there.",S1-S4 Settings,,
+help_q_reminders,string,How do reminders and the widget work?,S1-S4 Settings,,
+help_a_reminders,string,"Turn on a daily reminder and pick its time in Settings → Notifications. For the home screen widget, open Verse actions on any verse and choose Set as widget verse; you can keep that verse or show the Verse of the Day, which changes just after midnight.",S1-S4 Settings,,
+help_q_privacy,string,What do you know about me?,S1-S4 Settings,,
+help_a_privacy,string,"Nothing. There’s no account, no ads and no analytics. Your notes, likes and settings stay on your phone. The app only goes online to download study and devotional files, without anything that identifies you. Reports and feedback are emails you send yourself, so we only see your email address if you send one.",S1-S4 Settings,,
+report_title,string,Report a problem,B8/D2 Verse study; H11 Plan reader; H16 Devotional reader; S1-S4 Settings; app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,"Report a problem sheet (S7, studies, devotional reader, plan reader)",
+report_question,string,What’s wrong?,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_type_factual,string,Factual error,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_type_unfair,string,Unfair or one-sided,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_type_offensive,string,Offensive or inappropriate,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_type_wrong_text,string,Wrong verse or translation text,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_type_app_bug,string,App bug,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_type_other,string,Something else,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ProblemReport.kt,,
+report_note_label,string,Add a note (optional),app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_note_counter,string,%1$d/%2$d,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,"Characters typed / maximum, e.g. ""120/1500""",%1$d %2$d
+report_privacy,string,Your email will show us your address. We may use your report to correct the content.,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_send,string,Open email,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_cancel,string,Cancel,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_no_email_title,string,No email app found,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_no_email_body,string,Copy this text and email it to %1$s from any email account.,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,%1$s = support email address,%1$s
+report_address_label,string,Send to,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_copy,string,Copy text,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_copied,string,Report copied,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+report_close,string,Close,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
+community_intro,string,"Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.",C1 Community tab,"Community (C1 monthly spotlight vote, C2 past spotlights)",
+community_round_title,string,%1$s spotlight,C1 Community tab,"%1$s = month and year, e.g. ""December 2026""",%1$s
+community_open_until,string,Voting is open until %1$s,C1 Community tab,"%1$s = local date and time, e.g. ""Dec 31, 2026, 6:00 PM""",%1$s
+community_vote,string,Vote,C1 Community tab,,
+community_vote_cd,string,Vote for %1$s,C1 Community tab,,%1$s
+community_website,string,Website,C1 Community tab,,
+community_website_cd,string,%1$s website,C1 Community tab,,%1$s
+community_give,string,Give directly,C1 Community tab,,
+community_give_cd,string,Give to %1$s directly,C1 Community tab,,%1$s
+community_no_money,string,The app handles no money. Giving happens on each ministry’s own website.,C1 Community tab,,
+community_confirm_title,string,Vote for %1$s?,C1 Community tab,,%1$s
+community_confirm_body,string,Your vote is anonymous and can’t be changed this month.,C1 Community tab,,
+community_confirm_vote,string,Vote,C1 Community tab,,
+community_confirm_cancel,string,Cancel,C1 Community tab,,
+community_pick_counted,string,You voted for %1$s. Thank you.,C1 Community tab,,%1$s
+community_pick_pending,string,You voted for %1$s. It will be sent when you’re online.,C1 Community tab,,%1$s
+community_pick_not_counted,string,"Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.",C1 Community tab,,%1$s
+community_your_pick,string,Your pick,C1 Community tab,,
+community_votes[one],plurals,%1$d vote,C1 Community tab,,%1$d
+community_votes[other],plurals,%1$d votes,C1 Community tab,,%1$d
+community_no_spotlight_title,string,No spotlight right now,C1 Community tab,,
+community_no_spotlight_body,string,"When the next monthly vote opens, it will be here.",C1 Community tab,,
+community_unavailable,string,The spotlight list couldn’t be loaded. Check your connection and try again.,C1 Community tab,,
+community_retry,string,Try again,C1 Community tab,,
+community_past_title,string,Past spotlights,C1 Community tab,,
+community_most_votes,string,Most votes,C1 Community tab,,
+community_totals_offline,string,Totals need a connection.,C1 Community tab,,
+community_result_counted,string,Thanks! Your vote was counted.,C1 Community tab,,
+community_result_pending,string,Saved. Your vote will be sent when you’re online.,C1 Community tab,,
+community_result_refused,string,This month’s vote isn’t taking votes right now. Try again later.,C1 Community tab,,
+community_result_closed,string,Voting for this month has closed.,C1 Community tab,,
+community_result_already,string,You’ve already voted this month.,C1 Community tab,,
+community_open_failed,string,Couldn’t open the page.,C1 Community tab,,
+actions_study,string,Study this verse,B7 Verse actions sheet; B8/D2 Verse study; H1 Home tab,"B8 Verse study (feed), word sheet, Hide AI view",
+study_section_ai,string,AI-assisted,B8/D2 Verse study,,
+study_hidden_data_note,string,"AI-written sections are hidden. Showing the original language, cross references and sources.",B8/D2 Verse study,,
+study_save_study,string,Save study,B8/D2 Verse study,,
+study_study_saved,string,Study saved,B8/D2 Verse study,,
+study_word_details,string,Word details,B8/D2 Verse study,,
+study_word_cd,string,%1$s: %2$s,B8/D2 Verse study,"TalkBack for a word chip: %1$s = transliteration, %2$s = meaning here",%1$s %2$s
+study_word_lemma,string,Dictionary form,B8/D2 Verse study,,
+study_word_transliteration,string,Pronunciation,B8/D2 Verse study,,
+study_word_gloss,string,Meaning here,B8/D2 Verse study,,
+study_word_morphology,string,Grammar code,B8/D2 Verse study,,
+study_word_strongs,string,Strong’s number,B8/D2 Verse study,,
+study_citation,string,%1$s (%2$s),B8/D2 Verse study,"A study's source: %1$s = dataset, %2$s = licence, e.g. ""OpenBible.info (CC BY 4.0)""",%1$s %2$s
+privacy_title,string,Privacy,S1-S4 Settings,"Privacy (S8 Privacy and web/privacy/, generated from these strings by tools/build_privacy_page.py). Source of truth: docs/privacy-inventory.md. Never say data ""never leaves"" the phone.",
+privacy_updated,string,Last updated: %1$s,S1-S4 Settings,"%1$s = date, e.g. ""18 November 2026""",%1$s
+privacy_intro,string,"We don’t track you. There’s no account, no ads and no analytics, and the app contains no tracking or crash-reporting code. This page explains what the app keeps on your phone and the few things that leave it.",S1-S4 Settings,,
+privacy_on_phone_title,string,What stays on your phone,S1-S4 Settings,,
+privacy_on_phone,string,"Your notes, likes, bookmarks, reading plans, reading progress, streak, Community vote and settings are stored in the app on this phone. We can’t see them.",S1-S4 Settings,,
+privacy_leaves_title,string,What leaves your phone,S1-S4 Settings,,
+privacy_leaves_content,string,"Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.",S1-S4 Settings,,
+privacy_leaves_vote,string,"Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.",S1-S4 Settings,,
+privacy_leaves_email,string,"Emails you choose to send: Report a problem and Send feedback open your own email app with a message you can read and change first. Nothing is sent unless you send it. If you do, we see your email address and what you wrote, and we may use it to correct the content.",S1-S4 Settings,,
+privacy_leaves_links,string,Links you open: a ministry’s Website and Give directly buttons open its page in your browser. That site’s own privacy policy applies. The app handles no money.,S1-S4 Settings,,
+privacy_android_title,string,What Android and Google Play do,S1-S4 Settings,,
+privacy_android_backup,string,"If backup is turned on in your phone’s settings, Android may save a copy of your notes, plans and settings to your own Google account. On Android 12 and later, the app allows this only when Android can encrypt the backup end to end, which needs a screen lock. If you use Export my data, the file goes wherever you save it.",S1-S4 Settings,,
+privacy_android_crashes,string,"If you let your phone share usage and diagnostics with Google, Google Play may send us crash statistics. The app has no crash-reporting code of its own.",S1-S4 Settings,,
+privacy_delete_title,string,Deleting your data,S1-S4 Settings,,
+privacy_delete,string,"Uninstalling the app, or clearing its data, deletes everything it stored on this phone. A backup in your Google account follows your Google account settings. Community votes can’t be deleted because they aren’t linked to anyone. To ask us to delete an email you sent, write to us.",S1-S4 Settings,,
+privacy_contact_title,string,Contact,S1-S4 Settings,,
+privacy_contact,string,Questions about privacy: %1$s,S1-S4 Settings,%1$s = support email address,%1$s
+privacy_changes,string,"If this changes, we’ll update this page and the app before the change takes effect.",S1-S4 Settings,,
+legal_title,string,Legal,S1-S4 Settings,S8 Legal,
+legal_summary,string,"Privacy, licences and sources",S1-S4 Settings,,
+legal_translations,string,Scripture translations,S1-S4 Settings,,
+legal_licence,string,Licence,S1-S4 Settings,,
+legal_attribution,string,Attribution,S1-S4 Settings,,
+legal_sources,string,Study sources,S1-S4 Settings,,
+legal_source_lexicons,string,"Word meanings come from the STEP Bible tagged Hebrew and Greek texts above. A few dictionary forms come from STEP Bible’s brief lexicons (TBESH, TBESG; CC BY 4.0). No lexicon definitions are included.",S1-S4 Settings,,
+legal_studies_title,string,How studies are made,S1-S4 Settings,,
+legal_studies_body,string,"Each study was written once by an AI model (Anthropic’s Claude) from the sources above: the original-language data and cross references come from those datasets, not from the AI. Every study is checked automatically, partly by a second AI model. Studies are not individually reviewed by a person unless they say “reviewed by a person”. If something looks wrong, please tell us.",S1-S4 Settings,,
+legal_fonts,string,Fonts,S1-S4 Settings,,
+legal_libraries,string,Open-source libraries,S1-S4 Settings,,
+legal_libraries_count[one],plurals,This app uses %1$d open-source library.,S1-S4 Settings,,%1$d
+legal_libraries_count[other],plurals,This app uses %1$d open-source libraries.,S1-S4 Settings,,%1$d
+legal_libraries_unavailable,string,The library list isn’t available in this build.,S1-S4 Settings,,
+legal_licence_texts,string,Licence texts,S1-S4 Settings,,
+legal_versions,string,App and content,S1-S4 Settings,,
+legal_app_version,string,App version: %1$s,S1-S4 Settings,,%1$s
+legal_content_release,string,Study content release: %1$s,S1-S4 Settings,,%1$s
+legal_content_none,string,Study content: not downloaded yet,S1-S4 Settings,,
+legal_study_books[one],plurals,Studies on this phone: %1$d book,S1-S4 Settings,,%1$d
+legal_study_books[other],plurals,Studies on this phone: %1$d books,S1-S4 Settings,,%1$d
+legal_bible_db,string,Bible text database: version %1$d,S1-S4 Settings,,%1$d
+legal_contact,string,Contact,S1-S4 Settings,,
+legal_close,string,Close,S1-S4 Settings,,
+widget_guide_title,string,Widget guide,S1-S4 Settings,S5 Widget guide,
+widget_guide_summary,string,Put a verse on your home screen,S1-S4 Settings,,
+widget_guide_intro,string,The Verse widget shows a verse on your home screen. Tap it to open that verse in the app.,S1-S4 Settings,,
+widget_guide_fixed_body,string,"Shows the verse you choose until you change it. In the Bible feed, open Verse actions and choose Set as widget verse.",S1-S4 Settings,,
+widget_guide_votd_body,string,"Shows the Verse of the Day, which changes just after midnight. Choose it from the Verse of the Day card on Home, or under Set as widget verse.",S1-S4 Settings,,
+widget_guide_current,string,Your widget is set to: %1$s,S1-S4 Settings,"%1$s = ""A fixed verse"" or ""Verse of the Day""",%1$s
+widget_guide_preview,string,Preview,S1-S4 Settings,,
+widget_guide_placed,string,Your widget is on your home screen.,S1-S4 Settings,,
+widget_guide_manual_title,string,Add it yourself,S1-S4 Settings,,
+widget_guide_step1,string,Touch and hold an empty spot on your home screen.,S1-S4 Settings,,
+widget_guide_step2,string,Tap Widgets.,S1-S4 Settings,,
+widget_guide_step3,string,"Find %1$s, then touch and hold the Verse widget and drag it onto your home screen.",S1-S4 Settings,%1$s = app name,%1$s
+help_privacy_summary,string,"What the app keeps on your phone, and what leaves it",S1-S4 Settings,S7 Privacy row,
+widget_guide_step_number,string,%1$d.,S1-S4 Settings,"Numbered step, e.g. ""1.""",%1$d
+widget_guide_preview_cd,string,"Widget preview: %1$s, %2$s",S1-S4 Settings,"TalkBack for the widget preview: %1$s = verse text, %2$s = reference and translation",%1$s %2$s
+home_todays_reading,string,Today’s reading,H1 Home tab,"H1 Today's Reading (calm: no ""behind"", no guilt)",
+home_reading_page_of,string,%1$d of %2$d,H1 Home tab,"Pager position for TalkBack: ""2 of 3""",%1$d %2$d
+home_plan_finished[one],plurals,"You read the whole plan, %1$d day. Well done.",H1 Home tab,,%1$d
+home_plan_finished[other],plurals,You read all %1$d days. Well done.,H1 Home tab,,%1$d
+home_plan_starts,string,Starts %1$s,H1 Home tab,%1$s = date,%1$s
+home_plan_caught_up,string,You’re up to date. The next day is here if you’d like to read ahead.,H1 Home tab,,
+home_plan_day_of,string,Day %1$d of %2$d,H1 Home tab,,%1$d %2$d
+home_plan_minutes[one],plurals,About %1$d minute,H1 Home tab,,%1$d
+home_plan_minutes[other],plurals,About %1$d minutes,H1 Home tab,,%1$d
+home_plan_read_day,string,Read now,H1 Home tab,,
+home_plan_read_ahead,string,Read ahead,H1 Home tab,,
+home_plan_preview,string,Take a look,H1 Home tab,,
+home_plan_look_back,string,Look back,H1 Home tab,,
+home_continue_title,string,Continue reading,H1 Home tab,,
+home_continue_action,string,Open in the Bible,H1 Home tab,,
+home_start_title,string,Start reading,H1 Home tab,,
+home_start_body,string,Open the Bible and swipe up for the next verse.,H1 Home tab,,
+home_start_action,string,Open the Bible,H1 Home tab,,
+home_verse_search,string,Find a verse,H1 Home tab,H1 Verse Search,
+home_wheel_book,string,Book,H1 Home tab,,
+home_wheel_chapter,string,Chapter,H1 Home tab,,
+home_wheel_verse,string,Verse,H1 Home tab,,
+home_wheel_cd,string,%1$s: %2$s,H1 Home tab,"TalkBack for a wheel: %1$s = ""Book"", %2$s = current value",%1$s %2$s
+home_wheel_previous,string,Previous,H1 Home tab,,
+home_wheel_next,string,Next,H1 Home tab,,
+home_verse_search_read,string,Read,H1 Home tab,,
 book_names[0],string-array,Genesis,"Bible book names, everywhere a book is named","Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.",
 book_names[1],string-array,Exodus,"Bible book names, everywhere a book is named","Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.",
 book_names[2],string-array,Leviticus,"Bible book names, everywhere a book is named","Book names in canonical Protestant order (Genesis … Revelation, 66 items). Shown in pickers, references and plans.",

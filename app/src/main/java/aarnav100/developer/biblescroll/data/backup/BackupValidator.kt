@@ -99,6 +99,11 @@ object BackupValidator {
         t.devotionalProgress.forEach {
             if (!isDate(it.readFor) || it.devotionalId.isBlank() || it.updatedAt < 0) return "devotional_progress ${it.readFor}"
         }
+        t.communityVotes.forEach {
+            if (!COMMUNITY_MONTH.matches(it.month) || !COMMUNITY_MINISTRY.matches(it.ministryId) || it.votedAt < 0 || it.updatedAt < 0) {
+                return "community_votes ${it.month}"
+            }
+        }
 
         duplicate(t.verseMarks) { Triple(it.bookId, it.chapter, it.verse) }?.let { return "duplicate verse_marks $it" }
         duplicate(t.readingPositions) { it.bookId }?.let { return "duplicate reading_positions $it" }
@@ -109,6 +114,7 @@ object BackupValidator {
         duplicate(t.planDayProgress) { it.enrollmentId to it.dayNumber }?.let { return "duplicate plan_day_progress $it" }
         duplicate(t.customPlans) { it.id }?.let { return "duplicate custom_plans $it" }
         duplicate(t.devotionalProgress) { it.readFor }?.let { return "duplicate devotional_progress $it" }
+        duplicate(t.communityVotes) { it.month }?.let { return "duplicate community_votes $it" }
 
         file.settings.forEach { (key, value) ->
             val ok = when (BackupSettings.EXPORTED[key]) {
@@ -161,3 +167,6 @@ internal fun JsonPrimitive.settingValue(type: BackupSettings.Type): Any? = when 
     BackupSettings.Type.STRING -> content
 }
 
+/** Same rules as the Firestore doc ids the votes name (CommunityCounter.docId). */
+private val COMMUNITY_MONTH = Regex("^[0-9]{4}-(0[1-9]|1[0-2])$")
+private val COMMUNITY_MINISTRY = Regex("^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$")

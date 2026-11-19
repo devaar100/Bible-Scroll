@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.di
 
 import aarnav100.developer.biblescroll.data.backup.NoDeleteOpenHelperFactory
+import aarnav100.developer.biblescroll.data.community.CommunityVoteDao
 import aarnav100.developer.biblescroll.data.devotionals.DevotionalProgressDao
 import aarnav100.developer.biblescroll.data.plans.CustomPlanDao
 import aarnav100.developer.biblescroll.data.plans.PlanProgressDao
@@ -50,6 +51,9 @@ object UserDatabaseModule {
 
     @Provides
     fun provideDevotionalProgressDao(db: UserDatabase): DevotionalProgressDao = db.devotionalProgressDao()
+
+    @Provides
+    fun provideCommunityVoteDao(db: UserDatabase): CommunityVoteDao = db.communityVoteDao()
 }
 
 @Module

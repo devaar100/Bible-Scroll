@@ -21,6 +21,10 @@ import aarnav100.developer.biblescroll.core.content.db.ContentDatabase
 import aarnav100.developer.biblescroll.core.content.db.RoomContentStore
 import aarnav100.developer.biblescroll.core.content.net.AndroidNetworkMonitor
 import aarnav100.developer.biblescroll.core.content.net.ContentApi
+import aarnav100.developer.biblescroll.core.content.net.FirestoreApi
+import aarnav100.developer.biblescroll.core.content.CommunityContentRepository
+import aarnav100.developer.biblescroll.core.content.CommunityCounter
+import aarnav100.developer.biblescroll.core.content.ContentInfo
 import aarnav100.developer.biblescroll.core.content.net.NetworkMonitor
 import android.content.Context
 import androidx.room.Room
@@ -146,6 +150,31 @@ object ContentModule {
     ): DiscoverRepository = DiscoverRepository(
         api, ContentCache(File(context.filesDir, "content-cache")), store, json, BuildConfig.CONTENT_BASE_URL, Dispatchers.IO,
     )
+
+    @Provides
+    @Singleton
+    fun provideCommunityContent(api: ContentApi, json: Json, @ApplicationContext context: Context): CommunityContentRepository =
+        CommunityContentRepository(api, ContentCache(File(context.filesDir, "content-cache")), json, BuildConfig.CONTENT_BASE_URL, Dispatchers.IO)
+
+    /** Firestore REST for the Community vote. Same OkHttp client: no cookies, no identifying headers, no auth. */
+    @Provides
+    @Singleton
+    fun provideFirestoreApi(client: OkHttpClient, json: Json): FirestoreApi = Retrofit.Builder()
+        .baseUrl("https://firestore.googleapis.com/v1/")
+        .client(client)
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+        .build()
+        .create(FirestoreApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCommunityCounter(api: FirestoreApi): CommunityCounter =
+        CommunityCounter(api, BuildConfig.FIRESTORE_PROJECT_ID, Dispatchers.IO)
+
+    /** S8 Legal → App and content: the last content release fetched and the study books on the phone. */
+    @Provides
+    fun provideContentInfo(store: ContentStore, json: Json, @ApplicationContext context: Context): ContentInfo =
+        ContentInfo(ContentCache(File(context.filesDir, "content-cache")), store, json, Dispatchers.IO)
 
     @Provides
     @Singleton

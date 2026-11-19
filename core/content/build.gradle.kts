@@ -17,6 +17,8 @@ android {
         consumerProguardFiles("consumer-rules.pro")
         // Study content CDN (Firebase Hosting; see pipeline/publish.json). Trailing slash for Retrofit.
         buildConfigField("String", "CONTENT_BASE_URL", "\"https://biblescroll-content.web.app/\"")
+        // Community vote counter (C1): Cloud Firestore in the same Firebase project (backend/). REST, unauthenticated.
+        buildConfigField("String", "FIRESTORE_PROJECT_ID", "\"biblescroll-content\"")
     }
 
     buildFeatures {

@@ -29,6 +29,11 @@ data class Study(
     val reviewed: Boolean,
     /** Model that wrote the prose, for the "AI-assisted" label. */
     val model: String,
+    /**
+     * Hash of the study prompt (pipeline meta.promptVersion), sent with "Report a problem". Optional: published
+     * book files don't carry it yet, and older apps ignore it if they do.
+     */
+    val promptVersion: String? = null,
 )
 
 @Serializable
@@ -106,6 +111,8 @@ data class Manifest(
     val discover: DiscoverEntry,
     /** Daily devotionals, one file per month. Absent in manifests published before devotionals existed. */
     val devotionals: ManifestDevotionals = ManifestDevotionals(),
+    /** Community spotlight ministries (C1/C2). Absent until a ministries file is published. */
+    val community: CommunityEntry? = null,
 )
 
 @Serializable

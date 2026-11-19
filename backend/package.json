@@ -1,0 +1,10 @@
+{
+  "name": "biblescroll-backend",
+  "private": true,
+  "description": "Firestore rules, emulator tests and the seed script for the Community vote (C1/C2). No dependencies.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "firebase emulators:exec --only firestore --project demo-biblescroll \"node --test test/*.test.mjs\""
+  }
+}
