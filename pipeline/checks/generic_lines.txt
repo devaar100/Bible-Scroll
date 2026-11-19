@@ -1,0 +1,7 @@
+# Stock "traditions" sentences that say nothing about the verse (check: generic_traditions). One per line,
+# case-insensitive; "re:" lines are regular expressions. Never excused by negation. A flagged study is regenerated
+# in the batch retry round. Say traditions differ only where the book's disputes or the related passages show a
+# real disagreement about this verse.
+re: \btraditions\s+differ\s+on\s+how\b
+re: \bChristians\s+from\s+(?:many|different)\s+traditions\b
+re: \btraditions\s+read\s+these\b

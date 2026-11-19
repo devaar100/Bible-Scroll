@@ -1,10 +1,11 @@
 {
-  "_comment": "Word limits per prose section (whitespace-separated words). Tune after reading real output.",
+  "_comment": "Word limits per prose section (whitespace-separated words). min-max is the range the prompt asks for. A section passes up to max + graceShare (20%) unless it sets its own \"grace\" share or a \"hardCap\" (then nothing above the cap passes and no grace band is added). Under min is rejected. checks.upper_limit/band read this file; `pipeline replay` prints it as enforced.",
+  "graceShare": 0.2,
   "words": {
     "meaning":           {"min": 40, "max": 180},
     "historicalContext": {"min": 40, "max": 180},
     "lifeInBibleTimes":  {"min": 30, "max": 150},
-    "theology":          {"min": 40, "max": 180},
+    "theology":          {"min": 70, "max": 95, "hardCap": 115},
     "didYouKnow":        {"min": 15, "max": 80},
     "applyIt":           {"min": 25, "max": 120}
   }
