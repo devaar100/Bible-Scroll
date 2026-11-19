@@ -58,7 +58,7 @@ Related passages for this verse:
 Return JSON with these sections, plain text only (no markdown, no headings):
 - meaning: {{meaning_words}} words. What the verse says and means in its context, in plain words.
 - historicalContext: {{historicalContext_words}} words. What is happening at this point in the passage and why it matters for this verse; at most one short sentence of book background. Only well-established background; hedge what is uncertain. Never begin with "This verse", "The verse" or "Verse".
-- lifeInBibleTimes: {{lifeInBibleTimes_words}} words. One custom, object, place or way of life that helps the verse make sense to a modern reader, taken from what the verse and its surrounding verses mention.
+- lifeInBibleTimes: {{lifeInBibleTimes_words}} words. One custom, object, place or way of life that helps the verse make sense to a modern reader, taken from what the verse and its surrounding verses mention. Only well-established facts, and hedge anything less certain ("probably", "often"). Add no scenes, feelings or motives that the text doesn't give.
 - theology: {{theology_words}} words. What the verse shows about God, people and faith, and how it connects to the wider Bible through the related passages. Mention traditions only where they really disagree about this verse.
 - didYouKnow: {{didYouKnow_words}} words. One word of this verse from the original words listed: the word, what it means here, and one thing about how it works in this verse (its form, a repetition, word order, a pairing). Nothing about surrounding verses, speakers or events. Open it differently each time.
 - applyIt: {{applyIt_words}} words. One gentle, concrete way to live this out or reflect on it today. An invitation, not a demand.
