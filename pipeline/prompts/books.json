@@ -1,0 +1,78 @@
+{
+  "_comment": "Book background and notes on the text for the study prompt (generate.request_values). Read by a person before any batch. Widely held views only; anything contested goes under disputes. textNotes apply to every verse from..to (KJV keys) and are the only manuscript facts the model may mention. Editing this file changes the prompt hash.",
+  "books": {
+    "MAT": {
+      "author": "Anonymous; early church tradition names Matthew, the tax collector who became an apostle.",
+      "date": "Probably between about AD 70 and 90; some date it before AD 70.",
+      "audience": "Probably mostly Jewish followers of Jesus, perhaps in Syria; it often shows Jesus fulfilling Israel's Scriptures.",
+      "setting": "Jesus's birth, his teaching and healing in Galilee, his journey to Jerusalem, his death and resurrection.",
+      "disputes": [
+        "Whether the apostle Matthew wrote it as we have it is disputed.",
+        "The date is disputed.",
+        "How the first three Gospels relate is debated; most scholars think Matthew used Mark, others think Matthew came first."
+      ]
+    },
+    "MRK": {
+      "author": "Anonymous; early church tradition names John Mark and links his Gospel to Peter's preaching.",
+      "date": "Probably around AD 65 to 73.",
+      "audience": "Probably mostly non-Jewish believers; it explains Jewish customs and translates Aramaic words. Tradition places it in Rome.",
+      "setting": "Jesus's ministry in Galilee, his journey to Jerusalem, and his last week, death and resurrection, told at a fast pace.",
+      "disputes": [
+        "The author's identity and the link to Peter are disputed.",
+        "Where it was written (Rome, Syria or Galilee) is disputed.",
+        "Most scholars think Mark was the first Gospel written, but this is debated.",
+        "Whether the original ending is at 16:8 is disputed."
+      ]
+    },
+    "LUK": {
+      "author": "Anonymous; early church tradition names Luke, a doctor and companion of Paul. The same author wrote Acts.",
+      "date": "Probably around AD 80 to 90; some date it to the early 60s.",
+      "audience": "Written for Theophilus and, through him, probably for non-Jewish readers; it stresses God's welcome for outsiders, the poor and women.",
+      "setting": "Jesus's birth, his ministry in Galilee, a long journey to Jerusalem, his death, resurrection and ascension.",
+      "disputes": [
+        "Whether the author was Paul's companion Luke is disputed.",
+        "The date is disputed.",
+        "Which earlier sources Luke used is debated."
+      ]
+    },
+    "JHN": {
+      "author": "Anonymous; it is linked to \"the disciple whom Jesus loved\", whom tradition identifies as the apostle John.",
+      "date": "Probably around AD 90 to 100; some date it earlier.",
+      "audience": "Written so that readers may believe Jesus is the Messiah, the Son of God, and have life. Tradition places it in Ephesus.",
+      "setting": "Jesus's signs and long conversations, several visits to Jerusalem at the festivals, his last night with his disciples, his death and resurrection.",
+      "disputes": [
+        "Who the beloved disciple was, and whether he wrote the book himself, is disputed.",
+        "Whether the book grew in stages is debated.",
+        "How John relates to the other three Gospels is debated."
+      ]
+    },
+    "PSA": {
+      "author": "Many poets. Headings attribute many psalms to David and others to Asaph, the sons of Korah, Solomon, Moses and others; many have no heading.",
+      "date": "Written over several centuries, from the time of the kings to after the exile; the collection was probably completed after the exile.",
+      "audience": "Israel at worship, in the temple and in personal prayer; the church has prayed them ever since.",
+      "setting": "Praise, thanksgiving, lament, confession, trust, royal and wisdom poems, gathered into five books.",
+      "disputes": [
+        "Whether the headings are original or added later is disputed.",
+        "The dates of most individual psalms are disputed.",
+        "Psalm numbering differs in Bibles based on the Greek translation, usually by one."
+      ]
+    }
+  },
+  "textNotes": [
+    {"from": "MAT.6.13", "to": "MAT.6.13", "note": "The closing words of praise (\"for yours is the kingdom...\") are missing from the oldest manuscripts of Matthew, so many modern Bibles put them in a footnote."},
+    {"from": "MAT.17.21", "to": "MAT.17.21", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MAT.18.11", "to": "MAT.18.11", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MAT.23.14", "to": "MAT.23.14", "note": "This verse is missing from the oldest manuscripts of Matthew, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.7.16", "to": "MRK.7.16", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.9.44", "to": "MRK.9.44", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.9.46", "to": "MRK.9.46", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.11.26", "to": "MRK.11.26", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.15.28", "to": "MRK.15.28", "note": "This verse is missing from the oldest manuscripts of Mark, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "MRK.16.9", "to": "MRK.16.20", "note": "The two oldest complete manuscripts of Mark end at 16:8; most later manuscripts include these verses, and many modern Bibles print them with a note."},
+    {"from": "LUK.17.36", "to": "LUK.17.36", "note": "This verse is missing from the oldest manuscripts of Luke, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "LUK.22.43", "to": "LUK.22.44", "note": "These two verses are missing from some of the oldest manuscripts of Luke and present in others, so many modern Bibles print them with a note."},
+    {"from": "LUK.23.17", "to": "LUK.23.17", "note": "This verse is missing from the oldest manuscripts of Luke, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "JHN.5.4", "to": "JHN.5.4", "note": "This verse (and the end of the one before it) is missing from the oldest manuscripts of John, so many modern Bibles leave it out or put it in a footnote."},
+    {"from": "JHN.7.53", "to": "JHN.8.11", "note": "This passage is missing from the oldest manuscripts of John and appears in different places in some later ones, so many modern Bibles print it with a note."}
+  ]
+}
