@@ -194,7 +194,7 @@ prose sections with Claude, one direct Messages API request per verse (`src/pipe
 
 `python -m pipeline batch estimate|submit [ids | --wave NAME] [--limit N] [--out DIR] [--force]`, then `batch status`,
 `batch collect`, `batch check`, `batch report` and `batch backup`, writes prose through the Message Batches API
-(`src/pipeline/batch.py`): `claude-haiku-5-5`, effort `medium`, `max_tokens` 16,000, one request per verse, half the
+(`src/pipeline/batch.py`): `claude-haiku-5-5`, effort `medium`, `max_tokens` 32,000, one request per verse, half the
 direct price. The reviewer is the same model at the same effort: no Opus or Sonnet in the launch run
 (docs/decisions.md, 2026-11-19).
 

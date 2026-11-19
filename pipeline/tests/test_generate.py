@@ -79,7 +79,7 @@ def test_request_uses_model_effort_schema_and_verse_data(source, tmp_path, bible
     run(source, tmp_path / "o", w, bible_db)
     call = messages.calls[0]
     assert call["model"] == "claude-haiku-5-5"
-    assert call["output_config"]["effort"] == "medium" and call["max_tokens"] == 16000
+    assert call["output_config"]["effort"] == "medium" and call["max_tokens"] == 32000
     assert call["output_config"]["format"]["schema"] == g.OUTPUT_SCHEMA
     assert "fallbacks" not in call  # Haiku 5.5 has no server-side fallback
     request = call["messages"][0]["content"]

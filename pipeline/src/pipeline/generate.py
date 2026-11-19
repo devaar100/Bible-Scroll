@@ -33,7 +33,7 @@ PROMPT_FILE = PIPELINE / "prompts" / "study.md"
 LIMITS_FILE = PIPELINE / "checks" / "limits.json"
 DEFAULT_MODEL = "claude-haiku-5-5"  # launch decision 2026-11-19: Haiku 5.5 at medium for all generation
 DEFAULT_EFFORT = "medium"
-MAX_TOKENS = 16000
+MAX_TOKENS = 32000
 
 #: Models that accept the server-side refusal fallback (fallbacks="default"). Haiku 5.5 has none.
 FALLBACK_MODELS = {"claude-opus-5-5", "claude-sonnet-5-5", "claude-fable-5-2"}

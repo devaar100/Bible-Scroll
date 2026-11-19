@@ -45,7 +45,7 @@ from .usage import OUTPUT_WATCH, PRICES, Usage, output_stats, request_log  # noq
 
 MODEL = "claude-haiku-5-5"
 EFFORT = "medium"
-MAX_TOKENS = 16000  # adaptive thinking + six sections; a max_tokens stop counts as a failed attempt
+MAX_TOKENS = 32000  # adaptive thinking + six sections; a max_tokens stop counts as a failed attempt
 CACHE_TTL = "1h"   # batches can take an hour or more; a 5-minute entry would expire between requests
 MIN_CACHE_TOKENS = 512  # Haiku 5.5's minimum cacheable prefix; shorter blocks silently don't cache
 MAX_ATTEMPTS = 2

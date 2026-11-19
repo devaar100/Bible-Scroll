@@ -99,7 +99,7 @@ def test_request_shape_and_identical_cached_block(setup):
     b = bt.params(s.source.load("JHN.3.16"), bt.load_fixed(), s.bible_db)
     assert a["system"] == b["system"]  # byte-identical prefix on every request
     assert a["system"][0]["cache_control"] == {"type": "ephemeral", "ttl": "1h"}
-    assert a["model"] == "claude-haiku-5-5" and a["max_tokens"] == 16000
+    assert a["model"] == "claude-haiku-5-5" and a["max_tokens"] == 32000
     assert a["output_config"]["effort"] == "medium"
     user = a["messages"][0]["content"]
     assert "John 3:16" in user and "Return JSON" not in user and "{{" not in user
@@ -136,7 +136,7 @@ def test_collect_writes_checks_and_logs_cache(setup):
     assert study["meta"]["promptVersion"] == s.fixed.prompt_version and study["meta"]["batchId"] == "msgbatch_1"
     assert study["meta"]["attempts"] == 1
     assert list(validator().iter_errors(study)) == []
-    assert study["meta"]["promptHash"] == s.fixed.system_hash and study["meta"]["maxTokens"] == 16000
+    assert study["meta"]["promptHash"] == s.fixed.system_hash and study["meta"]["maxTokens"] == 32000
     summary = bt.summary(s.state)
     assert summary["statuses"] == {"auto_checked": 1}
     assert summary["rubricUsd"] > 0 and summary["generationUsd"] > 0

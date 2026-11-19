@@ -13,10 +13,10 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   Messages API, one request per verse; writes only the six prose sections, status `generated`. `--out` keeps
   test runs out of out/studies; `check --out` checks them. Prices for cost reports live in usage.py.
 - Launch run (decision 2026-11-19): ALL generation and ALL checking use claude-haiku-5-5 at effort "medium". No Opus
-  or Sonnet in it; `generate` defaults to Haiku/medium/16,000 too.
+  or Sonnet in it; `generate` defaults to Haiku/medium/32,000 too.
 - Batch prose: `batch estimate|submit|status|collect|check|report|backup` (batch.py): Haiku 5.5, effort medium, cached
   1h system block (study.md System + the Request's fixed tail; keep `FIXED_TAIL_MARKER` in step with study.md).
-  max_tokens 16,000; a max_tokens stop is a failed attempt. Waves in waves.yaml (waves.py, strict mini-parser, no
+  max_tokens 32,000; a max_tokens stop is a failed attempt. Waves in waves.yaml (waves.py, strict mini-parser, no
   YAML dependency), at most batch_size (500) requests per batch. Summaries: out/batch_runs/<wave>/generate_summary.json
   + check_summary.json (and all/). One retry round; a second failure -> status `failed` (never published). Batch ids
   live in state/ (gitignored): `backup` zips out/ + state/ before collecting.
