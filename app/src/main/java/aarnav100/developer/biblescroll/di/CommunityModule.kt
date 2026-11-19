@@ -17,8 +17,8 @@ abstract class CommunityModule {
     abstract fun bindVoteSendScheduler(impl: WorkManagerVoteSendScheduler): VoteSendScheduler
 
     companion object {
-        /** test:true ministries appear in debug builds only. */
+        /** test:true ministries appear in debug and qa builds; the data-source line in debug only. */
         @Provides
-        fun provideCommunityConfig(): CommunityConfig = CommunityConfig(includeTest = BuildConfig.DEBUG || BuildConfig.QA)
+        fun provideCommunityConfig(): CommunityConfig = CommunityConfig(includeTest = BuildConfig.DEBUG || BuildConfig.QA, showSources = BuildConfig.DEBUG)
     }
 }

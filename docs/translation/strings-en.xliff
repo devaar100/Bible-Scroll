@@ -2528,20 +2528,45 @@
         <note from="where">C1 Community tab</note>
         <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
-      <trans-unit id="community_no_spotlight_title" resname="community_no_spotlight_title">
-        <source>No spotlight right now</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_no_spotlight_body" resname="community_no_spotlight_body">
-        <source>When the next monthly vote opens, it will be here.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_unavailable" resname="community_unavailable">
-        <source>The spotlight list couldn’t be loaded. Check your connection and try again.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
       <trans-unit id="community_retry" resname="community_retry">
         <source>Try again</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_offline" resname="community_empty_offline">
+        <source>You’re offline, and the ministry list isn’t saved on this phone yet. Connect to the internet and try again.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_missing" resname="community_empty_missing">
+        <source>No ministry list has been published yet. Check back soon.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_invalid" resname="community_empty_invalid">
+        <source>The ministry list couldn’t be checked, so it isn’t shown. Try again later.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_list" resname="community_empty_list">
+        <source>The ministry list is empty right now. Check back soon.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_month" resname="community_empty_month">
+        <source>No ministry is in the spotlight this month.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_empty_month_next" resname="community_empty_month_next">
+        <source>No ministry is in the spotlight this month. The next vote is in %1$s.</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_round_not_open" resname="community_round_not_open">
+        <source>Voting for this month hasn’t opened yet. Check back soon.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_round_closed" resname="community_round_closed">
+        <source>Voting for this month has closed.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_totals_unavailable" resname="community_totals_unavailable">
+        <source>Totals are unavailable right now. Pull down to refresh, or try again.</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_past_title" resname="community_past_title">
@@ -2550,10 +2575,6 @@
       </trans-unit>
       <trans-unit id="community_most_votes" resname="community_most_votes">
         <source>Most votes</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_totals_offline" resname="community_totals_offline">
-        <source>Totals need a connection.</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_result_counted" resname="community_result_counted">

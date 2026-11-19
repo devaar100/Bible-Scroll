@@ -727,13 +727,23 @@
         <item quantity="one">%1$d vote</item>
         <item quantity="other">%1$d votes</item>
     </plurals>
-    <string name="community_no_spotlight_title">No spotlight right now</string>
-    <string name="community_no_spotlight_body">When the next monthly vote opens, it will be here.</string>
-    <string name="community_unavailable">The spotlight list couldn’t be loaded. Check your connection and try again.</string>
     <string name="community_retry">Try again</string>
+    <string name="community_empty_offline">You’re offline, and the ministry list isn’t saved on this phone yet. Connect to the internet and try again.</string>
+    <string name="community_empty_missing">No ministry list has been published yet. Check back soon.</string>
+    <string name="community_empty_invalid">The ministry list couldn’t be checked, so it isn’t shown. Try again later.</string>
+    <string name="community_empty_list">The ministry list is empty right now. Check back soon.</string>
+    <string name="community_empty_month">No ministry is in the spotlight this month.</string>
+    <string name="community_empty_month_next">No ministry is in the spotlight this month. The next vote is in %1$s.</string>
+    <string name="community_round_not_open">Voting for this month hasn’t opened yet. Check back soon.</string>
+    <string name="community_round_closed">Voting for this month has closed.</string>
+    <string name="community_totals_unavailable">Totals are unavailable right now. Pull down to refresh, or try again.</string>
+    <!-- Debug builds only: where Community data came from. Not shown in release, not translated. -->
+    <string name="community_sources_debug" translatable="false">Debug · Ministries: CDN, %1$s · This month: Firestore, %2$s · Past totals: Firestore, %3$s</string>
+    <string name="community_source_never" translatable="false">not fetched</string>
+    <string name="community_source_ok" translatable="false">%1$s</string>
+    <string name="community_source_failed" translatable="false">failed %1$s</string>
     <string name="community_past_title">Past spotlights</string>
     <string name="community_most_votes">Most votes</string>
-    <string name="community_totals_offline">Totals need a connection.</string>
     <string name="community_result_counted">Thanks! Your vote was counted.</string>
     <string name="community_result_pending">Saved. Your vote will be sent when you’re online.</string>
     <string name="community_result_refused">This month’s vote isn’t taking votes right now. Try again later.</string>

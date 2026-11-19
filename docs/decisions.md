@@ -2,6 +2,45 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-19: Community refresh and empty states
+
+### 18. The Community tab re-checks its list when stale (6 h) or re-pinned, and reads this month's counters on open
+The ministry list is cached on disk with its sha256 and last-check time (`content-cache/ministries.meta`). Showing the
+tab re-checks the CDN manifest only if nothing is cached, the check is over 6 hours old, or a manifest cached by another
+download pins a different hash; `ministries.json` is downloaded only when its hash changed. Pull to refresh and "Try
+again" always check. A manifest with no `community` entry clears the cached list (withdrawn lists stop showing). This
+month's Firestore counters are read (anonymous `batchGet`) when the tab opens, so the screen can say "not open yet"
+(counters missing or window not started) or "closed" instead of failing on Vote; totals still show only after voting.
+Each empty case has its own message: offline with nothing cached, list not published, list failed its checks, list
+empty, no ministry this month (with the next vote's month when known), round not open/closed, totals unavailable.
+Debug builds show a line naming each source and when it was last fetched.
+Counter reads are cached in memory per month for 5 minutes (1 hour once the month has closed); refresh and voting
+bypass the cache. With 5 ministries and one past month that's at most 10 reads per open and at most ~120 per hour of
+continuous reopening, so the 50,000 free reads a day cover thousands of daily readers.
+**Why:** previously every visit re-downloaded both files, a withdrawn list stayed visible offline, and one generic
+"couldn't be loaded" message covered five different situations, which made the launch hard to check on a phone.
+**Revisit if:** the extra counter read per visit shows up in Firestore's free-tier read quota (then cache it for a few
+minutes), or a list must reach phones faster than 6 hours without a manual refresh.
+
+### 19. A release publish refuses a ministries file with test entries or no entries
+`pipeline publish` (and `--dry-run`) stops if `community/ministries.json` is missing, empty, or holds any `test` entry,
+on top of the existing checks (https only; `give_url` on the website's registrable domain, with an allow-list of
+confirmed alternates such as Peter's Pence: `obolodisanpietro.va` / `peterspence.va`).
+**Why:** test entries are for debug builds and the emulator; a release must never ship them, and an empty list would
+publish a Community tab with nothing in it.
+**Revisit if:** a release ever needs to go out while the list is deliberately empty (then allow it with an explicit flag).
+**Note:** the test placeholders were replaced by the five real entries on 2026-11-19 (docs/ministry-criteria.md).
+
+## 2026-11-19: Firestore database for the Community vote
+
+### 20. One `(default)` database, Native mode, Standard edition, nam5, on the free tier
+Created from the CLI on 2026-11-19 (`firebase firestore:databases:create "(default)" --location nam5 --edition
+standard`). The project has no billing account (Cloud Billing `billingEnabled: false`), so usage is capped at the free
+quota (50,000 reads, 20,000 writes a day) rather than billed. Rules from `backend/firestore.rules` deployed with
+`--only firestore:rules` after the emulator tests passed; new rules took about 8 minutes to reach every server.
+**Why:** US multi-region keeps the counters available without billing; one database keeps rules and seeding simple.
+**Revisit if:** reads approach the free quota (lengthen the counter cache before considering billing).
+
 ## 2026-11-19: Launch content run
 
 ### 17. Every study is generated and reviewed by Claude Haiku 5.5 at effort "medium"

@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.data.community
 
+import aarnav100.developer.biblescroll.core.content.RoundRead
 import aarnav100.developer.biblescroll.core.content.model.MinistriesFile
 import aarnav100.developer.biblescroll.core.content.model.Ministry
 import java.time.Instant
@@ -67,6 +68,31 @@ object CommunityRules {
             open -> VoteStatus.PENDING
             else -> VoteStatus.NOT_COUNTED
         }
+    }
+
+    /** The server side of this month's round, from its counters. */
+    enum class RoundState {
+        /** Not read (yet, or the read failed). Voting stays possible; the server decides. */
+        UNKNOWN,
+        OPEN,
+
+        /** Some counter doesn't exist yet, or the window hasn't started. */
+        NOT_OPEN_YET,
+        CLOSED,
+    }
+
+    fun roundState(read: RoundRead?, now: Instant): RoundState = when {
+        read == null -> RoundState.UNKNOWN
+        read.missing.isNotEmpty() -> RoundState.NOT_OPEN_YET
+        read.opensAt != null && now.isBefore(read.opensAt) -> RoundState.NOT_OPEN_YET
+        read.closesAt != null && !now.isBefore(read.closesAt) -> RoundState.CLOSED
+        else -> RoundState.OPEN
+    }
+
+    /** The first month after [now]'s with a round, if the list has one. */
+    fun nextMonth(file: MinistriesFile, now: Instant, includeTest: Boolean): String? {
+        val current = monthOf(now)
+        return file.ministries.filter { includeTest || !it.test }.flatMap { it.monthsFeatured }.filter { it > current }.minOrNull()
     }
 
     sealed interface Decision {

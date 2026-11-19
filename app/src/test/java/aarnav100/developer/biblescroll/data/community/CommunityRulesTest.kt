@@ -1,8 +1,10 @@
 package aarnav100.developer.biblescroll.data.community
 
+import aarnav100.developer.biblescroll.core.content.RoundRead
 import aarnav100.developer.biblescroll.core.content.model.MinistriesFile
 import aarnav100.developer.biblescroll.core.content.model.Ministry
 import aarnav100.developer.biblescroll.data.community.CommunityRules.Decision
+import aarnav100.developer.biblescroll.data.community.CommunityRules.RoundState
 import aarnav100.developer.biblescroll.data.community.CommunityRules.VoteStatus
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -112,4 +114,23 @@ class CommunityRulesTest {
         assertTrue(CommunityRules.showTotals(vote(sent = false), "2026-12", open))
         assertTrue(CommunityRules.showTotals(null, "2026-12", after))
     }
+
+    @Test
+    fun roundStateComesFromTheCounters() {
+        val now = at("2026-12-10T00:00:00Z")
+        val open = RoundRead(mapOf("a" to 1L), emptySet(), at("2026-12-01T00:00:00Z"), at("2027-01-01T00:00:00Z"))
+        assertEquals(RoundState.UNKNOWN, CommunityRules.roundState(null, now))
+        assertEquals(RoundState.OPEN, CommunityRules.roundState(open, now))
+        assertEquals(RoundState.NOT_OPEN_YET, CommunityRules.roundState(open.copy(missing = setOf("b")), now))
+        assertEquals(RoundState.NOT_OPEN_YET, CommunityRules.roundState(open, at("2026-11-30T23:59:59Z")))
+        assertEquals(RoundState.CLOSED, CommunityRules.roundState(open, at("2027-01-01T00:00:00Z")))
+    }
+
+    @Test
+    fun nextMonthIsTheFirstFutureRound() {
+        val f = MinistriesFile(1, listOf(ministry("a", "2026-11", "2027-02"), ministry("b", "2027-01"), ministry("test-c", "2026-12", test = true)))
+        assertEquals("2027-01", CommunityRules.nextMonth(f, at("2026-12-10T00:00:00Z"), includeTest = false))
+        assertEquals(null, CommunityRules.nextMonth(f, at("2027-02-10T00:00:00Z"), includeTest = false))
+    }
 }
+

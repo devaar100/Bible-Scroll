@@ -1,11 +1,13 @@
 package aarnav100.developer.biblescroll.feature.community
 
 import aarnav100.developer.biblescroll.R
+import aarnav100.developer.biblescroll.data.community.CommunityRules.RoundState
 import aarnav100.developer.biblescroll.data.community.CommunityRules.VoteStatus
 import aarnav100.developer.biblescroll.data.community.VoteResult
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.net.Uri
+import android.text.format.DateFormat
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,10 +31,12 @@ import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -52,6 +56,7 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import java.time.Instant
@@ -61,7 +66,8 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-/** Community tab: C1 this month's anonymous spotlight vote, C2 past spotlights. */
+/** Community tab: C1 this month's anonymous spotlight vote, C2 past spotlights. Pull down to refresh. */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommunityScreen(modifier: Modifier = Modifier, viewModel: CommunityViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -81,7 +87,12 @@ fun CommunityScreen(modifier: Modifier = Modifier, viewModel: CommunityViewModel
     LaunchedEffect(viewModel) {
         viewModel.results.collect { result -> messages[result]?.let { snackbar.showSnackbar(it) } }
     }
-    Box(modifier.fillMaxSize()) {
+    // Every time the tab is shown: re-check the list if it's missing, over 6 hours old, or its hash changed.
+    LifecycleResumeEffect(viewModel) {
+        viewModel.onShown()
+        onPauseOrDispose { }
+    }
+    PullToRefreshBox(isRefreshing = state.refreshing, onRefresh = viewModel::refresh, modifier = modifier.fillMaxSize()) {
         CommunityContent(
             state = state,
             onVote = viewModel::askToVote,
@@ -115,29 +126,62 @@ fun CommunityContent(state: CommunityUiState, onVote: (MinistryUi) -> Unit, onOp
             modifier = Modifier.padding(top = 8.dp).semantics { heading() },
         )
         Text(stringResource(R.string.community_intro), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        val retry: @Composable () -> Unit = {
+            TextButton(onClick = onRetry, enabled = !state.refreshing) { Text(stringResource(R.string.community_retry)) }
+        }
         when {
             state.loading -> Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
-            state.unavailable -> Notice(stringResource(R.string.community_unavailable)) {
-                TextButton(onClick = onRetry) { Text(stringResource(R.string.community_retry)) }
-            }
-            state.round.isEmpty() -> Notice(
-                stringResource(R.string.community_no_spotlight_title),
-                stringResource(R.string.community_no_spotlight_body),
-            )
-            else -> CurrentRound(state, locale, onVote, onOpen)
+            state.empty != null -> Notice(emptyMessage(state, locale), action = retry)
+            else -> CurrentRound(state, locale, onVote, onOpen, retry)
         }
-        if (state.past.isNotEmpty()) PastRounds(state.past, locale)
+        if (state.past.isNotEmpty()) PastRounds(state.past, locale, retry)
+        state.sources?.let { SourcesLine(it, locale) }
     }
 }
 
 @Composable
-private fun CurrentRound(state: CommunityUiState, locale: Locale, onVote: (MinistryUi) -> Unit, onOpen: (String) -> Unit) {
+private fun emptyMessage(state: CommunityUiState, locale: Locale): String = when (state.empty) {
+    CommunityEmpty.OFFLINE_NOTHING_CACHED -> stringResource(R.string.community_empty_offline)
+    CommunityEmpty.LIST_MISSING -> stringResource(R.string.community_empty_missing)
+    CommunityEmpty.LIST_INVALID -> stringResource(R.string.community_empty_invalid)
+    CommunityEmpty.LIST_EMPTY -> stringResource(R.string.community_empty_list)
+    CommunityEmpty.NO_MINISTRY_THIS_MONTH, null -> state.nextMonth
+        ?.let { stringResource(R.string.community_empty_month_next, monthLabel(it, locale)) }
+        ?: stringResource(R.string.community_empty_month)
+}
+
+/** Debug builds: each data source and when it was last fetched (local time). */
+@Composable
+private fun SourcesLine(sources: CommunitySources, locale: Locale) {
+    @Composable
+    fun fetched(at: Instant?, ok: Boolean?): String = when {
+        at == null -> stringResource(R.string.community_source_never)
+        ok == false -> stringResource(R.string.community_source_failed, localDateTime(at, locale))
+        else -> stringResource(R.string.community_source_ok, localDateTime(at, locale))
+    }
+    val m = sources.ministries
+    val ministries = fetched(m.checkedAt, m.lastProblem == null).let { base ->
+        listOfNotNull(base, m.sha256?.take(8), m.lastProblem?.name?.lowercase(), if (m.refreshing) "…" else null).joinToString(" ")
+    }
+    Text(
+        stringResource(R.string.community_sources_debug, ministries, fetched(sources.roundReadAt, sources.roundReadOk), fetched(sources.totalsReadAt, sources.totalsReadOk)),
+        style = MaterialTheme.typography.labelSmall,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
+}
+
+@Composable
+private fun CurrentRound(state: CommunityUiState, locale: Locale, onVote: (MinistryUi) -> Unit, onOpen: (String) -> Unit, retry: @Composable () -> Unit) {
     Text(
         stringResource(R.string.community_round_title, monthLabel(state.month, locale)),
         style = MaterialTheme.typography.titleLarge,
         modifier = Modifier.semantics { heading() },
     )
-    state.closesAt?.let { Text(stringResource(R.string.community_open_until, localDateTime(it, locale)), style = MaterialTheme.typography.bodyMedium) }
+    when (state.roundState) {
+        RoundState.NOT_OPEN_YET -> Notice(stringResource(R.string.community_round_not_open), action = retry)
+        RoundState.CLOSED -> Notice(stringResource(R.string.community_round_closed))
+        else -> state.closesAt?.let { Text(stringResource(R.string.community_open_until, localDateTime(it, locale)), style = MaterialTheme.typography.bodyMedium) }
+    }
     state.myPick?.let { pick ->
         val text = when (state.status) {
             VoteStatus.PENDING -> stringResource(R.string.community_pick_pending, pick.name)
@@ -153,11 +197,12 @@ private fun CurrentRound(state: CommunityUiState, locale: Locale, onVote: (Minis
             ministry = ministry,
             isPick = ministry.id == state.myPick?.id,
             votes = state.currentTotals?.get(ministry.id),
-            canVote = state.status == VoteStatus.CAN_VOTE && !state.sending,
+            canVote = state.canVote,
             onVote = { onVote(ministry) },
             onOpen = onOpen,
         )
     }
+    if (state.currentTotalsUnavailable) Notice(stringResource(R.string.community_totals_unavailable), action = retry)
     Text(stringResource(R.string.community_no_money), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
@@ -204,7 +249,7 @@ private fun LinkButton(label: String, description: String, onClick: () -> Unit) 
 }
 
 @Composable
-private fun PastRounds(past: List<PastRoundUi>, locale: Locale) {
+private fun PastRounds(past: List<PastRoundUi>, locale: Locale, retry: @Composable () -> Unit) {
     Text(
         stringResource(R.string.community_past_title),
         style = MaterialTheme.typography.titleLarge,
@@ -213,7 +258,7 @@ private fun PastRounds(past: List<PastRoundUi>, locale: Locale) {
     past.forEach { round ->
         Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(monthLabel(round.month, locale), style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
+                Text(monthLabel(round.month, locale, standalone = true), style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
                 val loaded = round.ministries.all { it.second != null }
                 val top = round.ministries.firstOrNull()?.second
                 round.ministries.forEach { (ministry, count) ->
@@ -231,7 +276,10 @@ private fun PastRounds(past: List<PastRoundUi>, locale: Locale) {
                     }
                     marks?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary) }
                 }
-                if (!loaded) Text(stringResource(R.string.community_totals_offline), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                if (round.totalsUnavailable) {
+                    Text(stringResource(R.string.community_totals_unavailable), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    retry()
+                }
             }
         }
     }
@@ -249,8 +297,14 @@ private fun Notice(title: String, body: String? = null, action: (@Composable () 
 }
 
 /** "diciembre de 2026" / "December 2026": the UTC round month, named in the app's language. */
-private fun monthLabel(month: String, locale: Locale): String =
-    YearMonth.parse(month).format(DateTimeFormatter.ofPattern("LLLL yyyy", locale)).replaceFirstChar { it.titlecase(locale) }
+/**
+ * "December 2026" / "diciembre de 2026": the language's own month-year pattern, lowercase where the language writes
+ * months that way mid-sentence. [standalone] capitalises it for a heading ("Diciembre de 2026").
+ */
+private fun monthLabel(month: String, locale: Locale, standalone: Boolean = false): String {
+    val text = YearMonth.parse(month).format(DateTimeFormatter.ofPattern(DateFormat.getBestDateTimePattern(locale, "MMMMyyyy"), locale))
+    return if (standalone) text.replaceFirstChar { it.titlecase(locale) } else text
+}
 
 /** The round's UTC close, shown in the phone's own time zone. */
 private fun localDateTime(instant: Instant, locale: Locale): String =

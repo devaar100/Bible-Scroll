@@ -720,13 +720,18 @@
         <item quantity="one">%1$d voto</item>
         <item quantity="other">%1$d votos</item>
     </plurals>
-    <string name="community_no_spotlight_title">No hay ningún destacado por ahora</string>
-    <string name="community_no_spotlight_body">Cuando se abra la próxima votación mensual, aparecerá aquí.</string>
-    <string name="community_unavailable">No se pudo cargar la lista de destacados. Revisa tu conexión e inténtalo de nuevo.</string>
     <string name="community_retry">Reintentar</string>
+    <string name="community_empty_offline">Estás sin conexión y la lista de ministerios aún no está guardada en este teléfono. Conéctate a internet y vuelve a intentarlo.</string>
+    <string name="community_empty_missing">Todavía no se ha publicado ninguna lista de ministerios. Vuelve pronto.</string>
+    <string name="community_empty_invalid">No se pudo verificar la lista de ministerios, así que no se muestra. Inténtalo más tarde.</string>
+    <string name="community_empty_list">La lista de ministerios está vacía por ahora. Vuelve pronto.</string>
+    <string name="community_empty_month">Este mes no hay ningún ministerio destacado.</string>
+    <string name="community_empty_month_next">Este mes no hay ningún ministerio destacado. La próxima votación es en %1$s.</string>
+    <string name="community_round_not_open">La votación de este mes todavía no está abierta. Vuelve pronto.</string>
+    <string name="community_round_closed">La votación de este mes ya cerró.</string>
+    <string name="community_totals_unavailable">Los resultados no están disponibles por ahora. Desliza hacia abajo para actualizar o vuelve a intentarlo.</string>
     <string name="community_past_title">Destacados anteriores</string>
     <string name="community_most_votes">Más votado</string>
-    <string name="community_totals_offline">Los totales necesitan conexión.</string>
     <string name="community_result_counted">¡Gracias! Tu voto se contó.</string>
     <string name="community_result_pending">Guardado. Tu voto se enviará cuando tengas conexión.</string>
     <string name="community_result_refused">La votación de este mes no está recibiendo votos ahora. Inténtalo más tarde.</string>

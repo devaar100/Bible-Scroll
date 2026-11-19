@@ -588,13 +588,18 @@ community_pick_not_counted,string,"Your vote for %1$s couldn’t be sent before 
 community_your_pick,string,Your pick,C1 Community tab,,
 community_votes[one],plurals,%1$d vote,C1 Community tab,,%1$d
 community_votes[other],plurals,%1$d votes,C1 Community tab,,%1$d
-community_no_spotlight_title,string,No spotlight right now,C1 Community tab,,
-community_no_spotlight_body,string,"When the next monthly vote opens, it will be here.",C1 Community tab,,
-community_unavailable,string,The spotlight list couldn’t be loaded. Check your connection and try again.,C1 Community tab,,
 community_retry,string,Try again,C1 Community tab,,
+community_empty_offline,string,"You’re offline, and the ministry list isn’t saved on this phone yet. Connect to the internet and try again.",C1 Community tab,,
+community_empty_missing,string,No ministry list has been published yet. Check back soon.,C1 Community tab,,
+community_empty_invalid,string,"The ministry list couldn’t be checked, so it isn’t shown. Try again later.",C1 Community tab,,
+community_empty_list,string,The ministry list is empty right now. Check back soon.,C1 Community tab,,
+community_empty_month,string,No ministry is in the spotlight this month.,C1 Community tab,,
+community_empty_month_next,string,No ministry is in the spotlight this month. The next vote is in %1$s.,C1 Community tab,,%1$s
+community_round_not_open,string,Voting for this month hasn’t opened yet. Check back soon.,C1 Community tab,,
+community_round_closed,string,Voting for this month has closed.,C1 Community tab,,
+community_totals_unavailable,string,"Totals are unavailable right now. Pull down to refresh, or try again.",C1 Community tab,,
 community_past_title,string,Past spotlights,C1 Community tab,,
 community_most_votes,string,Most votes,C1 Community tab,,
-community_totals_offline,string,Totals need a connection.,C1 Community tab,,
 community_result_counted,string,Thanks! Your vote was counted.,C1 Community tab,,
 community_result_pending,string,Saved. Your vote will be sent when you’re online.,C1 Community tab,,
 community_result_refused,string,This month’s vote isn’t taking votes right now. Try again later.,C1 Community tab,,

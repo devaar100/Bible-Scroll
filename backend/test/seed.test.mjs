@@ -1,7 +1,7 @@
 // The seed script against the emulator: creates the month's counters once, never resets them.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { featured, nextMonth, seedMonth, window } from "../scripts/seed-month.mjs";
+import { featured, nextMonth, seedMonth, verifyMonth, window } from "../scripts/seed-month.mjs";
 
 const HOST = process.env.FIRESTORE_EMULATOR_HOST;
 const PROJECT = process.env.GCLOUD_PROJECT || "demo-biblescroll";
@@ -57,4 +57,19 @@ test("creates the month's counters at zero with the UTC window, then never overw
   const again = await seedMonth({ month: "2031-02", ministries: MINISTRIES, includeTest: true, target });
   assert.deepEqual(again.map((r) => r.result), ["exists", "exists", "created"]);
   assert.equal((await read("2031-02_river")).fields.count.integerValue, "1");
+});
+
+test("every document is printed before it is written", async () => {
+  const lines = [];
+  await seedMonth({ month: "2031-05", ministries: { formatVersion: 1, ministries: [{ id: "river", months_featured: ["2031-05"] }] }, target, log: (l) => lines.push(l) });
+  assert.deepEqual(lines, ["  writing community_votes/2031-05_river {count: 0, opensAt: 2031-05-01T00:00:00.000Z, closesAt: 2031-06-01T00:00:00.000Z} (only if it doesn't exist)"]);
+});
+
+test("verify reads without credentials and reports missing or wrong docs", async () => {
+  const m = { formatVersion: 1, ministries: [{ id: "river", months_featured: ["2031-06"] }, { id: "harbor", months_featured: ["2031-06"] }] };
+  await seedMonth({ month: "2031-06", ministries: { formatVersion: 1, ministries: [m.ministries[0]] }, target });
+  const rows = await verifyMonth({ month: "2031-06", ministries: m, base: target.base }); // plain fetch, no Authorization
+  assert.deepEqual(rows.map((r) => [r.id, r.ok]), [["2031-06_river", true], ["2031-06_harbor", false]]);
+  assert.equal(rows[0].count, 0);
+  assert.match(rows[1].problem, /HTTP 404/);
 });

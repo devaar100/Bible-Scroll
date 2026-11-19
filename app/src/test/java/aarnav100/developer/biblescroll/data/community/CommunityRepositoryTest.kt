@@ -64,7 +64,11 @@ class CommunityRepositoryTest {
             committed += body.toString().substringAfter("community_votes/").substringBefore('"')
             return if (code in 200..299) Response.success(code, body("{}")) else Response.error(code, body("{}"))
         }
-        override suspend fun batchGet(url: String, body: JsonObject): Response<ResponseBody> = Response.success(body("[]"))
+        var batchGets = 0
+        override suspend fun batchGet(url: String, body: JsonObject): Response<ResponseBody> {
+            batchGets++
+            return Response.success(body("[]"))
+        }
         companion object { const val OFFLINE = -1 }
     }
 
@@ -186,5 +190,23 @@ class CommunityRepositoryTest {
         assertEquals(VoteResult.NOT_IN_ROUND, repo.vote("2026-12", "elsewhere", round))
         assertTrue(dao.rows.value.isEmpty())
         assertTrue(firestore.committed.isEmpty())
+    }
+
+    @Test
+    fun counterReadsAreCachedForFiveMinutesInAnOpenMonth() = runTest {
+        val repo = repository()
+        repo.read("2026-12", round)
+        clock.now = clock.now.plusMinutes(4)
+        repo.read("2026-12", round)
+        assertEquals(1, firestore.batchGets) // reopened within 5 minutes: no read
+        repo.read("2026-12", round, force = true)
+        assertEquals(2, firestore.batchGets) // pull to refresh always reads
+        clock.now = clock.now.plusMinutes(6)
+        repo.read("2026-12", round)
+        assertEquals(3, firestore.batchGets)
+        repo.read("2026-11", round) // closed month: cached for an hour
+        clock.now = clock.now.plusMinutes(30)
+        repo.read("2026-11", round)
+        assertEquals(4, firestore.batchGets)
     }
 }

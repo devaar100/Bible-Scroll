@@ -45,6 +45,15 @@ GOOGLE_APPLICATION_CREDENTIALS=~/keys/biblescroll-seed.json \
   node scripts/seed-month.mjs --project <your-project-id> [--month 2026-12]  # default: next UTC month
 ```
 
+Or with your existing `firebase login` (no key file; the token stays in memory), several months at once. Every
+document is printed before it's written, and an existing counter is never touched:
+
+```sh
+node scripts/seed-month.mjs --project <your-project-id> --firebase-login --month 2026-11 --month 2026-12 --dry-run
+node scripts/seed-month.mjs --project <your-project-id> --firebase-login --month 2026-11 --month 2026-12
+node scripts/seed-month.mjs --project <your-project-id> --verify --month 2026-11 --month 2026-12   # read-only, no credentials
+```
+
 `--include-test` also creates counters for `test:true` ministries (for debug builds). The script mints a short-lived
 OAuth token from the key (scope: Firestore only) and never prints it.
 

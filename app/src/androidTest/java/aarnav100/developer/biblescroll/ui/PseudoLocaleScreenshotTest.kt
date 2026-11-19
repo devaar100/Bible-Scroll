@@ -46,6 +46,7 @@ import aarnav100.developer.biblescroll.feature.study.StudyUiState
 import aarnav100.developer.biblescroll.feature.study.VerseStudyContent
 import aarnav100.developer.biblescroll.data.community.CommunityRules
 import aarnav100.developer.biblescroll.feature.community.CommunityContent
+import aarnav100.developer.biblescroll.feature.community.CommunityEmpty
 import aarnav100.developer.biblescroll.feature.community.CommunityUiState
 import aarnav100.developer.biblescroll.feature.community.MinistryUi
 import aarnav100.developer.biblescroll.feature.community.PastRoundUi
@@ -164,8 +165,12 @@ class PseudoLocaleScreenshotTest {
             onVote = {}, onOpen = {}, onRetry = {},
         )
     }
+    @Test fun communityOffline() = shot("community_offline", heightDp = 480) {
+        CommunityContent(CommunityUiState(loading = false, empty = CommunityEmpty.OFFLINE_NOTHING_CACHED), onVote = {}, onOpen = {}, onRetry = {})
+    }
+
     @Test fun communityNoSpotlight() = shot("community_no_spotlight", heightDp = 480) {
-        CommunityContent(CommunityUiState(loading = false, month = "2027-02"), onVote = {}, onOpen = {}, onRetry = {})
+        CommunityContent(CommunityUiState(loading = false, month = "2027-02", empty = CommunityEmpty.NO_MINISTRY_THIS_MONTH, nextMonth = "2027-03"), onVote = {}, onOpen = {}, onRetry = {})
     }
     private fun studyState(hidden: Boolean) = StudyUiState(
         ref = VerseRef(43, 3, 16), bookName = "John", hidden = hidden,

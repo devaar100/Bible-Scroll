@@ -10,12 +10,12 @@ import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
-import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import java.io.IOException
+import java.time.Instant
 
 /** What happened to one "+1". */
 enum class SendOutcome {
@@ -28,6 +28,17 @@ enum class SendOutcome {
     /** The server refused (round closed, not open yet, or no such counter). Retrying won't help. */
     REJECTED,
 }
+
+/** One month's counters as read from Firestore. */
+data class RoundRead(
+    /** Count by ministry id; ministries without a counter count 0. */
+    val counts: Map<String, Long>,
+    /** Ministry ids whose counter doesn't exist (the month isn't set up yet). */
+    val missing: Set<String>,
+    /** The window stored on the counters (all share one), if any was found. */
+    val opensAt: Instant?,
+    val closesAt: Instant?,
+)
 
 /**
  * The Community vote counter in Cloud Firestore: community_votes/{YYYY-MM_ministryId}.count. The only write is an
@@ -57,16 +68,25 @@ class CommunityCounter(
     }
 
     /** Counts by ministry id for the given month's ministries; null if they couldn't be read. Missing docs count 0. */
-    suspend fun totals(month: String, ministryIds: List<String>): Map<String, Long>? = withContext(io) {
-        if (ministryIds.isEmpty()) return@withContext emptyMap()
+    suspend fun totals(month: String, ministryIds: List<String>): Map<String, Long>? = read(month, ministryIds)?.counts
+
+    /** The month's counters (counts, missing ones, window); null if they couldn't be read. One batchGet, no auth. */
+    suspend fun read(month: String, ministryIds: List<String>): RoundRead? = withContext(io) {
+        if (ministryIds.isEmpty()) return@withContext RoundRead(emptyMap(), emptySet(), null, null)
         val names = ministryIds.map { "$root/community_votes/${docId(month, it)}" }
         try {
             val response = api.batchGet("$base:batchGet", FirestoreJson.batchGetBody(names))
             val text = response.body()?.use { it.string() }
             response.errorBody()?.close()
             if (!response.isSuccessful || text == null) return@withContext null
-            val counts = FirestoreJson.parseBatchGet(text)
-            ministryIds.associateWith { counts[docId(month, it)] ?: 0L }
+            val docs = FirestoreJson.parseDocs(text)
+            val found = ministryIds.mapNotNull { id -> docs[docId(month, id)]?.let { id to it } }.toMap()
+            RoundRead(
+                counts = ministryIds.associateWith { found[it]?.count ?: 0L },
+                missing = ministryIds.filterNot { it in found }.toSet(),
+                opensAt = found.values.firstNotNullOfOrNull { it.opensAt },
+                closesAt = found.values.firstNotNullOfOrNull { it.closesAt },
+            )
         } catch (e: CancellationException) {
             throw e
         } catch (e: IOException) {
@@ -127,14 +147,21 @@ object FirestoreJson {
      * batchGet's response: a JSON array of {"found": {name, fields}} or {"missing": name}. Returns count by doc id
      * for found documents. count is an int64 sent as a string ("integerValue": "12").
      */
-    fun parseBatchGet(text: String): Map<String, Long> {
+    fun parseBatchGet(text: String): Map<String, Long> = parseDocs(text).mapValues { it.value.count }
+
+    data class Doc(val count: Long, val opensAt: Instant?, val closesAt: Instant?)
+
+    /** Found documents by doc id, with count and window ("timestampValue": "2026-12-01T00:00:00Z"). */
+    fun parseDocs(text: String): Map<String, Doc> {
         val items = parser.parseToJsonElement(text) as? JsonArray ?: throw SerializationException("batchGet: expected an array")
         return items.mapNotNull { item ->
             val found = (item as? JsonObject)?.get("found") as? JsonObject ?: return@mapNotNull null
             val name = found["name"]?.jsonPrimitive?.contentOrNull ?: return@mapNotNull null
-            val count = (found["fields"] as? JsonObject)?.get("count")?.jsonObject?.get("integerValue")
-                ?.jsonPrimitive?.contentOrNull?.toLongOrNull() ?: 0L
-            name.substringAfterLast('/') to count
+            val fields = found["fields"] as? JsonObject
+            fun value(field: String, type: String) = (fields?.get(field) as? JsonObject)?.get(type)?.jsonPrimitive?.contentOrNull
+            fun time(field: String) = value(field, "timestampValue")?.let { runCatching { Instant.parse(it) }.getOrNull() }
+            val count = value("count", "integerValue")?.toLongOrNull() ?: 0L
+            name.substringAfterLast('/') to Doc(count, time("opensAt"), time("closesAt"))
         }.toMap()
     }
 }

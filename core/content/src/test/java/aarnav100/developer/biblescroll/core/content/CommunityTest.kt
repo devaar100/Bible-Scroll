@@ -25,6 +25,7 @@ import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import retrofit2.Response
 import java.io.IOException
+import java.time.Instant
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CommunityTest {
@@ -150,8 +151,10 @@ class CommunityTest {
         api.files["https://cdn.test/ministries.json"] = if (tamper) bytes + " ".toByteArray() else bytes
     }
 
+    private var now = Instant.parse("2026-12-01T12:00:00Z")
+
     private fun TestScope.repository() =
-        CommunityContentRepository(api, ContentCache(temp.root), TestJson, "https://cdn.test/", UnconfinedTestDispatcher(testScheduler))
+        CommunityContentRepository(api, ContentCache(temp.root), TestJson, "https://cdn.test/", UnconfinedTestDispatcher(testScheduler)) { now }
 
     @Test
     fun verifiedFileIsShownAndCachedForOffline() = runTest {
@@ -167,7 +170,7 @@ class CommunityTest {
         publish(tamper = true)
         val repo = repository()
         assertFalse(repo.refresh())
-        assertEquals(MinistriesState.Unavailable, repo.ministries.first())
+        assertEquals(MinistriesState.Unavailable(MinistriesProblem.INVALID), repo.ministries.first())
         assertNull(ContentCache(temp.root).read(ContentCache.MINISTRIES))
     }
 
@@ -175,8 +178,8 @@ class CommunityTest {
     fun manifestWithoutCommunityMeansUnavailable() = runTest {
         publish(withCommunity = false)
         val repo = repository()
-        assertFalse(repo.refresh())
-        assertEquals(MinistriesState.Unavailable, repo.ministries.first())
+        assertTrue(repo.refresh()) // the check worked: there is no list
+        assertEquals(MinistriesState.Unavailable(MinistriesProblem.NOT_PUBLISHED), repo.ministries.first())
     }
 
     @Test
@@ -186,6 +189,59 @@ class CommunityTest {
         api.downloadError = IOException("offline")
         val repo = repository()
         assertFalse(repo.refresh())
+        assertEquals(MinistriesState.Ready(file), repo.ministries.first())
+    }
+
+    @Test
+    fun offlineWithNothingCachedSaysOffline() = runTest {
+        api.downloadError = IOException("offline")
+        val repo = repository()
+        assertFalse(repo.refresh())
+        assertEquals(MinistriesState.Unavailable(MinistriesProblem.OFFLINE), repo.ministries.first())
+    }
+
+    @Test
+    fun withdrawnListIsNoLongerShown() = runTest {
+        publish()
+        repository().refresh()
+        publish(withCommunity = false)
+        val repo = repository()
+        repo.refresh()
+        assertEquals(MinistriesState.Unavailable(MinistriesProblem.NOT_PUBLISHED), repo.ministries.first())
+        assertNull(ContentCache(temp.root).read(ContentCache.MINISTRIES))
+    }
+
+    @Test
+    fun staleCheckRunsOnlyAfterSixHoursOrAHashChange() = runTest {
+        publish()
+        assertEquals(true, repository().refreshIfStale()) // nothing cached
+        val repo = repository() // a new instance: last check comes from the cache
+        repo.ministries.first()
+        assertNull(repo.refreshIfStale())
+
+        now = now.plusSeconds(5 * 3600)
+        assertNull(repo.refreshIfStale())
+
+        // Another downloader cached a manifest pinning a different list: check now.
+        ContentCache(temp.root).write(ContentCache.MANIFEST, api.files.getValue("https://cdn.test/manifest.json").decodeToString()
+            .replace(Sha256.hex(api.files.getValue("https://cdn.test/ministries.json")), "0".repeat(64)).toByteArray())
+        assertEquals(true, repo.refreshIfStale())
+        ContentCache(temp.root).delete(ContentCache.MANIFEST)
+
+        now = now.plusSeconds(6 * 3600 + 1)
+        api.downloadError = IOException("offline")
+        assertEquals(false, repo.refreshIfStale()) // over 6 hours: checks (and keeps the cached list when offline)
+        assertEquals(MinistriesState.Ready(file), repo.ministries.first())
+        assertEquals(MinistriesProblem.OFFLINE, repo.info.value.lastProblem)
+    }
+
+    @Test
+    fun unchangedHashSkipsTheDownload() = runTest {
+        publish()
+        val repo = repository()
+        repo.refresh()
+        api.files.remove("https://cdn.test/ministries.json") // would 404 if downloaded again
+        assertTrue(repo.refresh())
         assertEquals(MinistriesState.Ready(file), repo.ministries.first())
     }
 }

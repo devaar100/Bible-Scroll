@@ -3,7 +3,7 @@
 Every host the app contacts. **Any new network call must be added here in the same change** (CLAUDE.md).
 HTTPS only: cleartext is blocked by `app/src/main/res/xml/network_security_config.xml`.
 
-Last checked: 2026-11-18 (code, OkHttp/Retrofit, Coil, WorkManager jobs, Glance widget, notifications, S7 email intent).
+Last checked: 2026-11-19 (Community refresh rules and counter reads updated; earlier full pass 2026-11-18: code, OkHttp/Retrofit, Coil, WorkManager jobs, Glance widget, notifications, S7 email intent).
 
 ## Hosts
 
@@ -19,11 +19,21 @@ Callers of that host:
 - `DevotionalDownloader`: manifest + devotional month files.
 - `DiscoverRepository`: manifest + `discover.json`.
 - `StudyRefreshWorker` (WorkManager, unique periodic, every 7 days, unmetered network + battery not low; scheduled in `BibleScrollApplication`).
-- `CommunityContentRepository`: manifest + `ministries.json` (opening the Community tab, "Try again").
+- `CommunityContentRepository`: manifest + `ministries.json`. When the Community tab is shown (every resume), only if
+  nothing is cached, the last check is over 6 hours old, or the manifest cached by another downloader pins a different
+  ministries hash; always on pull to refresh and "Try again". `ministries.json` itself is downloaded only when the
+  manifest's hash differs from the cached file's. Firebase Hosting serves `*.json` with `Cache-Control: max-age=300`,
+  so a new list reaches phones within about 5 minutes of a check.
 
 Callers of `firestore.googleapis.com`:
 
-- `CommunityRepository.vote` (one tap, after the confirm dialog), `CommunityRepository.totals` (Community tab: past months, and this month only after voting).
+- `CommunityRepository.vote` (one tap, after the confirm dialog).
+- `CommunityRepository.read` (`documents:batchGet`, read-only): this month's counters each time the Community tab opens
+  and on refresh, to tell whether the round is set up and open (the totals are shown only after voting), plus past
+  months' totals. Same request and body as before (doc names only); it now also runs before voting. Successful reads
+  are cached in memory for 5 minutes (open month) or 1 hour (closed month: its counts can't change); pull to refresh,
+  Try again and a vote bypass the cache. Each ministry is one billed read: with 5 ministries a month, one open costs at
+  most 5 + 5 per past month shown, and reopening within 5 minutes costs nothing.
 - `CommunityVoteWorker` (WorkManager, one-time unique, network required, exponential backoff): sends votes saved while offline; scheduled after an offline vote and at app start if one is waiting.
 
 ## Checked and found no network use

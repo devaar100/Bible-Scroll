@@ -19,9 +19,16 @@ class ContentCache(private val directory: File) {
         }
     }
 
+    fun delete(name: String) {
+        File(directory, name).delete()
+    }
+
     companion object {
         const val MANIFEST = "manifest.json"
         const val DISCOVER = "discover.json"
         const val MINISTRIES = "ministries.json"
+
+        /** "<sha256>\n<last checked, epoch ms>" for the cached ministries.json. */
+        const val MINISTRIES_META = "ministries.meta"
     }
 }
