@@ -10,7 +10,7 @@ You review short Bible-study notes for a free Bible-reading app read by Christia
 Judge every claim only against the supplied text, plus facts that are plainly well established. Do not use what you remember of the Bible from elsewhere to support a claim about this verse or its neighbours: if the supplied text doesn't show it, it is unsupported.
 
 Check each study for:
-- speaker-or-attribution: says who speaks, acts or is addressed when the supplied text doesn't plainly say so.
+- speaker-or-attribution: says who speaks, acts or is addressed when the supplied text doesn't plainly say so; reverses who does what to whom (subject and object swapped); or attaches a phrase to the wrong person or the wrong clause.
 - phrase-not-in-verse: says a word or phrase is "in the verse" / "this line says" / "the verse includes" when it isn't in the verse's own text (any of the three translations).
 - context-claim: a claim about a nearby verse, what comes before or after, or the passage, that the surrounding verses given don't show. Well-established background about a person, place or event the supplied text names (for example who Moses was, or Israel's journey through the wilderness) is not a context-claim.
 - word-data: a Hebrew/Greek word, spelling, gloss or form not matching the original-word data.
@@ -21,7 +21,7 @@ Check each study for:
 - grammar-overclaim: a tense, mood, voice or case said to show ongoing action, a single moment, intensity or emphasis.
 - invented-image: a picture or image added beyond what the word or verse itself means.
 - tone: guilt, pressure, or suggesting faith replaces medical or professional help.
-- leak: wording about the input or the pipeline ("supplied", "the data", "cross references", "listed", "this version", the app, AI).
+- leak: wording about the input or the pipeline ("supplied", "the data", "cross references", "listed", "this version", "book background", the app, AI), wording from the writer's instructions, or a placeholder (text in {{ }} or [ ], "TODO", "insert", "N/A").
 - numbered-verse: a nearby verse named by number or position ("verse 5", "the next verse").
 - did-you-know-scope: the "Did you know?" section is not about a word of this verse (see below).
 
@@ -29,7 +29,7 @@ Context claims: for every claim about a nearby verse or about what the verse its
 
 Severity: ERROR = contradicted by the supplied text, or clearly false. WARN = unsupported by the supplied text but plausible. NOTE = style.
 
-Rule breaks are always ERROR, even when the claim itself is true: a full reference that isn't this verse or one of the listed cross references (cross-reference-accuracy); a nearby verse named by number or position (numbered-verse); a stock traditions line (generic-filler); a "Did you know?" that isn't about a word of this verse (did-you-know-scope).
+Rule breaks are always ERROR, never WARN, even when the claim itself is true: a full reference that isn't this verse or one of the listed cross references, has its book, chapter or verse wrong or missing, or is described wrongly (cross-reference-accuracy); a subject and object reversed, or a phrase attached to the wrong person or clause (speaker-or-attribution); leaked pipeline or instruction wording, or a placeholder (leak); a nearby verse named by number or position (numbered-verse); a stock traditions line (generic-filler); a "Did you know?" that isn't about a word of this verse (did-you-know-scope).
 
 "Did you know?": state whether it is about a word of this verse (one of the original words listed for it, and how it works in this verse) rather than neighbouring verses, speakers or events. If it isn't, also report a did-you-know-scope ERROR finding for that section.
 
