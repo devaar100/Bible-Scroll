@@ -36,3 +36,14 @@ WARNs are discounted (well-established background; a dispute the writer is told 
   not a context-claim; naming views fairly is not one-sided when the verse touches a dispute listed in the writer's
   rule 2 (baptism, predestination, end times, Mary, sacraments, church authority, creation and science).
 - cctest retry: re-review regenerated studies under their blind labels; a later review replaces the earlier one.
+
+## Round 2 retry and round 3 result (2026-11-19)
+
+Round 2 retry: PHP.4.13 attempt 2 passed the code checks (checker 9) and the reviewer found nothing, so round 2
+ended with ERROR 0, WARN 5 (3 after the two discounted findings).
+
+Round 3 (final allowed round): NOT READY. All 3 canaries flagged ERROR; 20/20 written; 0 format failures; 20/20
+pass code checks (PSA.100.4 needed its retry: attempt 1 wrote "The book background places...", caught by the new
+check). Reviewer: ERROR 1 (ECC.9.10 Did-you-know says la'asot and 'aseh come "twice in a row" though bekhochakha
+sits between them), WARN 6 (ISA.53.5 x2, JAS.1.5, PSA.43.5, SNG.8.6, JER.17.8). WARN > 4 for the third round in a
+row. Max writer output 16,356 tokens. Context-claim WARNs in "Life in Bible times" fell from 7 (round 1) to 1.
