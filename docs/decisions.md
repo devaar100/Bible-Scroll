@@ -2,6 +2,20 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-19: Study readiness bar
+
+### 21. Only reviewer ERRORs block; up to 6 WARNs per 20 studies are allowed
+In the Claude Code test rounds (pipeline/CHANGELOG-prompts.md), a round is ready when, among other criteria, the
+reviewer reports ERROR = 0 and at most 6 WARNs per 20 studies (was: ERROR = 0 and WARN <= 4). These are always ERROR,
+never WARN (.claude/agents/study-reviewer.md): subject and object reversed, a phrase attached to the wrong person or
+clause, a reference that is wrong, incomplete or outside the listed passages, leaked pipeline or instruction wording or
+a placeholder, and a "Did you know?" that isn't about this verse's own words. A study with an ERROR is regenerated once.
+**Why:** your call (2026-11-19). The WARN criterion failed three rounds in a row while round 3 had no rule breaks, leaks,
+wrong references or off-verse facts; the remaining WARNs were judgment calls spread across sections, not a pattern a
+prompt change could remove.
+**Revisit if:** a WARN turns out to be a real error a reader would notice, or WARNs cluster in one section or category.
+Don't retune the number per run.
+
 ## 2026-11-19: Community refresh and empty states
 
 ### 18. The Community tab re-checks its list when stale (6 h) or re-pinned, and reads this month's counters on open
