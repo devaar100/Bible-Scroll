@@ -312,9 +312,6 @@
     <string name="study_hidden_body">Desactivaste los estudios hechos con IA en Ajustes. Las Escrituras, las notas y los planes siguen aquí.</string>
     <string name="study_hidden_show">Volver a mostrar estudios</string>
     <!-- D1 Discover -->
-    <string name="discover_theme_trust">Confianza y guía</string>
-    <string name="discover_theme_hope">Esperanza</string>
-    <string name="discover_theme_love">Amor</string>
     <string name="discover_read_in_context">Leer en contexto ›</string>
     <string name="discover_open_study_cd">Abrir el estudio de %1$s</string>
     <string name="discover_open_in_context_cd">Leer %1$s en contexto</string>

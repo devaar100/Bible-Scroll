@@ -152,6 +152,6 @@ data class DiscoverFile(val formatVersion: Int, val verses: List<DiscoverVerse>)
 data class DiscoverVerse(
     /** Study id, e.g. "JER.17.8". */
     val id: String,
-    /** "trust", "hope" or "love" (pipeline publish.DISCOVER_THEMES). Required: a card without a known theme isn't shown. */
+    /** The card's theme label as published, e.g. "Trust and guidance" (any text, 1-40 characters). Required: a card without one isn't shown. */
     val theme: String,
 )

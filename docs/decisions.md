@@ -40,18 +40,20 @@ or a donation needs to be shown before the month ends.
 
 ## 2026-11-19: Discover card redesign
 
-### 22. Discover cards carry a required theme, and stay visible with Hide AI studies on
-discover.json moved to format 2: each verse is `{"id", "theme"}`, theme one of trust / hope / love, which picks the
-card's colours, label and background art. The pipeline refuses to publish a discover.txt line without a known theme
-(the batch wave still reads ids alone), and the app ignores a format-1 file and any entry whose theme it doesn't know,
-so a card is never drawn without one. The list itself is Scripture, so Discover no longer disappears when Hide AI
+### 22. Discover cards carry a required theme label, and stay visible with Hide AI studies on
+discover.json moved to format 2: each verse is `{"id", "theme"}`, where theme is a free-text label of 1-40 characters
+("Trust and guidance") shown on the card as written. Every card uses the one approved design (colours, wave art, wave
+icon); the label is the only thing that changes, so new themes need no app release (2026-11-19: replaced the earlier
+three fixed themes with their own colours, at your call). The pipeline refuses to publish a discover.txt line without
+a theme or with one over 40 characters (the batch wave still reads ids alone), and the app ignores a format-1 file and
+any entry with a blank or over-long theme, so a card is never drawn without one. The list itself is Scripture, so Discover no longer disappears when Hide AI
 studies is on: the cards drop the AI-written hook and "Did you know?", show a line from the source data (original
 language, cross-reference count) when the study is on the phone, open the verse in context instead of the study, and
 nothing is prefetched. The discover.json download now happens with the setting on too (no AI text in it; same host).
-**Why:** the approved design gives each card a theme, and the user wanted every card to need one; hiding the whole tab
-took Scripture away from people who only object to AI prose.
-**Revisit if:** more themes are needed (add to publish.DISCOVER_THEMES, DiscoverTheme and the palettes together; older
-apps drop cards with the new theme), or people with the setting on ask for a fully AI-free Discover tab.
+**Why:** the approved design shows a theme on each card, you wanted every card to need one, and there will be many
+themes; hiding the whole tab took Scripture away from people who only object to AI prose.
+**Revisit if:** labels need translating (they show as written, so Spanish UIs see the English label), or people with
+the setting on ask for a fully AI-free Discover tab.
 
 ## 2026-11-19: Community refresh and empty states
 

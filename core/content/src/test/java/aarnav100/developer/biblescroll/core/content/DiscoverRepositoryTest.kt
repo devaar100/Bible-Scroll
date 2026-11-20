@@ -26,9 +26,9 @@ class DiscoverRepositoryTest {
     private val store = FakeContentStore()
     private val john = bookFile("JHN", 43, study("JHN.3.16"))
 
-    /** [ids] as "JHN.3.16" (theme trust) or "JHN.3.16 love". */
+    /** [ids] as "JHN.3.16" (theme "Trust") or "JHN.3.16 Any theme label". */
     private fun publish(vararg ids: String, tamper: Boolean = false, formatVersion: Int = 2): Manifest {
-        val verses = ids.map { val p = it.split(" "); DiscoverVerse(p[0], p.getOrElse(1) { "trust" }) }
+        val verses = ids.map { val p = it.split(" ", limit = 2); DiscoverVerse(p[0], p.getOrElse(1) { "Trust" }) }
         val discover = TestJson.encodeToString(DiscoverFile.serializer(), DiscoverFile(formatVersion, verses)).toByteArray()
         val manifest = manifest(john.second).copy(
             discover = DiscoverEntry("https://cdn.test/discover.json", ids.size, Sha256.hex(discover), discover.size.toLong()),
@@ -80,17 +80,17 @@ class DiscoverRepositoryTest {
     }
 
     @Test
-    fun eachCardCarriesItsThemeAndUnknownThemesAreLeftOut() = runTest {
+    fun eachCardCarriesItsThemeLabelAndBlankOrLongOnesAreLeftOut() = runTest {
         store.replaceBook(StoredBook(19, "PSA", "v", "s", BookSource.BUNDLED, 1, 0, 1), emptyList())
-        publish("PSA.23.1 hope", "JHN.3.16 love", "PSA.23.4 joy", "PSA.23.6 trust")
+        publish("PSA.23.1 Hope in hard times", "JHN.3.16 God's love", "PSA.23.4  ", "PSA.23.5 " + "x".repeat(41), "PSA.23.6 Rest")
         val repo = repository()
         assertTrue(repo.refresh())
         assertEquals(
             DiscoverFeed.Ready(
                 listOf(
-                    DiscoverItem(VerseKey(19, 23, 1), DiscoverTheme.HOPE),
-                    DiscoverItem(VerseKey(43, 3, 16), DiscoverTheme.LOVE),
-                    DiscoverItem(VerseKey(19, 23, 6), DiscoverTheme.TRUST),
+                    DiscoverItem(VerseKey(19, 23, 1), "Hope in hard times"),
+                    DiscoverItem(VerseKey(43, 3, 16), "God's love"),
+                    DiscoverItem(VerseKey(19, 23, 6), "Rest"),
                 ),
             ),
             repo.feed.first(),
@@ -105,5 +105,5 @@ class DiscoverRepositoryTest {
         assertEquals(DiscoverFeed.NeverLoaded, repo.feed.first())
     }
 
-    private fun trust(book: Int, chapter: Int, verse: Int) = DiscoverItem(VerseKey(book, chapter, verse), DiscoverTheme.TRUST)
+    private fun trust(book: Int, chapter: Int, verse: Int) = DiscoverItem(VerseKey(book, chapter, verse), "Trust")
 }

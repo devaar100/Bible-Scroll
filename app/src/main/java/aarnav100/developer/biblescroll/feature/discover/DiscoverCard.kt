@@ -86,7 +86,7 @@ class DiscoverCardActions(
 @Composable
 fun DiscoverCard(ui: DiscoverCardUi?, actions: DiscoverCardActions, modifier: Modifier = Modifier) {
     val dark = MaterialTheme.colorScheme.background.luminance() < 0.5f
-    val palette = ui?.let { discoverPalette(it.theme, dark) }
+    val palette = ui?.let { discoverPalette(dark) }
     val shape = RoundedCornerShape(28.dp)
     Surface(
         shape = shape,
@@ -103,7 +103,7 @@ fun DiscoverCard(ui: DiscoverCardUi?, actions: DiscoverCardActions, modifier: Mo
         }
         val open = { if (ui.aiHidden) actions.onReadInContext(ui) else actions.onOpen(ui) }
         Box(Modifier.fillMaxSize()) {
-            DiscoverCardArt(ui.theme, palette.accent, Modifier.matchParentSize())
+            DiscoverCardArt(palette.accent, Modifier.matchParentSize())
             Column(Modifier.fillMaxSize()) {
                 // The body: one clickable surface, role Button. Its text (verse, reference, hook) stays readable to
                 // TalkBack, and the click is announced as "Open study for Jeremiah 17:8".
@@ -131,9 +131,9 @@ private fun CardBody(ui: DiscoverCardUi, palette: DiscoverPalette, actions: Disc
     val caps = TextStyle(fontFamily = Inter, fontSize = 11.sp, fontWeight = FontWeight.Bold, letterSpacing = 0.14.em)
 
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Icon(ui.theme.icon, contentDescription = null, tint = palette.accent, modifier = Modifier.size(16.dp))
+        Icon(DiscoverThemeIcon, contentDescription = null, tint = palette.accent, modifier = Modifier.size(16.dp))
         Spacer(Modifier.width(6.dp))
-        Text(stringResource(ui.theme.labelRes).uppercase(locale), style = caps, color = palette.accent)
+        Text(ui.theme.uppercase(locale), style = caps, color = palette.accent, maxLines = 2)
     }
     Spacer(Modifier.height(26.dp))
 

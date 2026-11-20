@@ -73,12 +73,13 @@ def test_wave_and_discover_json_use_the_same_list_in_order(monkeypatch, tmp_path
         "formatVersion": 2, "verses": [{"id": "ROM.5.8", "theme": "love"}, {"id": "JHN.3.16", "theme": "love"}]}
 
 
-def test_audit_reports_missing_and_unknown_themes(dbs, tmp_path):
+def test_audit_reports_missing_and_too_long_themes(dbs, tmp_path):
     path = tmp_path / "discover.txt"
-    path.write_text("JHN.3.16 love\nPSA.23.1\nROM.5.8 joy\n")
+    path.write_text("JHN.3.16 God's love for the world\nPSA.23.1\nROM.5.8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n")
     report = audit(path, *dbs)
-    assert [(l.text, why) for l, why in report.themes] == [("PSA.23.1", "no theme"), ("ROM.5.8 joy", "unknown theme 'joy'")]
-    assert not report.clean and "Theme missing or unknown" in render(report, path)
+    assert [(l.text, why) for l, why in report.themes] == [
+        ("PSA.23.1", "no theme"), ("ROM.5.8 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "theme longer than 40 characters")]
+    assert not report.clean and "Theme missing or longer than 40 characters" in render(report, path)
 
 
 def test_wave_loader_allows_a_missing_theme_but_publish_does_not(tmp_path):
@@ -87,9 +88,15 @@ def test_wave_loader_allows_a_missing_theme_but_publish_does_not(tmp_path):
     assert p.load_discover(path) == ["JHN.3.16", "PSA.23.1"]
     with pytest.raises(ValueError, match="has no theme"):
         p.load_discover_entries(path)
-    path.write_text("JHN.3.16 joy\n")
-    with pytest.raises(ValueError, match="unknown theme"):
+    path.write_text("JHN.3.16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n")
+    with pytest.raises(ValueError, match="longer than 40"):
         p.load_discover(path)
+
+
+def test_a_theme_is_any_label_kept_as_written(tmp_path):
+    path = tmp_path / "discover.txt"
+    path.write_text("JHN.3.16 God's love   for the world  # note\nPSA.23.1 Rest\n")
+    assert p.load_discover_entries(path) == [("JHN.3.16", "God's love for the world"), ("PSA.23.1", "Rest")]
 
 
 def test_strict_loader_refuses_duplicates(tmp_path):

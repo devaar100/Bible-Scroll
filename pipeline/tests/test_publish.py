@@ -83,7 +83,7 @@ def test_discover_order_and_unpublished_dropped(studies, tmp_path):
     assert release.discover_dropped == ["JHN.3.18"] and release.manifest["discover"]["count"] == 2
 
 
-@pytest.mark.parametrize("text", ["John 3:16\n", "JHN.3.16 love\nJHN.3.16 love\n", "JHN.3.16\n", "JHN.3.16 joy\n"])
+@pytest.mark.parametrize("text", ["John 3:16\n", "JHN.3.16 love\nJHN.3.16 love\n", "JHN.3.16\n", "JHN.3.16 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n"])
 def test_bad_discover_file(tmp_path, text):
     path = tmp_path / "discover.txt"
     path.write_text(text)
@@ -91,9 +91,10 @@ def test_bad_discover_file(tmp_path, text):
         p.load_discover_entries(path)
 
 
-def test_publish_refuses_an_unknown_theme(studies):
-    with pytest.raises(ValueError, match="unknown theme"):
-        p.build_release(studies, "", discover=[("JHN.3.16", "joy")])
+@pytest.mark.parametrize("theme", ["", "  ", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"])
+def test_publish_refuses_a_blank_or_too_long_theme(studies, theme):
+    with pytest.raises(ValueError, match="needs a theme"):
+        p.build_release(studies, "", discover=[("JHN.3.16", theme)])
 
 
 def test_diff_against_live(studies):

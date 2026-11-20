@@ -1,6 +1,5 @@
 package aarnav100.developer.biblescroll.feature.discover
 
-import aarnav100.developer.biblescroll.core.content.DiscoverTheme
 import aarnav100.developer.biblescroll.core.content.model.Language
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
@@ -27,27 +26,27 @@ internal object DiscoverSamples {
     val noActions = DiscoverCardActions({}, {}, {}, {}, {}, {}, {})
 
     fun trust(fact: Boolean = true, aiHidden: Boolean = false) = card(
-        DiscoverTheme.TRUST, VerseRef(24, 17, 8), "Jeremiah 17:8", JER_17_8, emptyList(),
+        "Trust and guidance", VerseRef(24, 17, 8), "Jeremiah 17:8", JER_17_8, emptyList(),
         hook = "Jeremiah pictures the person who trusts God as a tree whose roots find water even in a dry year.",
         fact = if (fact) "Trees along the Jordan could keep their leaves through summer because their roots reached the river." else null,
         aiHidden = aiHidden, liked = true, hasNote = true,
     )
 
     fun hope(fact: Boolean = true) = card(
-        DiscoverTheme.HOPE, VerseRef(45, 15, 13), "Romans 15:13", ROM_15_13, emptyList(),
+        "Hope", VerseRef(45, 15, 13), "Romans 15:13", ROM_15_13, emptyList(),
         hook = "Paul closes his teaching with a prayer that hope would overflow, not by effort but by the Spirit’s power.",
         fact = if (fact) "Paul wrote Romans to churches he had never visited, planning to stop there on his way to Spain." else null,
         bookmarked = true,
     )
 
     fun love(fact: Boolean = true) = card(
-        DiscoverTheme.LOVE, VerseRef(43, 15, 12), "John 15:12", JHN_15_12, listOf(1 until JHN_15_12.length),
+        "Love one another", VerseRef(43, 15, 12), "John 15:12", JHN_15_12, listOf(1 until JHN_15_12.length),
         hook = "Jesus gives one command to sum up the rest: love each other the way he has loved you.",
         fact = if (fact) "Jesus said these words at the last supper, on the night before he died." else null,
     )
 
     private fun card(
-        theme: DiscoverTheme, ref: VerseRef, reference: String, text: String, jesus: List<IntRange>,
+        theme: String, ref: VerseRef, reference: String, text: String, jesus: List<IntRange>,
         hook: String?, fact: String?, aiHidden: Boolean = false, liked: Boolean = false, bookmarked: Boolean = false, hasNote: Boolean = false,
     ) = DiscoverCardUi(
         ref = ref, theme = theme, reference = reference, translationId = "WEB",
@@ -69,11 +68,10 @@ private fun CardPreview(dark: Boolean, card: DiscoverCardUi) {
     }
 }
 
-@Preview(name = "Trust light, long verse", widthDp = 390, heightDp = 660) @Composable private fun TrustLight() = CardPreview(false, DiscoverSamples.trust())
-@Preview(name = "Trust dark, long verse", widthDp = 390, heightDp = 660) @Composable private fun TrustDarkP() = CardPreview(true, DiscoverSamples.trust())
-@Preview(name = "Hope light", widthDp = 390, heightDp = 660) @Composable private fun HopeLightP() = CardPreview(false, DiscoverSamples.hope())
-@Preview(name = "Hope dark", widthDp = 390, heightDp = 660) @Composable private fun HopeDarkP() = CardPreview(true, DiscoverSamples.hope())
-@Preview(name = "Love light, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun LoveLightP() = CardPreview(false, DiscoverSamples.love())
-@Preview(name = "Love dark, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun LoveDarkP() = CardPreview(true, DiscoverSamples.love())
+@Preview(name = "Light, long verse", widthDp = 390, heightDp = 660) @Composable private fun LongLight() = CardPreview(false, DiscoverSamples.trust())
+@Preview(name = "Dark, long verse", widthDp = 390, heightDp = 660) @Composable private fun LongDark() = CardPreview(true, DiscoverSamples.trust())
+@Preview(name = "Light, medium verse", widthDp = 390, heightDp = 660) @Composable private fun MediumLight() = CardPreview(false, DiscoverSamples.hope())
+@Preview(name = "Light, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun ShortLight() = CardPreview(false, DiscoverSamples.love())
+@Preview(name = "Dark, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun ShortDark() = CardPreview(true, DiscoverSamples.love())
 @Preview(name = "No Did you know", widthDp = 390, heightDp = 660) @Composable private fun NoFact() = CardPreview(false, DiscoverSamples.hope(fact = false))
 @Preview(name = "Hide AI studies on", widthDp = 390, heightDp = 660) @Composable private fun AiHidden() = CardPreview(false, DiscoverSamples.trust(aiHidden = true))

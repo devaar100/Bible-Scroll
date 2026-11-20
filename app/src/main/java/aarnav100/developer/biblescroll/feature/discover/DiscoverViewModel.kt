@@ -2,7 +2,6 @@ package aarnav100.developer.biblescroll.feature.discover
 
 import aarnav100.developer.biblescroll.core.content.DiscoverFeed
 import aarnav100.developer.biblescroll.core.content.DiscoverRepository
-import aarnav100.developer.biblescroll.core.content.DiscoverTheme
 import aarnav100.developer.biblescroll.core.content.StudyRepository
 import aarnav100.developer.biblescroll.core.content.model.Language
 import aarnav100.developer.biblescroll.core.content.net.NetworkMonitor
@@ -48,7 +47,7 @@ sealed interface DiscoverUiState {
 }
 
 @Immutable
-data class DiscoverCardRef(val ref: VerseRef, val theme: DiscoverTheme)
+data class DiscoverCardRef(val ref: VerseRef, val theme: String)
 
 /** Source data (not AI) shown in the hook's place when Hide AI studies is on. */
 @Immutable
@@ -57,7 +56,8 @@ data class StudyDataLine(val language: Language, val crossReferences: Int)
 @Immutable
 data class DiscoverCardUi(
     val ref: VerseRef,
-    val theme: DiscoverTheme,
+    /** The theme label from discover.json, shown as published. */
+    val theme: String,
     /** "Jeremiah 17:8" in the app's language. */
     val reference: String,
     val translationId: String,

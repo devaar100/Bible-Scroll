@@ -1,11 +1,12 @@
 """
-The Discover list (discover.txt): one study id and its card theme per line ("PHP.4.13 trust"), in the order the
-app shows the cards. Themes: publish.DISCOVER_THEMES. Blank lines and "#" comments are allowed.
+The Discover list (discover.txt): one study id and its card's theme label per line ("PHP.4.13 Strength in Christ"),
+in the order the app shows the cards. The label is any text up to publish.DISCOVER_THEME_MAX characters, shown on the
+card as written. Blank lines and "#" comments are allowed.
 
 `audit` reads the file without raising and reports every problem for a person to decide on (it never edits
 the file):
   - malformed:  not BOOK.CHAPTER.VERSE with a known book code
-  - theme:      no theme, or one the app doesn't know (publish refuses the list until every line has one)
+  - theme:      no theme, or one longer than DISCOVER_THEME_MAX (publish refuses the list until every line has one)
   - missing:    no such KJV verse in source.db (or the app's KJV/WEB text is missing)
   - duplicate:  listed again (first position kept)
   - mapping:    the verse exists, but the Hebrew/Greek source numbers it differently (e.g. a Psalm whose Hebrew
@@ -23,7 +24,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .paths import APP_BIBLE_DB, SOURCE_DB
-from .publish import DISCOVER_FILE, DISCOVER_THEMES
+from .publish import DISCOVER_FILE, DISCOVER_THEME_MAX
 from .store import parse_id
 
 
@@ -82,8 +83,8 @@ def audit(path: Path = DISCOVER_FILE, source_db: Path = SOURCE_DB, bible_db: Pat
                 continue
             if len(parts) == 1:
                 report.themes.append((line, "no theme"))
-            elif len(parts) > 2 or parts[1] not in DISCOVER_THEMES:
-                report.themes.append((line, f"unknown theme {' '.join(parts[1:])!r}"))
+            elif len(" ".join(parts[1:])) > DISCOVER_THEME_MAX:
+                report.themes.append((line, f"theme longer than {DISCOVER_THEME_MAX} characters"))
             if verse_id in first_seen:
                 report.duplicates.append((line, first_seen[verse_id]))
                 continue
@@ -124,7 +125,7 @@ def render(report: Audit, path: Path = DISCOVER_FILE) -> str:
         lines.extend(f"  {i}" for i in items)
 
     section("Malformed (not BOOK.CHAPTER.VERSE)", [f"line {l.number}: {l.text!r}" for l in report.malformed])
-    section(f"Theme missing or unknown (use {', '.join(DISCOVER_THEMES)})",
+    section(f"Theme missing or longer than {DISCOVER_THEME_MAX} characters",
             [f"line {l.number}: {l.text} ({why})" for l, why in report.themes])
     section("Don't exist", [f"line {l.number}: {l.text} ({why})" for l, why in report.missing])
     section("Duplicates (first position kept)",

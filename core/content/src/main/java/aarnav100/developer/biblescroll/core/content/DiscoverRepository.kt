@@ -25,18 +25,8 @@ sealed interface DiscoverFeed {
     data class Ready(val verses: List<DiscoverItem>) : DiscoverFeed
 }
 
-/** A Discover card's look (colours, background art, label). Every card has one. */
-enum class DiscoverTheme(val id: String) {
-    TRUST("trust"),
-    HOPE("hope"),
-    LOVE("love");
-
-    companion object {
-        fun fromId(id: String): DiscoverTheme? = entries.firstOrNull { it.id == id }
-    }
-}
-
-data class DiscoverItem(val key: VerseKey, val theme: DiscoverTheme)
+/** One Discover card: the verse and its theme label (free text from discover.json; every card has one). */
+data class DiscoverItem(val key: VerseKey, val theme: String)
 
 /** D1: the curated Discover list (discover.json), verified and cached for offline use. */
 class DiscoverRepository(
@@ -123,10 +113,13 @@ class DiscoverRepository(
     companion object {
         const val FORMAT_VERSION = 2
 
-        /** Cards in file order; an entry with a malformed id or a theme this app doesn't know is left out. */
+        /** Longest theme label shown; the pipeline refuses longer ones (publish.DISCOVER_THEME_MAX). */
+        const val THEME_MAX = 40
+
+        /** Cards in file order; an entry with a malformed id or a blank or over-long theme is left out. */
         fun items(file: DiscoverFile): List<DiscoverItem> = file.verses.mapNotNull { v ->
             val key = BookCodes.parse(v.id) ?: return@mapNotNull null
-            val theme = DiscoverTheme.fromId(v.theme) ?: return@mapNotNull null
+            val theme = v.theme.trim().takeIf { it.isNotEmpty() && it.length <= THEME_MAX } ?: return@mapNotNull null
             DiscoverItem(key, theme)
         }
     }

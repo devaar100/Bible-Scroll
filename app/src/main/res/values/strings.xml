@@ -315,9 +315,6 @@
     <string name="study_hidden_body">You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.</string>
     <string name="study_hidden_show">Show studies again</string>
     <!-- D1 Discover -->
-    <string name="discover_theme_trust">Trust and guidance</string>
-    <string name="discover_theme_hope">Hope</string>
-    <string name="discover_theme_love">Love</string>
     <string name="discover_read_in_context">Read in context ›</string>
     <string name="discover_open_study_cd">Open study for %1$s</string>
     <string name="discover_open_in_context_cd">Read %1$s in context</string>

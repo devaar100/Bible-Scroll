@@ -4,7 +4,6 @@ import aarnav100.developer.biblescroll.core.content.BookDownloader
 import aarnav100.developer.biblescroll.core.content.BookImporter
 import aarnav100.developer.biblescroll.core.content.ContentCache
 import aarnav100.developer.biblescroll.core.content.DiscoverRepository
-import aarnav100.developer.biblescroll.core.content.DiscoverTheme
 import aarnav100.developer.biblescroll.core.content.StudyRepository
 import aarnav100.developer.biblescroll.core.content.model.Language
 import aarnav100.developer.biblescroll.data.user.LocalUserDataRepository
@@ -79,7 +78,7 @@ class DiscoverViewModelTest {
         advanceUntilIdle()
         val ready = vm.uiState.value as DiscoverUiState.Ready
         assertEquals(listOf(VerseRef(43, 3, 16), VerseRef(1, 1, 1), VerseRef(19, 119, 105), VerseRef(43, 14, 6)), ready.cards.map { it.ref })
-        assertTrue(ready.cards.all { it.theme == DiscoverTheme.TRUST })
+        assertTrue(ready.cards.all { it.theme == "Trust" })
         assertEquals(0, ready.startIndex)
     }
 
@@ -193,5 +192,5 @@ class DiscoverViewModelTest {
         assertEquals(DiscoverUiState.Empty, offline.uiState.value)
     }
 
-    private fun ref(book: Int, chapter: Int, verse: Int) = DiscoverCardRef(VerseRef(book, chapter, verse), DiscoverTheme.TRUST)
+    private fun ref(book: Int, chapter: Int, verse: Int) = DiscoverCardRef(VerseRef(book, chapter, verse), "Trust")
 }

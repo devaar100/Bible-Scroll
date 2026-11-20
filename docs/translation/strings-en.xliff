@@ -1154,22 +1154,10 @@
         <source>Show studies again</source>
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
-      <trans-unit id="discover_theme_trust" resname="discover_theme_trust">
-        <source>Trust and guidance</source>
-        <note from="where">D1 Discover tab</note>
-        <note from="developer">D1 Discover</note>
-      </trans-unit>
-      <trans-unit id="discover_theme_hope" resname="discover_theme_hope">
-        <source>Hope</source>
-        <note from="where">D1 Discover tab</note>
-      </trans-unit>
-      <trans-unit id="discover_theme_love" resname="discover_theme_love">
-        <source>Love</source>
-        <note from="where">D1 Discover tab</note>
-      </trans-unit>
       <trans-unit id="discover_read_in_context" resname="discover_read_in_context">
         <source>Read in context ›</source>
         <note from="where">D1 Discover tab</note>
+        <note from="developer">D1 Discover</note>
       </trans-unit>
       <trans-unit id="discover_open_study_cd" resname="discover_open_study_cd">
         <source>Open study for %1$s</source>

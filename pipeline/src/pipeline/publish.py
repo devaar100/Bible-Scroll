@@ -97,9 +97,10 @@ def validators() -> tuple[Draft202012Validator, Draft202012Validator]:
     return book, manifest
 
 
-# Each Discover card's look (colours, background art, label). The app drops a card whose theme it doesn't know.
-DISCOVER_THEMES = ("trust", "hope", "love")
-# discover.json v2: {"formatVersion": 2, "verses": [{"id": "JER.17.8", "theme": "trust"}, ...]}
+# Each Discover card's theme label, shown on the card as written (any text; one card design for all). The app drops a
+# card whose theme is blank or longer than this (DiscoverRepository.THEME_MAX).
+DISCOVER_THEME_MAX = 40
+# discover.json v2: {"formatVersion": 2, "verses": [{"id": "JER.17.8", "theme": "Trust and guidance"}, ...]}
 DISCOVER_FORMAT_VERSION = 2
 
 
@@ -115,14 +116,12 @@ def _discover_lines(path: Path, require_theme: bool) -> list[tuple[str, str | No
             parse_id(parts[0])
         except ValueError:
             raise ValueError(f"{path.name}:{number}: not a study id: {parts[0]!r}") from None
-        if len(parts) > 2:
-            raise ValueError(f"{path.name}:{number}: expected \"ID theme\", got {text!r}")
-        theme = parts[1] if len(parts) == 2 else None
-        if theme is not None and theme not in DISCOVER_THEMES:
-            raise ValueError(f"{path.name}:{number}: unknown theme {theme!r} (use {', '.join(DISCOVER_THEMES)})")
+        theme = " ".join(parts[1:]) or None
+        if theme is not None and len(theme) > DISCOVER_THEME_MAX:
+            raise ValueError(f"{path.name}:{number}: theme {theme!r} is longer than {DISCOVER_THEME_MAX} characters")
         if theme is None and require_theme:
-            raise ValueError(f"{path.name}:{number}: {parts[0]} has no theme; every Discover card needs one "
-                             f"({', '.join(DISCOVER_THEMES)}), e.g. \"{parts[0]} trust\"")
+            raise ValueError(f"{path.name}:{number}: {parts[0]} has no theme; every Discover card needs one, "
+                             f"e.g. \"{parts[0]} Trust and guidance\"")
         if parts[0] in seen:
             raise ValueError(f"{path.name}:{number}: {parts[0]} is listed twice")
         seen.add(parts[0])
@@ -131,13 +130,13 @@ def _discover_lines(path: Path, require_theme: bool) -> list[tuple[str, str | No
 
 
 def load_discover_entries(path: Path = DISCOVER_FILE) -> list[tuple[str, str]]:
-    """discover.txt lines "JER.17.8 trust" -> [(id, theme)], in file order. Strict: every line needs a known theme
+    """discover.txt lines "JER.17.8 Trust and guidance" -> [(id, theme)], in file order. Strict: every line needs a theme
     (publish uses this, so discover.json never carries a card without one)."""
     return [(i, t) for i, t in _discover_lines(path, require_theme=True) if t is not None]
 
 
 def load_discover(path: Path = DISCOVER_FILE) -> list[str]:
-    """The Discover ids in order (the batch wave and review queue). A missing theme is allowed here, a bad one isn't."""
+    """The Discover ids in order (the batch wave and review queue). A missing theme is allowed here, a too-long one isn't."""
     return [i for i, _ in _discover_lines(path, require_theme=False)]
 
 
@@ -206,8 +205,8 @@ def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[st
 
     wanted = discover if discover is not None else load_discover_entries()
     for i, theme in wanted:
-        if theme not in DISCOVER_THEMES:
-            raise ValueError(f"Discover verse {i} has unknown theme {theme!r}")
+        if not theme or not theme.strip() or len(theme) > DISCOVER_THEME_MAX:
+            raise ValueError(f"Discover verse {i} needs a theme of 1-{DISCOVER_THEME_MAX} characters, got {theme!r}")
     discover_file = {"formatVersion": DISCOVER_FORMAT_VERSION,
                      "verses": [{"id": i, "theme": theme} for i, theme in wanted if i in published]}
     files["discover.json"] = canonical_json(discover_file)

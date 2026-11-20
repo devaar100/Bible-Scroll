@@ -268,10 +268,7 @@ study_update_body,string,This study uses a newer format than your version of the
 study_hidden_title,string,Studies are hidden,B8/D2 Verse study,,
 study_hidden_body,string,"You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.",B8/D2 Verse study,,
 study_hidden_show,string,Show studies again,B8/D2 Verse study,,
-discover_theme_trust,string,Trust and guidance,D1 Discover tab,D1 Discover,
-discover_theme_hope,string,Hope,D1 Discover tab,,
-discover_theme_love,string,Love,D1 Discover tab,,
-discover_read_in_context,string,Read in context ›,D1 Discover tab,,
+discover_read_in_context,string,Read in context ›,D1 Discover tab,D1 Discover,
 discover_open_study_cd,string,Open study for %1$s,D1 Discover tab,,%1$s
 discover_open_in_context_cd,string,Read %1$s in context,D1 Discover tab,,%1$s
 discover_copy_cd,string,Copy verse,D1 Discover tab,,

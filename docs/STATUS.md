@@ -2,9 +2,9 @@
 
 ## Updates since the audit
 
-- 2026-11-19, D1 Discover card redesign (decision 22): themed cards (trust/hope/love, required `theme` in discover.json
-  format 2), hook + "Did you know?" from the study, five actions (like, note, bookmark, copy, share as image), visible
-  with Hide AI studies on. Pipeline: discover.txt lines are now "ID theme"; **the shipped discover.txt has no themes
+- 2026-11-19, D1 Discover card redesign (decision 22): one card design for all, with a required free-text theme label
+  (`theme` in discover.json format 2, 1-40 characters), hook + "Did you know?" from the study, five actions (like, note, bookmark, copy, share as image), visible
+  with Hide AI studies on. Pipeline: discover.txt lines are now "ID theme label"; **the shipped discover.txt has no themes
   yet**, so `publish` refuses it until each line has one (`python -m pipeline discover` lists them).
 - 2026-11-19, Community redesign (decision 23): the vote decides the month's donation; header with purpose text and
   "Closes in N days"; ministry cards with image (optional, our Firebase hosts only) and category; "✓ Voted" pill after
