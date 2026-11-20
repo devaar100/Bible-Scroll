@@ -13,6 +13,8 @@ import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.settings.SettingsRepository
 import aarnav100.developer.biblescroll.data.user.UserDataRepository
 import aarnav100.developer.biblescroll.feature.study.studyHook
+import aarnav100.developer.biblescroll.feature.study.formatRefRange
+import aarnav100.developer.biblescroll.feature.study.parseRefRange
 import aarnav100.developer.biblescroll.ui.navigation.PendingVerseLink
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
@@ -49,6 +51,10 @@ sealed interface DiscoverUiState {
 @Immutable
 data class DiscoverCardRef(val ref: VerseRef, val theme: String)
 
+/** A cross reference from the study (source data, not AI) shown as a chip: "Luke 12:31". */
+@Immutable
+data class RelatedVerse(val start: VerseRef, val label: String)
+
 /** Source data (not AI) shown in the hook's place when Hide AI studies is on. */
 @Immutable
 data class StudyDataLine(val language: Language, val crossReferences: Int)
@@ -72,6 +78,8 @@ data class DiscoverCardUi(
     val liked: Boolean,
     val bookmarked: Boolean,
     val hasNote: Boolean,
+    /** Up to [DiscoverViewModel.RELATED_MAX] of the study's cross references (shown with Hide AI studies on too). */
+    val related: List<RelatedVerse> = emptyList(),
 )
 
 /**
@@ -142,6 +150,13 @@ class DiscoverViewModel @Inject constructor(
                 liked = ref in liked,
                 bookmarked = ref in bookmarked,
                 hasNote = ref in noted,
+                related = study?.crossReferences.orEmpty().asSequence()
+                    .mapNotNull { x -> parseRefRange(x.ref) }
+                    .filter { it.start != ref }
+                    .distinctBy { it.start }
+                    .take(RELATED_MAX)
+                    .map { RelatedVerse(it.start, formatRefRange(it, names)) }
+                    .toList(),
             )
         }
     }
@@ -176,6 +191,9 @@ class DiscoverViewModel @Inject constructor(
 
     companion object {
         const val PREFETCH_AHEAD = 3
+
+        /** Related-verse chips per card. */
+        const val RELATED_MAX = 2
         private const val KEY_CURRENT = "discover_current_card"
     }
 }

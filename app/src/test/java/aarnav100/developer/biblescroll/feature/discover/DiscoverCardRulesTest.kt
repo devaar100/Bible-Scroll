@@ -10,16 +10,16 @@ class DiscoverCardRulesTest {
 
     @Test
     fun verseSizeThresholds() {
-        assertEquals(DiscoverCardRules.VerseSize(24f, 1.4f), DiscoverCardRules.verseSize("a".repeat(110)))
-        assertEquals(DiscoverCardRules.VerseSize(21f, 1.45f), DiscoverCardRules.verseSize("a".repeat(111)))
-        assertEquals(DiscoverCardRules.VerseSize(21f, 1.45f), DiscoverCardRules.verseSize("a".repeat(190)))
-        assertEquals(DiscoverCardRules.VerseSize(19f, 1.5f), DiscoverCardRules.verseSize("a".repeat(191)))
-        assertEquals(DiscoverCardRules.VerseSize(24f, 1.4f), DiscoverCardRules.verseSize("Jesus wept."))
+        assertEquals(DiscoverCardRules.VerseSize(18f, 1.45f), DiscoverCardRules.verseSize("a".repeat(110)))
+        assertEquals(DiscoverCardRules.VerseSize(16f, 1.45f), DiscoverCardRules.verseSize("a".repeat(111)))
+        assertEquals(DiscoverCardRules.VerseSize(16f, 1.45f), DiscoverCardRules.verseSize("a".repeat(190)))
+        assertEquals(DiscoverCardRules.VerseSize(15f, 1.45f), DiscoverCardRules.verseSize("a".repeat(191)))
+        assertEquals(DiscoverCardRules.VerseSize(18f, 1.45f), DiscoverCardRules.verseSize("Jesus wept."))
     }
 
     @Test
     fun surroundingWhitespaceDoesNotCount() {
-        assertEquals(24f, DiscoverCardRules.verseSize("  " + "a".repeat(110) + "\n").fontSp)
+        assertEquals(18f, DiscoverCardRules.verseSize("  " + "a".repeat(110) + "\n").fontSp)
     }
 
     @Test

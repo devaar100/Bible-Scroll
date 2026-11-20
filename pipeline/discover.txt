@@ -1,377 +1,377 @@
-LUK.6.38
-ECC.9.10
-PSA.100.4
-EPH.4.2
-JHN.1.12
-PSA.43.5
-SNG.8.6
-PSA.37.5
-JER.17.8
-MAT.18.21
-PHP.4.13
-JHN.16.33
-PSA.23.4
-EPH.6.10
-PSA.94.19
-ISA.1.18
-HEB.12.1
-PSA.103.8
-ISA.49.16
-MAT.7.8
-PRO.12.18
-JHN.14.6
-PSA.90.12
-2TI.4.7
-PRO.11.25
-MAT.7.7
-ISA.43.25
-ZEP.3.17
-ISA.41.10
-1CO.16.13
-ROM.1.16
-JER.1.5
-PSA.16.8
-MAT.6.33
-ISA.55.9
-PSA.126.5
-EPH.2.10
-1SA.17.45
-1JN.5.14
-ROM.12.12
-AMO.5.24
-JAS.1.22
-ROM.15.13
-PRO.16.9
-MIC.7.19
-LUK.12.15
-EPH.4.3
-LAM.3.23
-PRO.12.25
-MAT.5.4
-ECC.4.9
-EXO.14.14
-MAT.6.15
-HEB.4.16
-EPH.3.19
-PRO.3.5
-DEU.6.4
-EPH.5.1
-PSA.139.24
-JAS.1.3
-MAT.6.19
-PSA.73.26
-1CO.1.18
-1JN.4.8
-JOS.1.9
-PSA.95.1
-2CO.4.16
-PRO.17.17
-1TI.4.12
-NUM.6.26
-GEN.1.3
-COL.3.13
-PSA.139.14
-JAS.1.2
-GAL.6.9
-PSA.29.11
-NEH.8.10
-PSA.119.105
-LUK.19.10
-ACT.4.12
-PSA.100.5
-ECC.3.1
-JHN.3.16
-PSA.90.17
-MAT.5.14
-ROM.5.4
-COL.3.14
-PRO.22.6
-LUK.15.20
-PSA.145.18
-JAS.4.8
-NUM.6.25
-PSA.23.6
-COL.3.15
-MAT.7.1
-PSA.138.3
-JON.4.2
-MAT.11.28
-1PE.2.9
-JUD.1.24
-REV.21.4
-PSA.121.1
-JHN.15.7
-1JN.4.18
-PRO.19.21
-ROM.3.24
-1CO.16.14
-JHN.8.12
-JER.31.3
-ACT.1.8
-PSA.32.5
-2TI.1.7
-2CO.5.7
-PSA.32.8
-JHN.8.32
-1PE.5.7
-GAL.5.22
-1KI.19.12
-PSA.95.6
-JAS.3.5
-2CH.20.15
-MAT.6.25
-LUK.23.34
-PHP.3.13
-MAT.6.12
-MIC.6.8
-ZEC.4.6
-MAT.6.21
-PSA.42.11
-1CO.13.7
-GEN.1.27
-PSA.23.1
-ISA.30.21
-JAS.2.17
-LAM.3.21
-1CO.13.4
-PRO.15.1
-DAN.3.17
-PSA.139.13
-MAT.6.9
-PSA.51.10
-JOB.38.4
-MAT.6.24
-2TH.3.16
-ISA.55.8
-PSA.150.6
-MIC.7.18
-GEN.1.31
-NAM.1.7
-HEB.10.25
-JHN.13.35
-ROM.5.5
-PSA.118.14
-MAT.6.34
-JHN.11.25
-ECC.4.12
-GAL.2.20
-1JN.4.19
-PSA.55.22
-HEB.13.5
-PSA.34.18
-JHN.1.1
-HAB.3.17
-PSA.91.2
-MAL.3.10
-PRO.1.7
-ROM.3.23
-PSA.28.7
-ACT.20.35
-PRO.4.23
-DAN.3.18
-EPH.6.18
-JHN.1.14
-HEB.6.19
-ISA.26.3
-1CO.13.13
-DEU.31.6
-1JN.3.1
-EPH.4.32
-GEN.50.20
-MAT.22.38
-GEN.2.24
-ISA.43.2
-ROM.8.26
-MAT.11.29
-GAL.5.23
-ROM.10.17
-MAT.18.22
-JHN.15.12
-1PE.5.10
-ECC.3.11
-2CH.20.17
-PHP.4.7
-PSA.91.1
-1TH.5.17
-ISA.12.2
-ROM.8.18
-GAL.6.2
-JHN.14.1
-ROM.8.38
-1JN.1.9
-PSA.8.4
-1JN.4.7
-PRO.27.17
-PSA.19.1
-PHP.4.6
-EXO.34.6
-JAS.1.12
-PSA.34.8
-EPH.6.11
-MAT.5.5
-PSA.32.1
-PRO.31.30
-DEU.31.8
-ACT.2.42
-PSA.139.23
-PRO.3.6
-EPH.3.18
-JHN.14.27
-JAS.5.16
-ISA.40.28
-ROM.8.1
-MAT.5.16
-EPH.4.29
-COL.3.23
-JHN.10.11
-HAB.2.4
-PSA.4.8
-JER.29.11
-DEU.7.9
-PSA.8.3
-HAB.3.18
-MAT.6.20
-PRO.17.22
-EPH.2.9
-ISA.55.11
-ROM.12.18
-1TH.5.16
-2CO.12.9
-ROM.8.39
-PRO.18.21
-MAT.6.14
-2TI.3.17
-ROM.12.1
-MAT.5.8
-PSA.118.6
-ISA.9.6
-MAT.6.10
-1CO.6.20
-NUM.6.24
-EPH.5.2
-PSA.107.1
-1PE.1.3
-PSA.46.10
-LAM.3.22
-PRO.16.18
-PSA.51.12
-LUK.12.34
-TIT.3.5
-JER.17.7
-HEB.11.1
-ECC.4.10
-REV.21.5
-PSA.19.14
-PRO.16.3
-JHN.15.5
-PSA.136.1
-MRK.12.31
-1JN.3.18
-GEN.12.2
-ACT.3.19
-LUK.18.1
-PSA.30.5
-JHN.15.16
-PRO.11.2
-PSA.37.4
-LUK.10.27
-JHN.15.13
-PSA.103.11
-1CO.6.19
-EPH.2.8
-PSA.126.6
-JOL.2.25
-PRO.9.10
-PSA.27.14
-MAT.7.12
-1TH.5.18
-PHP.3.14
-2CO.4.18
-DEU.6.5
-MAT.7.24
-COL.4.6
-1CO.10.13
-PSA.121.2
-ISA.53.5
-MAT.6.11
-EPH.3.17
-ROM.12.2
-1PE.3.15
-LUK.6.31
-ISA.40.31
-PSA.27.1
-ISA.43.1
-1JN.4.10
-JOS.24.15
-1CH.16.34
-JAS.1.19
-ROM.6.23
-MRK.10.45
-PSA.118.24
-ROM.5.8
-PHP.2.4
-2CO.5.17
-JAS.1.5
-DEU.8.3
-2CO.4.17
-1PE.4.8
-PRO.15.22
-HOS.6.3
-ROM.15.4
-2CO.5.21
-HOS.6.6
-MAT.5.44
-2CO.3.17
-ISA.53.6
-COL.3.17
-JOB.19.25
-MRK.8.36
-GEN.2.18
-HEB.12.2
-MAT.28.20
-JER.33.3
-JHN.13.34
-2PE.3.9
-ROM.5.3
-MAT.28.19
-PHP.4.19
-GEN.1.1
-MAT.22.39
-PHP.1.6
-EZK.36.26
-ROM.8.28
-LUK.9.23
-PSA.24.1
-1TH.5.11
-1CO.15.58
-1SA.16.7
-JHN.10.10
-PHP.2.5
-EXO.3.14
-MAT.5.7
-GEN.12.3
-MAT.5.9
-COL.1.17
-ROM.13.10
-MAT.5.3
-DEU.6.6
-COL.3.2
-ISA.6.8
-MRK.12.30
-2TI.3.16
-LUK.6.36
-MRK.9.23
-HEB.10.24
-PHP.4.8
-MAT.22.37
-HEB.13.8
-ROM.10.9
-REV.3.20
-MAT.5.6
-ROM.12.21
-ACT.17.11
-PHP.2.3
-TIT.2.11
-2CO.9.7
-HEB.4.12
-PHP.4.11
+LUK.6.38 Trust and guidance
+ECC.9.10 Trust and guidance
+PSA.100.4 Trust and guidance
+EPH.4.2 Trust and guidance
+JHN.1.12 Trust and guidance
+PSA.43.5 Trust and guidance
+SNG.8.6 Trust and guidance
+PSA.37.5 Trust and guidance
+JER.17.8 Trust and guidance
+MAT.18.21 Trust and guidance
+PHP.4.13 Trust and guidance
+JHN.16.33 Trust and guidance
+PSA.23.4 Trust and guidance
+EPH.6.10 Trust and guidance
+PSA.94.19 Trust and guidance
+ISA.1.18 Trust and guidance
+HEB.12.1 Trust and guidance
+PSA.103.8 Trust and guidance
+ISA.49.16 Trust and guidance
+MAT.7.8 Trust and guidance
+PRO.12.18 Trust and guidance
+JHN.14.6 Trust and guidance
+PSA.90.12 Trust and guidance
+2TI.4.7 Trust and guidance
+PRO.11.25 Trust and guidance
+MAT.7.7 Trust and guidance
+ISA.43.25 Trust and guidance
+ZEP.3.17 Trust and guidance
+ISA.41.10 Trust and guidance
+1CO.16.13 Trust and guidance
+ROM.1.16 Trust and guidance
+JER.1.5 Trust and guidance
+PSA.16.8 Trust and guidance
+MAT.6.33 Trust and guidance
+ISA.55.9 Trust and guidance
+PSA.126.5 Trust and guidance
+EPH.2.10 Trust and guidance
+1SA.17.45 Trust and guidance
+1JN.5.14 Trust and guidance
+ROM.12.12 Trust and guidance
+AMO.5.24 Trust and guidance
+JAS.1.22 Trust and guidance
+ROM.15.13 Trust and guidance
+PRO.16.9 Trust and guidance
+MIC.7.19 Trust and guidance
+LUK.12.15 Trust and guidance
+EPH.4.3 Trust and guidance
+LAM.3.23 Trust and guidance
+PRO.12.25 Trust and guidance
+MAT.5.4 Trust and guidance
+ECC.4.9 Trust and guidance
+EXO.14.14 Trust and guidance
+MAT.6.15 Trust and guidance
+HEB.4.16 Trust and guidance
+EPH.3.19 Trust and guidance
+PRO.3.5 Trust and guidance
+DEU.6.4 Trust and guidance
+EPH.5.1 Trust and guidance
+PSA.139.24 Trust and guidance
+JAS.1.3 Trust and guidance
+MAT.6.19 Trust and guidance
+PSA.73.26 Trust and guidance
+1CO.1.18 Trust and guidance
+1JN.4.8 Trust and guidance
+JOS.1.9 Trust and guidance
+PSA.95.1 Trust and guidance
+2CO.4.16 Trust and guidance
+PRO.17.17 Trust and guidance
+1TI.4.12 Trust and guidance
+NUM.6.26 Trust and guidance
+GEN.1.3 Trust and guidance
+COL.3.13 Trust and guidance
+PSA.139.14 Trust and guidance
+JAS.1.2 Trust and guidance
+GAL.6.9 Trust and guidance
+PSA.29.11 Trust and guidance
+NEH.8.10 Trust and guidance
+PSA.119.105 Trust and guidance
+LUK.19.10 Trust and guidance
+ACT.4.12 Trust and guidance
+PSA.100.5 Trust and guidance
+ECC.3.1 Trust and guidance
+JHN.3.16 Trust and guidance
+PSA.90.17 Trust and guidance
+MAT.5.14 Trust and guidance
+ROM.5.4 Trust and guidance
+COL.3.14 Trust and guidance
+PRO.22.6 Trust and guidance
+LUK.15.20 Trust and guidance
+PSA.145.18 Trust and guidance
+JAS.4.8 Trust and guidance
+NUM.6.25 Trust and guidance
+PSA.23.6 Trust and guidance
+COL.3.15 Trust and guidance
+MAT.7.1 Trust and guidance
+PSA.138.3 Trust and guidance
+JON.4.2 Trust and guidance
+MAT.11.28 Trust and guidance
+1PE.2.9 Trust and guidance
+JUD.1.24 Trust and guidance
+REV.21.4 Trust and guidance
+PSA.121.1 Trust and guidance
+JHN.15.7 Trust and guidance
+1JN.4.18 Trust and guidance
+PRO.19.21 Trust and guidance
+ROM.3.24 Trust and guidance
+1CO.16.14 Trust and guidance
+JHN.8.12 Trust and guidance
+JER.31.3 Trust and guidance
+ACT.1.8 Trust and guidance
+PSA.32.5 Trust and guidance
+2TI.1.7 Trust and guidance
+2CO.5.7 Trust and guidance
+PSA.32.8 Trust and guidance
+JHN.8.32 Trust and guidance
+1PE.5.7 Trust and guidance
+GAL.5.22 Trust and guidance
+1KI.19.12 Trust and guidance
+PSA.95.6 Trust and guidance
+JAS.3.5 Trust and guidance
+2CH.20.15 Trust and guidance
+MAT.6.25 Trust and guidance
+LUK.23.34 Trust and guidance
+PHP.3.13 Trust and guidance
+MAT.6.12 Trust and guidance
+MIC.6.8 Trust and guidance
+ZEC.4.6 Trust and guidance
+MAT.6.21 Trust and guidance
+PSA.42.11 Trust and guidance
+1CO.13.7 Trust and guidance
+GEN.1.27 Trust and guidance
+PSA.23.1 Trust and guidance
+ISA.30.21 Trust and guidance
+JAS.2.17 Trust and guidance
+LAM.3.21 Trust and guidance
+1CO.13.4 Trust and guidance
+PRO.15.1 Trust and guidance
+DAN.3.17 Trust and guidance
+PSA.139.13 Trust and guidance
+MAT.6.9 Trust and guidance
+PSA.51.10 Trust and guidance
+JOB.38.4 Trust and guidance
+MAT.6.24 Trust and guidance
+2TH.3.16 Trust and guidance
+ISA.55.8 Trust and guidance
+PSA.150.6 Trust and guidance
+MIC.7.18 Trust and guidance
+GEN.1.31 Trust and guidance
+NAM.1.7 Trust and guidance
+HEB.10.25 Trust and guidance
+JHN.13.35 Trust and guidance
+ROM.5.5 Trust and guidance
+PSA.118.14 Trust and guidance
+MAT.6.34 Trust and guidance
+JHN.11.25 Trust and guidance
+ECC.4.12 Trust and guidance
+GAL.2.20 Trust and guidance
+1JN.4.19 Trust and guidance
+PSA.55.22 Trust and guidance
+HEB.13.5 Trust and guidance
+PSA.34.18 Trust and guidance
+JHN.1.1 Trust and guidance
+HAB.3.17 Trust and guidance
+PSA.91.2 Trust and guidance
+MAL.3.10 Trust and guidance
+PRO.1.7 Trust and guidance
+ROM.3.23 Trust and guidance
+PSA.28.7 Trust and guidance
+ACT.20.35 Trust and guidance
+PRO.4.23 Trust and guidance
+DAN.3.18 Trust and guidance
+EPH.6.18 Trust and guidance
+JHN.1.14 Trust and guidance
+HEB.6.19 Trust and guidance
+ISA.26.3 Trust and guidance
+1CO.13.13 Trust and guidance
+DEU.31.6 Trust and guidance
+1JN.3.1 Trust and guidance
+EPH.4.32 Trust and guidance
+GEN.50.20 Trust and guidance
+MAT.22.38 Trust and guidance
+GEN.2.24 Trust and guidance
+ISA.43.2 Trust and guidance
+ROM.8.26 Trust and guidance
+MAT.11.29 Trust and guidance
+GAL.5.23 Trust and guidance
+ROM.10.17 Trust and guidance
+MAT.18.22 Trust and guidance
+JHN.15.12 Trust and guidance
+1PE.5.10 Trust and guidance
+ECC.3.11 Trust and guidance
+2CH.20.17 Trust and guidance
+PHP.4.7 Trust and guidance
+PSA.91.1 Trust and guidance
+1TH.5.17 Trust and guidance
+ISA.12.2 Trust and guidance
+ROM.8.18 Trust and guidance
+GAL.6.2 Trust and guidance
+JHN.14.1 Trust and guidance
+ROM.8.38 Trust and guidance
+1JN.1.9 Trust and guidance
+PSA.8.4 Trust and guidance
+1JN.4.7 Trust and guidance
+PRO.27.17 Trust and guidance
+PSA.19.1 Trust and guidance
+PHP.4.6 Trust and guidance
+EXO.34.6 Trust and guidance
+JAS.1.12 Trust and guidance
+PSA.34.8 Trust and guidance
+EPH.6.11 Trust and guidance
+MAT.5.5 Trust and guidance
+PSA.32.1 Trust and guidance
+PRO.31.30 Trust and guidance
+DEU.31.8 Trust and guidance
+ACT.2.42 Trust and guidance
+PSA.139.23 Trust and guidance
+PRO.3.6 Trust and guidance
+EPH.3.18 Trust and guidance
+JHN.14.27 Trust and guidance
+JAS.5.16 Trust and guidance
+ISA.40.28 Trust and guidance
+ROM.8.1 Trust and guidance
+MAT.5.16 Trust and guidance
+EPH.4.29 Trust and guidance
+COL.3.23 Trust and guidance
+JHN.10.11 Trust and guidance
+HAB.2.4 Trust and guidance
+PSA.4.8 Trust and guidance
+JER.29.11 Trust and guidance
+DEU.7.9 Trust and guidance
+PSA.8.3 Trust and guidance
+HAB.3.18 Trust and guidance
+MAT.6.20 Trust and guidance
+PRO.17.22 Trust and guidance
+EPH.2.9 Trust and guidance
+ISA.55.11 Trust and guidance
+ROM.12.18 Trust and guidance
+1TH.5.16 Trust and guidance
+2CO.12.9 Trust and guidance
+ROM.8.39 Trust and guidance
+PRO.18.21 Trust and guidance
+MAT.6.14 Trust and guidance
+2TI.3.17 Trust and guidance
+ROM.12.1 Trust and guidance
+MAT.5.8 Trust and guidance
+PSA.118.6 Trust and guidance
+ISA.9.6 Trust and guidance
+MAT.6.10 Trust and guidance
+1CO.6.20 Trust and guidance
+NUM.6.24 Trust and guidance
+EPH.5.2 Trust and guidance
+PSA.107.1 Trust and guidance
+1PE.1.3 Trust and guidance
+PSA.46.10 Trust and guidance
+LAM.3.22 Trust and guidance
+PRO.16.18 Trust and guidance
+PSA.51.12 Trust and guidance
+LUK.12.34 Trust and guidance
+TIT.3.5 Trust and guidance
+JER.17.7 Trust and guidance
+HEB.11.1 Trust and guidance
+ECC.4.10 Trust and guidance
+REV.21.5 Trust and guidance
+PSA.19.14 Trust and guidance
+PRO.16.3 Trust and guidance
+JHN.15.5 Trust and guidance
+PSA.136.1 Trust and guidance
+MRK.12.31 Trust and guidance
+1JN.3.18 Trust and guidance
+GEN.12.2 Trust and guidance
+ACT.3.19 Trust and guidance
+LUK.18.1 Trust and guidance
+PSA.30.5 Trust and guidance
+JHN.15.16 Trust and guidance
+PRO.11.2 Trust and guidance
+PSA.37.4 Trust and guidance
+LUK.10.27 Trust and guidance
+JHN.15.13 Trust and guidance
+PSA.103.11 Trust and guidance
+1CO.6.19 Trust and guidance
+EPH.2.8 Trust and guidance
+PSA.126.6 Trust and guidance
+JOL.2.25 Trust and guidance
+PRO.9.10 Trust and guidance
+PSA.27.14 Trust and guidance
+MAT.7.12 Trust and guidance
+1TH.5.18 Trust and guidance
+PHP.3.14 Trust and guidance
+2CO.4.18 Trust and guidance
+DEU.6.5 Trust and guidance
+MAT.7.24 Trust and guidance
+COL.4.6 Trust and guidance
+1CO.10.13 Trust and guidance
+PSA.121.2 Trust and guidance
+ISA.53.5 Trust and guidance
+MAT.6.11 Trust and guidance
+EPH.3.17 Trust and guidance
+ROM.12.2 Trust and guidance
+1PE.3.15 Trust and guidance
+LUK.6.31 Trust and guidance
+ISA.40.31 Trust and guidance
+PSA.27.1 Trust and guidance
+ISA.43.1 Trust and guidance
+1JN.4.10 Trust and guidance
+JOS.24.15 Trust and guidance
+1CH.16.34 Trust and guidance
+JAS.1.19 Trust and guidance
+ROM.6.23 Trust and guidance
+MRK.10.45 Trust and guidance
+PSA.118.24 Trust and guidance
+ROM.5.8 Trust and guidance
+PHP.2.4 Trust and guidance
+2CO.5.17 Trust and guidance
+JAS.1.5 Trust and guidance
+DEU.8.3 Trust and guidance
+2CO.4.17 Trust and guidance
+1PE.4.8 Trust and guidance
+PRO.15.22 Trust and guidance
+HOS.6.3 Trust and guidance
+ROM.15.4 Trust and guidance
+2CO.5.21 Trust and guidance
+HOS.6.6 Trust and guidance
+MAT.5.44 Trust and guidance
+2CO.3.17 Trust and guidance
+ISA.53.6 Trust and guidance
+COL.3.17 Trust and guidance
+JOB.19.25 Trust and guidance
+MRK.8.36 Trust and guidance
+GEN.2.18 Trust and guidance
+HEB.12.2 Trust and guidance
+MAT.28.20 Trust and guidance
+JER.33.3 Trust and guidance
+JHN.13.34 Trust and guidance
+2PE.3.9 Trust and guidance
+ROM.5.3 Trust and guidance
+MAT.28.19 Trust and guidance
+PHP.4.19 Trust and guidance
+GEN.1.1 Trust and guidance
+MAT.22.39 Trust and guidance
+PHP.1.6 Trust and guidance
+EZK.36.26 Trust and guidance
+ROM.8.28 Trust and guidance
+LUK.9.23 Trust and guidance
+PSA.24.1 Trust and guidance
+1TH.5.11 Trust and guidance
+1CO.15.58 Trust and guidance
+1SA.16.7 Trust and guidance
+JHN.10.10 Trust and guidance
+PHP.2.5 Trust and guidance
+EXO.3.14 Trust and guidance
+MAT.5.7 Trust and guidance
+GEN.12.3 Trust and guidance
+MAT.5.9 Trust and guidance
+COL.1.17 Trust and guidance
+ROM.13.10 Trust and guidance
+MAT.5.3 Trust and guidance
+DEU.6.6 Trust and guidance
+COL.3.2 Trust and guidance
+ISA.6.8 Trust and guidance
+MRK.12.30 Trust and guidance
+2TI.3.16 Trust and guidance
+LUK.6.36 Trust and guidance
+MRK.9.23 Trust and guidance
+HEB.10.24 Trust and guidance
+PHP.4.8 Trust and guidance
+MAT.22.37 Trust and guidance
+HEB.13.8 Trust and guidance
+ROM.10.9 Trust and guidance
+REV.3.20 Trust and guidance
+MAT.5.6 Trust and guidance
+ROM.12.21 Trust and guidance
+ACT.17.11 Trust and guidance
+PHP.2.3 Trust and guidance
+TIT.2.11 Trust and guidance
+2CO.9.7 Trust and guidance
+HEB.4.12 Trust and guidance
+PHP.4.11 Trust and guidance

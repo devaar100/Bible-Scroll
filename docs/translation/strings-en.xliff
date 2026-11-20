@@ -1038,7 +1038,7 @@
       </trans-unit>
       <trans-unit id="study_read_in_context" resname="study_read_in_context">
         <source>Read in context</source>
-        <note from="where">D2 Deep study page</note>
+        <note from="where">D1 Discover tab; D2 Deep study page</note>
       </trans-unit>
       <trans-unit id="study_meaning" resname="study_meaning">
         <source>Meaning</source>
@@ -1154,15 +1154,10 @@
         <source>Show studies again</source>
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
-      <trans-unit id="discover_read_in_context" resname="discover_read_in_context">
-        <source>Read in context ›</source>
+      <trans-unit id="discover_meaning_label" resname="discover_meaning_label">
+        <source>What it means</source>
         <note from="where">D1 Discover tab</note>
         <note from="developer">D1 Discover</note>
-      </trans-unit>
-      <trans-unit id="discover_open_study_cd" resname="discover_open_study_cd">
-        <source>Open study for %1$s</source>
-        <note from="where">D1 Discover tab</note>
-        <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="discover_open_in_context_cd" resname="discover_open_in_context_cd">
         <source>Read %1$s in context</source>

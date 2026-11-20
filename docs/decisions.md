@@ -42,8 +42,8 @@ or a donation needs to be shown before the month ends.
 
 ### 22. Discover cards carry a required theme label, and stay visible with Hide AI studies on
 discover.json moved to format 2: each verse is `{"id", "theme"}`, where theme is a free-text label of 1-40 characters
-("Trust and guidance") shown on the card as written. Every card uses the one approved design (colours, wave art, wave
-icon); the label is the only thing that changes, so new themes need no app release (2026-11-19: replaced the earlier
+("Trust and guidance") shown on the card as written. Every card uses the one approved layout (wave art, wave icon, in the
+app's own colours); the label is the only thing that changes, so new themes need no app release (2026-11-19: replaced the earlier
 three fixed themes with their own colours, at your call). The pipeline refuses to publish a discover.txt line without
 a theme or with one over 40 characters (the batch wave still reads ids alone), and the app ignores a format-1 file and
 any entry with a blank or over-long theme, so a card is never drawn without one. The list itself is Scripture, so Discover no longer disappears when Hide AI

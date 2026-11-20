@@ -23,13 +23,14 @@ internal object DiscoverSamples {
     private const val ROM_15_13 = "Now may the God of hope fill you with all joy and peace in believing, that you may abound in hope, in the power of the Holy Spirit."
     private const val JHN_15_12 = "“This is my commandment, that you love one another, even as I have loved you."
 
-    val noActions = DiscoverCardActions({}, {}, {}, {}, {}, {}, {})
+    val noActions = DiscoverCardActions({}, {}, {}, {}, {}, {}, {}, {})
 
     fun trust(fact: Boolean = true, aiHidden: Boolean = false) = card(
         "Trust and guidance", VerseRef(24, 17, 8), "Jeremiah 17:8", JER_17_8, emptyList(),
         hook = "Jeremiah pictures the person who trusts God as a tree whose roots find water even in a dry year.",
         fact = if (fact) "Trees along the Jordan could keep their leaves through summer because their roots reached the river." else null,
         aiHidden = aiHidden, liked = true, hasNote = true,
+        related = listOf(RelatedVerse(VerseRef(19, 1, 3), "Psalm 1:3"), RelatedVerse(VerseRef(19, 92, 12), "Psalm 92:12–14")),
     )
 
     fun hope(fact: Boolean = true) = card(
@@ -48,12 +49,13 @@ internal object DiscoverSamples {
     private fun card(
         theme: String, ref: VerseRef, reference: String, text: String, jesus: List<IntRange>,
         hook: String?, fact: String?, aiHidden: Boolean = false, liked: Boolean = false, bookmarked: Boolean = false, hasNote: Boolean = false,
+        related: List<RelatedVerse> = emptyList(),
     ) = DiscoverCardUi(
         ref = ref, theme = theme, reference = reference, translationId = "WEB",
         verse = Verse("WEB", ref, 0, text, jesus),
         hook = if (aiHidden) null else hook, fact = if (aiHidden) null else fact,
         dataLine = if (aiHidden) StudyDataLine(Language.HEBREW, 12) else null,
-        aiHidden = aiHidden, liked = liked, bookmarked = bookmarked, hasNote = hasNote,
+        aiHidden = aiHidden, liked = liked, bookmarked = bookmarked, hasNote = hasNote, related = related,
     )
 }
 

@@ -53,7 +53,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import kotlin.math.abs
 
-/** D1 Discover: a vertical feed of curated verse cards. Tap a card for its deep study (D2). */
+/** D1 Discover: a vertical feed of curated verse cards. "Read in context" on a card opens its deep study (D2). */
 @Composable
 fun DiscoverScreen(
     onOpenStudy: (VerseRef) -> Unit,
@@ -87,6 +87,7 @@ fun DiscoverScreen(
             onBookmark = viewModel::toggleBookmark,
             onCopy = { ui -> ui.verse?.let { copyAndConfirm(it, ui.reference, snackbar) } },
             onShareImage = { ui -> ui.verse?.let(sheetsViewModel::openShareImage) },
+            onRelated = viewModel::readInContext,
         )
     }
     Box(modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -132,15 +133,16 @@ fun DiscoverScreen(
 }
 
 /**
- * The card is [CARD_FRACTION] of the pager's height, centred, 16dp from the sides; the next card's top edge peeks
- * out about [PEEK] below it, drawn slightly smaller so it reads as behind.
+ * The card is [CARD_FRACTION] of the pager's height, centred, 16dp from the sides; only the top [PEEK] of the next card
+ * shows at the bottom edge, drawn slightly smaller so it reads as behind. The card leaving upwards fades out.
  */
 @Composable
 fun DiscoverPager(pager: PagerState, count: Int, key: (Int) -> Any, content: @Composable (Int) -> Unit) {
     BoxWithConstraints(Modifier.fillMaxSize()) {
         val cardHeight = maxHeight * CARD_FRACTION
         val gap = (maxHeight - cardHeight) / 2
-        val spacing = maxOf(12.dp, gap - PEEK)
+        // The next card starts [spacing] below this one, so exactly PEEK of it is left on screen.
+        val spacing = maxOf(8.dp, gap - PEEK)
         VerticalPager(
             state = pager,
             pageSize = PageSize.Fixed(cardHeight),
@@ -170,8 +172,8 @@ fun DiscoverPager(pager: PagerState, count: Int, key: (Int) -> Any, content: @Co
     }
 }
 
-const val CARD_FRACTION = 0.74f
-val PEEK: Dp = 58.dp
+const val CARD_FRACTION = 0.84f
+val PEEK: Dp = 28.dp
 private const val NEXT_SCALE = 0.94f
 
 @Composable

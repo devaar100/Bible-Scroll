@@ -239,7 +239,7 @@ study_studied,string,Studied,D2 Deep study page,,
 study_not_studied,string,Not studied,D2 Deep study page,,
 study_save,string,Save,D2 Deep study page,,
 study_saved,string,Saved,D2 Deep study page,,
-study_read_in_context,string,Read in context,D2 Deep study page,,
+study_read_in_context,string,Read in context,D1 Discover tab; D2 Deep study page,,
 study_meaning,string,Meaning,B8/D2 Verse study,,
 study_historical_context,string,Historical context,B8/D2 Verse study,,
 study_life_in_bible_times,string,Life in Bible times,B8/D2 Verse study,,
@@ -268,8 +268,7 @@ study_update_body,string,This study uses a newer format than your version of the
 study_hidden_title,string,Studies are hidden,B8/D2 Verse study,,
 study_hidden_body,string,"You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.",B8/D2 Verse study,,
 study_hidden_show,string,Show studies again,B8/D2 Verse study,,
-discover_read_in_context,string,Read in context ›,D1 Discover tab,D1 Discover,
-discover_open_study_cd,string,Open study for %1$s,D1 Discover tab,,%1$s
+discover_meaning_label,string,What it means,D1 Discover tab,D1 Discover,
 discover_open_in_context_cd,string,Read %1$s in context,D1 Discover tab,,%1$s
 discover_copy_cd,string,Copy verse,D1 Discover tab,,
 discover_state_liked,string,Liked,D1 Discover tab,,
