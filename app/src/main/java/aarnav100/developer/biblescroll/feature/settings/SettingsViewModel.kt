@@ -8,6 +8,7 @@ import aarnav100.developer.biblescroll.data.settings.AppSettings
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.settings.ReadingBackground
 import aarnav100.developer.biblescroll.data.settings.ScriptureSize
+import aarnav100.developer.biblescroll.data.settings.ScrubberMode
 import aarnav100.developer.biblescroll.data.settings.SettingsRepository
 import aarnav100.developer.biblescroll.data.settings.ThemeMode
 import androidx.lifecycle.ViewModel
@@ -45,6 +46,7 @@ class SettingsViewModel @Inject constructor(
     fun setRedLetters(value: Boolean) = launch { repository.setRedLetters(value) }
     fun setScriptureSize(value: ScriptureSize) = launch { repository.setScriptureSize(value) }
     fun setHideAiStudies(value: Boolean) = launch { repository.setHideAiStudies(value) }
+    fun setVerseScrubber(value: ScrubberMode) = launch { repository.setVerseScrubber(value) }
 
     private fun launch(block: suspend () -> Unit) {
         viewModelScope.launch { block() }

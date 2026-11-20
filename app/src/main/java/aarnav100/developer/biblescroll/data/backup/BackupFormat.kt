@@ -185,6 +185,7 @@ object BackupSettings {
         "red_letters" to Type.BOOLEAN,
         "scripture_size" to Type.STRING,
         "hide_ai_studies" to Type.BOOLEAN,
+        "verse_scrubber" to Type.STRING,
         "streak_grace_day" to Type.BOOLEAN,
         "show_devotionals_when_ai_hidden" to Type.BOOLEAN,
         "translation_id" to Type.STRING,

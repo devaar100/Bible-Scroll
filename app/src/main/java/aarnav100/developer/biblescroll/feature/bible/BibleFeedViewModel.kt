@@ -1,6 +1,7 @@
 package aarnav100.developer.biblescroll.feature.bible
 
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
+import aarnav100.developer.biblescroll.data.bible.ChapterSpans
 import aarnav100.developer.biblescroll.data.bible.model.Translation
 import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
@@ -18,6 +19,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapLatest
@@ -150,6 +152,12 @@ class BibleFeedViewModel @Inject constructor(
             bible.versesFrom(s.translationId, fromOrdinal = startPage + 1, count = CHUNK * 3)
                 .map { verses -> PageWindow(s.translationId, verses.associateBy { it.ordinal - 1 }) }
         }
+
+    /** B1 scrubber: every chapter's place in the feed, for the translation on screen. Null while loading. */
+    val chapterSpans: StateFlow<ChapterSpans?> = translationId
+        .filterNotNull()
+        .mapLatest { bible.chapterSpans(it) }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     private val bookNames = bible.books().map { books -> books.associate { it.id to it.name } }
 

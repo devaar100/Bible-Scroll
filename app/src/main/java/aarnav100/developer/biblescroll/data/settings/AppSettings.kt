@@ -12,7 +12,18 @@ data class AppSettings(
     val scriptureSize: ScriptureSize = ScriptureSize.Default,
     /** S2 "Hide AI studies": hides B8/D1/D2 study content. Scripture, notes, plans stay. */
     val hideAiStudies: Boolean = false,
+    /** S2 "Verse scrubber": the position control on the start edge of B1, B2 and H11. */
+    val verseScrubber: ScrubberMode = ScrubberMode.Always,
 )
+
+/** S2 "Verse scrubber". Stored by name. */
+enum class ScrubberMode {
+    /** Always visible (default). */
+    Always,
+    /** Fades in on scroll or touch, out about 1.5 s later. */
+    WhileScrolling,
+    Off,
+}
 
 enum class ThemeMode { System, Light, Dark }
 

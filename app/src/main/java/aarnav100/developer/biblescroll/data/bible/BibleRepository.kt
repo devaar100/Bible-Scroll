@@ -28,6 +28,9 @@ interface BibleRepository {
 
     suspend fun verseCount(translationId: String): Int
 
+    /** Where each chapter sits in the feed (B1 scrubber). One query per translation. */
+    suspend fun chapterSpans(translationId: String): ChapterSpans
+
     /** The given verses in [translationId], in Bible order; refs this translation lacks are skipped. */
     suspend fun versesByRefs(translationId: String, refs: Collection<VerseRef>): List<Verse>
 
@@ -81,6 +84,8 @@ class OfflineBibleRepository @Inject constructor(
             .map { list -> list.map { it.toModel() } }
 
     override suspend fun verseCount(translationId: String) = dao.countVerses(translationId)
+
+    override suspend fun chapterSpans(translationId: String) = ChapterSpans.of(translationId, dao.chapterSpans(translationId))
 
     override suspend fun versesByRefs(translationId: String, refs: Collection<VerseRef>): List<Verse> =
         refs.map { it.packedKey() }

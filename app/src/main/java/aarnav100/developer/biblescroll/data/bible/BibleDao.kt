@@ -80,6 +80,18 @@ interface BibleDao {
     )
     suspend fun versesByKeys(translationId: String, keys: List<Long>): List<VerseEntity>
 
+    /** Every chapter's first ordinal, row count and last verse number, in feed order (B1 scrubber). */
+    @Query(
+        """
+        SELECT book_id AS bookId, chapter, MIN(ordinal) AS firstOrdinal, COUNT(*) AS verseCount, MAX(verse) AS lastVerse
+        FROM verses
+        WHERE translation_id = :translationId
+        GROUP BY book_id, chapter
+        ORDER BY firstOrdinal
+        """
+    )
+    suspend fun chapterSpans(translationId: String): List<ChapterSpanRow>
+
     @Query("SELECT COUNT(*) FROM verses WHERE translation_id = :translationId")
     suspend fun countVerses(translationId: String): Int
 
@@ -101,4 +113,12 @@ val TRANSLATION_INFO_QUERY = SimpleSQLiteQuery("SELECT id, has_red_letters FROM 
 data class TranslationInfoRow(
     @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "has_red_letters") val hasRedLetters: Boolean,
+)
+
+data class ChapterSpanRow(
+    @ColumnInfo(name = "bookId") val bookId: Int,
+    @ColumnInfo(name = "chapter") val chapter: Int,
+    @ColumnInfo(name = "firstOrdinal") val firstOrdinal: Int,
+    @ColumnInfo(name = "verseCount") val verseCount: Int,
+    @ColumnInfo(name = "lastVerse") val lastVerse: Int,
 )

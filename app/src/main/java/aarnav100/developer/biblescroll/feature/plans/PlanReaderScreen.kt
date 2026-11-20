@@ -65,6 +65,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
+import aarnav100.developer.biblescroll.ui.components.scrubber.ScrubberVisibility
+import aarnav100.developer.biblescroll.ui.components.scrubber.VerseScrubber
+import aarnav100.developer.biblescroll.ui.components.scrubber.VerseScrubberDefaults
+import aarnav100.developer.biblescroll.ui.theme.BibleScrollTheme
+import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.unit.Dp
 
 /**
  * H11: the day's reading as an immersive verse feed. Same pager, page and gestures as B1 (double-tap to
@@ -130,10 +136,13 @@ private fun ReaderContent(
     }
     val pagerState = rememberPagerState { s.pages.size }
     var reporting by rememberSaveable { mutableStateOf(false) }
+    val scrubberMode = BibleScrollTheme.settings.verseScrubber
+    val textStart = ScrubberVisibility.textStartInsetDp(scrubberMode).dp
+    val resources = LocalResources.current
     Box(Modifier.fillMaxSize()) {
         VerticalPager(state = pagerState, beyondViewportPageCount = 1, key = { it }, modifier = Modifier.fillMaxSize()) { index ->
             when (val page = s.pages[index]) {
-                is ReaderPage.Intro -> IntroPage(page, s.planTitle)
+                is ReaderPage.Intro -> IntroPage(page, s.planTitle, textStart)
                 is ReaderPage.VersePage -> {
                     val verse = page.verse
                     val reference = verse.reference(s.bookNames)
@@ -152,11 +161,29 @@ private fun ReaderContent(
                         onShare = { context.shareVerse(verse, reference) },
                         onCopy = { copyAndConfirm(verse, reference, snackbar) },
                         onActions = { sheetsViewModel.openActions(verse) },
+                        textStartInset = textStart,
                     )
                 }
-                is ReaderPage.Finish -> FinishPage(page, onMarkRead = viewModel::markRead, onNextDay = viewModel::openDay)
+                is ReaderPage.Finish -> FinishPage(page, textStart, onMarkRead = viewModel::markRead, onNextDay = viewModel::openDay)
             }
         }
+        // H11: position within the day's pages (intro, verses, finish). Plan progress is saved by "Mark day as read",
+        // not per page, so there's nothing to hold back while scrubbing.
+        VerseScrubber(
+            position = { pagerState.currentPage + pagerState.currentPageOffsetFraction },
+            count = s.pages.size,
+            labelNumber = { i -> i + 1 },
+            stateDescription = { i -> resources.getString(R.string.scrubber_plan_state, i + 1, s.pages.size) },
+            contentDescription = stringResource(R.string.scrubber_plan_cd),
+            mode = scrubberMode,
+            scrolling = { pagerState.isScrollInProgress },
+            onScrub = { i -> scope.launch { pagerState.scrollToPage(i) } },
+            onScrubbingChange = {},
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                // 12 dp below the close button (4 dp + 48 dp) and 12 dp above the bottom edge (inside the system bars).
+                .padding(top = 52.dp + VerseScrubberDefaults.VerticalGap, bottom = VerseScrubberDefaults.VerticalGap),
+        )
         Text(
             stringResource(R.string.plans_reader_day, s.dayNumber, s.totalDays),
             style = MaterialTheme.typography.labelLarge,
@@ -198,8 +225,8 @@ private fun ReaderContent(
 }
 
 @Composable
-private fun IntroPage(page: ReaderPage.Intro, planTitle: String) {
-    PageColumn {
+private fun IntroPage(page: ReaderPage.Intro, planTitle: String, textStart: Dp) {
+    PageColumn(textStart) {
         Text(planTitle, style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary, textAlign = TextAlign.Center)
         Spacer(Modifier.height(12.dp))
         Text(
@@ -223,8 +250,8 @@ private fun IntroPage(page: ReaderPage.Intro, planTitle: String) {
 }
 
 @Composable
-private fun FinishPage(page: ReaderPage.Finish, onMarkRead: () -> Unit, onNextDay: (Int) -> Unit) {
-    PageColumn {
+private fun FinishPage(page: ReaderPage.Finish, textStart: Dp, onMarkRead: () -> Unit, onNextDay: (Int) -> Unit) {
+    PageColumn(textStart) {
         if (!page.read) {
             Text(
                 stringResource(R.string.plans_reader_end_of_day, page.dayNumber),
@@ -254,9 +281,10 @@ private fun FinishPage(page: ReaderPage.Finish, onMarkRead: () -> Unit, onNextDa
 }
 
 @Composable
-private fun PageColumn(content: @Composable () -> Unit) {
+private fun PageColumn(textStart: Dp, content: @Composable () -> Unit) {
     Column(
-        Modifier.fillMaxSize().padding(horizontal = 32.dp),
+        // Start clears the scrubber strip when it's on; at least the old 32 dp either way.
+        Modifier.fillMaxSize().padding(start = maxOf(textStart, 32.dp), end = 32.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) { content() }

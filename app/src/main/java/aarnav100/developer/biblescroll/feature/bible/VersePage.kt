@@ -59,6 +59,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
+import aarnav100.developer.biblescroll.ui.components.scrubber.ScrubberVisibility
+import androidx.compose.ui.unit.Dp
 
 /**
  * One full-screen verse: text, reference, right rail. Double-tap toggles like, long-press copies.
@@ -83,6 +85,8 @@ fun VersePage(
     onCopy: () -> Unit,
     onActions: () -> Unit,
     modifier: Modifier = Modifier,
+    /** Start padding of the text; wider when the verse scrubber is on, so the strip never covers it. */
+    textStartInset: Dp = ScrubberVisibility.DEFAULT_TEXT_START_DP.dp,
 ) {
     val haptics = LocalHapticFeedback.current
     val scope = rememberCoroutineScope()
@@ -132,7 +136,7 @@ fun VersePage(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(start = 28.dp, end = 84.dp, top = 72.dp, bottom = 32.dp),
+                .padding(start = textStartInset, end = 84.dp, top = 72.dp, bottom = 32.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             ActionsPill(onClick = onActions)

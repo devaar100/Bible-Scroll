@@ -72,7 +72,7 @@ notifications_daily_summary,string,A short verse each day to bring you back to r
 notifications_time,string,Reminder time,S6 Settings → Notifications,,
 notifications_time_dialog,string,Choose reminder time,S6 Reminder time picker,,
 notifications_ok,string,OK,S6 Reminder time picker,,
-notifications_cancel,string,Cancel,S2 Settings → General → Language; S6 Reminder time picker; Settings → Storage,,
+notifications_cancel,string,Cancel,S1-S4 Settings; S2 Settings → General → Language; S6 Reminder time picker; Settings → Storage,,
 notifications_blocked,string,"Notifications are turned off for %1$s, so reminders can’t appear. You can turn them on in system settings.",S6 Settings → Notifications,,%1$s
 notifications_open_settings,string,Open notification settings,S6 Settings → Notifications,,
 reminder_channel_name,string,Daily reminder,Notifications (daily verse and plan reminders),,
@@ -223,6 +223,16 @@ storage_book_bundled[one],plurals,Included with the app · %1$d study,Settings �
 storage_book_bundled[other],plurals,Included with the app · %1$d studies,Settings → Storage,,%1$d
 settings_hide_ai_studies,string,Hide AI studies,S1-S4 Settings,S2: Hide AI studies,
 settings_hide_ai_studies_summary,string,"Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.",S1-S4 Settings,,
+settings_verse_scrubber,string,Verse scrubber,S1-S4 Settings,,
+settings_verse_scrubber_always,string,Always,S1-S4 Settings,,
+settings_verse_scrubber_while_scrolling,string,Only while scrolling,S1-S4 Settings,,
+settings_verse_scrubber_off,string,Off,S1-S4 Settings,,
+scrubber_chapter_cd,string,Position in chapter,B1 Bible feed,"Verse scrubber (B1, B2, H11): TalkBack slider texts.",
+scrubber_chapter_state,string,Verse %1$d of %2$d,B1 Bible feed,,%1$d %2$d
+scrubber_liked_cd,string,Position in liked verses,B1 Bible feed,,
+scrubber_liked_state,string,Liked verse %1$d of %2$d,B1 Bible feed,,%1$d %2$d
+scrubber_plan_cd,string,Position in today\'s reading,H11 Plan reader,,
+scrubber_plan_state,string,Page %1$d of %2$d,H11 Plan reader,,%1$d %2$d
 study_close,string,Close study,B8/D2 Verse study; D2 Deep study page,B8/D2 study,
 study_mark_studied,string,Mark as studied,D2 Deep study page,,
 study_studied,string,Studied,D2 Deep study page,,

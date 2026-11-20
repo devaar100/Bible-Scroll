@@ -47,6 +47,13 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.fillMaxWidth
+import aarnav100.developer.biblescroll.data.settings.ScrubberMode
 
 /** S1: every Settings section (S2 General, S6 Notifications, Storage, S9 Data & backup, S5 Widget guide, S7 Help, S8 Legal). */
 @Composable
@@ -133,6 +140,43 @@ fun GeneralSettingsScreen(
                 role = Role.Switch,
                 onValueChange = viewModel::setHideAiStudies,
             ),
+        )
+        VerseScrubberRow(settings.verseScrubber, viewModel::setVerseScrubber)
+    }
+}
+
+/** S2 "Verse scrubber": Always (default) / Only while scrolling / Off. */
+@Composable
+private fun VerseScrubberRow(selected: ScrubberMode, onSelect: (ScrubberMode) -> Unit) {
+    var open by rememberSaveable { mutableStateOf(false) }
+    ListItem(
+        headlineContent = { Text(stringResource(R.string.settings_verse_scrubber)) },
+        supportingContent = { Text(stringResource(selected.label)) },
+        modifier = Modifier.clickable { open = true },
+    )
+    if (open) {
+        AlertDialog(
+            onDismissRequest = { open = false },
+            title = { Text(stringResource(R.string.settings_verse_scrubber)) },
+            text = {
+                Column(Modifier.selectableGroup()) {
+                    ScrubberMode.entries.forEach { mode ->
+                        ListItem(
+                            headlineContent = { Text(stringResource(mode.label)) },
+                            leadingContent = { RadioButton(selected = mode == selected, onClick = null) },
+                            modifier = Modifier.fillMaxWidth().selectable(
+                                selected = mode == selected,
+                                role = Role.RadioButton,
+                                onClick = {
+                                    onSelect(mode)
+                                    open = false
+                                },
+                            ),
+                        )
+                    }
+                }
+            },
+            confirmButton = { TextButton(onClick = { open = false }) { Text(stringResource(R.string.notifications_cancel)) } },
         )
     }
 }
@@ -277,6 +321,13 @@ private val AccentPreset.label get() = when (this) {
     AccentPreset.Sage -> R.string.settings_accent_sage
     AccentPreset.Teal -> R.string.settings_accent_teal
     AccentPreset.Indigo -> R.string.settings_accent_indigo
+}
+
+@get:StringRes
+private val ScrubberMode.label get() = when (this) {
+    ScrubberMode.Always -> R.string.settings_verse_scrubber_always
+    ScrubberMode.WhileScrolling -> R.string.settings_verse_scrubber_while_scrolling
+    ScrubberMode.Off -> R.string.settings_verse_scrubber_off
 }
 
 @get:StringRes

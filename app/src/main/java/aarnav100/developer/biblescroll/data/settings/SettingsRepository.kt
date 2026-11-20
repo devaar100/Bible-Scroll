@@ -31,6 +31,7 @@ class SettingsRepository @Inject constructor(
                 redLetters = prefs[RED_LETTERS] ?: defaults.redLetters,
                 scriptureSize = prefs[SCRIPTURE_SIZE].toEnum(defaults.scriptureSize),
                 hideAiStudies = prefs[HIDE_AI_STUDIES] ?: defaults.hideAiStudies,
+                verseScrubber = prefs[VERSE_SCRUBBER].toEnum(defaults.verseScrubber),
             )
         }
         .distinctUntilChanged()
@@ -58,6 +59,7 @@ class SettingsRepository @Inject constructor(
     suspend fun setRedLetters(value: Boolean) = put(RED_LETTERS, value)
     suspend fun setScriptureSize(value: ScriptureSize) = put(SCRIPTURE_SIZE, value.name)
     suspend fun setHideAiStudies(value: Boolean) = put(HIDE_AI_STUDIES, value)
+    suspend fun setVerseScrubber(value: ScrubberMode) = put(VERSE_SCRUBBER, value.name)
 
     private suspend fun <T> put(key: Preferences.Key<T>, value: T) {
         dataStore.edit { it[key] = value }
@@ -71,6 +73,7 @@ class SettingsRepository @Inject constructor(
         val RED_LETTERS = booleanPreferencesKey("red_letters")
         val SCRIPTURE_SIZE = stringPreferencesKey("scripture_size")
         val HIDE_AI_STUDIES = booleanPreferencesKey("hide_ai_studies")
+        val VERSE_SCRUBBER = stringPreferencesKey("verse_scrubber")
         val STREAK_GRACE_DAY = booleanPreferencesKey("streak_grace_day")
         val SHOW_DEVOTIONALS_WHEN_AI_HIDDEN = booleanPreferencesKey("show_devotionals_when_ai_hidden")
     }
