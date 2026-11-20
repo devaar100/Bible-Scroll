@@ -711,28 +711,38 @@
     <string name="report_close">Cerrar</string>
 
     <!-- Comunidad (C1 votación mensual, C2 destacados anteriores) -->
-    <string name="community_intro">Cada mes, vota por un ministerio para destacarlo. Tu voto es anónimo: sin cuenta, sin nombre, sin nada que te identifique.</string>
+    <string name="community_intro">Tu voto es anónimo: sin cuenta, sin nombre, sin nada que te identifique. Cada teléfono tiene un voto al mes y no se puede cambiar. La app no maneja dinero: nosotros hacemos la donación cuando termina el mes, y tú puedes donar en el sitio web de cada ministerio.</string>
+    <string name="community_headline">Vota por la donación de este mes</string>
+    <string name="community_purpose">Cada mes, los lectores votan por un ministerio. Cuando termina el mes, donamos al que tenga más votos. La votación es anónima y definitiva. Para donar tú mismo, usa el sitio web del ministerio.</string>
+    <string name="community_closes_today">Cierra hoy</string>
+    <plurals name="community_closes_in_days">
+        <item quantity="one">Cierra en %d día</item>
+        <item quantity="other">Cierra en %d días</item>
+    </plurals>
+    <string name="community_info_cd">Cómo funciona la votación mensual</string>
+    <string name="community_info_title">Cómo funciona la votación</string>
+    <string name="community_voted">Votado ✓</string>
+    <string name="community_voted_cd">Votaste por %1$s</string>
+    <string name="community_view_history">Ver historial</string>
+    <string name="history_title">Historial</string>
+    <string name="history_subtitle">Adónde han ido nuestras donaciones mensuales.</string>
+    <string name="history_amount_donated">%1$s donados</string>
+    <string name="history_empty">Aún no hay donaciones. La primera aparecerá cuando termine la votación de este mes.</string>
+    <string name="history_offline">No tienes conexión y el historial aún no está guardado en este teléfono. Conéctate a internet y vuelve a intentarlo.</string>
+    <string name="history_unavailable">No se pudo cargar el historial. Inténtalo más tarde.</string>
     <string name="community_round_title">Destacado de %1$s</string>
-    <string name="community_open_until">La votación está abierta hasta el %1$s</string>
     <string name="community_vote">Votar</string>
     <string name="community_vote_cd">Votar por %1$s</string>
     <string name="community_website">Sitio web</string>
     <string name="community_website_cd">Sitio web de %1$s</string>
     <string name="community_give">Donar directamente</string>
     <string name="community_give_cd">Donar directamente a %1$s</string>
-    <string name="community_no_money">La app no maneja dinero. Las donaciones se hacen en el sitio web de cada ministerio.</string>
     <string name="community_confirm_title">¿Votar por %1$s?</string>
     <string name="community_confirm_body">Tu voto es anónimo y no se puede cambiar este mes.</string>
     <string name="community_confirm_vote">Votar</string>
     <string name="community_confirm_cancel">Cancelar</string>
-    <string name="community_pick_counted">Votaste por %1$s. Gracias.</string>
     <string name="community_pick_pending">Votaste por %1$s. Se enviará cuando tengas conexión.</string>
     <string name="community_pick_not_counted">Tu voto por %1$s no se pudo enviar antes de que cerrara la votación, así que no se contó.</string>
-    <string name="community_your_pick">Tu elección</string>
-    <plurals name="community_votes">
-        <item quantity="one">%1$d voto</item>
-        <item quantity="other">%1$d votos</item>
-    </plurals>
     <string name="community_retry">Reintentar</string>
     <string name="community_empty_offline">Estás sin conexión y la lista de ministerios aún no está guardada en este teléfono. Conéctate a internet y vuelve a intentarlo.</string>
     <string name="community_empty_missing">Todavía no se ha publicado ninguna lista de ministerios. Vuelve pronto.</string>
@@ -742,9 +752,6 @@
     <string name="community_empty_month_next">Este mes no hay ningún ministerio destacado. La próxima votación es en %1$s.</string>
     <string name="community_round_not_open">La votación de este mes todavía no está abierta. Vuelve pronto.</string>
     <string name="community_round_closed">La votación de este mes ya cerró.</string>
-    <string name="community_totals_unavailable">Los resultados no están disponibles por ahora. Desliza hacia abajo para actualizar o vuelve a intentarlo.</string>
-    <string name="community_past_title">Destacados anteriores</string>
-    <string name="community_most_votes">Más votado</string>
     <string name="community_result_counted">¡Gracias! Tu voto se contó.</string>
     <string name="community_result_pending">Guardado. Tu voto se enviará cuando tengas conexión.</string>
     <string name="community_result_refused">La votación de este mes no está recibiendo votos ahora. Inténtalo más tarde.</string>
@@ -774,8 +781,8 @@
     <string name="privacy_on_phone_title">Lo que se queda en tu teléfono</string>
     <string name="privacy_on_phone">Tus notas, me gusta, marcadores, planes de lectura, progreso de lectura, racha, voto de la Comunidad y ajustes se guardan en la app de este teléfono. Nosotros no podemos verlos.</string>
     <string name="privacy_leaves_title">Lo que sale de tu teléfono</string>
-    <string name="privacy_leaves_content">Descargas de contenido: cuando la app descarga estudios, devocionales o las listas de Descubrir y Comunidad, pide archivos a nuestro servidor de contenido, alojado por Google (Firebase Hosting). Las peticiones no llevan ninguna cuenta ni identificador del dispositivo, pero, como cualquier petición por internet, muestran tu dirección IP a Google.</string>
-    <string name="privacy_leaves_vote">Voto de la Comunidad: si votas, la app envía “+1 para este ministerio este mes” a un contador alojado por Google (Cloud Firestore). No lleva ninguna cuenta ni identificador del dispositivo, y el contador solo guarda un número, pero Google ve tu dirección IP con la petición. Mostrar los totales funciona igual. Tu elección se queda en tu teléfono.</string>
+    <string name="privacy_leaves_content">Descargas de contenido: cuando la app descarga estudios, devocionales, las listas de Descubrir y Comunidad, el historial de donaciones o las imágenes de los ministerios, pide archivos a nuestro servidor de contenido y a nuestro almacenamiento de archivos, alojados por Google (Firebase Hosting y Firebase Storage). Las peticiones no llevan ninguna cuenta ni identificador del dispositivo, pero, como cualquier petición por internet, muestran tu dirección IP a Google.</string>
+    <string name="privacy_leaves_vote">Voto de la Comunidad: si votas, la app envía “+1 para este ministerio este mes” a un contador alojado por Google (Cloud Firestore). No lleva ninguna cuenta ni identificador del dispositivo, y el contador solo guarda un número, pero Google ve tu dirección IP con la petición. Comprobar si la votación está abierta funciona igual. La app nunca muestra el número de votos. Tu elección se queda en tu teléfono.</string>
     <string name="privacy_leaves_email">Correos que decides enviar: Informar de un problema y Enviar comentarios abren tu propia app de correo con un mensaje que puedes leer y cambiar antes. No se envía nada a menos que lo envíes tú. Si lo haces, vemos tu dirección de correo y lo que escribiste, y podemos usarlo para corregir el contenido.</string>
     <string name="privacy_leaves_links">Enlaces que abres: los botones Sitio web y Donar directamente de un ministerio abren su página en tu navegador. Se aplica la política de privacidad de ese sitio. La app no maneja dinero.</string>
     <string name="privacy_android_title">Lo que hacen Android y Google Play</string>

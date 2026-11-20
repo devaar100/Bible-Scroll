@@ -9,7 +9,7 @@
       </trans-unit>
       <trans-unit id="tab_community" resname="tab_community">
         <source>Community</source>
-        <note from="where">Bottom tab bar; C1 Community tab</note>
+        <note from="where">Bottom tab bar</note>
       </trans-unit>
       <trans-unit id="tab_discover" resname="tab_discover">
         <source>Discover</source>
@@ -164,7 +164,7 @@
       </trans-unit>
       <trans-unit id="settings_back" resname="settings_back">
         <source>Back</source>
-        <note from="where">H12 Plan days &amp; notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings</note>
+        <note from="where">C1 Community tab; H12 Plan days &amp; notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="settings_general" resname="settings_general">
         <source>General</source>
@@ -2482,25 +2482,86 @@
         <note from="where">app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt</note>
       </trans-unit>
       <trans-unit id="community_intro" resname="community_intro">
-        <source>Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.</source>
+        <source>Your vote is anonymous: no account, no name, nothing that identifies you. Each phone gets one vote a month, and it can’t be changed. The app handles no money: the donation is made by us after the month ends, and you can give yourself on each ministry’s own site.</source>
         <note from="where">C1 Community tab</note>
         <note from="developer">Community (C1 monthly spotlight vote, C2 past spotlights)</note>
+      </trans-unit>
+      <trans-unit id="community_headline" resname="community_headline">
+        <source>Vote for this month’s donation</source>
+        <note from="where">C1 Community tab</note>
+        <note from="developer">%1$s = month and year, e.g. "December 2026"</note>
+      </trans-unit>
+      <trans-unit id="community_purpose" resname="community_purpose">
+        <source>Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_closes_today" resname="community_closes_today">
+        <source>Closes today</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_closes_in_days[one]" resname="community_closes_in_days[one]">
+        <source>Closes in %d day</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_closes_in_days[other]" resname="community_closes_in_days[other]">
+        <source>Closes in %d days</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_info_cd" resname="community_info_cd">
+        <source>How the monthly vote works</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_info_title" resname="community_info_title">
+        <source>How the vote works</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_voted" resname="community_voted">
+        <source>Voted ✓</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_voted_cd" resname="community_voted_cd">
+        <source>You voted for %1$s</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="community_view_history" resname="community_view_history">
+        <source>View history</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="history_title" resname="history_title">
+        <source>History</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="history_subtitle" resname="history_subtitle">
+        <source>Where our monthly donations have gone.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="history_amount_donated" resname="history_amount_donated">
+        <source>%1$s donated</source>
+        <note from="where">C1 Community tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="history_empty" resname="history_empty">
+        <source>No donations yet. The first one will appear when this month’s vote ends.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="history_offline" resname="history_offline">
+        <source>You’re offline, and the history isn’t saved on this phone yet. Connect to the internet and try again.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="history_unavailable" resname="history_unavailable">
+        <source>The history couldn’t be loaded. Try again later.</source>
+        <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_round_title" resname="community_round_title">
         <source>%1$s spotlight</source>
         <note from="where">C1 Community tab</note>
-        <note from="developer">%1$s = month and year, e.g. "December 2026"</note>
-        <note from="placeholders">Keep %1$s (you may reorder them).</note>
-      </trans-unit>
-      <trans-unit id="community_open_until" resname="community_open_until">
-        <source>Voting is open until %1$s</source>
-        <note from="where">C1 Community tab</note>
-        <note from="developer">%1$s = local date and time, e.g. "Dec 31, 2026, 6:00 PM"</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="community_vote" resname="community_vote">
         <source>Vote</source>
         <note from="where">C1 Community tab</note>
+        <note from="developer">%1$s = local date and time, e.g. "Dec 31, 2026, 6:00 PM"</note>
       </trans-unit>
       <trans-unit id="community_vote_cd" resname="community_vote_cd">
         <source>Vote for %1$s</source>
@@ -2525,10 +2586,6 @@
         <note from="where">C1 Community tab</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
-      <trans-unit id="community_no_money" resname="community_no_money">
-        <source>The app handles no money. Giving happens on each ministry’s own website.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
       <trans-unit id="community_confirm_title" resname="community_confirm_title">
         <source>Vote for %1$s?</source>
         <note from="where">C1 Community tab</note>
@@ -2546,11 +2603,6 @@
         <source>Cancel</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
-      <trans-unit id="community_pick_counted" resname="community_pick_counted">
-        <source>You voted for %1$s. Thank you.</source>
-        <note from="where">C1 Community tab</note>
-        <note from="placeholders">Keep %1$s (you may reorder them).</note>
-      </trans-unit>
       <trans-unit id="community_pick_pending" resname="community_pick_pending">
         <source>You voted for %1$s. It will be sent when you’re online.</source>
         <note from="where">C1 Community tab</note>
@@ -2560,20 +2612,6 @@
         <source>Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.</source>
         <note from="where">C1 Community tab</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
-      </trans-unit>
-      <trans-unit id="community_your_pick" resname="community_your_pick">
-        <source>Your pick</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_votes[one]" resname="community_votes[one]">
-        <source>%1$d vote</source>
-        <note from="where">C1 Community tab</note>
-        <note from="placeholders">Keep %1$d (you may reorder them).</note>
-      </trans-unit>
-      <trans-unit id="community_votes[other]" resname="community_votes[other]">
-        <source>%1$d votes</source>
-        <note from="where">C1 Community tab</note>
-        <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="community_retry" resname="community_retry">
         <source>Try again</source>
@@ -2610,18 +2648,6 @@
       </trans-unit>
       <trans-unit id="community_round_closed" resname="community_round_closed">
         <source>Voting for this month has closed.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_totals_unavailable" resname="community_totals_unavailable">
-        <source>Totals are unavailable right now. Pull down to refresh, or try again.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_past_title" resname="community_past_title">
-        <source>Past spotlights</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_most_votes" resname="community_most_votes">
-        <source>Most votes</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_result_counted" resname="community_result_counted">
@@ -2733,11 +2759,11 @@
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="privacy_leaves_content" resname="privacy_leaves_content">
-        <source>Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</source>
+        <source>Content downloads: when the app downloads studies, devotionals, the Discover and Community lists, the donation history or ministry pictures, it requests files from our content server and our file storage, which Google hosts (Firebase Hosting and Firebase Storage). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="privacy_leaves_vote" resname="privacy_leaves_vote">
-        <source>Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.</source>
+        <source>Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Checking whether voting is open works the same way. The app never shows vote counts. Your own choice stays on your phone.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="privacy_leaves_email" resname="privacy_leaves_email">
@@ -2884,7 +2910,7 @@
       </trans-unit>
       <trans-unit id="legal_close" resname="legal_close">
         <source>Close</source>
-        <note from="where">S1-S4 Settings</note>
+        <note from="where">C1 Community tab; S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="widget_guide_title" resname="widget_guide_title">
         <source>Widget guide</source>

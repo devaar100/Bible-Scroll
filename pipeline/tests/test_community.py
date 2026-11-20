@@ -5,7 +5,7 @@ import json
 import pytest
 
 from pipeline import publish as p
-from pipeline.community import MINISTRIES_FILE, featured, load_ministries, release_problems
+from pipeline.community import MINISTRIES_FILE, featured, load_history, load_ministries, release_problems
 
 GOOD = {
     "formatVersion": 1,
@@ -45,6 +45,11 @@ def test_missing_file_is_none(tmp_path):
     (lambda d: d["ministries"][0].update(give_url="https://example.org.evil.com/give"), "give_url is on evil.com"),
     (lambda d: d["ministries"][0].update(give_url="https://user@example.org/give"), "plain host name"),
     (lambda d: d["ministries"][0].update(give_url="https://example.org:8443/give"), "plain host name"),
+    (lambda d: d["ministries"][0].update(image="http://biblescroll-content.web.app/r.jpg"), "does not match"),
+    (lambda d: d["ministries"][0].update(image="https://example.org/r.jpg"), "isn't ours"),
+    (lambda d: d["ministries"][0].update(image="https://firebasestorage.googleapis.com/v0/b/other.appspot.com/o/r.jpg"),
+     "not in our bucket"),
+    (lambda d: d["ministries"][0].update(category=""), "should be non-empty"),
 ])
 def test_bad_files_fail_loudly(tmp_path, change, problem):
     data = copy.deepcopy(GOOD)
@@ -128,3 +133,54 @@ def test_release_checks():
     assert any("missing" in x for x in release_problems(None))
     assert release_problems({"formatVersion": 1, "ministries": []}) == ["no ministries: a release needs at least one entry"]
     assert release_problems(GOOD) == ["test-harbor: test entry in a release publish (remove it, or publish the real list)"]
+
+
+@pytest.mark.parametrize("image", [
+    "https://biblescroll-content.web.app/images/river.jpg",
+    "https://firebasestorage.googleapis.com/v0/b/biblescroll-content.firebasestorage.app/o/ministries%2Friver.jpg?alt=media",
+])
+def test_category_image_and_amount_planned_are_accepted(tmp_path, image):
+    data = copy.deepcopy(GOOD)
+    data["ministries"][0].update(category="Bible translation, Literacy", image=image, amountPlanned=300)
+    assert load_ministries(write(tmp_path, data))["ministries"][0]["category"] == "Bible translation, Literacy"
+
+
+HISTORY = {"formatVersion": 1, "donations": [
+    {"month": "2026-11", "ministryId": "river-translation", "ministryName": "River", "amount": 300, "currency": "USD"},
+    {"month": "2026-12", "ministryId": "river-translation", "ministryName": "River", "amount": 312.5, "currency": "EUR"},
+]}
+
+
+def write_history(tmp_path, data):
+    path = tmp_path / "history.json"
+    path.write_text(json.dumps(data))
+    return path
+
+
+def test_history_loads_finished_months(tmp_path):
+    assert load_history(write_history(tmp_path, HISTORY), current_month="2027-01")["donations"][1]["amount"] == 312.5
+    assert load_history(tmp_path / "none.json") is None
+
+
+@pytest.mark.parametrize("change, problem", [
+    (lambda d: d["donations"][1].update(month="2026-11"), "listed twice"),
+    (lambda d: d["donations"][1].update(month="2027-01"), "not finished yet"),
+    (lambda d: d["donations"][0].update(amount=0), "less than or equal to the minimum"),
+    (lambda d: d["donations"][0].update(currency="$"), "does not match"),
+    (lambda d: d["donations"][0].pop("ministryName"), "'ministryName' is a required property"),
+    (lambda d: d["donations"][0].update(estimate=True), "Additional properties"),
+])
+def test_bad_history_fails_loudly(tmp_path, change, problem):
+    data = copy.deepcopy(HISTORY)
+    change(data)
+    with pytest.raises(ValueError, match=problem):
+        load_history(write_history(tmp_path, data), current_month="2027-01")
+
+
+def test_history_is_published_and_pinned(tmp_path, store):
+    release = p.build_release(store, "https://x.web.app", discover=[], ministries_path=write(tmp_path, GOOD),
+                              history_path=write_history(tmp_path, {"formatVersion": 1, "donations": [{**HISTORY["donations"][0], "month": "2020-01"}]}))
+    entry = release.manifest["history"]
+    assert entry["url"] == "https://x.web.app/history.json" and entry["count"] == 1
+    assert entry["sha256"] == hashlib.sha256(release.files["history.json"]).hexdigest()
+    assert p.diff(release, {**release.manifest, "history": {"sha256": "0" * 64}}, []).history_changed

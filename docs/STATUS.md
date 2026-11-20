@@ -2,10 +2,15 @@
 
 ## Updates since the audit
 
-- 2026-11-19, D1 Discover card redesign (decision 21): themed cards (trust/hope/love, required `theme` in discover.json
+- 2026-11-19, D1 Discover card redesign (decision 22): themed cards (trust/hope/love, required `theme` in discover.json
   format 2), hook + "Did you know?" from the study, five actions (like, note, bookmark, copy, share as image), visible
   with Hide AI studies on. Pipeline: discover.txt lines are now "ID theme"; **the shipped discover.txt has no themes
   yet**, so `publish` refuses it until each line has one (`python -m pipeline discover` lists them).
+- 2026-11-19, Community redesign (decision 23): the vote decides the month's donation; header with purpose text and
+  "Closes in N days"; ministry cards with image (optional, our Firebase hosts only) and category; "Voted ✓" after
+  voting; no counts anywhere (C2 vote totals removed). New History screen from `history.json` (CDN, pinned in the
+  manifest, fetched at most monthly, cached outside backups). Data safety answers unchanged. **Before release:** add
+  `category`/`image` to pipeline/community/ministries.json and publish `community/history.json` after the first month.
 
 Audit date: 2026-11-18 (read-only; the only file changed is this one). Sources: CLAUDE.md, docs/spec.md,
 docs/decisions.md, docs/network-calls.md, pipeline/CLAUDE.md, the code, the build and test runs below, and a

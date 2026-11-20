@@ -30,5 +30,9 @@ class ContentCache(private val directory: File) {
 
         /** "<sha256>\n<last checked, epoch ms>" for the cached ministries.json. */
         const val MINISTRIES_META = "ministries.meta"
+
+        /** Community donation history and its last successful fetch (epoch ms). */
+        const val HISTORY = "history.json"
+        const val HISTORY_META = "history.meta"
     }
 }

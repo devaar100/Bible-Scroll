@@ -39,6 +39,18 @@
             "uniqueItems": true,
             "items": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }
           },
+          "category": {
+            "description": "Comma-separated categories shown above the name, e.g. \"Relief, Development\". Optional.",
+            "type": "string", "minLength": 1, "maxLength": 120
+          },
+          "image": {
+            "description": "Card image: an https URL on our Firebase Hosting site or in our project's Firebase Storage bucket (community.image_problems). Optional: the app draws a tinted fallback with a category icon.",
+            "type": "string", "pattern": "^https://"
+          },
+          "amountPlanned": {
+            "description": "Reserved. The app ignores it: no amount is shown before a vote ends.",
+            "type": "number", "minimum": 0
+          },
           "test": { "description": "Debug builds only; never shown in release.", "type": "boolean" }
         }
       }

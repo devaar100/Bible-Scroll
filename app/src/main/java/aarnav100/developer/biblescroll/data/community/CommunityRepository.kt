@@ -147,8 +147,4 @@ class CommunityRepository @Inject constructor(
 
     /** True if some vote is waiting to be sent in an open month (app start schedules the sender then). */
     suspend fun hasPending(): Boolean = dao.pending().any { now() in CommunityRules.window(it.month) }
-
-    /** Totals by month and ministry id; months that couldn't be read are missing from the result. */
-    suspend fun totals(rounds: Map<String, List<String>>): Map<String, Map<String, Long>> =
-        rounds.mapNotNull { (month, ids) -> counter.totals(month, ids)?.let { month to it } }.toMap()
 }

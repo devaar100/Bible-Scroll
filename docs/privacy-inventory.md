@@ -23,7 +23,8 @@ app, or a third-party library with its own data handling.
 | Bible text (WEB, KJV, BSB, RV1909) | bible.db (shipped in the APK) | data/bible/ |
 | Plan catalogue | plans.db (rebuilt from APK assets) | data/plans/PlanCatalogDatabase.kt |
 | Downloaded studies and devotionals | content.db | core/content/db/ContentDatabase.kt |
-| Last manifest / Discover list / ministries list | files/content-cache/ | core/content/ContentCache.kt |
+| Last manifest / Discover list / ministries list / donation history (history.json + last fetch time) | files/content-cache/ (not in Auto Backup or the export file) | core/content/ContentCache.kt, CommunityHistoryRepository.kt |
+| Ministry card images (downloaded copies) | cache/ministry-images/ (never backed up; Android may clear it) | core/content/MinistryImages.kt |
 | Download temp files | cache/study-downloads, cache/devotional-downloads | core/content/di/ContentModule.kt |
 | Share-as-image PNGs (until shared) | cache/ (FileProvider) | feature/share/VerseImageExporter.kt |
 | Scheduled reminder and widget alarms, WorkManager jobs | Android AlarmManager / WorkManager's own database | data/reminder/, widget/VotdWidgetScheduler.kt, data/community/CommunityVoteWorker.kt |
@@ -38,9 +39,10 @@ or tracking SDK; no advertising ID permission; no account or sign-in.
 
 | What | To | Contains | Who can see what |
 |---|---|---|---|
-| Content downloads: manifest.json, study book files, devotional months, discover.json, ministries.json | `biblescroll-content.web.app` (Firebase Hosting, Google) | Plain GET, no cookies, no identifiers, OkHttp's default User-Agent | Google (Firebase Hosting) sees the IP address, time, requested file and User-Agent |
+| Content downloads: manifest.json, study book files, devotional months, discover.json, ministries.json, history.json, ministry images on our Hosting site | `biblescroll-content.web.app` (Firebase Hosting, Google) | Plain GET, no cookies, no identifiers, OkHttp's default User-Agent | Google (Firebase Hosting) sees the IP address, time, requested file and User-Agent |
 | Community vote | `firestore.googleapis.com` (Cloud Firestore, Google) | One increment-by-1 on `community_votes/{YYYY-MM_ministryId}`: the month and ministry id. No token, key or device/user id | Google sees the IP address with the month and ministry; the counter itself stores only a count |
-| Community totals | `firestore.googleapis.com` | batchGet of that month's counter names | Google sees the IP address and which months were read |
+| Community round check | `firestore.googleapis.com` | batchGet of this month's counter names (only to tell whether voting is open; counts are never shown) | Google sees the IP address and which month was read |
+| Ministry card images in our Storage bucket | `firebasestorage.googleapis.com` (Firebase Storage, Google) | Plain GET of the image URL from ministries.json, no cookies, no identifiers, OkHttp's default User-Agent | Google sees the IP address, time, requested image and User-Agent |
 | Report a problem / Send feedback | The person's own email app, then whoever they email (our support address) | Subject and body they can read and edit first: their note, report type, content type and id, translation, UI language, content version, prompt hash, app version, Android version, device model. Nothing attached, no logs | Their email provider; us (their email address and message). Nothing is sent unless they press send |
 | Ministry Website / Give directly | The person's browser (Custom Tab) | The page they tapped, loaded by the browser | That website, under its own policy. No prefetch before the tap |
 | Share as text / image, Copy | Android share sheet / clipboard | The verse text or image | Whichever app the person picks |

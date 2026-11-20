@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://biblescroll-content.web.app/schema/history.json",
+  "title": "Community donation history",
+  "description": "Published as /history.json and pinned by sha256 in manifest.history. One record per finished month: what we donated and to whom. The app shows these amounts exactly as written and never computes or estimates one.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formatVersion",
+    "donations"
+  ],
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "donations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "month",
+          "ministryId",
+          "ministryName",
+          "amount",
+          "currency"
+        ],
+        "properties": {
+          "month": {
+            "description": "The finished UTC vote month (YYYY-MM).",
+            "type": "string",
+            "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+          },
+          "ministryId": {
+            "description": "The ministry's id in ministries.json (it may since have left the list).",
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$"
+          },
+          "ministryName": {
+            "description": "Shown as is, so the name resolves even after the ministry leaves ministries.json.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "amount": {
+            "description": "Amount donated, in currency units (e.g. 300 or 312.50).",
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "currency": {
+            "description": "ISO 4217 code, e.g. USD.",
+            "type": "string",
+            "pattern": "^[A-Z]{3}$"
+          }
+        }
+      }
+    }
+  }
+}

@@ -113,6 +113,8 @@ data class Manifest(
     val devotionals: ManifestDevotionals = ManifestDevotionals(),
     /** Community spotlight ministries (C1/C2). Absent until a ministries file is published. */
     val community: CommunityEntry? = null,
+    /** Community donation history. Absent until a history file is published. */
+    val history: HistoryEntry? = null,
 )
 
 @Serializable

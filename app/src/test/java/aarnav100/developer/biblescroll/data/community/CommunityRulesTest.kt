@@ -71,14 +71,6 @@ class CommunityRulesTest {
         assertEquals(emptyList<Ministry>(), CommunityRules.round(file, "2027-05", includeTest = true))
     }
 
-    @Test
-    fun pastMonthsAreClosedRoundsNewestFirst() {
-        val now = at("2026-12-15T12:00:00Z")
-        assertEquals(listOf("2026-11", "2026-10"), CommunityRules.pastMonths(file, now, includeTest = false))
-        assertEquals(listOf("2026-11"), CommunityRules.pastMonths(file, now, includeTest = false, limit = 1))
-        assertEquals(listOf("2026-12", "2026-11", "2026-10"), CommunityRules.pastMonths(file, at("2027-01-01T00:00:00Z"), includeTest = false))
-    }
-
     // ---- Vote state machine ----
 
     private fun vote(sent: Boolean) = CommunityVoteEntity("2026-12", "river", 1, sent, 1)
@@ -106,13 +98,6 @@ class CommunityRulesTest {
         assertEquals(Decision.Closed, CommunityRules.decide(null, "2026-12", "river", ids, before))
         assertEquals(Decision.Closed, CommunityRules.decide(null, "2026-12", "river", ids, after))
         assertEquals(Decision.NotInRound, CommunityRules.decide(null, "2026-12", "elsewhere", ids, open))
-    }
-
-    @Test
-    fun currentTotalsOnlyAfterVotingClosedMonthsForEveryone() {
-        assertFalse(CommunityRules.showTotals(null, "2026-12", open))
-        assertTrue(CommunityRules.showTotals(vote(sent = false), "2026-12", open))
-        assertTrue(CommunityRules.showTotals(null, "2026-12", after))
     }
 
     @Test

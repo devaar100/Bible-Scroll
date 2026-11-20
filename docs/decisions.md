@@ -16,9 +16,31 @@ prompt change could remove.
 **Revisit if:** a WARN turns out to be a real error a reader would notice, or WARNs cluster in one section or category.
 Don't retune the number per run.
 
+## 2026-11-19: Community donation vote and history
+
+### 23. The monthly vote decides a real donation; a published history shows where it went
+The Community vote now has a stated purpose: "Each month, readers vote for one ministry. When the month ends, we
+donate to the one with the most votes." No vote counts or percentages are shown anywhere (the old C2 totals are gone;
+counters are read only to tell whether voting is open). After the month ends we publish `history.json` on the CDN
+(pinned in manifest.history; pipeline `community/history.json`, schema/history.json; publish refuses a month that
+isn't over yet or appears twice). The app shows each finished month's ministry and amount exactly as published,
+formatted with the record's currency, and never computes, estimates or pre-announces an amount (`amountPlanned` is
+ignored). It fetches the file at most once per UTC calendar month (daily while last month's record is missing) and
+keeps it in files/content-cache, outside Auto Backup and the export file. Ministry cards gain optional `category`
+(comma-separated) and `image` (our Firebase Hosting site or our Firebase Storage bucket only, checked by the pipeline
+and again by the app; downloaded with our OkHttp client into cacheDir and drawn by Coil from the file).
+**Data safety:** unchanged. history.json and images are public content downloads with no identifiers; nothing new is
+collected, stored about the person or sent (docs/data-safety.md answers stand; still no personal data).
+**Accepted trade-off:** decision 16's "fine for a spotlight, not for anything with money attached" no longer holds:
+votes are one per install, and the counter can be inflated outside the app. Your call (2026-11-19): proceed, since
+gaming a small monthly vote is unlikely.
+**Why:** the approved design; a public record of each donation keeps the promise checkable without accounts.
+**Revisit if:** counts look manipulated before a payout (check the counter's growth, then rate-limit or add App Check),
+or a donation needs to be shown before the month ends.
+
 ## 2026-11-19: Discover card redesign
 
-### 21. Discover cards carry a required theme, and stay visible with Hide AI studies on
+### 22. Discover cards carry a required theme, and stay visible with Hide AI studies on
 discover.json moved to format 2: each verse is `{"id", "theme"}`, theme one of trust / hope / love, which picks the
 card's colours, label and background art. The pipeline refuses to publish a discover.txt line without a known theme
 (the batch wave still reads ids alone), and the app ignores a format-1 file and any entry whose theme it doesn't know,
@@ -87,7 +109,7 @@ Each vote is one Firestore REST commit with an increment-by-1 transform on `comm
 - Without Auth or App Check, anyone can send +1s outside the app (one per request). The rules stop resets, decrements and big jumps, not repetition.
 - Votes are final: rules forbid decrements, so the app has no "change my vote". Import (S9) never replaces a month this phone already voted in.
 **Why:** keeps the "no account, no tracking" promise while letting readers pick which ministry is featured; the app handles no money ("Give directly" opens the ministry's own page).
-**Revisit if:** counts look manipulated (rate-limit via a Cloud Function or App Check, and update docs/network-calls.md), or the spotlight ever drives money decisions.
+**Revisit if:** counts look manipulated (rate-limit via a Cloud Function or App Check, and update docs/network-calls.md), or the spotlight ever drives money decisions. (It now does: see decision 23.)
 
 ## 2026-11-18: Verse of the Day (H1)
 

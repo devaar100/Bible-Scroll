@@ -716,30 +716,40 @@
     <string name="report_close">Close</string>
 
     <!-- Community (C1 monthly spotlight vote, C2 past spotlights) -->
-    <string name="community_intro">Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.</string>
+    <string name="community_intro">Your vote is anonymous: no account, no name, nothing that identifies you. Each phone gets one vote a month, and it can’t be changed. The app handles no money: the donation is made by us after the month ends, and you can give yourself on each ministry’s own site.</string>
     <!-- %1$s = month and year, e.g. "December 2026" -->
+    <string name="community_headline">Vote for this month’s donation</string>
+    <string name="community_purpose">Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</string>
+    <string name="community_closes_today">Closes today</string>
+    <plurals name="community_closes_in_days">
+        <item quantity="one">Closes in %d day</item>
+        <item quantity="other">Closes in %d days</item>
+    </plurals>
+    <string name="community_info_cd">How the monthly vote works</string>
+    <string name="community_info_title">How the vote works</string>
+    <string name="community_voted">Voted ✓</string>
+    <string name="community_voted_cd">You voted for %1$s</string>
+    <string name="community_view_history">View history</string>
+    <string name="history_title">History</string>
+    <string name="history_subtitle">Where our monthly donations have gone.</string>
+    <string name="history_amount_donated">%1$s donated</string>
+    <string name="history_empty">No donations yet. The first one will appear when this month’s vote ends.</string>
+    <string name="history_offline">You’re offline, and the history isn’t saved on this phone yet. Connect to the internet and try again.</string>
+    <string name="history_unavailable">The history couldn’t be loaded. Try again later.</string>
     <string name="community_round_title">%1$s spotlight</string>
     <!-- %1$s = local date and time, e.g. "Dec 31, 2026, 6:00 PM" -->
-    <string name="community_open_until">Voting is open until %1$s</string>
     <string name="community_vote">Vote</string>
     <string name="community_vote_cd">Vote for %1$s</string>
     <string name="community_website">Website</string>
     <string name="community_website_cd">%1$s website</string>
     <string name="community_give">Give directly</string>
     <string name="community_give_cd">Give to %1$s directly</string>
-    <string name="community_no_money">The app handles no money. Giving happens on each ministry’s own website.</string>
     <string name="community_confirm_title">Vote for %1$s?</string>
     <string name="community_confirm_body">Your vote is anonymous and can’t be changed this month.</string>
     <string name="community_confirm_vote">Vote</string>
     <string name="community_confirm_cancel">Cancel</string>
-    <string name="community_pick_counted">You voted for %1$s. Thank you.</string>
     <string name="community_pick_pending">You voted for %1$s. It will be sent when you’re online.</string>
     <string name="community_pick_not_counted">Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.</string>
-    <string name="community_your_pick">Your pick</string>
-    <plurals name="community_votes">
-        <item quantity="one">%1$d vote</item>
-        <item quantity="other">%1$d votes</item>
-    </plurals>
     <string name="community_retry">Try again</string>
     <string name="community_empty_offline">You’re offline, and the ministry list isn’t saved on this phone yet. Connect to the internet and try again.</string>
     <string name="community_empty_missing">No ministry list has been published yet. Check back soon.</string>
@@ -749,14 +759,11 @@
     <string name="community_empty_month_next">No ministry is in the spotlight this month. The next vote is in %1$s.</string>
     <string name="community_round_not_open">Voting for this month hasn’t opened yet. Check back soon.</string>
     <string name="community_round_closed">Voting for this month has closed.</string>
-    <string name="community_totals_unavailable">Totals are unavailable right now. Pull down to refresh, or try again.</string>
     <!-- Debug builds only: where Community data came from. Not shown in release, not translated. -->
-    <string name="community_sources_debug" translatable="false">Debug · Ministries: CDN, %1$s · This month: Firestore, %2$s · Past totals: Firestore, %3$s</string>
+    <string name="community_sources_debug" translatable="false">Debug · Ministries: CDN, %1$s · This month: Firestore, %2$s</string>
     <string name="community_source_never" translatable="false">not fetched</string>
     <string name="community_source_ok" translatable="false">%1$s</string>
     <string name="community_source_failed" translatable="false">failed %1$s</string>
-    <string name="community_past_title">Past spotlights</string>
-    <string name="community_most_votes">Most votes</string>
     <string name="community_result_counted">Thanks! Your vote was counted.</string>
     <string name="community_result_pending">Saved. Your vote will be sent when you’re online.</string>
     <string name="community_result_refused">This month’s vote isn’t taking votes right now. Try again later.</string>
@@ -790,8 +797,8 @@
     <string name="privacy_on_phone_title">What stays on your phone</string>
     <string name="privacy_on_phone">Your notes, likes, bookmarks, reading plans, reading progress, streak, Community vote and settings are stored in the app on this phone. We can’t see them.</string>
     <string name="privacy_leaves_title">What leaves your phone</string>
-    <string name="privacy_leaves_content">Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</string>
-    <string name="privacy_leaves_vote">Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.</string>
+    <string name="privacy_leaves_content">Content downloads: when the app downloads studies, devotionals, the Discover and Community lists, the donation history or ministry pictures, it requests files from our content server and our file storage, which Google hosts (Firebase Hosting and Firebase Storage). The requests contain no account or device ID, but like any internet request they show your IP address to Google.</string>
+    <string name="privacy_leaves_vote">Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Checking whether voting is open works the same way. The app never shows vote counts. Your own choice stays on your phone.</string>
     <string name="privacy_leaves_email">Emails you choose to send: Report a problem and Send feedback open your own email app with a message you can read and change first. Nothing is sent unless you send it. If you do, we see your email address and what you wrote, and we may use it to correct the content.</string>
     <string name="privacy_leaves_links">Links you open: a ministry’s Website and Give directly buttons open its page in your browser. That site’s own privacy policy applies. The app handles no money.</string>
     <string name="privacy_android_title">What Android and Google Play do</string>

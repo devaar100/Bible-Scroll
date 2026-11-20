@@ -31,17 +31,6 @@ object CommunityRules {
     fun round(file: MinistriesFile, month: String, includeTest: Boolean): List<Ministry> =
         file.ministries.filter { month in it.monthsFeatured && (includeTest || !it.test) }
 
-    /** Closed months that had a round, newest first (at most [limit]). */
-    fun pastMonths(file: MinistriesFile, now: Instant, includeTest: Boolean, limit: Int = 12): List<String> {
-        val current = monthOf(now)
-        return file.ministries.filter { includeTest || !it.test }
-            .flatMap { it.monthsFeatured }
-            .distinct()
-            .filter { it < current } // "YYYY-MM" sorts as text
-            .sortedDescending()
-            .take(limit)
-    }
-
     /** Where this phone's vote for a month stands. */
     enum class VoteStatus {
         /** Round open and no vote yet. */
@@ -109,8 +98,4 @@ object CommunityRules {
         ministryId !in roundIds -> Decision.NotInRound
         else -> Decision.Accept
     }
-
-    /** Current-month totals are shown only to someone who has voted (C2); closed months to everyone. */
-    fun showTotals(vote: CommunityVoteEntity?, month: String, now: Instant): Boolean =
-        !now.isBefore(window(month).closesAt) || vote != null
 }

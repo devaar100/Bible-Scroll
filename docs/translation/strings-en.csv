@@ -1,6 +1,6 @@
 id,kind,english,where,note,placeholders
 app_name,string,Bible Scroll,App name in the launcher and system settings; B1 Bible feed; B10 Share verse as image; B11 Set as widget verse dialog; H15 Devotional detail; H16 Devotional reader; O1-O8 Onboarding; O3 Onboarding feature tour; S1-S4 Settings; S6 Settings → Notifications,Brand name: keep as is.,
-tab_community,string,Community,Bottom tab bar; C1 Community tab,,
+tab_community,string,Community,Bottom tab bar,,
 tab_discover,string,Discover,Bottom tab bar,,
 tab_home,string,Home,Bottom tab bar; H1 Home tab,,
 tab_bible,string,Bible,Bottom tab bar,,
@@ -34,7 +34,7 @@ actions_compare,string,Compare versions,B7 Verse actions sheet,,
 actions_share_image,string,Share as image,B10 Share verse as image; B7 Verse actions sheet; D1 Discover tab; H1 Home tab,,
 actions_widget_verse,string,Set as widget verse,B11 Set as widget verse dialog; B7 Verse actions sheet; H1 Home tab,,
 settings_title,string,Settings,H1 Home tab; S1-S4 Settings,Settings (S1-S4),
-settings_back,string,Back,"H12 Plan days & notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked & bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings",,
+settings_back,string,Back,"C1 Community tab; H12 Plan days & notes; H13/H14 Create your own plan; H15 Devotional detail; H17 Devotional archive; H4-H7 Library lists (saved studies, studied, liked & bookmarked, notes); H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; S1-S4 Settings",,
 settings_general,string,General,S1-S4 Settings,,
 settings_general_summary,string,"Appearance, font size, language",S1-S4 Settings,,
 settings_appearance,string,Appearance,S1-S4 Settings,,
@@ -579,26 +579,36 @@ report_address_label,string,Send to,app/src/main/java/aarnav100/developer/bibles
 report_copy,string,Copy text,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
 report_copied,string,Report copied,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
 report_close,string,Close,app/src/main/java/aarnav100/developer/biblescroll/feature/report/ReportProblemSheet.kt,,
-community_intro,string,"Each month, vote for one ministry to put in the spotlight. Your vote is anonymous: no account, no name, nothing that identifies you.",C1 Community tab,"Community (C1 monthly spotlight vote, C2 past spotlights)",
-community_round_title,string,%1$s spotlight,C1 Community tab,"%1$s = month and year, e.g. ""December 2026""",%1$s
-community_open_until,string,Voting is open until %1$s,C1 Community tab,"%1$s = local date and time, e.g. ""Dec 31, 2026, 6:00 PM""",%1$s
-community_vote,string,Vote,C1 Community tab,,
+community_intro,string,"Your vote is anonymous: no account, no name, nothing that identifies you. Each phone gets one vote a month, and it can’t be changed. The app handles no money: the donation is made by us after the month ends, and you can give yourself on each ministry’s own site.",C1 Community tab,"Community (C1 monthly spotlight vote, C2 past spotlights)",
+community_headline,string,Vote for this month’s donation,C1 Community tab,"%1$s = month and year, e.g. ""December 2026""",
+community_purpose,string,"Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.",C1 Community tab,,
+community_closes_today,string,Closes today,C1 Community tab,,
+community_closes_in_days[one],plurals,Closes in %d day,C1 Community tab,,
+community_closes_in_days[other],plurals,Closes in %d days,C1 Community tab,,
+community_info_cd,string,How the monthly vote works,C1 Community tab,,
+community_info_title,string,How the vote works,C1 Community tab,,
+community_voted,string,Voted ✓,C1 Community tab,,
+community_voted_cd,string,You voted for %1$s,C1 Community tab,,%1$s
+community_view_history,string,View history,C1 Community tab,,
+history_title,string,History,C1 Community tab,,
+history_subtitle,string,Where our monthly donations have gone.,C1 Community tab,,
+history_amount_donated,string,%1$s donated,C1 Community tab,,%1$s
+history_empty,string,No donations yet. The first one will appear when this month’s vote ends.,C1 Community tab,,
+history_offline,string,"You’re offline, and the history isn’t saved on this phone yet. Connect to the internet and try again.",C1 Community tab,,
+history_unavailable,string,The history couldn’t be loaded. Try again later.,C1 Community tab,,
+community_round_title,string,%1$s spotlight,C1 Community tab,,%1$s
+community_vote,string,Vote,C1 Community tab,"%1$s = local date and time, e.g. ""Dec 31, 2026, 6:00 PM""",
 community_vote_cd,string,Vote for %1$s,C1 Community tab,,%1$s
 community_website,string,Website,C1 Community tab,,
 community_website_cd,string,%1$s website,C1 Community tab,,%1$s
 community_give,string,Give directly,C1 Community tab,,
 community_give_cd,string,Give to %1$s directly,C1 Community tab,,%1$s
-community_no_money,string,The app handles no money. Giving happens on each ministry’s own website.,C1 Community tab,,
 community_confirm_title,string,Vote for %1$s?,C1 Community tab,,%1$s
 community_confirm_body,string,Your vote is anonymous and can’t be changed this month.,C1 Community tab,,
 community_confirm_vote,string,Vote,C1 Community tab,,
 community_confirm_cancel,string,Cancel,C1 Community tab,,
-community_pick_counted,string,You voted for %1$s. Thank you.,C1 Community tab,,%1$s
 community_pick_pending,string,You voted for %1$s. It will be sent when you’re online.,C1 Community tab,,%1$s
 community_pick_not_counted,string,"Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.",C1 Community tab,,%1$s
-community_your_pick,string,Your pick,C1 Community tab,,
-community_votes[one],plurals,%1$d vote,C1 Community tab,,%1$d
-community_votes[other],plurals,%1$d votes,C1 Community tab,,%1$d
 community_retry,string,Try again,C1 Community tab,,
 community_empty_offline,string,"You’re offline, and the ministry list isn’t saved on this phone yet. Connect to the internet and try again.",C1 Community tab,,
 community_empty_missing,string,No ministry list has been published yet. Check back soon.,C1 Community tab,,
@@ -608,9 +618,6 @@ community_empty_month,string,No ministry is in the spotlight this month.,C1 Comm
 community_empty_month_next,string,No ministry is in the spotlight this month. The next vote is in %1$s.,C1 Community tab,,%1$s
 community_round_not_open,string,Voting for this month hasn’t opened yet. Check back soon.,C1 Community tab,,
 community_round_closed,string,Voting for this month has closed.,C1 Community tab,,
-community_totals_unavailable,string,"Totals are unavailable right now. Pull down to refresh, or try again.",C1 Community tab,,
-community_past_title,string,Past spotlights,C1 Community tab,,
-community_most_votes,string,Most votes,C1 Community tab,,
 community_result_counted,string,Thanks! Your vote was counted.,C1 Community tab,,
 community_result_pending,string,Saved. Your vote will be sent when you’re online.,C1 Community tab,,
 community_result_refused,string,This month’s vote isn’t taking votes right now. Try again later.,C1 Community tab,,
@@ -636,8 +643,8 @@ privacy_intro,string,"We don’t track you. There’s no account, no ads and no 
 privacy_on_phone_title,string,What stays on your phone,S1-S4 Settings,,
 privacy_on_phone,string,"Your notes, likes, bookmarks, reading plans, reading progress, streak, Community vote and settings are stored in the app on this phone. We can’t see them.",S1-S4 Settings,,
 privacy_leaves_title,string,What leaves your phone,S1-S4 Settings,,
-privacy_leaves_content,string,"Content downloads: when the app downloads studies, devotionals or the Discover and Community lists, it requests files from our content server, which Google hosts (Firebase Hosting). The requests contain no account or device ID, but like any internet request they show your IP address to Google.",S1-S4 Settings,,
-privacy_leaves_vote,string,"Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Showing the totals works the same way. Your own choice stays on your phone.",S1-S4 Settings,,
+privacy_leaves_content,string,"Content downloads: when the app downloads studies, devotionals, the Discover and Community lists, the donation history or ministry pictures, it requests files from our content server and our file storage, which Google hosts (Firebase Hosting and Firebase Storage). The requests contain no account or device ID, but like any internet request they show your IP address to Google.",S1-S4 Settings,,
+privacy_leaves_vote,string,"Community vote: if you vote, the app sends “+1 for this ministry this month” to a counter hosted by Google (Cloud Firestore). It carries no account or device ID, and the counter stores only a number, but Google sees your IP address with the request. Checking whether voting is open works the same way. The app never shows vote counts. Your own choice stays on your phone.",S1-S4 Settings,,
 privacy_leaves_email,string,"Emails you choose to send: Report a problem and Send feedback open your own email app with a message you can read and change first. Nothing is sent unless you send it. If you do, we see your email address and what you wrote, and we may use it to correct the content.",S1-S4 Settings,,
 privacy_leaves_links,string,Links you open: a ministry’s Website and Give directly buttons open its page in your browser. That site’s own privacy policy applies. The app handles no money.,S1-S4 Settings,,
 privacy_android_title,string,What Android and Google Play do,S1-S4 Settings,,
@@ -671,7 +678,7 @@ legal_study_books[one],plurals,Studies on this phone: %1$d book,S1-S4 Settings,,
 legal_study_books[other],plurals,Studies on this phone: %1$d books,S1-S4 Settings,,%1$d
 legal_bible_db,string,Bible text database: version %1$d,S1-S4 Settings,,%1$d
 legal_contact,string,Contact,S1-S4 Settings,,
-legal_close,string,Close,S1-S4 Settings,,
+legal_close,string,Close,C1 Community tab; S1-S4 Settings,,
 widget_guide_title,string,Widget guide,S1-S4 Settings,S5 Widget guide,
 widget_guide_summary,string,Put a verse on your home screen,S1-S4 Settings,,
 widget_guide_intro,string,The Verse widget shows a verse on your home screen. Tap it to open that verse in the app.,S1-S4 Settings,,

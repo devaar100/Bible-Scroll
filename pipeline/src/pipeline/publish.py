@@ -152,12 +152,13 @@ class Release:
 
 
 def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[str, str]] | None = None,
-                  devotionals=None, ministries_path: Path | None = None) -> Release:
+                  devotionals=None, ministries_path: Path | None = None, history_path: Path | None = None) -> Release:
     """
     devotionals: a DevotionalStore, or None for none (the manifest then lists no months).
     ministries_path: community/ministries.json by default; a missing file leaves manifest.community out.
+    history_path: community/history.json by default; a missing file leaves manifest.history out.
     """
-    from .community import MINISTRIES_FILE, load_ministries
+    from .community import HISTORY_FILE, MINISTRIES_FILE, load_history, load_ministries
     from .devotionals.publish import collect, month_files
 
     refuse_test_path(store.directory)
@@ -224,6 +225,12 @@ def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[st
         body["community"] = {"url": prefix + "ministries.json", "count": len(ministries["ministries"]),
                              "sha256": hashlib.sha256(files["ministries.json"]).hexdigest(),
                              "bytes": len(files["ministries.json"])}
+    history = load_history(history_path or HISTORY_FILE)
+    if history is not None:
+        files["history.json"] = canonical_json(history)
+        body["history"] = {"url": prefix + "history.json", "count": len(history["donations"]),
+                           "sha256": hashlib.sha256(files["history.json"]).hexdigest(),
+                           "bytes": len(files["history.json"])}
     release = hashlib.sha256(json.dumps(body, sort_keys=True).encode()).hexdigest()[:12]
     manifest = {"formatVersion": FORMAT_VERSION, "schemaVersion": SCHEMA_VERSION, "release": release, **body}
     errors = [f"{e.json_path}: {e.message}" for e in manifest_validator.iter_errors(manifest)]
@@ -306,12 +313,14 @@ class Diff:
     months_changed: list[tuple[dict, dict]] = field(default_factory=list)
     months_removed: list[dict] = field(default_factory=list)
     community_changed: bool = False
+    history_changed: bool = False
     upload_bytes: int = 0
 
     @property
     def any(self) -> bool:
         return bool(self.added or self.changed or self.removed or self.discover_before != self.discover_after
-                    or self.months_added or self.months_changed or self.months_removed or self.community_changed)
+                    or self.months_added or self.months_changed or self.months_removed or self.community_changed
+                    or self.history_changed)
 
 
 def diff(release: Release, live: dict | None, live_discover: list[str] | None = None) -> Diff:
@@ -340,6 +349,7 @@ def diff(release: Release, live: dict | None, live_discover: list[str] | None = 
         d.upload_bytes += entry["bytes"]
     d.months_removed = [m for name, m in old_months.items() if name not in new_months]
     d.community_changed = (live or {}).get("community", {}).get("sha256") != release.manifest.get("community", {}).get("sha256")
+    d.history_changed = (live or {}).get("history", {}).get("sha256") != release.manifest.get("history", {}).get("sha256")
     d.discover_before = live_discover or []
     d.discover_after = discover_keys(json.loads(release.files["discover.json"])["verses"])
     return d
@@ -397,6 +407,10 @@ def render_diff(d: Diff, release: Release, live: dict | None) -> str:
         entry = release.manifest.get("community")
         lines.append(f"  ~ ministries.json: {entry['count']} ministries, {entry['bytes']:,} bytes" if entry
                      else "  - ministries.json: no longer published")
+    if d.history_changed:
+        entry = release.manifest.get("history")
+        lines.append(f"  ~ history.json: {entry['count']} donation months, {entry['bytes']:,} bytes" if entry
+                     else "  - history.json: no longer published")
     flagged_days = {m: c["flagged"] for m, c in release.devotionals_left_out.items() if c.get("flagged")}
     if flagged_days:
         lines.append(f"  Devotionals left out as flagged: {sum(flagged_days.values())} in month(s) "

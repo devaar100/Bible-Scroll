@@ -15,6 +15,15 @@ from .paths import PIPELINE
 
 MINISTRIES_FILE = PIPELINE / "community" / "ministries.json"
 SCHEMA = PIPELINE / "schema" / "ministries.json"
+HISTORY_FILE = PIPELINE / "community" / "history.json"
+HISTORY_SCHEMA = PIPELINE / "schema" / "history.json"
+
+# Where ministry images may live: our Firebase Hosting site, or our project's Firebase Storage bucket. The app
+# refuses any other host too (core/content MinistryImages), so a new host needs docs/network-calls.md first.
+FIREBASE_PROJECT = "biblescroll-content"
+IMAGE_HOSTING_HOSTS = frozenset({f"{FIREBASE_PROJECT}.web.app", f"{FIREBASE_PROJECT}.firebaseapp.com"})
+IMAGE_STORAGE_HOST = "firebasestorage.googleapis.com"
+IMAGE_STORAGE_BUCKETS = frozenset({f"{FIREBASE_PROJECT}.firebasestorage.app", f"{FIREBASE_PROJECT}.appspot.com"})
 
 
 def load_ministries(path: Path = MINISTRIES_FILE) -> dict | None:
@@ -33,6 +42,7 @@ def load_ministries(path: Path = MINISTRIES_FILE) -> dict | None:
             if m.get("test") and not m["id"].startswith("test-"):
                 problems.append(f"{m['id']}: test entries must have ids starting with test- (keeps them apart in Firestore)")
             problems.extend(link_problems(m))
+            problems.extend(image_problems(m))
     if problems:
         raise ValueError(f"{path.name}:\n  " + "\n  ".join(problems))
     return data
@@ -83,6 +93,52 @@ def link_problems(ministry: dict) -> list[str]:
         problems.append(f"{ministry['id']}: give_url is on {hosts['give_url']} but website is on {hosts['website']}; "
                         "donations must go to the ministry's own domain (or add a confirmed pair to community.ALTERNATE_DOMAINS)")
     return problems
+
+
+def image_problems(ministry: dict) -> list[str]:
+    """An image must be https on our Firebase Hosting site or in our Firebase Storage bucket (no other hosts)."""
+    url = ministry.get("image")
+    if url is None:
+        return []
+    parts = urlsplit(url)
+    host = (parts.hostname or "").lower()
+    if parts.scheme != "https" or parts.username or parts.password or parts.port:
+        return [f"{ministry['id']}: image must be a plain https link: {url}"]
+    if host in IMAGE_HOSTING_HOSTS:
+        return []
+    if host == IMAGE_STORAGE_HOST:
+        segments = parts.path.split("/")  # "", "v0", "b", "<bucket>", "o", "<object>"
+        if len(segments) >= 6 and segments[1] == "v0" and segments[2] == "b" and segments[3] in IMAGE_STORAGE_BUCKETS and segments[4] == "o":
+            return []
+        return [f"{ministry['id']}: image is in Firebase Storage but not in our bucket ({', '.join(sorted(IMAGE_STORAGE_BUCKETS))}): {url}"]
+    return [f"{ministry['id']}: image host {host or '?'} isn't ours; use Firebase Hosting ({', '.join(sorted(IMAGE_HOSTING_HOSTS))}) "
+            f"or Firebase Storage ({IMAGE_STORAGE_HOST}/v0/b/<our bucket>/o/...)"]
+
+
+def load_history(path: Path = HISTORY_FILE, current_month: str | None = None) -> dict | None:
+    """
+    community/history.json validated, or None if there isn't one. Every month at most once, and only finished months:
+    [current_month] (UTC "YYYY-MM", default now) and later are refused, because the app must never show a month whose
+    vote is still open. Raises ValueError listing every problem.
+    """
+    if not path.exists():
+        return None
+    from datetime import datetime, timezone
+    current = current_month or datetime.now(timezone.utc).strftime("%Y-%m")
+    data = json.loads(path.read_text())
+    validator = Draft202012Validator(json.loads(HISTORY_SCHEMA.read_text()))
+    problems = [f"{'/'.join(map(str, e.absolute_path)) or '(root)'}: {e.message}" for e in validator.iter_errors(data)]
+    if not problems:
+        seen: set[str] = set()
+        for d in data["donations"]:
+            if d["month"] in seen:
+                problems.append(f"{d['month']}: listed twice (one donation record per month)")
+            seen.add(d["month"])
+            if d["month"] >= current:
+                problems.append(f"{d['month']}: not finished yet (only months before {current} may be published)")
+    if problems:
+        raise ValueError(f"{path.name}:\n  " + "\n  ".join(problems))
+    return data
 
 
 def release_problems(data: dict | None) -> list[str]:

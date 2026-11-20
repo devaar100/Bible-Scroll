@@ -4,6 +4,10 @@ Draft answers for Play Console → App content → Data safety, derived from doc
 docs/network-calls.md on 2026-11-18. **Not legal advice**: item 1 of the inventory's "For legal review" list covers
 these answers. Update this file whenever the inventory changes in a way that affects a question below.
 
+Rechecked 2026-11-19 (Community history.json, ministry images from Firebase Hosting/Storage, no vote counts shown):
+**no answer changes**. Both are public content downloads with no identifiers, and nothing new is collected about the
+person (decision 23).
+
 Play's terms: data is **collected** when the app transmits it off the device (including to a service provider
 acting for us, here Google as host of Firebase Hosting and Cloud Firestore). It is **shared** when it goes to a
 third party. Data handled only on the device, or sent by the person through another app they chose (email, share

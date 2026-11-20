@@ -2,6 +2,7 @@ package aarnav100.developer.biblescroll.ui.navigation
 
 import aarnav100.developer.biblescroll.feature.bible.BibleScreen
 import aarnav100.developer.biblescroll.feature.community.CommunityScreen
+import aarnav100.developer.biblescroll.feature.community.HistoryScreen
 import aarnav100.developer.biblescroll.feature.discover.DeepStudyScreen
 import aarnav100.developer.biblescroll.feature.devotionals.DevotionalArchiveScreen
 import aarnav100.developer.biblescroll.feature.devotionals.DevotionalDetailScreen
@@ -65,6 +66,7 @@ import kotlinx.serialization.Serializable
 @Serializable data object DevotionalArchiveRoute
 
 /** D2 Deep study, pushed full-screen over the Discover tab. */
+@Serializable data object CommunityHistoryRoute
 @Serializable data class DeepStudyRoute(val bookId: Int, val chapter: Int, val verse: Int)
 
 @Composable
@@ -78,7 +80,8 @@ fun AppNavHost(
         startDestination = BibleRoute,
         modifier = modifier,
     ) {
-        composable<CommunityRoute> { CommunityScreen() }
+        composable<CommunityRoute> { CommunityScreen(onOpenHistory = { navController.navigate(CommunityHistoryRoute) }) }
+        composable<CommunityHistoryRoute> { HistoryScreen(onBack = back) }
         composable<DiscoverRoute> {
             DiscoverScreen(onOpenStudy = { ref -> navController.navigate(DeepStudyRoute(ref.bookId, ref.chapter, ref.verse)) })
         }

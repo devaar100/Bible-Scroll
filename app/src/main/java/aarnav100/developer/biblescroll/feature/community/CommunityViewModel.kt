@@ -3,6 +3,7 @@ package aarnav100.developer.biblescroll.feature.community
 import aarnav100.developer.biblescroll.core.content.MinistriesFetchInfo
 import aarnav100.developer.biblescroll.core.content.MinistriesProblem
 import aarnav100.developer.biblescroll.core.content.MinistriesState
+import aarnav100.developer.biblescroll.core.content.MinistryImages
 import aarnav100.developer.biblescroll.core.content.RoundRead
 import aarnav100.developer.biblescroll.core.content.model.Ministry
 import aarnav100.developer.biblescroll.data.community.CommunityRepository
@@ -28,21 +29,24 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.File
 import java.time.Instant
+import java.time.ZoneId
+import java.time.temporal.ChronoUnit
 import java.util.Locale
 import javax.inject.Inject
 
 @Immutable
-data class MinistryUi(val id: String, val name: String, val description: String, val website: String, val giveUrl: String)
-
-@Immutable
-data class PastRoundUi(
-    val month: String,
-    /** Most votes first; counts are null when totals aren't loaded. */
-    val ministries: List<Pair<MinistryUi, Long?>>,
-    val myPickId: String?,
-    /** The read failed (as opposed to still loading). */
-    val totalsUnavailable: Boolean = false,
+data class MinistryUi(
+    val id: String,
+    val name: String,
+    val description: String,
+    val website: String,
+    val giveUrl: String,
+    /** From ministries.json `category` (comma-separated), trimmed; may be empty. */
+    val categories: List<String> = emptyList(),
+    /** ministries.json `image`; null = tinted fallback with a category icon. */
+    val image: String? = null,
 )
 
 /** Why there's no round to vote on, each with its own message. */
@@ -67,12 +71,9 @@ enum class CommunityEmpty {
 @Immutable
 data class CommunitySources(
     val ministries: MinistriesFetchInfo,
-    /** When this month's counters were last read, and whether it worked. */
+    /** When this month's counters were last read (only to tell whether the round is open), and whether it worked. */
     val roundReadAt: Instant?,
     val roundReadOk: Boolean?,
-    /** Latest past-month totals read. */
-    val totalsReadAt: Instant?,
-    val totalsReadOk: Boolean?,
 )
 
 @Immutable
@@ -84,17 +85,14 @@ data class CommunityUiState(
     val nextMonth: String? = null,
     val month: String = "",
     val closesAt: Instant? = null,
+    /** Whole days until [closesAt], rounded up ("Closes in 3 days"); 0 on the last day; null when closed or unknown. */
+    val daysLeft: Int? = null,
     /** This month's round. */
     val round: List<MinistryUi> = emptyList(),
     val status: VoteStatus = VoteStatus.CLOSED,
     /** The server side of this month's round (counters set up, window open). */
     val roundState: RoundState = RoundState.UNKNOWN,
     val myPick: MinistryUi? = null,
-    /** This month's totals: only after this phone voted (null otherwise, or while loading/offline). */
-    val currentTotals: Map<String, Long>? = null,
-    /** Totals should show (voted) but couldn't be read. */
-    val currentTotalsUnavailable: Boolean = false,
-    val past: List<PastRoundUi> = emptyList(),
     val sending: Boolean = false,
     /** Pull to refresh / Try again in progress. */
     val refreshing: Boolean = false,
@@ -109,7 +107,8 @@ data class CommunityUiState(
 private data class MonthRead(val read: RoundRead?, val at: Instant)
 
 /**
- * C1 this month's vote and C2 past spotlights.
+ * C1 this month's vote. No vote counts or percentages are shown anywhere (decision 23); the counters are read only to
+ * tell whether the round is set up and open. Past months are on the History screen (donations, not votes).
  *
  * Refreshing: the ministry list is checked when the screen is shown if it's missing, over 6 hours old, or the cached
  * manifest pins a different hash (CommunityContentRepository.refreshIfStale); pull to refresh and Try again always
@@ -118,6 +117,7 @@ private data class MonthRead(val read: RoundRead?, val at: Instant)
 @HiltViewModel
 class CommunityViewModel @Inject constructor(
     private val community: CommunityRepository,
+    private val images: MinistryImages,
 ) : ViewModel() {
 
     private val reads = MutableStateFlow<Map<String, MonthRead>>(emptyMap())
@@ -146,7 +146,7 @@ class CommunityViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), CommunityUiState())
 
     init {
-        // Counters follow what may be shown: this month's round (for its state) and past rounds (totals).
+        // This month's counters, only for the round's state (set up / open / closed).
         viewModelScope.launch {
             uiState.map(::wantedReads).distinctUntilChanged().collect { wanted -> read(wanted.filterKeys { it !in reads.value }, force = false) }
         }
@@ -189,8 +189,8 @@ class CommunityViewModel @Inject constructor(
             try {
                 val result = community.vote(state.month, target.id, state.round.map { it.id })
                 _results.send(result)
-                // Counted: show totals. Refused: find out why (not set up, or closed).
-                if (result == VoteResult.COUNTED || result == VoteResult.REFUSED) read(mapOf(state.month to state.round.map { it.id }.sorted()), force = true)
+                // Refused: find out why (not set up, or closed).
+                if (result == VoteResult.REFUSED) read(mapOf(state.month to state.round.map { it.id }.sorted()), force = true)
             } finally {
                 sending.value = false
             }
@@ -207,8 +207,10 @@ class CommunityViewModel @Inject constructor(
 
     private fun wantedReads(state: CommunityUiState): Map<String, List<String>> = buildMap {
         if (state.round.isNotEmpty()) put(state.month, state.round.map { it.id }.sorted())
-        state.past.forEach { put(it.month, it.ministries.map { (m, _) -> m.id }.sorted()) }
     }
+
+    /** A ministry card image as a local file (downloaded once from our Firebase hosts), or null for the fallback. */
+    suspend fun imageFile(url: String): File? = images.file(url)
 
     private fun build(
         ministries: MinistriesState,
@@ -236,23 +238,12 @@ class CommunityViewModel @Inject constructor(
             is MinistriesState.Ready -> ministries.file
         }
         val language = Locale.getDefault().language
-        fun ui(m: Ministry) = MinistryUi(m.id, m.name, m.description(language), m.website, m.giveUrl)
+        fun ui(m: Ministry) = MinistryUi(m.id, m.name, m.description(language), m.website, m.giveUrl, m.categories, m.image)
         val round = CommunityRules.round(file, month, community.includeTest)
         val vote = votes[month]
-        val past = CommunityRules.pastMonths(file, now, community.includeTest).map { pastMonth ->
-            val read = reads[pastMonth]
-            PastRoundUi(
-                month = pastMonth,
-                ministries = CommunityRules.round(file, pastMonth, community.includeTest)
-                    .map { ui(it) to read?.read?.counts?.get(it.id) }
-                    .sortedByDescending { it.second ?: -1 },
-                myPickId = votes[pastMonth]?.ministryId,
-                totalsUnavailable = read != null && read.read == null,
-            )
-        }
         val anyListed = file.ministries.any { community.includeTest || !it.test }
         val current = reads[month]
-        val showTotals = CommunityRules.showTotals(vote, month, now)
+        val closesAt = CommunityRules.window(month).closesAt
         return CommunityUiState(
             loading = false,
             empty = when {
@@ -262,28 +253,32 @@ class CommunityViewModel @Inject constructor(
             },
             nextMonth = if (round.isEmpty()) CommunityRules.nextMonth(file, now, community.includeTest) else null,
             month = month,
-            closesAt = CommunityRules.window(month).closesAt,
+            closesAt = closesAt,
+            daysLeft = daysLeft(now, closesAt),
             round = round.map(::ui),
             status = CommunityRules.status(vote, month, now),
             roundState = CommunityRules.roundState(current?.read, now),
             myPick = vote?.let { v -> round.firstOrNull { it.id == v.ministryId }?.let(::ui) },
-            currentTotals = current?.read?.counts?.takeIf { showTotals },
-            currentTotalsUnavailable = showTotals && current != null && current.read == null,
-            past = past,
             sending = isSending,
             refreshing = isPulling,
             sources = sources,
         )
     }
 
-    private fun sources(info: MinistriesFetchInfo, reads: Map<String, MonthRead>, month: String): CommunitySources {
-        val latestPast = reads.filterKeys { it != month }.values.maxByOrNull { it.at }
-        return CommunitySources(
-            ministries = info,
-            roundReadAt = reads[month]?.at,
-            roundReadOk = reads[month]?.let { it.read != null },
-            totalsReadAt = latestPast?.at,
-            totalsReadOk = latestPast?.let { it.read != null },
-        )
-    }
+    private fun sources(info: MinistriesFetchInfo, reads: Map<String, MonthRead>, month: String) = CommunitySources(
+        ministries = info,
+        roundReadAt = reads[month]?.at,
+        roundReadOk = reads[month]?.let { it.read != null },
+    )
+}
+
+/**
+ * Calendar days left until [closesAt] in the phone's time zone: 0 when it closes later today, 1 tomorrow, and so on;
+ * null once it has closed. (The round closes at UTC month end; people read the date in their own time.)
+ */
+fun daysLeft(now: Instant, closesAt: Instant, zone: ZoneId = ZoneId.systemDefault()): Int? {
+    if (!now.isBefore(closesAt)) return null
+    // closesAt is the first instant of the next month: the last moment to vote is just before it.
+    val lastDay = closesAt.minusMillis(1).atZone(zone).toLocalDate()
+    return ChronoUnit.DAYS.between(now.atZone(zone).toLocalDate(), lastDay).toInt().coerceAtLeast(0)
 }

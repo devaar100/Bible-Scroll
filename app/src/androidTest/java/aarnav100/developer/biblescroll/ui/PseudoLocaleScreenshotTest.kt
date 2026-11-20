@@ -44,14 +44,14 @@ import aarnav100.developer.biblescroll.core.content.model.Word
 import aarnav100.developer.biblescroll.feature.study.CrossReferenceUi
 import aarnav100.developer.biblescroll.feature.study.StudyUiState
 import aarnav100.developer.biblescroll.feature.study.VerseStudyContent
-import aarnav100.developer.biblescroll.data.community.CommunityRules
 import aarnav100.developer.biblescroll.feature.community.CommunityContent
+import aarnav100.developer.biblescroll.feature.community.CommunitySamples
+import aarnav100.developer.biblescroll.feature.community.HistoryContent
+import aarnav100.developer.biblescroll.feature.community.HistoryUiState
 import aarnav100.developer.biblescroll.feature.discover.DiscoverCard
 import aarnav100.developer.biblescroll.feature.discover.DiscoverSamples
 import aarnav100.developer.biblescroll.feature.community.CommunityEmpty
 import aarnav100.developer.biblescroll.feature.community.CommunityUiState
-import aarnav100.developer.biblescroll.feature.community.MinistryUi
-import aarnav100.developer.biblescroll.feature.community.PastRoundUi
 import aarnav100.developer.biblescroll.feature.report.DeviceInfo
 import aarnav100.developer.biblescroll.feature.report.NoEmailAppContent
 import aarnav100.developer.biblescroll.feature.report.ProblemReport
@@ -161,19 +161,14 @@ class PseudoLocaleScreenshotTest {
     @Test fun discoverCardHiddenAi() = shot("d1_discover_card_hide_ai", heightDp = 720) {
         DiscoverCard(DiscoverSamples.trust(aiHidden = true), DiscoverSamples.noActions, Modifier.fillMaxSize())
     }
-    @Test fun community() = shot("community", heightDp = 1400) {
-        val river = MinistryUi("river", "River Bible Translation", "Translates Scripture into languages that have none yet.", "https://example.org", "https://example.org/give")
-        val harbor = MinistryUi("harbor", "Harbor Food Pantry", "Feeds families in port towns every week.", "https://example.org", "https://example.org/give")
-        CommunityContent(
-            CommunityUiState(
-                loading = false, month = "2026-12", closesAt = java.time.Instant.parse("2027-01-01T00:00:00Z"),
-                round = listOf(river, harbor), status = CommunityRules.VoteStatus.PENDING, myPick = river,
-                currentTotals = mapOf("river" to 12L, "harbor" to 1L),
-                past = listOf(PastRoundUi("2026-11", listOf(harbor to 40L, river to 31L), myPickId = "river")),
-            ),
-            onVote = {}, onOpen = {}, onRetry = {},
-        )
+    @Test fun community() = shot("community", heightDp = 1500) {
+        CommunityContent(CommunitySamples.beforeVoting(), onVote = {}, onOpen = {}, onRetry = {})
     }
+    @Test fun communityVoted() = shot("community_voted", heightDp = 1500) {
+        CommunityContent(CommunitySamples.afterVoting(), onVote = {}, onOpen = {}, onRetry = {})
+    }
+    @Test fun history() = shot("community_history", heightDp = 600) { HistoryContent(CommunitySamples.history, onRetry = {}) }
+    @Test fun historyEmpty() = shot("community_history_empty", heightDp = 400) { HistoryContent(HistoryUiState.Ready(emptyList()), onRetry = {}) }
     @Test fun communityOffline() = shot("community_offline", heightDp = 480) {
         CommunityContent(CommunityUiState(loading = false, empty = CommunityEmpty.OFFLINE_NOTHING_CACHED), onVote = {}, onOpen = {}, onRetry = {})
     }

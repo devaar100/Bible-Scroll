@@ -23,6 +23,8 @@ import aarnav100.developer.biblescroll.core.content.net.AndroidNetworkMonitor
 import aarnav100.developer.biblescroll.core.content.net.ContentApi
 import aarnav100.developer.biblescroll.core.content.net.FirestoreApi
 import aarnav100.developer.biblescroll.core.content.CommunityContentRepository
+import aarnav100.developer.biblescroll.core.content.CommunityHistoryRepository
+import aarnav100.developer.biblescroll.core.content.MinistryImages
 import aarnav100.developer.biblescroll.core.content.CommunityCounter
 import aarnav100.developer.biblescroll.core.content.ContentInfo
 import aarnav100.developer.biblescroll.core.content.net.NetworkMonitor
@@ -155,6 +157,17 @@ object ContentModule {
     @Singleton
     fun provideCommunityContent(api: ContentApi, json: Json, @ApplicationContext context: Context): CommunityContentRepository =
         CommunityContentRepository(api, ContentCache(File(context.filesDir, "content-cache")), json, BuildConfig.CONTENT_BASE_URL, Dispatchers.IO)
+
+    @Provides
+    @Singleton
+    fun provideCommunityHistory(api: ContentApi, json: Json, @ApplicationContext context: Context): CommunityHistoryRepository =
+        CommunityHistoryRepository(api, ContentCache(File(context.filesDir, "content-cache")), json, BuildConfig.CONTENT_BASE_URL, Dispatchers.IO)
+
+    /** Ministry card images: cacheDir (never backed up), our Firebase hosts only. */
+    @Provides
+    @Singleton
+    fun provideMinistryImages(client: OkHttpClient, @ApplicationContext context: Context): MinistryImages =
+        MinistryImages(client, File(context.cacheDir, "ministry-images"), BuildConfig.CONTENT_BASE_URL, BuildConfig.FIRESTORE_PROJECT_ID, Dispatchers.IO)
 
     /** Firestore REST for the Community vote. Same OkHttp client: no cookies, no identifying headers, no auth. */
     @Provides

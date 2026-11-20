@@ -1,6 +1,35 @@
 package aarnav100.developer.biblescroll.feature.community
 
 import aarnav100.developer.biblescroll.R
+import aarnav100.developer.biblescroll.data.community.CommunityRules
+import aarnav100.developer.biblescroll.ui.theme.Literata
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.material.icons.automirrored.outlined.MenuBook
+import androidx.compose.material.icons.outlined.ChildCare
+import androidx.compose.material.icons.outlined.Church
+import androidx.compose.material.icons.outlined.History
+import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.outlined.MedicalServices
+import androidx.compose.material.icons.outlined.Public
+import androidx.compose.material.icons.outlined.Restaurant
+import androidx.compose.material.icons.outlined.School
+import androidx.compose.material.icons.outlined.Shield
+import androidx.compose.material.icons.outlined.VolunteerActivism
+import androidx.compose.material.icons.outlined.WaterDrop
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.em
+import coil3.compose.AsyncImage
+import java.io.File
 import aarnav100.developer.biblescroll.data.community.CommunityRules.RoundState
 import aarnav100.developer.biblescroll.data.community.CommunityRules.VoteStatus
 import aarnav100.developer.biblescroll.data.community.VoteResult
@@ -12,8 +41,6 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +53,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.OpenInNew
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -66,15 +91,19 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
 
-/** Community tab: C1 this month's anonymous spotlight vote, C2 past spotlights. Pull down to refresh. */
+/**
+ * Community tab: C1 this month's anonymous vote for the month's donation, with no counts anywhere (decision 23).
+ * "View history" opens the donation History. Pull down to refresh.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CommunityScreen(modifier: Modifier = Modifier, viewModel: CommunityViewModel = hiltViewModel()) {
+fun CommunityScreen(onOpenHistory: () -> Unit, modifier: Modifier = Modifier, viewModel: CommunityViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val confirm by viewModel.confirm.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val snackbar = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    var showInfo by rememberSaveable { mutableStateOf(false) }
     val openFailed = stringResource(R.string.community_open_failed)
     val messages = mapOf(
         VoteResult.COUNTED to stringResource(R.string.community_result_counted),
@@ -98,6 +127,9 @@ fun CommunityScreen(modifier: Modifier = Modifier, viewModel: CommunityViewModel
             onVote = viewModel::askToVote,
             onOpen = { url -> if (!openInCustomTab(context, url)) scope.launch { snackbar.showSnackbar(openFailed) } },
             onRetry = viewModel::refresh,
+            onOpenHistory = onOpenHistory,
+            onInfo = { showInfo = true },
+            imageFile = viewModel::imageFile,
         )
         SnackbarHost(snackbar, Modifier.align(Alignment.BottomCenter))
     }
@@ -110,32 +142,77 @@ fun CommunityScreen(modifier: Modifier = Modifier, viewModel: CommunityViewModel
             dismissButton = { TextButton(onClick = viewModel::dismissConfirm) { Text(stringResource(R.string.community_confirm_cancel)) } },
         )
     }
+    if (showInfo) {
+        AlertDialog(
+            onDismissRequest = { showInfo = false },
+            title = { Text(stringResource(R.string.community_info_title)) },
+            text = { Text(stringResource(R.string.community_intro)) },
+            confirmButton = { TextButton(onClick = { showInfo = false }) { Text(stringResource(R.string.legal_close)) } },
+        )
+    }
 }
 
-/** Stateless C1 + C2 (PseudoLocaleScreenshotTest renders it). */
+/** Stateless C1 (previews and PseudoLocaleScreenshotTest render it). */
 @Composable
-fun CommunityContent(state: CommunityUiState, onVote: (MinistryUi) -> Unit, onOpen: (String) -> Unit, onRetry: () -> Unit) {
+fun CommunityContent(
+    state: CommunityUiState,
+    onVote: (MinistryUi) -> Unit,
+    onOpen: (String) -> Unit,
+    onRetry: () -> Unit,
+    onOpenHistory: () -> Unit = {},
+    onInfo: () -> Unit = {},
+    imageFile: suspend (String) -> File? = { null },
+) {
     val locale = Locale.getDefault()
     Column(
         Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(
-            stringResource(R.string.tab_community),
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(top = 8.dp).semantics { heading() },
-        )
-        Text(stringResource(R.string.community_intro), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Header(state, locale, onInfo)
         val retry: @Composable () -> Unit = {
             TextButton(onClick = onRetry, enabled = !state.refreshing) { Text(stringResource(R.string.community_retry)) }
         }
         when {
             state.loading -> Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             state.empty != null -> Notice(emptyMessage(state, locale), action = retry)
-            else -> CurrentRound(state, locale, onVote, onOpen, retry)
+            else -> CurrentRound(state, onVote, onOpen, retry, imageFile)
         }
-        if (state.past.isNotEmpty()) PastRounds(state.past, locale, retry)
+        OutlinedButton(onClick = onOpenHistory, modifier = Modifier.fillMaxWidth().padding(top = 4.dp).heightIn(min = 48.dp)) {
+            Icon(Icons.Outlined.History, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text(stringResource(R.string.community_view_history))
+        }
         state.sources?.let { SourcesLine(it, locale) }
+    }
+}
+
+@Composable
+private fun Header(state: CommunityUiState, locale: Locale, onInfo: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
+        val month = state.month.takeIf { it.isNotEmpty() } ?: CommunityRules.monthOf(Instant.now())
+        Text(
+            stringResource(R.string.community_round_title, monthName(month, locale)).uppercase(locale),
+            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.14.em),
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.weight(1f),
+        )
+        IconButton(onClick = onInfo) {
+            Icon(Icons.Outlined.Info, contentDescription = stringResource(R.string.community_info_cd), tint = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+    }
+    Text(
+        stringResource(R.string.community_headline),
+        style = MaterialTheme.typography.headlineSmall.copy(fontFamily = Literata),
+        modifier = Modifier.semantics { heading() },
+    )
+    Text(stringResource(R.string.community_purpose), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    val open = state.empty == null && !state.loading && state.roundState != RoundState.NOT_OPEN_YET && state.roundState != RoundState.CLOSED
+    if (open) state.daysLeft?.let { days ->
+        Text(
+            if (days == 0) stringResource(R.string.community_closes_today) else pluralStringResource(R.plurals.community_closes_in_days, days, days),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary,
+        )
     }
 }
 
@@ -164,124 +241,144 @@ private fun SourcesLine(sources: CommunitySources, locale: Locale) {
         listOfNotNull(base, m.sha256?.take(8), m.lastProblem?.name?.lowercase(), if (m.refreshing) "…" else null).joinToString(" ")
     }
     Text(
-        stringResource(R.string.community_sources_debug, ministries, fetched(sources.roundReadAt, sources.roundReadOk), fetched(sources.totalsReadAt, sources.totalsReadOk)),
+        stringResource(R.string.community_sources_debug, ministries, fetched(sources.roundReadAt, sources.roundReadOk)),
         style = MaterialTheme.typography.labelSmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
     )
 }
 
 @Composable
-private fun CurrentRound(state: CommunityUiState, locale: Locale, onVote: (MinistryUi) -> Unit, onOpen: (String) -> Unit, retry: @Composable () -> Unit) {
-    Text(
-        stringResource(R.string.community_round_title, monthLabel(state.month, locale)),
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier.semantics { heading() },
-    )
+private fun CurrentRound(
+    state: CommunityUiState,
+    onVote: (MinistryUi) -> Unit,
+    onOpen: (String) -> Unit,
+    retry: @Composable () -> Unit,
+    imageFile: suspend (String) -> File?,
+) {
     when (state.roundState) {
         RoundState.NOT_OPEN_YET -> Notice(stringResource(R.string.community_round_not_open), action = retry)
         RoundState.CLOSED -> Notice(stringResource(R.string.community_round_closed))
-        else -> state.closesAt?.let { Text(stringResource(R.string.community_open_until, localDateTime(it, locale)), style = MaterialTheme.typography.bodyMedium) }
+        else -> Unit
     }
+    // Only the cases that need words: the "Voted ✓" button covers a counted vote.
     state.myPick?.let { pick ->
         val text = when (state.status) {
             VoteStatus.PENDING -> stringResource(R.string.community_pick_pending, pick.name)
             VoteStatus.NOT_COUNTED -> stringResource(R.string.community_pick_not_counted, pick.name)
-            else -> stringResource(R.string.community_pick_counted, pick.name)
+            else -> null
         }
-        Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(16.dp)) {
-            Text(text, modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.bodyMedium)
+        text?.let {
+            Surface(color = MaterialTheme.colorScheme.secondaryContainer, shape = RoundedCornerShape(16.dp)) {
+                Text(it, modifier = Modifier.padding(16.dp), style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
     state.round.forEach { ministry ->
         MinistryCard(
             ministry = ministry,
             isPick = ministry.id == state.myPick?.id,
-            votes = state.currentTotals?.get(ministry.id),
             canVote = state.canVote,
             onVote = { onVote(ministry) },
             onOpen = onOpen,
+            imageFile = imageFile,
         )
     }
-    if (state.currentTotalsUnavailable) Notice(stringResource(R.string.community_totals_unavailable), action = retry)
-    Text(stringResource(R.string.community_no_money), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
 }
 
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
-private fun MinistryCard(ministry: MinistryUi, isPick: Boolean, votes: Long?, canVote: Boolean, onVote: () -> Unit, onOpen: (String) -> Unit) {
+private fun MinistryCard(
+    ministry: MinistryUi,
+    isPick: Boolean,
+    canVote: Boolean,
+    onVote: () -> Unit,
+    onOpen: (String) -> Unit,
+    imageFile: suspend (String) -> File?,
+) {
     Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(ministry.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f).semantics { heading() })
-                if (isPick) {
-                    Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
-                    Spacer(Modifier.width(4.dp))
-                    Text(stringResource(R.string.community_your_pick), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
+        Column {
+            MinistryImage(ministry, imageFile)
+            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                categoryLine(ministry.categories)?.let {
+                    Text(
+                        it.uppercase(Locale.getDefault()),
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.1.em),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
                 }
-            }
-            Text(ministry.description, style = MaterialTheme.typography.bodyMedium)
-            votes?.let {
-                Text(pluralStringResource(R.plurals.community_votes, it.toInt(), it.toInt()), style = MaterialTheme.typography.labelLarge)
-            }
-            FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                if (canVote) {
+                Text(ministry.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
+                Text(ministry.description, style = MaterialTheme.typography.bodyMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
+                Spacer(Modifier.height(4.dp))
+                if (isPick) {
+                    val cd = stringResource(R.string.community_voted_cd, ministry.name)
+                    Button(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth().semantics { contentDescription = cd }) {
+                        Text(stringResource(R.string.community_voted))
+                    }
+                } else {
                     val cd = stringResource(R.string.community_vote_cd, ministry.name)
-                    Button(onClick = onVote, modifier = Modifier.semantics { contentDescription = cd }) {
-                        Icon(Icons.Outlined.Favorite, contentDescription = null, modifier = Modifier.size(18.dp))
-                        Spacer(Modifier.width(8.dp))
+                    Button(onClick = onVote, enabled = canVote, modifier = Modifier.fillMaxWidth().semantics { contentDescription = cd }) {
                         Text(stringResource(R.string.community_vote))
                     }
                 }
-                LinkButton(stringResource(R.string.community_give), stringResource(R.string.community_give_cd, ministry.name)) { onOpen(ministry.giveUrl) }
-                LinkButton(stringResource(R.string.community_website), stringResource(R.string.community_website_cd, ministry.name)) { onOpen(ministry.website) }
+                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+                    LinkButton(stringResource(R.string.community_website), stringResource(R.string.community_website_cd, ministry.name)) { onOpen(ministry.website) }
+                    LinkButton(stringResource(R.string.community_give), stringResource(R.string.community_give_cd, ministry.name)) { onOpen(ministry.giveUrl) }
+                }
             }
         }
+    }
+}
+
+/** "Relief · Development" via R.string.two_parts, or null with no categories. */
+@Composable
+private fun categoryLine(categories: List<String>): String? {
+    if (categories.isEmpty()) return null
+    val resources = LocalContext.current.resources
+    return categories.reduce { a, b -> resources.getString(R.string.two_parts, a, b) }
+}
+
+/** The image from ministries.json, or a tinted panel with the category icon while it loads or when there's none. */
+@Composable
+private fun MinistryImage(ministry: MinistryUi, imageFile: suspend (String) -> File?) {
+    val file by produceState<File?>(null, ministry.image) { value = ministry.image?.let { imageFile(it) } }
+    Box(
+        Modifier.fillMaxWidth().height(140.dp).background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.55f)),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            categoryIcon(ministry.categories),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
+            modifier = Modifier.size(40.dp),
+        )
+        file?.let {
+            AsyncImage(model = it, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
+        }
+    }
+}
+
+/** A Material icon for the first category we recognise; a church otherwise. */
+internal fun categoryIcon(categories: List<String>): ImageVector {
+    val text = categories.joinToString(" ").lowercase(Locale.ROOT)
+    return when {
+        listOf("translat", "bible", "scripture", "literacy").any { it in text } -> Icons.AutoMirrored.Outlined.MenuBook
+        listOf("persecut").any { it in text } -> Icons.Outlined.Shield
+        listOf("child", "orphan").any { it in text } -> Icons.Outlined.ChildCare
+        listOf("health", "medic", "hospital").any { it in text } -> Icons.Outlined.MedicalServices
+        listOf("water").any { it in text } -> Icons.Outlined.WaterDrop
+        listOf("food", "hunger").any { it in text } -> Icons.Outlined.Restaurant
+        listOf("educat", "school").any { it in text } -> Icons.Outlined.School
+        listOf("relief", "disaster", "humanitarian", "poverty", "development").any { it in text } -> Icons.Outlined.VolunteerActivism
+        listOf("mission", "evangel").any { it in text } -> Icons.Outlined.Public
+        else -> Icons.Outlined.Church
     }
 }
 
 @Composable
 private fun LinkButton(label: String, description: String, onClick: () -> Unit) {
-    OutlinedButton(onClick = onClick, modifier = Modifier.semantics { contentDescription = description }) {
+    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = description }) {
         Text(label)
-        Spacer(Modifier.width(6.dp))
+        Spacer(Modifier.width(4.dp))
         Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
-    }
-}
-
-@Composable
-private fun PastRounds(past: List<PastRoundUi>, locale: Locale, retry: @Composable () -> Unit) {
-    Text(
-        stringResource(R.string.community_past_title),
-        style = MaterialTheme.typography.titleLarge,
-        modifier = Modifier.padding(top = 12.dp).semantics { heading() },
-    )
-    past.forEach { round ->
-        Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                Text(monthLabel(round.month, locale, standalone = true), style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
-                val loaded = round.ministries.all { it.second != null }
-                val top = round.ministries.firstOrNull()?.second
-                round.ministries.forEach { (ministry, count) ->
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(ministry.name, style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
-                        if (count != null) Text(pluralStringResource(R.plurals.community_votes, count.toInt(), count.toInt()), style = MaterialTheme.typography.bodyMedium)
-                    }
-                    val mostVotes = loaded && count != null && count == top && count > 0
-                    val myPick = ministry.id == round.myPickId
-                    val marks = when {
-                        mostVotes && myPick -> stringResource(R.string.two_parts, stringResource(R.string.community_most_votes), stringResource(R.string.community_your_pick))
-                        mostVotes -> stringResource(R.string.community_most_votes)
-                        myPick -> stringResource(R.string.community_your_pick)
-                        else -> null
-                    }
-                    marks?.let { Text(it, style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary) }
-                }
-                if (round.totalsUnavailable) {
-                    Text(stringResource(R.string.community_totals_unavailable), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                    retry()
-                }
-            }
-        }
     }
 }
 
@@ -295,6 +392,10 @@ private fun Notice(title: String, body: String? = null, action: (@Composable () 
         }
     }
 }
+
+/** "November" / "noviembre": the round month's name on its own, for "November spotlight". */
+internal fun monthName(month: String, locale: Locale): String =
+    YearMonth.parse(month).format(DateTimeFormatter.ofPattern("LLLL", locale))
 
 /** "diciembre de 2026" / "December 2026": the UTC round month, named in the app's language. */
 /**
