@@ -47,3 +47,11 @@ pass code checks (PSA.100.4 needed its retry: attempt 1 wrote "The book backgrou
 check). Reviewer: ERROR 1 (ECC.9.10 Did-you-know says la'asot and 'aseh come "twice in a row" though bekhochakha
 sits between them), WARN 6 (ISA.53.5 x2, JAS.1.5, PSA.43.5, SNG.8.6, JER.17.8). WARN > 4 for the third round in a
 row. Max writer output 16,356 tokens. Context-claim WARNs in "Life in Bible times" fell from 7 (round 1) to 1.
+
+## Round 3 under the new bar (2026-11-19): READY
+
+Decision 21 (docs/decisions.md): only ERRORs block, WARN <= 6 per 20; reversed roles, misattached phrases, bad
+references, leaks/placeholders and an off-verse Did-you-know are always ERROR (reviewer rubric updated first).
+ECC.9.10 attempt 2 passed the code checks and the reviewer found nothing. Round 3: ERROR 0, WARN 6, all 3 canaries
+flagged ERROR, 20/20 pass after at most one retry (PSA.100.4, ECC.9.10), 0 format failures, every Did-you-know on
+its own verse.
