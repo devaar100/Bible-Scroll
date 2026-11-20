@@ -1111,7 +1111,7 @@
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="discover_theme_trust" resname="discover_theme_trust">
-        <source>Trust</source>
+        <source>Trust and guidance</source>
         <note from="where">D1 Discover tab</note>
         <note from="developer">D1 Discover</note>
       </trans-unit>
@@ -2487,9 +2487,17 @@
         <note from="developer">Community (C1 monthly spotlight vote, C2 past spotlights)</note>
       </trans-unit>
       <trans-unit id="community_headline" resname="community_headline">
-        <source>Vote for this month’s donation</source>
+        <source>Choose this month’s spotlight</source>
         <note from="where">C1 Community tab</note>
         <note from="developer">%1$s = month and year, e.g. "December 2026"</note>
+      </trans-unit>
+      <trans-unit id="community_headline_voted" resname="community_headline_voted">
+        <source>Thank you for voting</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_purpose_voted" resname="community_purpose_voted">
+        <source>Your vote is in, and it’s anonymous. When the month ends, we donate to the ministry with the most votes, and you’ll see it in History.</source>
+        <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_purpose" resname="community_purpose">
         <source>Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</source>
@@ -2516,7 +2524,7 @@
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_voted" resname="community_voted">
-        <source>Voted ✓</source>
+        <source>Voted</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_voted_cd" resname="community_voted_cd">

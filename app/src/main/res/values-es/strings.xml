@@ -301,7 +301,7 @@
     <string name="study_hidden_body">Desactivaste los estudios hechos con IA en Ajustes. Las Escrituras, las notas y los planes siguen aquí.</string>
     <string name="study_hidden_show">Volver a mostrar estudios</string>
     <!-- D1 Discover -->
-    <string name="discover_theme_trust">Confianza</string>
+    <string name="discover_theme_trust">Confianza y guía</string>
     <string name="discover_theme_hope">Esperanza</string>
     <string name="discover_theme_love">Amor</string>
     <string name="discover_read_in_context">Leer en contexto ›</string>
@@ -712,7 +712,9 @@
 
     <!-- Comunidad (C1 votación mensual, C2 destacados anteriores) -->
     <string name="community_intro">Tu voto es anónimo: sin cuenta, sin nombre, sin nada que te identifique. Cada teléfono tiene un voto al mes y no se puede cambiar. La app no maneja dinero: nosotros hacemos la donación cuando termina el mes, y tú puedes donar en el sitio web de cada ministerio.</string>
-    <string name="community_headline">Vota por la donación de este mes</string>
+    <string name="community_headline">Elige el ministerio destacado del mes</string>
+    <string name="community_headline_voted">Gracias por votar</string>
+    <string name="community_purpose_voted">Tu voto ya está registrado y es anónimo. Cuando termine el mes, donaremos al ministerio con más votos y lo verás en el Historial.</string>
     <string name="community_purpose">Cada mes, los lectores votan por un ministerio. Cuando termina el mes, donamos al que tenga más votos. La votación es anónima y definitiva. Para donar tú mismo, usa el sitio web del ministerio.</string>
     <string name="community_closes_today">Cierra hoy</string>
     <plurals name="community_closes_in_days">
@@ -721,7 +723,7 @@
     </plurals>
     <string name="community_info_cd">Cómo funciona la votación mensual</string>
     <string name="community_info_title">Cómo funciona la votación</string>
-    <string name="community_voted">Votado ✓</string>
+    <string name="community_voted">Votado</string>
     <string name="community_voted_cd">Votaste por %1$s</string>
     <string name="community_view_history">Ver historial</string>
     <string name="history_title">Historial</string>

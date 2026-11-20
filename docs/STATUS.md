@@ -7,7 +7,7 @@
   with Hide AI studies on. Pipeline: discover.txt lines are now "ID theme"; **the shipped discover.txt has no themes
   yet**, so `publish` refuses it until each line has one (`python -m pipeline discover` lists them).
 - 2026-11-19, Community redesign (decision 23): the vote decides the month's donation; header with purpose text and
-  "Closes in N days"; ministry cards with image (optional, our Firebase hosts only) and category; "Voted ✓" after
+  "Closes in N days"; ministry cards with image (optional, our Firebase hosts only) and category; "✓ Voted" pill after
   voting; no counts anywhere (C2 vote totals removed). New History screen from `history.json` (CDN, pinned in the
   manifest, fetched at most monthly, cached outside backups). Data safety answers unchanged. **Before release:** add
   `category`/`image` to pipeline/community/ministries.json and publish `community/history.json` after the first month.

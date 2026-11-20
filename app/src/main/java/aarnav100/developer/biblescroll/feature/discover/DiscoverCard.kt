@@ -28,14 +28,15 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.Notes
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.BookmarkBorder
 import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.EditNote
+import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.IosShare
 import androidx.compose.material.icons.outlined.Lightbulb
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -117,7 +118,7 @@ fun DiscoverCard(ui: DiscoverCardUi?, actions: DiscoverCardActions, modifier: Mo
                 ) {
                     CardBody(ui, palette, actions)
                 }
-                HorizontalDivider(thickness = 1.dp, color = palette.border)
+                HorizontalDivider(Modifier.padding(horizontal = 24.dp), thickness = 1.dp, color = palette.border)
                 ActionRow(ui, palette, actions)
             }
         }
@@ -177,6 +178,7 @@ private fun CardBody(ui: DiscoverCardUi, palette: DiscoverPalette, actions: Disc
                 style = TextStyle(fontFamily = Inter, fontSize = 13.sp, fontWeight = FontWeight.SemiBold),
                 color = palette.accent,
             )
+            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = palette.accent, modifier = Modifier.size(18.dp))
         }
     }
 
@@ -214,7 +216,7 @@ private fun CardBody(ui: DiscoverCardUi, palette: DiscoverPalette, actions: Disc
             )
         }
         Spacer(Modifier.height(8.dp))
-        Text(fact, style = TextStyle(fontFamily = Inter, fontSize = 13.sp, lineHeight = 1.5.em, color = palette.text))
+        Text(fact, style = TextStyle(fontFamily = Inter, fontSize = 14.sp, lineHeight = 1.5.em, color = palette.text))
     }
 }
 
@@ -240,8 +242,8 @@ private val Language.nameRes: Int
 private fun ActionRow(ui: DiscoverCardUi, palette: DiscoverPalette, actions: DiscoverCardActions) {
     val like = BibleScrollTheme.extendedColors.like
     Row(
-        Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 4.dp),
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        Modifier.fillMaxWidth().padding(horizontal = 14.dp, vertical = 6.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         ActionButton(
@@ -251,7 +253,7 @@ private fun ActionRow(ui: DiscoverCardUi, palette: DiscoverPalette, actions: Dis
             state = stringResource(if (ui.liked) R.string.discover_state_liked else R.string.discover_state_not_liked),
         ) { actions.onLike(ui) }
         ActionButton(
-            icon = if (ui.hasNote) Icons.AutoMirrored.Filled.Notes else Icons.Outlined.EditNote,
+            icon = if (ui.hasNote) Icons.Filled.Edit else Icons.Outlined.Edit,
             label = stringResource(if (ui.hasNote) R.string.feed_note_edit else R.string.feed_note_add),
             tint = palette.secondary,
             dot = if (ui.hasNote) palette.accent else null,
@@ -262,7 +264,7 @@ private fun ActionRow(ui: DiscoverCardUi, palette: DiscoverPalette, actions: Dis
             tint = if (ui.bookmarked) palette.accent else palette.secondary,
         ) { actions.onBookmark(ui) }
         ActionButton(Icons.Outlined.ContentCopy, stringResource(R.string.discover_copy_cd), palette.secondary) { actions.onCopy(ui) }
-        ActionButton(Icons.Outlined.Image, stringResource(R.string.actions_share_image), palette.secondary) { actions.onShareImage(ui) }
+        ActionButton(Icons.Outlined.IosShare, stringResource(R.string.actions_share_image), palette.secondary) { actions.onShareImage(ui) }
     }
 }
 

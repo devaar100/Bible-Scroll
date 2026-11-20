@@ -4,7 +4,7 @@ import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.core.content.DiscoverTheme
 import androidx.compose.foundation.Canvas
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Spa
+import androidx.compose.material.icons.outlined.Waves
 import androidx.compose.material.icons.outlined.VolunteerActivism
 import androidx.compose.material.icons.outlined.WbTwilight
 import androidx.compose.runtime.Composable
@@ -77,13 +77,13 @@ val DiscoverTheme.labelRes: Int
 
 val DiscoverTheme.icon: ImageVector
     get() = when (this) {
-        DiscoverTheme.TRUST -> Icons.Outlined.Spa
+        DiscoverTheme.TRUST -> Icons.Outlined.Waves
         DiscoverTheme.HOPE -> Icons.Outlined.WbTwilight
         DiscoverTheme.LOVE -> Icons.Outlined.VolunteerActivism
     }
 
 /**
- * Faint decorative art behind the card content (no semantics): Trust = wave lines at the bottom, Hope = rays and
+ * Faint decorative art behind the card content (no semantics): Trust = wave lines over the lower part, Hope = rays and
  * rings from the top right, Love = rings at the bottom right.
  */
 @Composable
@@ -92,11 +92,12 @@ fun DiscoverCardArt(theme: DiscoverTheme, accent: Color, modifier: Modifier = Mo
         val stroke = Stroke(width = 1.2.dp.toPx())
         when (theme) {
             DiscoverTheme.TRUST -> {
-                val color = accent.copy(alpha = 0.10f)
-                val amplitude = 10.dp.toPx()
-                val wavelength = size.width / 2.2f
-                repeat(4) { i ->
-                    val baseY = size.height - 22.dp.toPx() - i * 16.dp.toPx() - 56.dp.toPx()
+                // Approved mockup: five soft waves over the lower part of the card, behind the fact and the actions.
+                val color = accent.copy(alpha = 0.12f)
+                val amplitude = 7.dp.toPx()
+                val wavelength = size.width / 3.4f
+                repeat(5) { i ->
+                    val baseY = size.height - 14.dp.toPx() - i * 36.dp.toPx()
                     val path = Path().apply {
                         moveTo(0f, baseY)
                         var x = 0f

@@ -3,21 +3,18 @@ package aarnav100.developer.biblescroll.feature.community
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.community.CommunityRules
 import aarnav100.developer.biblescroll.ui.theme.Literata
-import androidx.compose.foundation.background
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.Schedule
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
-import androidx.compose.material.icons.automirrored.outlined.MenuBook
-import androidx.compose.material.icons.outlined.ChildCare
-import androidx.compose.material.icons.outlined.Church
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Info
-import androidx.compose.material.icons.outlined.MedicalServices
-import androidx.compose.material.icons.outlined.Public
-import androidx.compose.material.icons.outlined.Restaurant
-import androidx.compose.material.icons.outlined.School
-import androidx.compose.material.icons.outlined.Shield
-import androidx.compose.material.icons.outlined.VolunteerActivism
-import androidx.compose.material.icons.outlined.WaterDrop
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -188,12 +185,13 @@ fun CommunityContent(
 
 @Composable
 private fun Header(state: CommunityUiState, locale: Locale, onInfo: () -> Unit) {
+    val voted = state.myPick != null && state.status == VoteStatus.COUNTED
     Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
         val month = state.month.takeIf { it.isNotEmpty() } ?: CommunityRules.monthOf(Instant.now())
         Text(
             stringResource(R.string.community_round_title, monthName(month, locale)).uppercase(locale),
-            style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.14.em),
-            color = MaterialTheme.colorScheme.primary,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.14.em),
+            color = MaterialTheme.colorScheme.onSurface,
             modifier = Modifier.weight(1f),
         )
         IconButton(onClick = onInfo) {
@@ -201,18 +199,26 @@ private fun Header(state: CommunityUiState, locale: Locale, onInfo: () -> Unit) 
         }
     }
     Text(
-        stringResource(R.string.community_headline),
-        style = MaterialTheme.typography.headlineSmall.copy(fontFamily = Literata),
+        stringResource(if (voted) R.string.community_headline_voted else R.string.community_headline),
+        style = MaterialTheme.typography.headlineMedium.copy(fontFamily = Literata),
         modifier = Modifier.semantics { heading() },
     )
-    Text(stringResource(R.string.community_purpose), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+    Text(
+        stringResource(if (voted) R.string.community_purpose_voted else R.string.community_purpose),
+        style = MaterialTheme.typography.bodyMedium,
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+    )
     val open = state.empty == null && !state.loading && state.roundState != RoundState.NOT_OPEN_YET && state.roundState != RoundState.CLOSED
     if (open) state.daysLeft?.let { days ->
-        Text(
-            if (days == 0) stringResource(R.string.community_closes_today) else pluralStringResource(R.plurals.community_closes_in_days, days, days),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.primary,
-        )
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Outlined.Schedule, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(8.dp))
+            Text(
+                if (days == 0) stringResource(R.string.community_closes_today) else pluralStringResource(R.plurals.community_closes_in_days, days, days),
+                style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onSurface,
+            )
+        }
     }
 }
 
@@ -294,36 +300,81 @@ private fun MinistryCard(
     onOpen: (String) -> Unit,
     imageFile: suspend (String) -> File?,
 ) {
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
+    Surface(
+        shape = RoundedCornerShape(24.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+        shadowElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth(),
+    ) {
         Column {
             MinistryImage(ministry, imageFile)
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.padding(start = 18.dp, end = 18.dp, top = 16.dp, bottom = 12.dp)) {
                 categoryLine(ministry.categories)?.let {
                     Text(
                         it.uppercase(Locale.getDefault()),
-                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold, letterSpacing = 0.1.em),
-                        color = MaterialTheme.colorScheme.primary,
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 0.14.em),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    Spacer(Modifier.height(6.dp))
                 }
-                Text(ministry.name, style = MaterialTheme.typography.titleMedium, modifier = Modifier.semantics { heading() })
-                Text(ministry.description, style = MaterialTheme.typography.bodyMedium, maxLines = 3, overflow = TextOverflow.Ellipsis)
-                Spacer(Modifier.height(4.dp))
-                if (isPick) {
-                    val cd = stringResource(R.string.community_voted_cd, ministry.name)
-                    Button(onClick = {}, enabled = false, modifier = Modifier.fillMaxWidth().semantics { contentDescription = cd }) {
-                        Text(stringResource(R.string.community_voted))
+                Text(
+                    ministry.name,
+                    style = MaterialTheme.typography.titleLarge.copy(fontFamily = Literata, fontWeight = FontWeight.Medium),
+                    modifier = Modifier.semantics { heading() },
+                )
+                Spacer(Modifier.height(6.dp))
+                Text(
+                    ministry.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(Modifier.height(10.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    if (isPick) VotedPill(ministry.name) else {
+                        val cd = stringResource(R.string.community_vote_cd, ministry.name)
+                        Button(
+                            onClick = onVote,
+                            enabled = canVote,
+                            contentPadding = PaddingValues(horizontal = 26.dp),
+                            modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = cd },
+                        ) {
+                            Text(stringResource(R.string.community_vote), fontWeight = FontWeight.SemiBold)
+                        }
                     }
-                } else {
-                    val cd = stringResource(R.string.community_vote_cd, ministry.name)
-                    Button(onClick = onVote, enabled = canVote, modifier = Modifier.fillMaxWidth().semantics { contentDescription = cd }) {
-                        Text(stringResource(R.string.community_vote))
-                    }
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
-                    LinkButton(stringResource(R.string.community_website), stringResource(R.string.community_website_cd, ministry.name)) { onOpen(ministry.website) }
-                    LinkButton(stringResource(R.string.community_give), stringResource(R.string.community_give_cd, ministry.name)) { onOpen(ministry.giveUrl) }
+                    Spacer(Modifier.weight(1f))
+                    LinkButton(
+                        Icons.AutoMirrored.Outlined.OpenInNew,
+                        stringResource(R.string.community_website),
+                        stringResource(R.string.community_website_cd, ministry.name),
+                    ) { onOpen(ministry.website) }
+                    LinkButton(
+                        Icons.Outlined.FavoriteBorder,
+                        stringResource(R.string.community_give),
+                        stringResource(R.string.community_give_cd, ministry.name),
+                    ) { onOpen(ministry.giveUrl) }
                 }
             }
+        }
+    }
+}
+
+/** The chosen ministry after voting: a pill with a check, not a button (TalkBack: "You voted for X"). */
+@Composable
+private fun VotedPill(name: String) {
+    val cd = stringResource(R.string.community_voted_cd, name)
+    Surface(
+        shape = CircleShape,
+        color = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        modifier = Modifier.heightIn(min = 48.dp).clearAndSetSemantics { contentDescription = cd },
+    ) {
+        Row(Modifier.padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
+            Icon(Icons.Filled.Check, contentDescription = null, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.width(6.dp))
+            Text(stringResource(R.string.community_voted), style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold))
         }
     }
 }
@@ -336,49 +387,29 @@ private fun categoryLine(categories: List<String>): String? {
     return categories.reduce { a, b -> resources.getString(R.string.two_parts, a, b) }
 }
 
-/** The image from ministries.json, or a tinted panel with the category icon while it loads or when there's none. */
+/** The image from ministries.json, or the ministry's tinted placeholder while it loads or when there's none. */
 @Composable
 private fun MinistryImage(ministry: MinistryUi, imageFile: suspend (String) -> File?) {
     val file by produceState<File?>(null, ministry.image) { value = ministry.image?.let { imageFile(it) } }
-    Box(
-        Modifier.fillMaxWidth().height(140.dp).background(MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.55f)),
-        contentAlignment = Alignment.Center,
-    ) {
-        Icon(
-            categoryIcon(ministry.categories),
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary.copy(alpha = 0.7f),
-            modifier = Modifier.size(40.dp),
-        )
+    Box(Modifier.fillMaxWidth().height(150.dp)) {
+        MinistryPlaceholder(ministry.id, iconSize = 28.dp, modifier = Modifier.matchParentSize())
         file?.let {
             AsyncImage(model = it, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.matchParentSize())
         }
     }
 }
 
-/** A Material icon for the first category we recognise; a church otherwise. */
-internal fun categoryIcon(categories: List<String>): ImageVector {
-    val text = categories.joinToString(" ").lowercase(Locale.ROOT)
-    return when {
-        listOf("translat", "bible", "scripture", "literacy").any { it in text } -> Icons.AutoMirrored.Outlined.MenuBook
-        listOf("persecut").any { it in text } -> Icons.Outlined.Shield
-        listOf("child", "orphan").any { it in text } -> Icons.Outlined.ChildCare
-        listOf("health", "medic", "hospital").any { it in text } -> Icons.Outlined.MedicalServices
-        listOf("water").any { it in text } -> Icons.Outlined.WaterDrop
-        listOf("food", "hunger").any { it in text } -> Icons.Outlined.Restaurant
-        listOf("educat", "school").any { it in text } -> Icons.Outlined.School
-        listOf("relief", "disaster", "humanitarian", "poverty", "development").any { it in text } -> Icons.Outlined.VolunteerActivism
-        listOf("mission", "evangel").any { it in text } -> Icons.Outlined.Public
-        else -> Icons.Outlined.Church
-    }
-}
-
 @Composable
-private fun LinkButton(label: String, description: String, onClick: () -> Unit) {
-    TextButton(onClick = onClick, modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = description }) {
-        Text(label)
-        Spacer(Modifier.width(4.dp))
-        Icon(Icons.AutoMirrored.Outlined.OpenInNew, contentDescription = null, modifier = Modifier.size(16.dp))
+private fun LinkButton(icon: ImageVector, label: String, description: String, onClick: () -> Unit) {
+    TextButton(
+        onClick = onClick,
+        contentPadding = PaddingValues(horizontal = 8.dp),
+        colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface),
+        modifier = Modifier.heightIn(min = 48.dp).semantics { contentDescription = description },
+    ) {
+        Icon(icon, contentDescription = null, modifier = Modifier.size(16.dp))
+        Spacer(Modifier.width(6.dp))
+        Text(label, style = MaterialTheme.typography.labelLarge.copy(fontWeight = FontWeight.SemiBold), maxLines = 1)
     }
 }
 

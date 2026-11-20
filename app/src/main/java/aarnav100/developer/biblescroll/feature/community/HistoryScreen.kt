@@ -16,7 +16,19 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.em
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -88,15 +100,18 @@ fun HistoryScreen(onBack: () -> Unit, viewModel: HistoryViewModel = hiltViewMode
     LaunchedEffect(viewModel) { viewModel.onShown() }
     Scaffold(
         topBar = {
+            // The title is the large heading in the content (approved mockup), so the bar holds only the back arrow.
             TopAppBar(
-                title = { Text(stringResource(R.string.history_title)) },
+                title = {},
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.settings_back))
+                        Icon(Icons.AutoMirrored.Filled.ArrowBackIos, contentDescription = stringResource(R.string.settings_back), modifier = Modifier.size(20.dp))
                     }
                 },
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
             )
         },
+        containerColor = MaterialTheme.colorScheme.background,
     ) { padding ->
         HistoryContent(state, onRetry = viewModel::onShown, modifier = Modifier.padding(padding))
     }
@@ -110,7 +125,14 @@ fun HistoryContent(state: HistoryUiState, onRetry: () -> Unit, modifier: Modifie
         modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        Text(stringResource(R.string.history_subtitle), style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        Column(Modifier.padding(horizontal = 4.dp).padding(bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Text(
+                stringResource(R.string.history_title),
+                style = MaterialTheme.typography.headlineLarge.copy(fontFamily = Literata, fontWeight = FontWeight.Medium),
+                modifier = Modifier.semantics { heading() },
+            )
+            Text(stringResource(R.string.history_subtitle), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
         when (state) {
             HistoryUiState.Loading -> Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
             is HistoryUiState.Unavailable -> Message(stringResource(if (state.offline) R.string.history_offline else R.string.history_unavailable)) {
@@ -127,21 +149,40 @@ fun HistoryContent(state: HistoryUiState, onRetry: () -> Unit, modifier: Modifie
 
 @Composable
 private fun DonationCard(donation: Donation, locale: Locale) {
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(historyMonth(donation.month, locale), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-            Text(
-                donation.ministryName,
-                style = MaterialTheme.typography.titleLarge.copy(fontFamily = Literata),
-                modifier = Modifier.semantics { heading() },
-            )
-            donation.amountValue?.let { amount ->
+    Surface(
+        shape = RoundedCornerShape(20.dp),
+        color = MaterialTheme.colorScheme.surfaceContainerLow,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
+        shadowElevation = 1.dp,
+        modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) { },
+    ) {
+        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
+            MinistryPlaceholder(donation.ministryId, iconSize = 20.dp, modifier = Modifier.size(56.dp).clip(RoundedCornerShape(14.dp)))
+            Spacer(Modifier.width(14.dp))
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(
-                    stringResource(R.string.history_amount_donated, formatDonation(amount, donation.currency, locale)),
-                    style = MaterialTheme.typography.bodyLarge,
+                    historyMonth(donation.month, locale).uppercase(locale),
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 0.14.em),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
+                Text(donation.ministryName, style = MaterialTheme.typography.titleMedium.copy(fontFamily = Literata, fontWeight = FontWeight.Medium))
+                donation.amountValue?.let { amount ->
+                    Text(donatedLine(formatDonation(amount, donation.currency, locale)), style = MaterialTheme.typography.bodySmall)
+                }
             }
         }
+    }
+}
+
+/** "$300 donated" with the amount in bold Literata; the words around it come from the translated string. */
+@Composable
+private fun donatedLine(amount: String): AnnotatedString {
+    val full = stringResource(R.string.history_amount_donated, amount)
+    val at = full.indexOf(amount)
+    val bold = SpanStyle(fontFamily = Literata, fontWeight = FontWeight.Bold, fontSize = MaterialTheme.typography.titleMedium.fontSize)
+    return buildAnnotatedString {
+        append(full)
+        if (at >= 0) addStyle(bold, at, at + amount.length)
     }
 }
 

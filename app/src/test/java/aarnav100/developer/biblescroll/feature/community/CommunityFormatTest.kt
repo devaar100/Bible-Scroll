@@ -1,12 +1,9 @@
 package aarnav100.developer.biblescroll.feature.community
 
 import aarnav100.developer.biblescroll.core.content.model.Ministry
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.MenuBook
-import androidx.compose.material.icons.outlined.Church
-import androidx.compose.material.icons.outlined.VolunteerActivism
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
 import java.time.ZoneId
@@ -73,9 +70,10 @@ class CommunityFormatTest {
     }
 
     @Test
-    fun fallbackIconFollowsTheCategory() {
-        assertEquals(Icons.AutoMirrored.Outlined.MenuBook, categoryIcon(listOf("Bible translation")))
-        assertEquals(Icons.Outlined.VolunteerActivism, categoryIcon(listOf("Disaster relief")))
-        assertEquals(Icons.Outlined.Church, categoryIcon(emptyList()))
+    fun aMinistryKeepsItsTintOnEveryScreen() {
+        assertEquals(tintIndex("caritas"), tintIndex("caritas"))
+        assertEquals(ministryTint("caritas", dark = false), ministryTint("caritas", dark = false))
+        val spread = listOf("caritas", "acn", "pms", "peters-pence", "malteser", "river", "harbor").map(::tintIndex).toSet()
+        assertTrue(spread.size >= 3) // ids spread over the palette instead of all landing on one colour
     }
 }

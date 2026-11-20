@@ -304,7 +304,7 @@
     <string name="study_hidden_body">You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.</string>
     <string name="study_hidden_show">Show studies again</string>
     <!-- D1 Discover -->
-    <string name="discover_theme_trust">Trust</string>
+    <string name="discover_theme_trust">Trust and guidance</string>
     <string name="discover_theme_hope">Hope</string>
     <string name="discover_theme_love">Love</string>
     <string name="discover_read_in_context">Read in context ›</string>
@@ -718,7 +718,9 @@
     <!-- Community (C1 monthly spotlight vote, C2 past spotlights) -->
     <string name="community_intro">Your vote is anonymous: no account, no name, nothing that identifies you. Each phone gets one vote a month, and it can’t be changed. The app handles no money: the donation is made by us after the month ends, and you can give yourself on each ministry’s own site.</string>
     <!-- %1$s = month and year, e.g. "December 2026" -->
-    <string name="community_headline">Vote for this month’s donation</string>
+    <string name="community_headline">Choose this month’s spotlight</string>
+    <string name="community_headline_voted">Thank you for voting</string>
+    <string name="community_purpose_voted">Your vote is in, and it’s anonymous. When the month ends, we donate to the ministry with the most votes, and you’ll see it in History.</string>
     <string name="community_purpose">Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</string>
     <string name="community_closes_today">Closes today</string>
     <plurals name="community_closes_in_days">
@@ -727,7 +729,7 @@
     </plurals>
     <string name="community_info_cd">How the monthly vote works</string>
     <string name="community_info_title">How the vote works</string>
-    <string name="community_voted">Voted ✓</string>
+    <string name="community_voted">Voted</string>
     <string name="community_voted_cd">You voted for %1$s</string>
     <string name="community_view_history">View history</string>
     <string name="history_title">History</string>
