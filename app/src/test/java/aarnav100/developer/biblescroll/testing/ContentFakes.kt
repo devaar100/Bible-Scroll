@@ -11,6 +11,7 @@ import aarnav100.developer.biblescroll.core.content.model.CrossReference
 import aarnav100.developer.biblescroll.core.content.model.CrossReferenceSource
 import aarnav100.developer.biblescroll.core.content.model.DiscoverEntry
 import aarnav100.developer.biblescroll.core.content.model.DiscoverFile
+import aarnav100.developer.biblescroll.core.content.model.DiscoverVerse
 import aarnav100.developer.biblescroll.core.content.model.Language
 import aarnav100.developer.biblescroll.core.content.model.Manifest
 import aarnav100.developer.biblescroll.core.content.model.ManifestBook
@@ -55,7 +56,7 @@ class FakeContent {
         val gz = ByteArrayOutputStream().also { out -> GZIPOutputStream(out).use { it.write(raw) } }.toByteArray()
         val sha = Sha256.hex(gz)
         val url = "https://cdn.test/studies/v${sha.take(12)}/$code.json.gz"
-        val discoverBytes = ContentJson.encodeToString(DiscoverFile.serializer(), DiscoverFile(1, discover)).toByteArray()
+        val discoverBytes = ContentJson.encodeToString(DiscoverFile.serializer(), DiscoverFile(2, discover.map { DiscoverVerse(it, "trust") })).toByteArray()
         val manifest = Manifest(1, 2, "release00000",
             (api.manifest?.books.orEmpty().filter { it.bookId != bookId }) +
                 ManifestBook(code, bookId, url, sha.take(12), studies.size, 0, sha, gz.size.toLong()),

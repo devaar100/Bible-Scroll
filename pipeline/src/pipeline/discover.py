@@ -1,10 +1,11 @@
 """
-The Discover list (discover.txt): one study id per line (PHP.4.13), in the order the app shows the cards.
-Blank lines and "#" comments are allowed.
+The Discover list (discover.txt): one study id and its card theme per line ("PHP.4.13 trust"), in the order the
+app shows the cards. Themes: publish.DISCOVER_THEMES. Blank lines and "#" comments are allowed.
 
 `audit` reads the file without raising and reports every problem for a person to decide on (it never edits
 the file):
   - malformed:  not BOOK.CHAPTER.VERSE with a known book code
+  - theme:      no theme, or one the app doesn't know (publish refuses the list until every line has one)
   - missing:    no such KJV verse in source.db (or the app's KJV/WEB text is missing)
   - duplicate:  listed again (first position kept)
   - mapping:    the verse exists, but the Hebrew/Greek source numbers it differently (e.g. a Psalm whose Hebrew
@@ -22,7 +23,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .paths import APP_BIBLE_DB, SOURCE_DB
-from .publish import DISCOVER_FILE
+from .publish import DISCOVER_FILE, DISCOVER_THEMES
 from .store import parse_id
 
 
@@ -37,13 +38,14 @@ class Audit:
     entries: int = 0
     ids: list[str] = field(default_factory=list)                  # unique valid ids, file order
     malformed: list[Line] = field(default_factory=list)
+    themes: list[tuple[Line, str]] = field(default_factory=list)  # (line, problem)
     missing: list[tuple[Line, str]] = field(default_factory=list)
     duplicates: list[tuple[Line, int]] = field(default_factory=list)  # (line, first line number)
     mapping: list[tuple[Line, list[dict]]] = field(default_factory=list)
 
     @property
     def clean(self) -> bool:
-        return not (self.malformed or self.missing or self.duplicates)
+        return not (self.malformed or self.missing or self.duplicates or self.themes)
 
 
 def read_lines(path: Path = DISCOVER_FILE) -> list[Line]:
@@ -71,15 +73,21 @@ def audit(path: Path = DISCOVER_FILE, source_db: Path = SOURCE_DB, bible_db: Pat
             sqlite3.connect(f"file:{bible_db}?mode=ro", uri=True) as bible:
         for line in read_lines(path):
             report.entries += 1
+            parts = line.text.split()
+            verse_id = parts[0]
             try:
-                key = parse_id(line.text)
+                key = parse_id(verse_id)
             except ValueError:
                 report.malformed.append(line)
                 continue
-            if line.text in first_seen:
-                report.duplicates.append((line, first_seen[line.text]))
+            if len(parts) == 1:
+                report.themes.append((line, "no theme"))
+            elif len(parts) > 2 or parts[1] not in DISCOVER_THEMES:
+                report.themes.append((line, f"unknown theme {' '.join(parts[1:])!r}"))
+            if verse_id in first_seen:
+                report.duplicates.append((line, first_seen[verse_id]))
                 continue
-            first_seen[line.text] = line.number
+            first_seen[verse_id] = line.number
             if not src.execute("SELECT 1 FROM kjv_verse WHERE book_id=? AND chapter=? AND verse=?", key).fetchone():
                 report.missing.append((line, "no such KJV verse"))
                 continue
@@ -89,7 +97,7 @@ def audit(path: Path = DISCOVER_FILE, source_db: Path = SOURCE_DB, bible_db: Pat
             if lacking:
                 report.missing.append((line, f"no {'/'.join(sorted(lacking))} text in the app's bible.db"))
                 continue
-            report.ids.append(line.text)
+            report.ids.append(verse_id)
             rows = src.execute(
                 "SELECT dataset, native_ref, kind, words, note FROM versification_map "
                 "WHERE dataset IN ('TAHOT','TAGNT') AND kjv_book=? AND kjv_chapter=? AND kjv_verse=? "
@@ -116,6 +124,8 @@ def render(report: Audit, path: Path = DISCOVER_FILE) -> str:
         lines.extend(f"  {i}" for i in items)
 
     section("Malformed (not BOOK.CHAPTER.VERSE)", [f"line {l.number}: {l.text!r}" for l in report.malformed])
+    section(f"Theme missing or unknown (use {', '.join(DISCOVER_THEMES)})",
+            [f"line {l.number}: {l.text} ({why})" for l, why in report.themes])
     section("Don't exist", [f"line {l.number}: {l.text} ({why})" for l, why in report.missing])
     section("Duplicates (first position kept)",
             [f"line {l.number}: {l.text} (first on line {first})" for l, first in report.duplicates])

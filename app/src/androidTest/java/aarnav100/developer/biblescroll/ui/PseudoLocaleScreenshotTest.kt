@@ -46,6 +46,8 @@ import aarnav100.developer.biblescroll.feature.study.StudyUiState
 import aarnav100.developer.biblescroll.feature.study.VerseStudyContent
 import aarnav100.developer.biblescroll.data.community.CommunityRules
 import aarnav100.developer.biblescroll.feature.community.CommunityContent
+import aarnav100.developer.biblescroll.feature.discover.DiscoverCard
+import aarnav100.developer.biblescroll.feature.discover.DiscoverSamples
 import aarnav100.developer.biblescroll.feature.community.CommunityEmpty
 import aarnav100.developer.biblescroll.feature.community.CommunityUiState
 import aarnav100.developer.biblescroll.feature.community.MinistryUi
@@ -62,6 +64,7 @@ import android.graphics.Bitmap
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -152,6 +155,12 @@ class PseudoLocaleScreenshotTest {
     }
     @Test fun featureTour() = shot("onboarding_tour") { FeatureTourStep(TourVerses(), onBack = {}, onSkip = {}, onContinue = {}) }
 
+    @Test fun discoverCard() = shot("d1_discover_card", heightDp = 900) {
+        DiscoverCard(DiscoverSamples.trust(), DiscoverSamples.noActions, Modifier.fillMaxSize())
+    }
+    @Test fun discoverCardHiddenAi() = shot("d1_discover_card_hide_ai", heightDp = 720) {
+        DiscoverCard(DiscoverSamples.trust(aiHidden = true), DiscoverSamples.noActions, Modifier.fillMaxSize())
+    }
     @Test fun community() = shot("community", heightDp = 1400) {
         val river = MinistryUi("river", "River Bible Translation", "Translates Scripture into languages that have none yet.", "https://example.org", "https://example.org/give")
         val harbor = MinistryUi("harbor", "Harbor Food Pantry", "Feeds families in port towns every week.", "https://example.org", "https://example.org/give")

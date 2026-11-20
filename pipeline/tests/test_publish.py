@@ -34,7 +34,7 @@ def book_payload(release, book):
 
 
 def test_only_auto_checked_and_reviewed_are_published(studies):
-    release = p.build_release(studies, "https://x.web.app", discover_ids=[])
+    release = p.build_release(studies, "https://x.web.app", discover=[])
     assert [b["book"] for b in release.manifest["books"]] == ["JHN", "ROM"]  # GEN has nothing publishable
     jhn = next(b for b in release.manifest["books"] if b["book"] == "JHN")
     assert (jhn["verseCount"], jhn["reviewedCount"]) == (2, 1)
@@ -43,7 +43,7 @@ def test_only_auto_checked_and_reviewed_are_published(studies):
 
 
 def test_public_files_hide_internal_fields(studies):
-    release = p.build_release(studies, "", discover_ids=[])
+    release = p.build_release(studies, "", discover=[])
     raw = json.dumps(book_payload(release, "JHN"))
     for secret in ("Sam Private", "reviewedBy", "editedBy", "checks", "checkedAt"):
         assert secret not in raw
@@ -52,7 +52,7 @@ def test_public_files_hide_internal_fields(studies):
 
 
 def test_manifest_entries_and_urls(studies):
-    release = p.build_release(studies, "https://x.web.app/", discover_ids=[])
+    release = p.build_release(studies, "https://x.web.app/", discover=[])
     entry = release.manifest["books"][0]
     path = f"studies/v{entry['contentVersion']}/JHN.json.gz"
     assert entry["url"] == f"https://x.web.app/{path}" and path in release.files
@@ -62,13 +62,13 @@ def test_manifest_entries_and_urls(studies):
 
 
 def test_builds_are_byte_identical_and_versions_are_per_book(studies):
-    a = p.build_release(studies, "", discover_ids=[])
-    b = p.build_release(studies, "", discover_ids=[])
+    a = p.build_release(studies, "", discover=[])
+    b = p.build_release(studies, "", discover=[])
     assert a.files == b.files and a.manifest["release"] == b.manifest["release"]
     s = studies.load("ROM.5.8")
     s["meaning"] = s["meaning"] + " Changed."
     studies.save(s)
-    c = p.build_release(studies, "", discover_ids=[])
+    c = p.build_release(studies, "", discover=[])
     old = {x["book"]: x["contentVersion"] for x in a.manifest["books"]}
     new = {x["book"]: x["contentVersion"] for x in c.manifest["books"]}
     assert old["JHN"] == new["JHN"] and old["ROM"] != new["ROM"] and a.manifest["release"] != c.manifest["release"]
@@ -76,48 +76,55 @@ def test_builds_are_byte_identical_and_versions_are_per_book(studies):
 
 def test_discover_order_and_unpublished_dropped(studies, tmp_path):
     path = tmp_path / "discover.txt"
-    path.write_text("# feed\nROM.5.8\nJHN.3.18  # flagged\nJHN.3.16\n")
-    release = p.build_release(studies, "", discover_ids=p.load_discover(path))
-    assert json.loads(release.files["discover.json"])["verses"] == ["ROM.5.8", "JHN.3.16"]
+    path.write_text("# feed\nROM.5.8 love\nJHN.3.18 hope  # flagged\nJHN.3.16 trust\n")
+    release = p.build_release(studies, "", discover=p.load_discover_entries(path))
+    assert json.loads(release.files["discover.json"])["verses"] == [
+        {"id": "ROM.5.8", "theme": "love"}, {"id": "JHN.3.16", "theme": "trust"}]
     assert release.discover_dropped == ["JHN.3.18"] and release.manifest["discover"]["count"] == 2
 
 
-@pytest.mark.parametrize("text", ["John 3:16\n", "JHN.3.16\nJHN.3.16\n"])
+@pytest.mark.parametrize("text", ["John 3:16\n", "JHN.3.16 love\nJHN.3.16 love\n", "JHN.3.16\n", "JHN.3.16 joy\n"])
 def test_bad_discover_file(tmp_path, text):
     path = tmp_path / "discover.txt"
     path.write_text(text)
     with pytest.raises(ValueError):
-        p.load_discover(path)
+        p.load_discover_entries(path)
+
+
+def test_publish_refuses_an_unknown_theme(studies):
+    with pytest.raises(ValueError, match="unknown theme"):
+        p.build_release(studies, "", discover=[("JHN.3.16", "joy")])
 
 
 def test_diff_against_live(studies):
-    first = p.build_release(studies, "", discover_ids=[])
+    first = p.build_release(studies, "", discover=[])
     assert [b["book"] for b in p.diff(first, None).added] == ["JHN", "ROM"]
     s = studies.load("JHN.3.18")
     s["status"] = "reviewed"
     s["meta"]["reviewedBy"] = "Sam"
     s["meta"]["reviewedAt"] = "2026-11-21T00:00:00+00:00"
     studies.save(s)
-    second = p.build_release(studies, "", discover_ids=["JHN.3.16"])
+    second = p.build_release(studies, "", discover=[("JHN.3.16", "hope")])
     d = p.diff(second, first.manifest, live_discover=[])
     assert [new["book"] for _, new in d.changed] == ["JHN"] and [b["book"] for b in d.unchanged] == ["ROM"]
     text = p.render_diff(d, second, first.manifest)
     assert "JHN: 2 -> 3 verses (+1), reviewed 1 -> 2 (+1)" in text and "Discover: 0 -> 1" in text
-    assert not p.diff(second, second.manifest, ["JHN.3.16"]).any
+    assert not p.diff(second, second.manifest, ["JHN.3.16 hope"]).any
+    assert p.diff(second, second.manifest, ["JHN.3.16 love"]).any  # a theme change is a change
 
 
 def test_write_site_keeps_previous_versions_for_in_flight_clients(studies, tmp_path):
     site = tmp_path / "site"
-    first = p.build_release(studies, "https://x.web.app", discover_ids=[])
+    first = p.build_release(studies, "https://x.web.app", discover=[])
     p.write_site(first, site)
     s = studies.load("ROM.5.8")
     s["applyIt"] += " More."
     studies.save(s)
-    second = p.build_release(studies, "https://x.web.app", discover_ids=[])
+    second = p.build_release(studies, "https://x.web.app", discover=[])
     kept = p.write_site(second, site, keep_from=first.manifest)
     old_rom = p._site_path(next(b for b in first.manifest["books"] if b["book"] == "ROM")["url"])
     assert kept == [old_rom] and (site / old_rom).exists()
-    third = p.build_release(studies, "https://x.web.app", discover_ids=[])
+    third = p.build_release(studies, "https://x.web.app", discover=[])
     p.write_site(third, site, keep_from=second.manifest)  # two releases on: the oldest file goes
     assert not (site / old_rom).exists()
     assert json.loads((site / "manifest.json").read_text()) == third.manifest

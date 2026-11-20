@@ -16,6 +16,21 @@ prompt change could remove.
 **Revisit if:** a WARN turns out to be a real error a reader would notice, or WARNs cluster in one section or category.
 Don't retune the number per run.
 
+## 2026-11-19: Discover card redesign
+
+### 21. Discover cards carry a required theme, and stay visible with Hide AI studies on
+discover.json moved to format 2: each verse is `{"id", "theme"}`, theme one of trust / hope / love, which picks the
+card's colours, label and background art. The pipeline refuses to publish a discover.txt line without a known theme
+(the batch wave still reads ids alone), and the app ignores a format-1 file and any entry whose theme it doesn't know,
+so a card is never drawn without one. The list itself is Scripture, so Discover no longer disappears when Hide AI
+studies is on: the cards drop the AI-written hook and "Did you know?", show a line from the source data (original
+language, cross-reference count) when the study is on the phone, open the verse in context instead of the study, and
+nothing is prefetched. The discover.json download now happens with the setting on too (no AI text in it; same host).
+**Why:** the approved design gives each card a theme, and the user wanted every card to need one; hiding the whole tab
+took Scripture away from people who only object to AI prose.
+**Revisit if:** more themes are needed (add to publish.DISCOVER_THEMES, DiscoverTheme and the palettes together; older
+apps drop cards with the new theme), or people with the setting on ask for a fully AI-free Discover tab.
+
 ## 2026-11-19: Community refresh and empty states
 
 ### 18. The Community tab re-checks its list when stale (6 h) or re-pinned, and reads this month's counters on open

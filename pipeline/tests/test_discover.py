@@ -61,14 +61,35 @@ def test_renumbered_psalm_is_reported(dbs, tmp_path):
 def test_wave_and_discover_json_use_the_same_list_in_order(monkeypatch, tmp_path, store, written):
     from conftest import put
     path = tmp_path / "discover.txt"
-    path.write_text("ROM.5.8\nJHN.3.16\nGEN.1.1\n")
+    path.write_text("ROM.5.8 love\nJHN.3.16 love\nGEN.1.1 trust\n")
     monkeypatch.setattr(p, "DISCOVER_FILE", path)
     monkeypatch.setattr(p.load_discover, "__defaults__", (path,))
+    monkeypatch.setattr(p.load_discover_entries, "__defaults__", (path,))
     assert waves.wave_ids(waves.load().get("discover"), []) == ["ROM.5.8", "JHN.3.16", "GEN.1.1"]
     for study_id in ("JHN.3.16", "ROM.5.8"):
         put(store, {**written, "id": study_id, "status": "auto_checked"})
-    release = p.build_release(store, "")  # discover_ids defaults to load_discover()
-    assert json.loads(release.files["discover.json"])["verses"] == ["ROM.5.8", "JHN.3.16"]  # unpublished dropped
+    release = p.build_release(store, "")  # discover defaults to load_discover_entries()
+    assert json.loads(release.files["discover.json"]) == {  # unpublished dropped
+        "formatVersion": 2, "verses": [{"id": "ROM.5.8", "theme": "love"}, {"id": "JHN.3.16", "theme": "love"}]}
+
+
+def test_audit_reports_missing_and_unknown_themes(dbs, tmp_path):
+    path = tmp_path / "discover.txt"
+    path.write_text("JHN.3.16 love\nPSA.23.1\nROM.5.8 joy\n")
+    report = audit(path, *dbs)
+    assert [(l.text, why) for l, why in report.themes] == [("PSA.23.1", "no theme"), ("ROM.5.8 joy", "unknown theme 'joy'")]
+    assert not report.clean and "Theme missing or unknown" in render(report, path)
+
+
+def test_wave_loader_allows_a_missing_theme_but_publish_does_not(tmp_path):
+    path = tmp_path / "discover.txt"
+    path.write_text("JHN.3.16 love\nPSA.23.1\n")
+    assert p.load_discover(path) == ["JHN.3.16", "PSA.23.1"]
+    with pytest.raises(ValueError, match="has no theme"):
+        p.load_discover_entries(path)
+    path.write_text("JHN.3.16 joy\n")
+    with pytest.raises(ValueError, match="unknown theme"):
+        p.load_discover(path)
 
 
 def test_strict_loader_refuses_duplicates(tmp_path):

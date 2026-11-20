@@ -14,6 +14,27 @@ fun studyTeaser(study: Study, maxChars: Int = 140): String {
     return "$cut…"
 }
 
+/**
+ * D1 card hook: the teaser with verse numbers taken out, so the card never says "(v. 8)" next to a verse it shows
+ * on its own. Removes parenthesised or bracketed verse markers ("(v. 8)", "(vv. 7–8)", "(verse 8)", "[8]") and a
+ * leading verse number ("8 Blessed is…"); prose such as "in verse 8" is left alone (the pipeline checks reject it).
+ */
+fun studyHook(study: Study, maxChars: Int = 140): String {
+    val cleaned = stripVerseNumbers(study.meaning)
+    return studyTeaser(study.copy(meaning = cleaned), maxChars)
+}
+
+internal fun stripVerseNumbers(text: String): String = text
+    .replace(PAREN_VERSE, "")
+    .replace(LEADING_NUMBER, "")
+    .replace(SPACE_BEFORE_PUNCT, "$1")
+    .replace(Regex(" {2,}"), " ")
+    .trim()
+
+private val PAREN_VERSE = Regex("""\s*[(\[]\s*(?:(?:vv?\.|verses?)\s*)?\d+(?:\s*[–\-,]\s*\d+)*\s*[)\]]""", RegexOption.IGNORE_CASE)
+private val LEADING_NUMBER = Regex("""^\s*\d+\s+(?=\p{L})""")
+private val SPACE_BEFORE_PUNCT = Regex("""\s+([.,;:!?])""")
+
 /** A cross reference ("ROM.8.28" or "JHN.1.1-JHN.1.3") as app refs; null if malformed. */
 data class RefRange(val start: VerseRef, val end: VerseRef)
 

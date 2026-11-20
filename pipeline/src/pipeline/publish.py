@@ -97,20 +97,48 @@ def validators() -> tuple[Draft202012Validator, Draft202012Validator]:
     return book, manifest
 
 
-def load_discover(path: Path = DISCOVER_FILE) -> list[str]:
-    ids = []
+# Each Discover card's look (colours, background art, label). The app drops a card whose theme it doesn't know.
+DISCOVER_THEMES = ("trust", "hope", "love")
+# discover.json v2: {"formatVersion": 2, "verses": [{"id": "JER.17.8", "theme": "trust"}, ...]}
+DISCOVER_FORMAT_VERSION = 2
+
+
+def _discover_lines(path: Path, require_theme: bool) -> list[tuple[str, str | None]]:
+    entries: list[tuple[str, str | None]] = []
+    seen: set[str] = set()
     for number, line in enumerate(path.read_text().splitlines() if path.exists() else [], start=1):
         text = line.split("#", 1)[0].strip()
         if not text:
             continue
+        parts = text.split()
         try:
-            parse_id(text)
+            parse_id(parts[0])
         except ValueError:
-            raise ValueError(f"{path.name}:{number}: not a study id: {text!r}") from None
-        if text in ids:
-            raise ValueError(f"{path.name}:{number}: {text} is listed twice")
-        ids.append(text)
-    return ids
+            raise ValueError(f"{path.name}:{number}: not a study id: {parts[0]!r}") from None
+        if len(parts) > 2:
+            raise ValueError(f"{path.name}:{number}: expected \"ID theme\", got {text!r}")
+        theme = parts[1] if len(parts) == 2 else None
+        if theme is not None and theme not in DISCOVER_THEMES:
+            raise ValueError(f"{path.name}:{number}: unknown theme {theme!r} (use {', '.join(DISCOVER_THEMES)})")
+        if theme is None and require_theme:
+            raise ValueError(f"{path.name}:{number}: {parts[0]} has no theme; every Discover card needs one "
+                             f"({', '.join(DISCOVER_THEMES)}), e.g. \"{parts[0]} trust\"")
+        if parts[0] in seen:
+            raise ValueError(f"{path.name}:{number}: {parts[0]} is listed twice")
+        seen.add(parts[0])
+        entries.append((parts[0], theme))
+    return entries
+
+
+def load_discover_entries(path: Path = DISCOVER_FILE) -> list[tuple[str, str]]:
+    """discover.txt lines "JER.17.8 trust" -> [(id, theme)], in file order. Strict: every line needs a known theme
+    (publish uses this, so discover.json never carries a card without one)."""
+    return [(i, t) for i, t in _discover_lines(path, require_theme=True) if t is not None]
+
+
+def load_discover(path: Path = DISCOVER_FILE) -> list[str]:
+    """The Discover ids in order (the batch wave and review queue). A missing theme is allowed here, a bad one isn't."""
+    return [i for i, _ in _discover_lines(path, require_theme=False)]
 
 
 @dataclass
@@ -123,7 +151,7 @@ class Release:
     devotionals_left_out: dict[str, dict[str, int]] = field(default_factory=dict)  # month -> {status: count}
 
 
-def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str] | None = None,
+def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[str, str]] | None = None,
                   devotionals=None, ministries_path: Path | None = None) -> Release:
     """
     devotionals: a DevotionalStore, or None for none (the manifest then lists no months).
@@ -175,10 +203,14 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
             "sha256": digest, "bytes": len(data),
         })
 
-    wanted = discover_ids if discover_ids is not None else load_discover()
-    discover = {"formatVersion": FORMAT_VERSION, "verses": [i for i in wanted if i in published]}
-    files["discover.json"] = canonical_json(discover)
-    discover_entry = {"url": prefix + "discover.json", "count": len(discover["verses"]),
+    wanted = discover if discover is not None else load_discover_entries()
+    for i, theme in wanted:
+        if theme not in DISCOVER_THEMES:
+            raise ValueError(f"Discover verse {i} has unknown theme {theme!r}")
+    discover_file = {"formatVersion": DISCOVER_FORMAT_VERSION,
+                     "verses": [{"id": i, "theme": theme} for i, theme in wanted if i in published]}
+    files["discover.json"] = canonical_json(discover_file)
+    discover_entry = {"url": prefix + "discover.json", "count": len(discover_file["verses"]),
                       "sha256": hashlib.sha256(files["discover.json"]).hexdigest(), "bytes": len(files["discover.json"])}
 
     months = collect(devotionals)
@@ -198,7 +230,7 @@ def build_release(store: StudyStore, base_url: str = "", discover_ids: list[str]
     if errors:
         raise ValueError(f"manifest fails schema/manifest.json: {errors[:5]}")
     files["manifest.json"] = canonical_json(manifest)
-    return Release(manifest, files, left_out, [i for i in wanted if i not in published], reported, months.left_out)
+    return Release(manifest, files, left_out, [i for i, _ in wanted if i not in published], reported, months.left_out)
 
 
 def write_site(release: Release, site: Path = SITE, keep_from: dict | None = None) -> list[str]:
@@ -309,15 +341,20 @@ def diff(release: Release, live: dict | None, live_discover: list[str] | None = 
     d.months_removed = [m for name, m in old_months.items() if name not in new_months]
     d.community_changed = (live or {}).get("community", {}).get("sha256") != release.manifest.get("community", {}).get("sha256")
     d.discover_before = live_discover or []
-    d.discover_after = json.loads(release.files["discover.json"])["verses"]
+    d.discover_after = discover_keys(json.loads(release.files["discover.json"])["verses"])
     return d
+
+
+def discover_keys(verses: list) -> list[str]:
+    """discover.json verses as "ID theme" strings, so a theme change shows in the diff. v1 files hold bare ids."""
+    return [v if isinstance(v, str) else f"{v['id']} {v['theme']}" for v in verses]
 
 
 def fetch_live_discover(base_url: str) -> list[str]:
     try:
         require_online("fetch the live discover.json")
         with urllib.request.urlopen(base_url.rstrip("/") + "/discover.json", timeout=30) as response:
-            return json.loads(response.read()).get("verses", [])
+            return discover_keys(json.loads(response.read()).get("verses", []))
     except (urllib.error.URLError, ValueError):
         return []
 

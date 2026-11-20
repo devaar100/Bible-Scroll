@@ -1,5 +1,12 @@
 # Project status audit
 
+## Updates since the audit
+
+- 2026-11-19, D1 Discover card redesign (decision 21): themed cards (trust/hope/love, required `theme` in discover.json
+  format 2), hook + "Did you know?" from the study, five actions (like, note, bookmark, copy, share as image), visible
+  with Hide AI studies on. Pipeline: discover.txt lines are now "ID theme"; **the shipped discover.txt has no themes
+  yet**, so `publish` refuses it until each line has one (`python -m pipeline discover` lists them).
+
 Audit date: 2026-11-18 (read-only; the only file changed is this one). Sources: CLAUDE.md, docs/spec.md,
 docs/decisions.md, docs/network-calls.md, pipeline/CLAUDE.md, the code, the build and test runs below, and a
 read-only GET of the live CDN manifest.

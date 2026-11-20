@@ -17,7 +17,7 @@ Callers of that host:
 
 - `BookDownloader`: manifest + book study files (on demand, and from `StudyRefreshWorker`).
 - `DevotionalDownloader`: manifest + devotional month files.
-- `DiscoverRepository`: manifest + `discover.json`.
+- `DiscoverRepository`: manifest + `discover.json` (format 2: verse ids and card themes, no AI text), once per Discover visit and on Retry. Since 2026-11-19 this also runs with Hide AI studies on; study books are still never prefetched then.
 - `StudyRefreshWorker` (WorkManager, unique periodic, every 7 days, unmetered network + battery not low; scheduled in `BibleScrollApplication`).
 - `CommunityContentRepository`: manifest + `ministries.json`. When the Community tab is shown (every resume), only if
   nothing is cached, the last check is over 6 hours old, or the manifest cached by another downloader pins a different

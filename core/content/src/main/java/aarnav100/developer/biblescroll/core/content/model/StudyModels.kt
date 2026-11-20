@@ -142,6 +142,14 @@ data class BundledManifest(
     val books: List<ManifestBook>,
 )
 
-/** discover.json: curated Discover verses, in feed order. */
+/** discover.json (format 2): curated Discover verses, in feed order, each with the theme its card is drawn in. */
 @Serializable
-data class DiscoverFile(val formatVersion: Int, val verses: List<String>)
+data class DiscoverFile(val formatVersion: Int, val verses: List<DiscoverVerse>)
+
+@Serializable
+data class DiscoverVerse(
+    /** Study id, e.g. "JER.17.8". */
+    val id: String,
+    /** "trust", "hope" or "love" (pipeline publish.DISCOVER_THEMES). Required: a card without a known theme isn't shown. */
+    val theme: String,
+)

@@ -23,8 +23,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
 - Study request input: context.py is shared by the request and the reference check (4 verses each side within the
   book; whole psalm if <= 30 verses, plus its heading labelled as superscription). prompts/books.json (book
   background, textNotes) is read by the user before any batch; only a textNote allows a manuscript remark.
-- Discover: discover.txt (one id per line, display order) feeds both `batch --wave discover` and publish's
-  discover.json through publish.load_discover. Keep it the single loader so the order can't diverge.
+- Discover: discover.txt ("ID theme" per line, display order; themes trust/hope/love, publish.DISCOVER_THEMES) feeds both `batch --wave discover` and publish's
+  discover.json through publish.load_discover / load_discover_entries (publish refuses a line without a theme; the wave ignores themes). Keep them the single loader so the order can't diverge.
   `python -m pipeline discover` audits it; never edit discover.txt for the user.
 - Checks: rules in `checks/` (banned.txt, pipeline_wording.txt, limits.json; lengths pass up to 20% over max); code
   checks also reject verse-number/position wording and dotted transliterations. Bump `CHECKER_VERSION` in checks.py

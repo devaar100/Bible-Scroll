@@ -234,7 +234,7 @@ def publishable_set(tmp_path, drafted):
 
 def test_release_has_one_file_per_month_with_only_publishable_days(tmp_path, drafted):
     store = publishable_set(tmp_path, drafted)
-    release = p.build_release(StudyStore(tmp_path), "https://x.web.app", discover_ids=[], devotionals=store)
+    release = p.build_release(StudyStore(tmp_path), "https://x.web.app", discover=[], devotionals=store)
     months = release.manifest["devotionals"]["months"]
     assert [m["month"] for m in months] == ["02", "11"]
     feb = json.loads(gzip.decompress(release.files[p._site_path(months[0]["url"])]))
@@ -244,20 +244,20 @@ def test_release_has_one_file_per_month_with_only_publishable_days(tmp_path, dra
     assert nov["devotionals"][0]["reviewed"] and "Sam Private" not in text and "checks" not in text
     assert months[1]["url"].startswith("https://x.web.app/devotionals/v") and months[1]["reviewedCount"] == 1
     assert release.devotionals_left_out == {"02": {"flagged": 1}, "03": {"generated": 1}}
-    again = p.build_release(StudyStore(tmp_path), "https://x.web.app", discover_ids=[], devotionals=store)
+    again = p.build_release(StudyStore(tmp_path), "https://x.web.app", discover=[], devotionals=store)
     assert again.files == release.files  # byte-deterministic
 
 
 def test_diff_and_site_keep_previous_month_files(tmp_path, drafted):
     store = publishable_set(tmp_path, drafted)
-    first = p.build_release(StudyStore(tmp_path), "", discover_ids=[], devotionals=store)
+    first = p.build_release(StudyStore(tmp_path), "", discover=[], devotionals=store)
     site = tmp_path / "site"
     p.write_site(first, site)
     d = p.diff(first, first.manifest, [])
     assert not d.any
     changed = store.load("devotional-11-09")
     store.save(dict(changed, title="New title"))
-    second = p.build_release(StudyStore(tmp_path), "", discover_ids=[], devotionals=store)
+    second = p.build_release(StudyStore(tmp_path), "", discover=[], devotionals=store)
     d = p.diff(second, first.manifest, [])
     assert d.any and [new["month"] for _, new in d.months_changed] == ["11"]
     assert "~ devotionals 11" in p.render_diff(d, second, first.manifest)
@@ -272,7 +272,7 @@ def test_bundled_months_wrap(today, months):
 
 def test_bundle_copies_current_and_next_month(tmp_path, drafted):
     store = publishable_set(tmp_path, drafted)
-    release = p.build_release(StudyStore(tmp_path), "", discover_ids=[], devotionals=store)
+    release = p.build_release(StudyStore(tmp_path), "", discover=[], devotionals=store)
     site, assets = tmp_path / "site", tmp_path / "assets"
     p.write_site(release, site)
     assets.mkdir()

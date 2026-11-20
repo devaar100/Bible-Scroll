@@ -12,7 +12,7 @@ from pipeline.bundle import bundle
 def site(store, written, tmp_path):
     for study_id in ("JHN.3.16", "ROM.5.8", "PSA.23.1"):
         put(store, dict(copy.deepcopy(written), id=study_id, status="reviewed"))
-    release = p.build_release(store, "https://x.web.app", discover_ids=[])
+    release = p.build_release(store, "https://x.web.app", discover=[])
     site = tmp_path / "site"
     p.write_site(release, site)
     return site, release

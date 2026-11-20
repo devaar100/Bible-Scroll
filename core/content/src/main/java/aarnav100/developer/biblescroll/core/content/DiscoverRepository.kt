@@ -22,8 +22,21 @@ sealed interface DiscoverFeed {
     data object NeverLoaded : DiscoverFeed
 
     /** Curated verses whose book is on the device or downloadable, in feed order (may be empty). */
-    data class Ready(val verses: List<VerseKey>) : DiscoverFeed
+    data class Ready(val verses: List<DiscoverItem>) : DiscoverFeed
 }
+
+/** A Discover card's look (colours, background art, label). Every card has one. */
+enum class DiscoverTheme(val id: String) {
+    TRUST("trust"),
+    HOPE("hope"),
+    LOVE("love");
+
+    companion object {
+        fun fromId(id: String): DiscoverTheme? = entries.firstOrNull { it.id == id }
+    }
+}
+
+data class DiscoverItem(val key: VerseKey, val theme: DiscoverTheme)
 
 /** D1: the curated Discover list (discover.json), verified and cached for offline use. */
 class DiscoverRepository(
@@ -44,7 +57,7 @@ class DiscoverRepository(
             snap.discover == null -> if (snap.triedNetwork) DiscoverFeed.NeverLoaded else DiscoverFeed.Loading
             else -> {
                 val available = stored.map { it.bookId }.toSet() + snap.manifest?.books?.map { it.bookId }.orEmpty()
-                DiscoverFeed.Ready(snap.discover.verses.mapNotNull(BookCodes::parse).filter { it.bookId in available })
+                DiscoverFeed.Ready(items(snap.discover).filter { it.key.bookId in available })
             }
         }
     }.onStart { if (snapshot.value == null) loadCached() }
@@ -65,6 +78,7 @@ class DiscoverRepository(
                     false
                 } else {
                     val discover = json.decodeFromString(DiscoverFile.serializer(), discoverBytes.decodeToString())
+                    require(discover.formatVersion == FORMAT_VERSION) { "discover.json format ${discover.formatVersion}" }
                     cache.write(ContentCache.MANIFEST, manifestBytes)
                     cache.write(ContentCache.DISCOVER, discoverBytes)
                     snapshot.value = Snapshot(manifest, discover, triedNetwork = true)
@@ -88,13 +102,32 @@ class DiscoverRepository(
 
     private suspend fun loadCached() = withContext(io) {
         val manifest = cache.read(ContentCache.MANIFEST)?.let { decodeOrNull(Manifest.serializer(), it) }
+        // An older cached file (format 1, no themes) is ignored: the next refresh replaces it.
         val discover = cache.read(ContentCache.DISCOVER)?.let { decodeOrNull(DiscoverFile.serializer(), it) }
+            ?.takeIf { it.formatVersion == FORMAT_VERSION }
         snapshot.compareAndSet(null, Snapshot(manifest, discover, triedNetwork = false))
     }
 
     private fun <T> decodeOrNull(serializer: kotlinx.serialization.KSerializer<T>, bytes: ByteArray): T? =
-        try { json.decodeFromString(serializer, bytes.decodeToString()) } catch (e: SerializationException) { null }
+        try {
+            json.decodeFromString(serializer, bytes.decodeToString())
+        } catch (e: SerializationException) {
+            null
+        } catch (e: IllegalArgumentException) {
+            null
+        }
 
     private fun url(path: String): String =
         if (path.startsWith("http://") || path.startsWith("https://")) path else baseUrl.trimEnd('/') + "/" + path.trimStart('/')
+
+    companion object {
+        const val FORMAT_VERSION = 2
+
+        /** Cards in file order; an entry with a malformed id or a theme this app doesn't know is left out. */
+        fun items(file: DiscoverFile): List<DiscoverItem> = file.verses.mapNotNull { v ->
+            val key = BookCodes.parse(v.id) ?: return@mapNotNull null
+            val theme = DiscoverTheme.fromId(v.theme) ?: return@mapNotNull null
+            DiscoverItem(key, theme)
+        }
+    }
 }

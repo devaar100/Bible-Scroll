@@ -61,7 +61,7 @@ def test_featured_filters_by_month_and_test():
 
 
 def test_publish_pins_ministries_json_in_the_manifest(store, tmp_path):
-    release = p.build_release(store, "https://x.web.app", discover_ids=[], ministries_path=write(tmp_path, GOOD))
+    release = p.build_release(store, "https://x.web.app", discover=[], ministries_path=write(tmp_path, GOOD))
 
     data = release.files["ministries.json"]
     assert json.loads(data) == GOOD  # published as-is: the app filters test entries itself
@@ -72,12 +72,12 @@ def test_publish_pins_ministries_json_in_the_manifest(store, tmp_path):
 
 
 def test_no_ministries_file_leaves_community_out(store, tmp_path):
-    release = p.build_release(store, "", discover_ids=[], ministries_path=tmp_path / "none.json")
+    release = p.build_release(store, "", discover=[], ministries_path=tmp_path / "none.json")
     assert "community" not in release.manifest and "ministries.json" not in release.files
 
 
 def test_dry_run_shows_a_ministries_change(store, tmp_path):
-    release = p.build_release(store, "", discover_ids=[], ministries_path=write(tmp_path, GOOD))
+    release = p.build_release(store, "", discover=[], ministries_path=write(tmp_path, GOOD))
     live = {"books": [], "devotionals": {"months": []}, "release": "old"}
 
     d = p.diff(release, live)

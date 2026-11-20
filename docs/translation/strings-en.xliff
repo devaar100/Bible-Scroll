@@ -25,12 +25,12 @@
       </trans-unit>
       <trans-unit id="feed_like" resname="feed_like">
         <source>Like</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; D1 Discover tab</note>
         <note from="developer">Bible feed (B1)</note>
       </trans-unit>
       <trans-unit id="feed_unlike" resname="feed_unlike">
         <source>Unlike</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_note" resname="feed_note">
         <source>Note</source>
@@ -38,7 +38,7 @@
       </trans-unit>
       <trans-unit id="feed_note_add" resname="feed_note_add">
         <source>Add note</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_verse_cd" resname="feed_verse_cd">
         <source>%1$s %2$s, %3$s</source>
@@ -56,7 +56,7 @@
       </trans-unit>
       <trans-unit id="feed_copied" resname="feed_copied">
         <source>Verse copied</source>
-        <note from="where">B1 Bible feed; H1 Home tab; H11 Plan reader</note>
+        <note from="where">B1 Bible feed; D1 Discover tab; H1 Home tab; H11 Plan reader</note>
       </trans-unit>
       <trans-unit id="feed_share_chooser" resname="feed_share_chooser">
         <source>Share verse</source>
@@ -109,15 +109,15 @@
       </trans-unit>
       <trans-unit id="feed_note_edit" resname="feed_note_edit">
         <source>Edit note</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_bookmark" resname="feed_bookmark">
         <source>Bookmark verse</source>
-        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_unbookmark" resname="feed_unbookmark">
         <source>Remove bookmark</source>
-        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: top bar; B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_liked_filter_on" resname="feed_liked_filter_on">
         <source>Show liked verses only</source>
@@ -151,7 +151,7 @@
       </trans-unit>
       <trans-unit id="actions_share_image" resname="actions_share_image">
         <source>Share as image</source>
-        <note from="where">B10 Share verse as image; B7 Verse actions sheet; H1 Home tab</note>
+        <note from="where">B10 Share verse as image; B7 Verse actions sheet; D1 Discover tab; H1 Home tab</note>
       </trans-unit>
       <trans-unit id="actions_widget_verse" resname="actions_widget_verse">
         <source>Set as widget verse</source>
@@ -1014,7 +1014,7 @@
       </trans-unit>
       <trans-unit id="study_did_you_know" resname="study_did_you_know">
         <source>Did you know?</source>
-        <note from="where">B8/D2 Verse study</note>
+        <note from="where">B8/D2 Verse study; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="study_apply_it" resname="study_apply_it">
         <source>Apply it</source>
@@ -1108,23 +1108,70 @@
       </trans-unit>
       <trans-unit id="study_hidden_show" resname="study_hidden_show">
         <source>Show studies again</source>
-        <note from="where">B8/D2 Verse study; D1 Discover tab</note>
+        <note from="where">B8/D2 Verse study</note>
       </trans-unit>
-      <trans-unit id="discover_read_study" resname="discover_read_study">
-        <source>Read the study</source>
+      <trans-unit id="discover_theme_trust" resname="discover_theme_trust">
+        <source>Trust</source>
         <note from="where">D1 Discover tab</note>
         <note from="developer">D1 Discover</note>
       </trans-unit>
-      <trans-unit id="discover_open_to_read" resname="discover_open_to_read">
-        <source>Open to read the study.</source>
+      <trans-unit id="discover_theme_hope" resname="discover_theme_hope">
+        <source>Hope</source>
         <note from="where">D1 Discover tab</note>
       </trans-unit>
-      <trans-unit id="discover_hidden_title" resname="discover_hidden_title">
-        <source>Discover is turned off</source>
+      <trans-unit id="discover_theme_love" resname="discover_theme_love">
+        <source>Love</source>
         <note from="where">D1 Discover tab</note>
       </trans-unit>
-      <trans-unit id="discover_hidden_body" resname="discover_hidden_body">
-        <source>Discover is made of AI-assisted verse studies, and you\'ve chosen to hide those in Settings. You can turn them back on any time.</source>
+      <trans-unit id="discover_read_in_context" resname="discover_read_in_context">
+        <source>Read in context ›</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_open_study_cd" resname="discover_open_study_cd">
+        <source>Open study for %1$s</source>
+        <note from="where">D1 Discover tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="discover_open_in_context_cd" resname="discover_open_in_context_cd">
+        <source>Read %1$s in context</source>
+        <note from="where">D1 Discover tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="discover_copy_cd" resname="discover_copy_cd">
+        <source>Copy verse</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_state_liked" resname="discover_state_liked">
+        <source>Liked</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_state_not_liked" resname="discover_state_not_liked">
+        <source>Not liked</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_data_language" resname="discover_data_language">
+        <source>Original language: %1$s</source>
+        <note from="where">D1 Discover tab</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="discover_data_cross_refs[one]" resname="discover_data_cross_refs[one]">
+        <source>%d cross reference</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_data_cross_refs[other]" resname="discover_data_cross_refs[other]">
+        <source>%d cross references</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_lang_hebrew" resname="discover_lang_hebrew">
+        <source>Hebrew</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_lang_aramaic" resname="discover_lang_aramaic">
+        <source>Aramaic</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_lang_greek" resname="discover_lang_greek">
+        <source>Greek</source>
         <note from="where">D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="discover_offline_title" resname="discover_offline_title">
@@ -2243,7 +2290,7 @@
       </trans-unit>
       <trans-unit id="two_parts" resname="two_parts">
         <source>%1$s · %2$s</source>
-        <note from="where">B10 Share verse as image; C1 Community tab; H1 Home tab; H11 Plan reader; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
+        <note from="where">B10 Share verse as image; C1 Community tab; D1 Discover tab; H1 Home tab; H11 Plan reader; H12 Plan days &amp; notes; H16 Devotional reader; H8 Reading plans browser; H9 Plan detail / H10 Start plan dialog; Home-screen widget; O1-O8 Onboarding; S1-S4 Settings</note>
         <note from="developer">Two short labels shown together on one line, e.g. "Dark · Sepia". Change the separator if your language needs.</note>
         <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
       </trans-unit>

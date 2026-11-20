@@ -384,14 +384,14 @@ def test_publish_refuses_a_cc_test_folder(tmp_path, written):
     folder.directory.mkdir(parents=True)
     put(folder, dict(written, status="auto_checked"))
     with pytest.raises(p.TestArtifactError):
-        p.build_release(folder, "", discover_ids=[])
+        p.build_release(folder, "", discover=[])
 
 
 def test_publish_refuses_a_subagent_study_anywhere(store, written):
     put(store, dict(written, status="auto_checked",
                     meta=dict(written["meta"], source="claude-code-subagent", round=1)))
     with pytest.raises(p.TestArtifactError, match="test artifact"):
-        p.build_release(store, "", discover_ids=[])
+        p.build_release(store, "", discover=[])
 
 
 def test_bundle_and_write_site_refuse_cc_test(tmp_path):

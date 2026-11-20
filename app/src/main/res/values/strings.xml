@@ -304,10 +304,23 @@
     <string name="study_hidden_body">You turned off AI-assisted studies in Settings. Scripture, notes and plans are still here.</string>
     <string name="study_hidden_show">Show studies again</string>
     <!-- D1 Discover -->
-    <string name="discover_read_study">Read the study</string>
-    <string name="discover_open_to_read">Open to read the study.</string>
-    <string name="discover_hidden_title">Discover is turned off</string>
-    <string name="discover_hidden_body">Discover is made of AI-assisted verse studies, and you\'ve chosen to hide those in Settings. You can turn them back on any time.</string>
+    <string name="discover_theme_trust">Trust</string>
+    <string name="discover_theme_hope">Hope</string>
+    <string name="discover_theme_love">Love</string>
+    <string name="discover_read_in_context">Read in context ›</string>
+    <string name="discover_open_study_cd">Open study for %1$s</string>
+    <string name="discover_open_in_context_cd">Read %1$s in context</string>
+    <string name="discover_copy_cd">Copy verse</string>
+    <string name="discover_state_liked">Liked</string>
+    <string name="discover_state_not_liked">Not liked</string>
+    <string name="discover_data_language">Original language: %1$s</string>
+    <plurals name="discover_data_cross_refs">
+        <item quantity="one">%d cross reference</item>
+        <item quantity="other">%d cross references</item>
+    </plurals>
+    <string name="discover_lang_hebrew">Hebrew</string>
+    <string name="discover_lang_aramaic">Aramaic</string>
+    <string name="discover_lang_greek">Greek</string>
     <string name="discover_offline_title">Connect to see Discover</string>
     <string name="discover_offline_body">The Discover list downloads the first time you\'re online, then works offline.</string>
     <string name="discover_empty_title">Nothing to discover yet</string>

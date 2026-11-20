@@ -4,7 +4,11 @@ import aarnav100.developer.biblescroll.core.content.BookDownloader
 import aarnav100.developer.biblescroll.core.content.BookImporter
 import aarnav100.developer.biblescroll.core.content.ContentCache
 import aarnav100.developer.biblescroll.core.content.DiscoverRepository
+import aarnav100.developer.biblescroll.core.content.DiscoverTheme
 import aarnav100.developer.biblescroll.core.content.StudyRepository
+import aarnav100.developer.biblescroll.core.content.model.Language
+import aarnav100.developer.biblescroll.data.user.LocalUserDataRepository
+import aarnav100.developer.biblescroll.ui.navigation.PendingVerseLink
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.settings.SettingsRepository
@@ -12,6 +16,7 @@ import aarnav100.developer.biblescroll.testing.ContentJson
 import aarnav100.developer.biblescroll.testing.FakeBibleRepository
 import aarnav100.developer.biblescroll.testing.FakeContent
 import aarnav100.developer.biblescroll.testing.FakePreferencesDataStore
+import aarnav100.developer.biblescroll.testing.FakeUserDao
 import aarnav100.developer.biblescroll.testing.sampleStudy
 import androidx.lifecycle.SavedStateHandle
 import kotlinx.coroutines.CoroutineScope
@@ -43,6 +48,8 @@ class DiscoverViewModelTest {
     private val content = FakeContent()
     private val dataStore = FakePreferencesDataStore()
     private val settings = SettingsRepository(dataStore)
+    private val userData = LocalUserDataRepository(FakeUserDao()) { 1L }
+    private val link = PendingVerseLink()
 
     @Before fun setUp() = Dispatchers.setMain(UnconfinedTestDispatcher())
     @After fun tearDown() = Dispatchers.resetMain()
@@ -55,7 +62,7 @@ class DiscoverViewModelTest {
         val discover = DiscoverRepository(content.api, ContentCache(temp.newFolder()), content.store, ContentJson,
             "https://cdn.test/", dispatcher)
         return DiscoverViewModel(savedState, discover, studies, content.network, settings, FakeBibleRepository(),
-            ReaderPreferences(dataStore)).also { vm -> backgroundScope.launch(dispatcher) { vm.uiState.collect {} } }
+            userData, link, ReaderPreferences(dataStore)).also { vm -> backgroundScope.launch(dispatcher) { vm.uiState.collect {} } }
     }
 
     private fun publishFeed() {
@@ -71,7 +78,8 @@ class DiscoverViewModelTest {
         val vm = viewModel()
         advanceUntilIdle()
         val ready = vm.uiState.value as DiscoverUiState.Ready
-        assertEquals(listOf(VerseRef(43, 3, 16), VerseRef(1, 1, 1), VerseRef(19, 119, 105), VerseRef(43, 14, 6)), ready.cards)
+        assertEquals(listOf(VerseRef(43, 3, 16), VerseRef(1, 1, 1), VerseRef(19, 119, 105), VerseRef(43, 14, 6)), ready.cards.map { it.ref })
+        assertTrue(ready.cards.all { it.theme == DiscoverTheme.TRUST })
         assertEquals(0, ready.startIndex)
     }
 
@@ -81,9 +89,10 @@ class DiscoverViewModelTest {
         content.network.unmeteredState.value = false
         val vm = viewModel()
         advanceUntilIdle()
-        val card = vm.card(VerseRef(43, 3, 16)).first()
+        val card = vm.card(ref(43, 3, 16)).first()
         assertEquals("John 3:16", card.reference)
-        assertNull(card.teaser)
+        assertNull(card.hook)
+        assertNull(card.fact)
         assertTrue(content.api.downloads.none { it.endsWith(".json.gz") })
     }
 
@@ -116,20 +125,58 @@ class DiscoverViewModelTest {
         // Next 3 cards: GEN, PSA, JHN -> each book once.
         assertEquals(setOf("GEN", "PSA", "JHN"), content.api.downloads.filter { it.endsWith(".json.gz") }
             .map { it.substringAfterLast('/').removeSuffix(".json.gz") }.toSet())
-        assertEquals("God loves the world.", vm.card(VerseRef(1, 1, 1)).first().teaser)
+        assertEquals("God loves the world.", vm.card(ref(1, 1, 1)).first().hook)
     }
 
     @Test
-    fun hiddenShowsTheExplanationAndFetchesNothing() = runTest {
+    fun hiddenKeepsTheCardsButLeavesOutAiTextAndPrefetchesNothing() = runTest {
         settings.setHideAiStudies(true)
+        publishFeed()
+        content.network.unmeteredState.value = true
+        val vm = viewModel()
+        advanceUntilIdle()
+        val ready = vm.uiState.value as DiscoverUiState.Ready
+        vm.onCardShown(0)
+        advanceUntilIdle()
+        assertTrue(content.api.downloads.none { it.endsWith(".json.gz") })
+        val card = vm.card(ready.cards[0]).first()
+        assertTrue(card.aiHidden)
+        assertNull(card.hook)
+        assertNull(card.fact)
+    }
+
+    @Test
+    fun withAiHiddenAStoredStudyGivesOnlyTheDataLine() = runTest {
+        publishFeed()
+        content.network.unmeteredState.value = true
+        val vm = viewModel()
+        advanceUntilIdle()
+        vm.onCardShown(0) // stores GEN, PSA, JHN
+        advanceUntilIdle()
+        assertEquals("d", vm.card(ref(1, 1, 1)).first().fact)
+        settings.setHideAiStudies(true)
+        advanceUntilIdle()
+        val card = vm.card(ref(1, 1, 1)).first()
+        assertNull(card.hook)
+        assertNull(card.fact)
+        assertEquals(StudyDataLine(Language.GREEK, 1), card.dataLine) // sampleStudy: Greek, one cross reference
+    }
+
+    @Test
+    fun likeBookmarkAndNoteUseTheSharedVerseStorage() = runTest {
         publishFeed()
         val vm = viewModel()
         advanceUntilIdle()
-        assertEquals(DiscoverUiState.Hidden, vm.uiState.value)
-        assertTrue(content.api.downloads.isEmpty())
-        vm.showStudies()
+        val first = vm.card(ref(43, 3, 16)).first()
+        vm.toggleLike(first)
+        vm.toggleBookmark(first)
+        userData.saveNote(VerseRef(43, 3, 16), "mine")
         advanceUntilIdle()
-        assertTrue(vm.uiState.value is DiscoverUiState.Ready)
+        val after = vm.card(ref(43, 3, 16)).first()
+        assertTrue(after.liked && after.bookmarked && after.hasNote)
+        assertEquals(setOf(VerseRef(43, 3, 16)), userData.bookmarkedVerses().first())
+        vm.readInContext(after.ref)
+        assertEquals(VerseRef(43, 3, 16), link.ref.value)
     }
 
     @Test
@@ -145,4 +192,6 @@ class DiscoverViewModelTest {
         advanceUntilIdle()
         assertEquals(DiscoverUiState.Empty, offline.uiState.value)
     }
+
+    private fun ref(book: Int, chapter: Int, verse: Int) = DiscoverCardRef(VerseRef(book, chapter, verse), DiscoverTheme.TRUST)
 }

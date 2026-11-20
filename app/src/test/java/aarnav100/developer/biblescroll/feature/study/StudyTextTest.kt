@@ -23,6 +23,22 @@ class StudyTextTest {
     }
 
     @Test
+    fun hookHasNoVerseNumbers() {
+        fun hook(meaning: String) = studyHook(sampleStudy("JER.17.8", meaning = meaning))
+        assertEquals("A tree by water keeps its leaves.", hook("A tree by water keeps its leaves (v. 8). It bears fruit."))
+        assertEquals("Roots reach the stream.", hook("Roots reach the stream (vv. 7–8)."))
+        assertEquals("Roots reach the stream.", hook("Roots reach the stream [8]."))
+        assertEquals("Blessed is the one who trusts.", hook("7 Blessed is the one who trusts. More."))
+        assertEquals("Trust is like roots (verse 8) in drought.".replace(" (verse 8)", ""), hook("Trust is like roots (verse 8) in drought."))
+    }
+
+    @Test
+    fun hookIsAtMost140Characters() {
+        val long = "Trust " + "keeps ".repeat(40) + "going."
+        assertTrue(studyHook(sampleStudy("JER.17.8", meaning = long)).length <= 141)
+    }
+
+    @Test
     fun crossReferenceLabels() {
         val names = mapOf(1 to "Genesis", 3 to "Leviticus", 4 to "Numbers", 45 to "Romans")
         fun label(ref: String) = formatRefRange(parseRefRange(ref)!!, names)

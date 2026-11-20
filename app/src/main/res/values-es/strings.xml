@@ -301,10 +301,23 @@
     <string name="study_hidden_body">Desactivaste los estudios hechos con IA en Ajustes. Las Escrituras, las notas y los planes siguen aquí.</string>
     <string name="study_hidden_show">Volver a mostrar estudios</string>
     <!-- D1 Discover -->
-    <string name="discover_read_study">Leer el estudio</string>
-    <string name="discover_open_to_read">Abre para leer el estudio.</string>
-    <string name="discover_hidden_title">Descubrir está desactivado</string>
-    <string name="discover_hidden_body">Descubrir está hecho de estudios de versículos con ayuda de IA, y elegiste ocultarlos en Ajustes. Puedes volver a activarlos cuando quieras.</string>
+    <string name="discover_theme_trust">Confianza</string>
+    <string name="discover_theme_hope">Esperanza</string>
+    <string name="discover_theme_love">Amor</string>
+    <string name="discover_read_in_context">Leer en contexto ›</string>
+    <string name="discover_open_study_cd">Abrir el estudio de %1$s</string>
+    <string name="discover_open_in_context_cd">Leer %1$s en contexto</string>
+    <string name="discover_copy_cd">Copiar versículo</string>
+    <string name="discover_state_liked">Te gusta</string>
+    <string name="discover_state_not_liked">No te gusta</string>
+    <string name="discover_data_language">Idioma original: %1$s</string>
+    <plurals name="discover_data_cross_refs">
+        <item quantity="one">%d referencia cruzada</item>
+        <item quantity="other">%d referencias cruzadas</item>
+    </plurals>
+    <string name="discover_lang_hebrew">Hebreo</string>
+    <string name="discover_lang_aramaic">Arameo</string>
+    <string name="discover_lang_greek">Griego</string>
     <string name="discover_offline_title">Conéctate para ver Descubrir</string>
     <string name="discover_offline_body">La lista de Descubrir se descarga la primera vez que tienes conexión y luego funciona sin conexión.</string>
     <string name="discover_empty_title">Aún no hay nada para descubrir</string>

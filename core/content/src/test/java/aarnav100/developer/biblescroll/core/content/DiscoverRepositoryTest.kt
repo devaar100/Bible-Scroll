@@ -2,6 +2,7 @@ package aarnav100.developer.biblescroll.core.content
 
 import aarnav100.developer.biblescroll.core.content.model.DiscoverEntry
 import aarnav100.developer.biblescroll.core.content.model.DiscoverFile
+import aarnav100.developer.biblescroll.core.content.model.DiscoverVerse
 import aarnav100.developer.biblescroll.core.content.model.Manifest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -25,8 +26,10 @@ class DiscoverRepositoryTest {
     private val store = FakeContentStore()
     private val john = bookFile("JHN", 43, study("JHN.3.16"))
 
-    private fun publish(vararg ids: String, tamper: Boolean = false): Manifest {
-        val discover = TestJson.encodeToString(DiscoverFile.serializer(), DiscoverFile(1, ids.toList())).toByteArray()
+    /** [ids] as "JHN.3.16" (theme trust) or "JHN.3.16 love". */
+    private fun publish(vararg ids: String, tamper: Boolean = false, formatVersion: Int = 2): Manifest {
+        val verses = ids.map { val p = it.split(" "); DiscoverVerse(p[0], p.getOrElse(1) { "trust" }) }
+        val discover = TestJson.encodeToString(DiscoverFile.serializer(), DiscoverFile(formatVersion, verses)).toByteArray()
         val manifest = manifest(john.second).copy(
             discover = DiscoverEntry("https://cdn.test/discover.json", ids.size, Sha256.hex(discover), discover.size.toLong()),
         )
@@ -45,7 +48,7 @@ class DiscoverRepositoryTest {
         publish("PSA.23.1", "GEN.1.1", "JHN.3.16", "NOT.A.REF")
         val repo = repository()
         assertTrue(repo.refresh())
-        assertEquals(DiscoverFeed.Ready(listOf(VerseKey(19, 23, 1), VerseKey(43, 3, 16))), repo.feed.first())
+        assertEquals(DiscoverFeed.Ready(listOf(trust(19, 23, 1), trust(43, 3, 16))), repo.feed.first())
     }
 
     @Test
@@ -65,7 +68,7 @@ class DiscoverRepositoryTest {
         api.downloadError = IOException("offline")
         val later = repository() // e.g. after an app restart, with no connection
         assertFalse(later.refresh())
-        assertEquals(DiscoverFeed.Ready(listOf(VerseKey(43, 3, 16))), later.feed.first())
+        assertEquals(DiscoverFeed.Ready(listOf(trust(43, 3, 16))), later.feed.first())
     }
 
     @Test
@@ -75,4 +78,32 @@ class DiscoverRepositoryTest {
         assertFalse(repo.refresh())
         assertEquals(DiscoverFeed.NeverLoaded, repo.feed.first())
     }
+
+    @Test
+    fun eachCardCarriesItsThemeAndUnknownThemesAreLeftOut() = runTest {
+        store.replaceBook(StoredBook(19, "PSA", "v", "s", BookSource.BUNDLED, 1, 0, 1), emptyList())
+        publish("PSA.23.1 hope", "JHN.3.16 love", "PSA.23.4 joy", "PSA.23.6 trust")
+        val repo = repository()
+        assertTrue(repo.refresh())
+        assertEquals(
+            DiscoverFeed.Ready(
+                listOf(
+                    DiscoverItem(VerseKey(19, 23, 1), DiscoverTheme.HOPE),
+                    DiscoverItem(VerseKey(43, 3, 16), DiscoverTheme.LOVE),
+                    DiscoverItem(VerseKey(19, 23, 6), DiscoverTheme.TRUST),
+                ),
+            ),
+            repo.feed.first(),
+        )
+    }
+
+    @Test
+    fun anOldFormatFileIsNotUsed() = runTest {
+        publish("JHN.3.16", formatVersion = 1)
+        val repo = repository(temp.newFolder())
+        assertFalse(repo.refresh())
+        assertEquals(DiscoverFeed.NeverLoaded, repo.feed.first())
+    }
+
+    private fun trust(book: Int, chapter: Int, verse: Int) = DiscoverItem(VerseKey(book, chapter, verse), DiscoverTheme.TRUST)
 }

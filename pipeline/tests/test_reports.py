@@ -96,10 +96,10 @@ def test_a_reason_is_required(studies, queue):
 
 
 def test_reported_studies_are_left_out_of_publish(studies, queue):
-    assert [v for b in p.build_release(studies, "", discover_ids=[]).manifest["books"] for v in [b["verseCount"]]] == [2]
+    assert [v for b in p.build_release(studies, "", discover=[]).manifest["books"] for v in [b["verseCount"]]] == [2]
 
     r.report(studies, ["JHN.3.16"], "Unfair or one-sided", queue=queue, at=REPORTED_AT)
-    release = p.build_release(studies, "", discover_ids=["JHN.3.16", "JHN.3.17"])
+    release = p.build_release(studies, "", discover=[("JHN.3.16", "love"), ("JHN.3.17", "love")])
 
     assert release.manifest["books"][0]["verseCount"] == 1
     assert release.reported == [("JHN.3.16", "Unfair or one-sided")]
@@ -112,14 +112,14 @@ def test_reported_study_stays_out_even_if_its_status_is_set_back(studies, queue)
     study = studies.load("JHN.3.17")
     studies.save(dict(study, status="auto_checked"))  # e.g. a hand edit of the status alone
 
-    release = p.build_release(studies, "", discover_ids=[])
+    release = p.build_release(studies, "", discover=[])
     assert [x for x, _ in release.reported] == ["JHN.3.17"]
     assert release.manifest["books"][0]["verseCount"] == 1  # only JHN.3.16
 
 
 def test_dry_run_lists_the_reported_studies(studies, queue):
     r.report(studies, ["JHN.3.16", "JHN.3.17"], "Wrong verse or translation text", queue=queue, at=REPORTED_AT)
-    release = p.build_release(studies, "", discover_ids=[])
+    release = p.build_release(studies, "", discover=[])
     text = p.render_diff(p.diff(release, None), release, None)
 
     assert "Left out as reported (`pipeline reports` lists them): 2 verse(s)" in text
@@ -149,7 +149,7 @@ def test_regenerating_editing_or_reviewing_resolves_the_report(studies, queue, f
     # A recheck can now clear it, and publish no longer holds it back on the report's account.
     assert apply(study, Outcome("auto_checked", reasons=[]))["status"] == "auto_checked"
     studies.save(dict(study, status="auto_checked"))
-    assert p.build_release(studies, "", discover_ids=[]).reported == []
+    assert p.build_release(studies, "", discover=[]).reported == []
 
 
 def test_reports_lists_open_and_optionally_resolved(studies, queue):
