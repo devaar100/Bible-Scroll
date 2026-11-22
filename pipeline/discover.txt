@@ -1,377 +1,377 @@
-LUK.6.38 Trust and guidance
-ECC.9.10 Trust and guidance
-PSA.100.4 Trust and guidance
-EPH.4.2 Trust and guidance
-JHN.1.12 Trust and guidance
-PSA.43.5 Trust and guidance
-SNG.8.6 Trust and guidance
-PSA.37.5 Trust and guidance
-JER.17.8 Trust and guidance
-MAT.18.21 Trust and guidance
-PHP.4.13 Trust and guidance
-JHN.16.33 Trust and guidance
-PSA.23.4 Trust and guidance
-EPH.6.10 Trust and guidance
-PSA.94.19 Trust and guidance
-ISA.1.18 Trust and guidance
-HEB.12.1 Trust and guidance
-PSA.103.8 Trust and guidance
-ISA.49.16 Trust and guidance
-MAT.7.8 Trust and guidance
-PRO.12.18 Trust and guidance
-JHN.14.6 Trust and guidance
-PSA.90.12 Trust and guidance
-2TI.4.7 Trust and guidance
-PRO.11.25 Trust and guidance
-MAT.7.7 Trust and guidance
-ISA.43.25 Trust and guidance
-ZEP.3.17 Trust and guidance
-ISA.41.10 Trust and guidance
-1CO.16.13 Trust and guidance
-ROM.1.16 Trust and guidance
-JER.1.5 Trust and guidance
-PSA.16.8 Trust and guidance
-MAT.6.33 Trust and guidance
-ISA.55.9 Trust and guidance
-PSA.126.5 Trust and guidance
-EPH.2.10 Trust and guidance
-1SA.17.45 Trust and guidance
-1JN.5.14 Trust and guidance
-ROM.12.12 Trust and guidance
-AMO.5.24 Trust and guidance
-JAS.1.22 Trust and guidance
-ROM.15.13 Trust and guidance
-PRO.16.9 Trust and guidance
-MIC.7.19 Trust and guidance
-LUK.12.15 Trust and guidance
-EPH.4.3 Trust and guidance
-LAM.3.23 Trust and guidance
-PRO.12.25 Trust and guidance
-MAT.5.4 Trust and guidance
-ECC.4.9 Trust and guidance
-EXO.14.14 Trust and guidance
-MAT.6.15 Trust and guidance
-HEB.4.16 Trust and guidance
-EPH.3.19 Trust and guidance
-PRO.3.5 Trust and guidance
-DEU.6.4 Trust and guidance
-EPH.5.1 Trust and guidance
-PSA.139.24 Trust and guidance
-JAS.1.3 Trust and guidance
-MAT.6.19 Trust and guidance
-PSA.73.26 Trust and guidance
-1CO.1.18 Trust and guidance
-1JN.4.8 Trust and guidance
-JOS.1.9 Trust and guidance
-PSA.95.1 Trust and guidance
-2CO.4.16 Trust and guidance
-PRO.17.17 Trust and guidance
-1TI.4.12 Trust and guidance
-NUM.6.26 Trust and guidance
-GEN.1.3 Trust and guidance
-COL.3.13 Trust and guidance
-PSA.139.14 Trust and guidance
-JAS.1.2 Trust and guidance
-GAL.6.9 Trust and guidance
-PSA.29.11 Trust and guidance
-NEH.8.10 Trust and guidance
-PSA.119.105 Trust and guidance
-LUK.19.10 Trust and guidance
-ACT.4.12 Trust and guidance
-PSA.100.5 Trust and guidance
-ECC.3.1 Trust and guidance
-JHN.3.16 Trust and guidance
-PSA.90.17 Trust and guidance
-MAT.5.14 Trust and guidance
-ROM.5.4 Trust and guidance
-COL.3.14 Trust and guidance
-PRO.22.6 Trust and guidance
-LUK.15.20 Trust and guidance
-PSA.145.18 Trust and guidance
-JAS.4.8 Trust and guidance
-NUM.6.25 Trust and guidance
-PSA.23.6 Trust and guidance
-COL.3.15 Trust and guidance
-MAT.7.1 Trust and guidance
-PSA.138.3 Trust and guidance
-JON.4.2 Trust and guidance
-MAT.11.28 Trust and guidance
-1PE.2.9 Trust and guidance
-JUD.1.24 Trust and guidance
-REV.21.4 Trust and guidance
-PSA.121.1 Trust and guidance
-JHN.15.7 Trust and guidance
-1JN.4.18 Trust and guidance
-PRO.19.21 Trust and guidance
-ROM.3.24 Trust and guidance
-1CO.16.14 Trust and guidance
-JHN.8.12 Trust and guidance
-JER.31.3 Trust and guidance
-ACT.1.8 Trust and guidance
-PSA.32.5 Trust and guidance
-2TI.1.7 Trust and guidance
-2CO.5.7 Trust and guidance
-PSA.32.8 Trust and guidance
-JHN.8.32 Trust and guidance
-1PE.5.7 Trust and guidance
-GAL.5.22 Trust and guidance
-1KI.19.12 Trust and guidance
-PSA.95.6 Trust and guidance
-JAS.3.5 Trust and guidance
-2CH.20.15 Trust and guidance
-MAT.6.25 Trust and guidance
-LUK.23.34 Trust and guidance
-PHP.3.13 Trust and guidance
-MAT.6.12 Trust and guidance
-MIC.6.8 Trust and guidance
-ZEC.4.6 Trust and guidance
-MAT.6.21 Trust and guidance
-PSA.42.11 Trust and guidance
-1CO.13.7 Trust and guidance
-GEN.1.27 Trust and guidance
-PSA.23.1 Trust and guidance
-ISA.30.21 Trust and guidance
-JAS.2.17 Trust and guidance
-LAM.3.21 Trust and guidance
-1CO.13.4 Trust and guidance
-PRO.15.1 Trust and guidance
-DAN.3.17 Trust and guidance
-PSA.139.13 Trust and guidance
-MAT.6.9 Trust and guidance
-PSA.51.10 Trust and guidance
-JOB.38.4 Trust and guidance
-MAT.6.24 Trust and guidance
-2TH.3.16 Trust and guidance
-ISA.55.8 Trust and guidance
-PSA.150.6 Trust and guidance
-MIC.7.18 Trust and guidance
-GEN.1.31 Trust and guidance
-NAM.1.7 Trust and guidance
-HEB.10.25 Trust and guidance
-JHN.13.35 Trust and guidance
-ROM.5.5 Trust and guidance
-PSA.118.14 Trust and guidance
-MAT.6.34 Trust and guidance
-JHN.11.25 Trust and guidance
-ECC.4.12 Trust and guidance
-GAL.2.20 Trust and guidance
-1JN.4.19 Trust and guidance
-PSA.55.22 Trust and guidance
-HEB.13.5 Trust and guidance
-PSA.34.18 Trust and guidance
-JHN.1.1 Trust and guidance
-HAB.3.17 Trust and guidance
-PSA.91.2 Trust and guidance
-MAL.3.10 Trust and guidance
-PRO.1.7 Trust and guidance
-ROM.3.23 Trust and guidance
-PSA.28.7 Trust and guidance
-ACT.20.35 Trust and guidance
-PRO.4.23 Trust and guidance
-DAN.3.18 Trust and guidance
-EPH.6.18 Trust and guidance
-JHN.1.14 Trust and guidance
-HEB.6.19 Trust and guidance
-ISA.26.3 Trust and guidance
-1CO.13.13 Trust and guidance
-DEU.31.6 Trust and guidance
-1JN.3.1 Trust and guidance
-EPH.4.32 Trust and guidance
-GEN.50.20 Trust and guidance
-MAT.22.38 Trust and guidance
-GEN.2.24 Trust and guidance
-ISA.43.2 Trust and guidance
-ROM.8.26 Trust and guidance
-MAT.11.29 Trust and guidance
-GAL.5.23 Trust and guidance
-ROM.10.17 Trust and guidance
-MAT.18.22 Trust and guidance
-JHN.15.12 Trust and guidance
-1PE.5.10 Trust and guidance
-ECC.3.11 Trust and guidance
-2CH.20.17 Trust and guidance
-PHP.4.7 Trust and guidance
-PSA.91.1 Trust and guidance
-1TH.5.17 Trust and guidance
-ISA.12.2 Trust and guidance
-ROM.8.18 Trust and guidance
-GAL.6.2 Trust and guidance
-JHN.14.1 Trust and guidance
-ROM.8.38 Trust and guidance
-1JN.1.9 Trust and guidance
-PSA.8.4 Trust and guidance
-1JN.4.7 Trust and guidance
-PRO.27.17 Trust and guidance
-PSA.19.1 Trust and guidance
-PHP.4.6 Trust and guidance
-EXO.34.6 Trust and guidance
-JAS.1.12 Trust and guidance
-PSA.34.8 Trust and guidance
-EPH.6.11 Trust and guidance
-MAT.5.5 Trust and guidance
-PSA.32.1 Trust and guidance
-PRO.31.30 Trust and guidance
-DEU.31.8 Trust and guidance
-ACT.2.42 Trust and guidance
-PSA.139.23 Trust and guidance
-PRO.3.6 Trust and guidance
-EPH.3.18 Trust and guidance
-JHN.14.27 Trust and guidance
-JAS.5.16 Trust and guidance
-ISA.40.28 Trust and guidance
-ROM.8.1 Trust and guidance
-MAT.5.16 Trust and guidance
-EPH.4.29 Trust and guidance
-COL.3.23 Trust and guidance
-JHN.10.11 Trust and guidance
-HAB.2.4 Trust and guidance
-PSA.4.8 Trust and guidance
-JER.29.11 Trust and guidance
-DEU.7.9 Trust and guidance
-PSA.8.3 Trust and guidance
-HAB.3.18 Trust and guidance
-MAT.6.20 Trust and guidance
-PRO.17.22 Trust and guidance
-EPH.2.9 Trust and guidance
-ISA.55.11 Trust and guidance
-ROM.12.18 Trust and guidance
-1TH.5.16 Trust and guidance
-2CO.12.9 Trust and guidance
-ROM.8.39 Trust and guidance
-PRO.18.21 Trust and guidance
-MAT.6.14 Trust and guidance
-2TI.3.17 Trust and guidance
-ROM.12.1 Trust and guidance
-MAT.5.8 Trust and guidance
-PSA.118.6 Trust and guidance
-ISA.9.6 Trust and guidance
-MAT.6.10 Trust and guidance
-1CO.6.20 Trust and guidance
-NUM.6.24 Trust and guidance
-EPH.5.2 Trust and guidance
-PSA.107.1 Trust and guidance
-1PE.1.3 Trust and guidance
-PSA.46.10 Trust and guidance
-LAM.3.22 Trust and guidance
-PRO.16.18 Trust and guidance
-PSA.51.12 Trust and guidance
-LUK.12.34 Trust and guidance
-TIT.3.5 Trust and guidance
-JER.17.7 Trust and guidance
-HEB.11.1 Trust and guidance
-ECC.4.10 Trust and guidance
-REV.21.5 Trust and guidance
-PSA.19.14 Trust and guidance
-PRO.16.3 Trust and guidance
-JHN.15.5 Trust and guidance
-PSA.136.1 Trust and guidance
-MRK.12.31 Trust and guidance
-1JN.3.18 Trust and guidance
-GEN.12.2 Trust and guidance
-ACT.3.19 Trust and guidance
-LUK.18.1 Trust and guidance
-PSA.30.5 Trust and guidance
-JHN.15.16 Trust and guidance
-PRO.11.2 Trust and guidance
-PSA.37.4 Trust and guidance
-LUK.10.27 Trust and guidance
-JHN.15.13 Trust and guidance
-PSA.103.11 Trust and guidance
-1CO.6.19 Trust and guidance
-EPH.2.8 Trust and guidance
-PSA.126.6 Trust and guidance
-JOL.2.25 Trust and guidance
-PRO.9.10 Trust and guidance
-PSA.27.14 Trust and guidance
-MAT.7.12 Trust and guidance
-1TH.5.18 Trust and guidance
-PHP.3.14 Trust and guidance
-2CO.4.18 Trust and guidance
-DEU.6.5 Trust and guidance
-MAT.7.24 Trust and guidance
-COL.4.6 Trust and guidance
-1CO.10.13 Trust and guidance
-PSA.121.2 Trust and guidance
-ISA.53.5 Trust and guidance
-MAT.6.11 Trust and guidance
-EPH.3.17 Trust and guidance
-ROM.12.2 Trust and guidance
-1PE.3.15 Trust and guidance
-LUK.6.31 Trust and guidance
-ISA.40.31 Trust and guidance
-PSA.27.1 Trust and guidance
-ISA.43.1 Trust and guidance
-1JN.4.10 Trust and guidance
-JOS.24.15 Trust and guidance
-1CH.16.34 Trust and guidance
-JAS.1.19 Trust and guidance
-ROM.6.23 Trust and guidance
-MRK.10.45 Trust and guidance
-PSA.118.24 Trust and guidance
-ROM.5.8 Trust and guidance
-PHP.2.4 Trust and guidance
-2CO.5.17 Trust and guidance
-JAS.1.5 Trust and guidance
-DEU.8.3 Trust and guidance
-2CO.4.17 Trust and guidance
-1PE.4.8 Trust and guidance
-PRO.15.22 Trust and guidance
-HOS.6.3 Trust and guidance
-ROM.15.4 Trust and guidance
-2CO.5.21 Trust and guidance
-HOS.6.6 Trust and guidance
-MAT.5.44 Trust and guidance
-2CO.3.17 Trust and guidance
-ISA.53.6 Trust and guidance
-COL.3.17 Trust and guidance
-JOB.19.25 Trust and guidance
-MRK.8.36 Trust and guidance
-GEN.2.18 Trust and guidance
-HEB.12.2 Trust and guidance
-MAT.28.20 Trust and guidance
-JER.33.3 Trust and guidance
-JHN.13.34 Trust and guidance
-2PE.3.9 Trust and guidance
-ROM.5.3 Trust and guidance
-MAT.28.19 Trust and guidance
-PHP.4.19 Trust and guidance
-GEN.1.1 Trust and guidance
-MAT.22.39 Trust and guidance
-PHP.1.6 Trust and guidance
-EZK.36.26 Trust and guidance
-ROM.8.28 Trust and guidance
-LUK.9.23 Trust and guidance
-PSA.24.1 Trust and guidance
-1TH.5.11 Trust and guidance
-1CO.15.58 Trust and guidance
-1SA.16.7 Trust and guidance
-JHN.10.10 Trust and guidance
-PHP.2.5 Trust and guidance
-EXO.3.14 Trust and guidance
-MAT.5.7 Trust and guidance
-GEN.12.3 Trust and guidance
-MAT.5.9 Trust and guidance
-COL.1.17 Trust and guidance
-ROM.13.10 Trust and guidance
-MAT.5.3 Trust and guidance
-DEU.6.6 Trust and guidance
-COL.3.2 Trust and guidance
-ISA.6.8 Trust and guidance
-MRK.12.30 Trust and guidance
-2TI.3.16 Trust and guidance
-LUK.6.36 Trust and guidance
-MRK.9.23 Trust and guidance
-HEB.10.24 Trust and guidance
-PHP.4.8 Trust and guidance
-MAT.22.37 Trust and guidance
-HEB.13.8 Trust and guidance
-ROM.10.9 Trust and guidance
-REV.3.20 Trust and guidance
-MAT.5.6 Trust and guidance
-ROM.12.21 Trust and guidance
-ACT.17.11 Trust and guidance
-PHP.2.3 Trust and guidance
-TIT.2.11 Trust and guidance
-2CO.9.7 Trust and guidance
-HEB.4.12 Trust and guidance
-PHP.4.11 Trust and guidance
+LUK.6.38 Generosity
+ECC.9.10 Purpose
+PSA.100.4 Thanksgiving
+EPH.4.2 Humility
+JHN.1.12 Who you are
+PSA.43.5 Hope
+SNG.8.6 Love
+PSA.37.5 Trust
+JER.17.8 Trust
+MAT.18.21 Forgiveness
+PHP.4.13 Strength
+JHN.16.33 Peace
+PSA.23.4 Comfort
+EPH.6.10 Strength
+PSA.94.19 Comfort
+ISA.1.18 Forgiveness
+HEB.12.1 Perseverance
+PSA.103.8 Mercy
+ISA.49.16 God’s love
+MAT.7.8 Prayer
+PRO.12.18 Words
+JHN.14.6 Salvation
+PSA.90.12 Wisdom
+2TI.4.7 Perseverance
+PRO.11.25 Generosity
+MAT.7.7 Prayer
+ISA.43.25 Forgiveness
+ZEP.3.17 God’s love
+ISA.41.10 Courage
+1CO.16.13 Courage
+ROM.1.16 Salvation
+JER.1.5 Purpose
+PSA.16.8 God’s presence
+MAT.6.33 Priorities
+ISA.55.9 Trust
+PSA.126.5 Hope
+EPH.2.10 Purpose
+1SA.17.45 Courage
+1JN.5.14 Prayer
+ROM.12.12 Prayer
+AMO.5.24 Justice
+JAS.1.22 Following God
+ROM.15.13 Hope
+PRO.16.9 Guidance
+MIC.7.19 Forgiveness
+LUK.12.15 Contentment
+EPH.4.3 Community
+LAM.3.23 Faithfulness
+PRO.12.25 Fear and worry
+MAT.5.4 Comfort
+ECC.4.9 Friendship
+EXO.14.14 Trust
+MAT.6.15 Forgiveness
+HEB.4.16 Grace
+EPH.3.19 God’s love
+PRO.3.5 Trust
+DEU.6.4 Knowing God
+EPH.5.1 Who you are
+PSA.139.24 Guidance
+JAS.1.3 Perseverance
+MAT.6.19 Priorities
+PSA.73.26 Strength
+1CO.1.18 Salvation
+1JN.4.8 God’s love
+JOS.1.9 Courage
+PSA.95.1 Worship
+2CO.4.16 Renewal
+PRO.17.17 Friendship
+1TI.4.12 Living it out
+NUM.6.26 Blessing
+GEN.1.3 Creation
+COL.3.13 Forgiveness
+PSA.139.14 Who you are
+JAS.1.2 Joy
+GAL.6.9 Perseverance
+PSA.29.11 Peace
+NEH.8.10 Joy
+PSA.119.105 God’s word
+LUK.19.10 Salvation
+ACT.4.12 Salvation
+PSA.100.5 Faithfulness
+ECC.3.1 Seasons of life
+JHN.3.16 God’s love
+PSA.90.17 Purpose
+MAT.5.14 Living it out
+ROM.5.4 Perseverance
+COL.3.14 Loving others
+PRO.22.6 Family
+LUK.15.20 Grace
+PSA.145.18 God’s presence
+JAS.4.8 Knowing God
+NUM.6.25 Blessing
+PSA.23.6 Faithfulness
+COL.3.15 Peace
+MAT.7.1 Humility
+PSA.138.3 Prayer
+JON.4.2 Mercy
+MAT.11.28 Rest
+1PE.2.9 Who you are
+JUD.1.24 Faithfulness
+REV.21.4 Hope
+PSA.121.1 God’s help
+JHN.15.7 Prayer
+1JN.4.18 Fear and worry
+PRO.19.21 Guidance
+ROM.3.24 Grace
+1CO.16.14 Loving others
+JHN.8.12 Jesus
+JER.31.3 God’s love
+ACT.1.8 Holy Spirit
+PSA.32.5 Forgiveness
+2TI.1.7 Fear and worry
+2CO.5.7 Faith
+PSA.32.8 Guidance
+JHN.8.32 Freedom
+1PE.5.7 Fear and worry
+GAL.5.22 Holy Spirit
+1KI.19.12 God’s presence
+PSA.95.6 Worship
+JAS.3.5 Words
+2CH.20.15 Trust
+MAT.6.25 Fear and worry
+LUK.23.34 Forgiveness
+PHP.3.13 Perseverance
+MAT.6.12 Forgiveness
+MIC.6.8 Justice
+ZEC.4.6 Holy Spirit
+MAT.6.21 Priorities
+PSA.42.11 Hope
+1CO.13.7 Loving others
+GEN.1.27 Who you are
+PSA.23.1 Provision
+ISA.30.21 Guidance
+JAS.2.17 Faith
+LAM.3.21 Hope
+1CO.13.4 Loving others
+PRO.15.1 Words
+DAN.3.17 Faith
+PSA.139.13 Who you are
+MAT.6.9 Prayer
+PSA.51.10 Renewal
+JOB.38.4 Creation
+MAT.6.24 Priorities
+2TH.3.16 Peace
+ISA.55.8 Trust
+PSA.150.6 Worship
+MIC.7.18 Mercy
+GEN.1.31 Creation
+NAM.1.7 God’s help
+HEB.10.25 Community
+JHN.13.35 Loving others
+ROM.5.5 Hope
+PSA.118.14 Strength
+MAT.6.34 Fear and worry
+JHN.11.25 New life
+ECC.4.12 Friendship
+GAL.2.20 New life
+1JN.4.19 God’s love
+PSA.55.22 God’s help
+HEB.13.5 Contentment
+PSA.34.18 Comfort
+JHN.1.1 Jesus
+HAB.3.17 Hard times
+PSA.91.2 Trust
+MAL.3.10 Generosity
+PRO.1.7 Wisdom
+ROM.3.23 Grace
+PSA.28.7 Strength
+ACT.20.35 Generosity
+PRO.4.23 Wisdom
+DAN.3.18 Courage
+EPH.6.18 Prayer
+JHN.1.14 Jesus
+HEB.6.19 Hope
+ISA.26.3 Peace
+1CO.13.13 Loving others
+DEU.31.6 Courage
+1JN.3.1 Who you are
+EPH.4.32 Kindness
+GEN.50.20 God’s plan
+MAT.22.38 Loving God
+GEN.2.24 Family
+ISA.43.2 God’s presence
+ROM.8.26 Prayer
+MAT.11.29 Rest
+GAL.5.23 Holy Spirit
+ROM.10.17 Faith
+MAT.18.22 Forgiveness
+JHN.15.12 Loving others
+1PE.5.10 Hard times
+ECC.3.11 Seasons of life
+2CH.20.17 Trust
+PHP.4.7 Peace
+PSA.91.1 Rest
+1TH.5.17 Prayer
+ISA.12.2 Salvation
+ROM.8.18 Hope
+GAL.6.2 Kindness
+JHN.14.1 Peace
+ROM.8.38 God’s love
+1JN.1.9 Forgiveness
+PSA.8.4 Who you are
+1JN.4.7 Loving others
+PRO.27.17 Friendship
+PSA.19.1 Creation
+PHP.4.6 Fear and worry
+EXO.34.6 Mercy
+JAS.1.12 Perseverance
+PSA.34.8 Knowing God
+EPH.6.11 Strength
+MAT.5.5 Humility
+PSA.32.1 Forgiveness
+PRO.31.30 Character
+DEU.31.8 God’s presence
+ACT.2.42 Community
+PSA.139.23 Prayer
+PRO.3.6 Guidance
+EPH.3.18 God’s love
+JHN.14.27 Peace
+JAS.5.16 Prayer
+ISA.40.28 Strength
+ROM.8.1 Grace
+MAT.5.16 Living it out
+EPH.4.29 Words
+COL.3.23 Purpose
+JHN.10.11 Jesus
+HAB.2.4 Faith
+PSA.4.8 Rest
+JER.29.11 Hope
+DEU.7.9 Faithfulness
+PSA.8.3 Creation
+HAB.3.18 Joy
+MAT.6.20 Priorities
+PRO.17.22 Joy
+EPH.2.9 Grace
+ISA.55.11 God’s word
+ROM.12.18 Peace
+1TH.5.16 Joy
+2CO.12.9 Grace
+ROM.8.39 God’s love
+PRO.18.21 Words
+MAT.6.14 Forgiveness
+2TI.3.17 God’s word
+ROM.12.1 Worship
+MAT.5.8 Character
+PSA.118.6 Courage
+ISA.9.6 Jesus
+MAT.6.10 Prayer
+1CO.6.20 Who you are
+NUM.6.24 Blessing
+EPH.5.2 Loving others
+PSA.107.1 Thanksgiving
+1PE.1.3 New life
+PSA.46.10 Rest
+LAM.3.22 Mercy
+PRO.16.18 Humility
+PSA.51.12 Renewal
+LUK.12.34 Priorities
+TIT.3.5 Salvation
+JER.17.7 Trust
+HEB.11.1 Faith
+ECC.4.10 Friendship
+REV.21.5 New life
+PSA.19.14 Words
+PRO.16.3 Guidance
+JHN.15.5 Knowing God
+PSA.136.1 Thanksgiving
+MRK.12.31 Loving others
+1JN.3.18 Loving others
+GEN.12.2 Blessing
+ACT.3.19 Renewal
+LUK.18.1 Prayer
+PSA.30.5 Hope
+JHN.15.16 Purpose
+PRO.11.2 Humility
+PSA.37.4 Joy
+LUK.10.27 Loving God
+JHN.15.13 God’s love
+PSA.103.11 God’s love
+1CO.6.19 Who you are
+EPH.2.8 Grace
+PSA.126.6 Hope
+JOL.2.25 Renewal
+PRO.9.10 Wisdom
+PSA.27.14 Courage
+MAT.7.12 Kindness
+1TH.5.18 Thanksgiving
+PHP.3.14 Perseverance
+2CO.4.18 Hope
+DEU.6.5 Loving God
+MAT.7.24 Following God
+COL.4.6 Words
+1CO.10.13 Faithfulness
+PSA.121.2 God’s help
+ISA.53.5 Jesus
+MAT.6.11 Provision
+EPH.3.17 God’s love
+ROM.12.2 Renewal
+1PE.3.15 Sharing your faith
+LUK.6.31 Kindness
+ISA.40.31 Strength
+PSA.27.1 Courage
+ISA.43.1 Who you are
+1JN.4.10 God’s love
+JOS.24.15 Following God
+1CH.16.34 Thanksgiving
+JAS.1.19 Words
+ROM.6.23 Salvation
+MRK.10.45 Serving others
+PSA.118.24 Joy
+ROM.5.8 God’s love
+PHP.2.4 Serving others
+2CO.5.17 New life
+JAS.1.5 Wisdom
+DEU.8.3 God’s word
+2CO.4.17 Hard times
+1PE.4.8 Loving others
+PRO.15.22 Wisdom
+HOS.6.3 Knowing God
+ROM.15.4 God’s word
+2CO.5.21 Salvation
+HOS.6.6 Mercy
+MAT.5.44 Loving others
+2CO.3.17 Freedom
+ISA.53.6 Jesus
+COL.3.17 Thanksgiving
+JOB.19.25 Hope
+MRK.8.36 Priorities
+GEN.2.18 Family
+HEB.12.2 Jesus
+MAT.28.20 God’s presence
+JER.33.3 Prayer
+JHN.13.34 Loving others
+2PE.3.9 Mercy
+ROM.5.3 Hard times
+MAT.28.19 Sharing your faith
+PHP.4.19 Provision
+GEN.1.1 Creation
+MAT.22.39 Loving others
+PHP.1.6 Faithfulness
+EZK.36.26 Renewal
+ROM.8.28 God’s plan
+LUK.9.23 Following God
+PSA.24.1 Creation
+1TH.5.11 Community
+1CO.15.58 Perseverance
+1SA.16.7 Character
+JHN.10.10 New life
+PHP.2.5 Humility
+EXO.3.14 Knowing God
+MAT.5.7 Mercy
+GEN.12.3 Blessing
+MAT.5.9 Peace
+COL.1.17 Jesus
+ROM.13.10 Loving others
+MAT.5.3 Humility
+DEU.6.6 God’s word
+COL.3.2 Priorities
+ISA.6.8 Purpose
+MRK.12.30 Loving God
+2TI.3.16 God’s word
+LUK.6.36 Mercy
+MRK.9.23 Faith
+HEB.10.24 Community
+PHP.4.8 Renewal
+MAT.22.37 Loving God
+HEB.13.8 Faithfulness
+ROM.10.9 Salvation
+REV.3.20 Knowing God
+MAT.5.6 Character
+ROM.12.21 Kindness
+ACT.17.11 God’s word
+PHP.2.3 Humility
+TIT.2.11 Grace
+2CO.9.7 Generosity
+HEB.4.12 God’s word
+PHP.4.11 Contentment
