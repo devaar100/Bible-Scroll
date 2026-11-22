@@ -391,3 +391,17 @@ def test_empty_did_you_know_is_written_and_passes(setup):
     assert collect(s, FakeJudge(RubricResult(RUBRIC_OK, []))) == []
     study = s.target.load("JHN.3.16")
     assert study["status"] == "auto_checked" and study["didYouKnow"] == ""
+
+
+def test_raw_transliteration_gets_one_retry_then_fails(setup):
+    s = setup
+    raw = {**s.prose, "meaning": s.prose["meaning"] + " The Hebrew bereShit is not in this verse's sense."}
+    submit(s)
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(raw)}
+    assert collect(s, None) == ["JHN.3.16"]  # blocking: one retry
+    study = s.target.load("JHN.3.16")
+    assert study["status"] == "flagged" and "translit_capitals" in [r["check"] for r in study["checks"]["reasons"]]
+    submit(s, ["JHN.3.16"], 2)
+    s.client.messages.batches.results_by_batch["msgbatch_2"] = {"JHN_3_16": ok(raw)}
+    assert collect(s, None) == []
+    assert s.target.load("JHN.3.16")["status"] == "failed"

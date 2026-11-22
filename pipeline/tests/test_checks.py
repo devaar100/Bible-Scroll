@@ -290,8 +290,8 @@ def test_only_blocking_checks_flag(written, bible):
     from pipeline.checks import BLOCKING
     assert {"reference", "reference_not_allowed", "length", "verse_position", "pipeline_wording", "placeholder",
             "original_language", "did_you_know_word"} <= BLOCKING
-    assert not {"rubric", "context_mismatch", "banned_phrase", "generic_traditions", "dotted_translit",
-                "translit_form"} & BLOCKING
+    assert {"dotted_translit", "translit_capitals"} <= BLOCKING
+    assert not {"rubric", "context_mismatch", "banned_phrase", "generic_traditions", "translit_form"} & BLOCKING
     written["meaning"] = words(60, "As the next verse says, scholars all agree.")
     o = outcome(written, bible)
     assert o.status == "flagged" and checks_named(o) == ["banned_phrase", "verse_position"]
@@ -328,3 +328,29 @@ def test_did_you_know_may_be_empty(written, bible):
     assert o.status == "auto_checked" and every(o) == []
     written["didYouKnow"] = words(30, "A plain remark that names no word of this verse.")
     assert "did_you_know_word" in [r["check"] for r in outcome(written, bible).reasons]  # if present, still checked
+
+
+@pytest.mark.parametrize("text, check", [
+    ("The Hebrew be.re.Shit opens the book.", "dotted_translit"),
+    ("The word ro.'I means my shepherd.", "dotted_translit"),
+    ("The Hebrew bereShit opens the book.", "translit_capitals"),
+    ("The command hoDu is plural.", "translit_capitals"),
+    ("The word ruaCH means breath.", "translit_capitals"),
+])
+def test_raw_transliterations_block(written, bible, text, check):
+    written["meaning"] = words(60, text)
+    o = outcome(written, bible)
+    assert o.status == "flagged" and check in [r["check"] for r in o.reasons]
+
+
+@pytest.mark.parametrize("text", [
+    "The LORD is my shepherd, and God's care is near.",       # all caps, capital at the start, possessive
+    "The name YHWH and the word Iēsous both appear in notes.",
+    "Robert Murray McCheyne loved this psalm, e.g. its close.",  # Mc surname, abbreviation
+    "Jesus said it. Then Peter asked again.",                  # ordinary sentences
+    "Some words, e.g. love, recur; i.e. often, around 30 A.D.",
+])
+def test_normal_text_passes_the_transliteration_checks(written, bible, text):
+    written["meaning"] = words(60, text)
+    names = checks_named(outcome(written, bible))
+    assert "dotted_translit" not in names and "translit_capitals" not in names

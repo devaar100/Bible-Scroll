@@ -9,8 +9,10 @@ Blocking checks are code only (pipeline/src/pipeline/checks.py BLOCKING): refere
 limits, no verse numbers or positions, no leaked instructions or placeholders, and quoted original words present in
 the verse (plus schema, a generation failure and an open reader report). A study that fails one gets at most one
 retry, then status `failed`. Everything else, the Haiku reviewer (factual risk, one-sided theology, tone,
-contextMismatch) and the non-blocking code checks (banned phrases, stock traditions lines, transliteration form), is
-advisory: kept in `checks.advisory`, listed in reviewer_report.md per wave, never blocking and never retried.
+contextMismatch) and the non-blocking code checks (banned phrases, stock traditions lines, a listed word's raw form
+such as "he'ōs"), is advisory: kept in `checks.advisory`, listed in reviewer_report.md per wave, never blocking and
+never retried. Amended 2026-11-22 (your call): a transliteration written the raw STEPBible way inside one word, with
+syllable dots ("be.re.Shit") or a stress capital ("bereShit"), blocks too (checker 12).
 "Did you know?" is optional: the writer leaves it empty unless it is confident the fact is about this verse's own
 words; an empty one passes and the app hides it. The writer prompt (prompts/study.md) and the reviewer rubric
 (rubric.py prompts and schema, .claude/agents/study-reviewer.md) are frozen as of this decision

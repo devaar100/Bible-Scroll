@@ -31,8 +31,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   `python -m pipeline discover` audits it; never edit discover.txt for the user.
 - Checks (decision 25): only code checks in `checks.BLOCKING` block a study (references, lengths, verse
   numbers/positions, leaked instructions (pipeline_wording.txt) and placeholders, quoted original words in the verse,
-  plus schema/generation/report); one retry, then `failed`. Everything else (banned.txt, generic_lines.txt,
-  transliteration form, and the whole AI rubric, rubric.py, claude-haiku-5-5) is advisory: `checks.advisory`, listed in
+  raw transliterations (dots or a stress capital inside one word), plus schema/generation/report); one retry, then
+  `failed`. Everything else (banned.txt, generic_lines.txt, a listed word's raw form (translit_form), and the whole AI rubric, rubric.py, claude-haiku-5-5) is advisory: `checks.advisory`, listed in
   reviewer_report.md (out/batch_runs/<wave>/, or next to check_summary.json), never blocking or retried. The rubric
   runs only when no blocking check failed; API outages leave a study unchanged. "Did you know?" is optional (empty
   passes; checks.OPTIONAL_SECTIONS). Bump `CHECKER_VERSION` when a check changes. Tests never call the API.

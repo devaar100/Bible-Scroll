@@ -82,3 +82,10 @@ passage says).
   advisory (checks.advisory, reviewer_report.md per wave).
 - Offline results: round 3 (20 studies) 20/20 pass the blocking checks; the 10 API studies 10/10 pass, and 5 of them
   are in the reviewer report (context_mismatch 5, factual risk 1).
+
+## Checker 12 (2026-11-22)
+
+Raw transliterations block (one retry, then failed): `dotted_translit` (syllable dots inside one word, "be.re.Shit")
+and the new `translit_capitals` (a capital after a lower-case letter inside one word, "bereShit"; Mc/Mac surnames
+allowed). Neither fires on any of the 499 written studies in out/. `translit_form` (a listed word's raw form,
+"he'ōs") stays advisory.

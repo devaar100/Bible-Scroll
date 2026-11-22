@@ -21,7 +21,8 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "11"  # 11: only BLOCKING checks flag a study; the rest (banned phrases, stock traditions lines,
+CHECKER_VERSION = "12"  # 12: dotted_translit and new translit_capitals (a capital inside one word) block
+# 11: 11: only BLOCKING checks flag a study; the rest (banned phrases, stock traditions lines,
 # transliteration form, the AI reviewer) are advisory (checks.advisory); new placeholder check; an empty
 # "Did you know?" passes (it is optional)
 # 10: contextMismatch support matched word by word across lines and verse labels;
@@ -51,6 +52,8 @@ BLOCKING = frozenset({
     "verse_position",                               # no verse numbers or positions
     "pipeline_wording", "placeholder",              # no leaked instructions or placeholders
     "original_language", "did_you_know_word",       # quoted words must appear in the verse
+    "dotted_translit", "translit_capitals",         # transliteration written the raw STEPBible way (dots, stress
+                                                    # capitals inside one word); 2026-11-22, checker 12
 })
 #: Sections the writer may leave empty. "Did you know?" is left out when the model isn't confident the fact is
 #: about this verse's own words (decision 25); an empty one passes every check and the app hides it.
@@ -442,6 +445,29 @@ def check_dotted_translit(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -
     return out
 
 
+# A word whose letters switch from lower case to upper case inside it: STEPBible's stress capital left in a
+# transliteration ("bereShit", "hoDu", "ruaCH"). Letters only (with ' ’ ʼ ʾ ʿ inside), so "LORD", "Iēsous",
+# "God's" and "YHWH" pass. Mc/Mac surnames (McCheyne) are allowed.
+_WORD = re.compile(rf"(?<![{_LETTERS}])[{_ALPHA}][{_LETTERS}]*")
+_SURNAME = re.compile(r"^Ma?c[A-Z][a-z]")
+
+
+def _odd_capital(word: str) -> bool:
+    letters = [c for c in word if c.isalpha()]
+    return not _SURNAME.match(word) and any(a.islower() and b.isupper() for a, b in zip(letters, letters[1:]))
+
+
+def check_translit_capitals(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """A capital letter after a lower-case letter inside one word: a raw STEPBible transliteration ("bereShit")."""
+    out = []
+    for section in fields:
+        for m in _WORD.finditer(study.get(section, "")):
+            if _odd_capital(m.group(0)):
+                out.append(reason("translit_capitals", f"“{m.group(0)}”: write the word in lower case "
+                                  "(no stress capitals)", section))
+    return out
+
+
 def check_translit_form(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
     """A cited word written the raw way: a Greek transliteration with TAGNT's stray apostrophe ("he'ōs" for
     heōs) or a word with its trailing maqqef hyphen ("hodu-" for hodu)."""
@@ -524,7 +550,7 @@ def free_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
             *check_allowed_references(study, bible), *check_original_language(study, bible),
             *check_banned(study, rules), *check_pipeline_wording(study, rules), *check_generic_lines(study, rules),
             *check_verse_position(study), *check_placeholders(study), *check_dotted_translit(study),
-            *check_translit_form(study), *check_did_you_know_word(study)]
+            *check_translit_capitals(study), *check_translit_form(study), *check_did_you_know_word(study)]
 
 
 # ---- Orchestration ----------------------------------------------------------------------------------
