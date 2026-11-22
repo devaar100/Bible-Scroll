@@ -1,0 +1,13 @@
+{
+ "format": "devotionalFixes/1",
+ "author": "Claude Code subagent on claude-sonnet-5-5, checked by the code checks; requested by the developer",
+ "rule": "Apply a section only if the devotional's current text equals 'before'. Then replace it with 'after'.",
+ "devotionals": {
+  "devotional-02-19": {
+   "applyIt": {
+    "before": "Before you reach for your phone or a quick distraction when you feel tempted or stretched thin, pause and read one verse from the Bible slowly. Let it be a small pause, not a rule you must keep.",
+    "after": "Before you reach for your phone or a quick distraction when you feel tempted or stretched thin, pause and read one verse from the Bible slowly. Then write one sentence from it on a sticky note, in your own words if you like. Let it be a small pause, not a rule to keep."
+   }
+  }
+ }
+}

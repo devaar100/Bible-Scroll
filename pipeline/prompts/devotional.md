@@ -43,5 +43,5 @@ Return JSON with:
 - context: {{context_words}} words. What is happening in the passage: who, where, why it was written or said. Only what the text and well-established background support.
 - reflect: {{reflect_words}} words. The heart of it: what this passage shows about God and about us, tied to the theme. One clear idea, not a sermon outline.
 - applyIt: {{applyIt_words}} words. One small, concrete thing to do or notice today, of this kind: {{applyIt_action}}. Gentle, specific, doable in a normal day. Don't begin it with the word "Today": readers see this section every day, so open it another way.
-- prayer: {{prayer_words}} words. A short prayer in plain words the reader can make their own, or an empty string if a prayer wouldn't fit.
+- prayer: {{prayer_words}} words. A short prayer in plain words the reader can make their own, or an empty string if a prayer wouldn't fit. Readers pray these every day, so open it from this passage's own words or image, not with a stock address such as "Lord, you know" or "God, you are".
 - extraVerses: zero to two of the related passages above that genuinely shed light on the theme, copied exactly as written there (BOOK.C.V or BOOK.C.V-BOOK.C.V). Use an empty list if none fit.

@@ -22,9 +22,10 @@ from .calendar import parse_anchor
 from .store import (DevotionalStore, passage_label, passage_text, passage_words, related_passages, to_passage,
                     validator)
 
-CHECKER_VERSION = "devotionals-5"  # 5: standalone blocks series/calendar references only; "you must" only as a
+CHECKER_VERSION = "devotionals-6"  # 6: "listed" is pipeline wording only when it points at the input
+# 5: standalone blocks series/calendar references only; "you must" only as a
 # sentence-opening command; "word count" passes before a quoted word
-# 4: 4: advisory repeated_openings report (per month, never blocking)
+# 4: advisory repeated_openings report (per month, never blocking)
 # 3: stands alone, no dates/seasons, only listed passages, Hebrews, health, pipeline wording
 FIELDS = ("context", "reflect", "applyIt", "prayer")
 OPTIONAL = ("prayer",)
@@ -47,8 +48,13 @@ STANDALONE = [_re.compile(p, _re.I) for p in (
     r"\bgood friday\b", r"\beaster (sunday|morning|day)\b", r"\bholy week\b", r"\bpalm sunday\b",
     r"\bthis (lent|advent|easter|christmas|season)\b", r"\bthis morning\b",
 )]
+#: "listed" only where it points at the writer's input ("the passages listed", "listed above", "listed under"); a
+#: list in the text itself ("The offers listed are costly ones", Micah 6:6-7) passes (devotionals-6).
 DEVOTIONAL_PIPELINE_WORDS = [_re.compile(p, _re.I) for p in (
-    r"\bthe theme\b", r"\bthe series\b", r"\brelated passages?\b", r"\bthe passage given\b", r"\blisted\b",
+    r"\bthe theme\b", r"\bthe series\b", r"\brelated passages?\b", r"\bthe passage given\b",
+    r"\blisted (?:above|below|here|under)\b", r"\bas listed\b",
+    r"\b(?:passages?|verses?|words?|references?|readings?|texts?) (?:you were |that were |that are |are )?listed\b",
+    r"\blisted (?:passages?|verses?|words?|references?|readings?|texts?)\b",
 )]
 HEBREWS_BY_PAUL = _re.compile(r"\bPaul(?:'s|’s)?\s+(?:letter|epistle)\s+to\s+the\s+Hebrews\b|\bPaul\s+wrote\s+(?:to\s+the\s+)?Hebrews\b", _re.I)
 FAITH_INSTEAD_OF_CARE = _re.compile(

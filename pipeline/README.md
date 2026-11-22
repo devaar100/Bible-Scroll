@@ -471,7 +471,8 @@ reviewed (unless `--force`).
 - "Apply it" action type: each day's request names one of 8 kinds of step (`generate.APPLY_IT_ACTIONS`: pause and
   breathe, write one sentence, say a short prayer aloud, send a message to someone, reread a verse slowly, ask someone
   a question, notice something during the day, do one small thing for someone), chosen by day of year so consecutive
-  days never share one. The prompt also tells the writer not to open applyIt with "Today".
+  days never share one. The prompt also tells the writer not to open applyIt with "Today", and to open the prayer
+  from the passage's own words rather than a stock address ("Lord, you know", "God, you are").
 - Parallel: `draft` and `check` keep up to `--workers` (default 8) API requests in flight. Only the API call runs on a
   worker thread; requests are built and each devotional is saved on the main thread as its answer comes in, so
   Ctrl-C keeps finished days and a re-run carries on. The client retries 429/5xx up to 6 times with backoff.
@@ -482,7 +483,9 @@ reviewed (unless `--force`).
   but never reviewed or hand-edited ones; only `--force` touches those. Word limits live in
   `checks/devotional_limits.json`.
 
-**Checks** (`devotionals/checks.py`, `CHECKER_VERSION` `devotionals-5`):
+**Checks** (`devotionals/checks.py`, `CHECKER_VERSION` `devotionals-6`):
+- "listed" is pipeline wording only when it points at the writer's input ("the passages/words listed", "listed
+  above/below/under", "as listed"); a list in the text itself ("The offers listed are costly ones") passes.
 - Stands alone: blocks references to the series or the calendar ("tomorrow's devotional/reading", "yesterday's",
   "last time we", "next time we", "this week's", "come back tomorrow/later/again/here", "this season", "as we saw",
   "day 3 of 14", Easter/Lent/Advent dates). Everyday "next time you feel…", "next week", "tomorrow" in a sentence pass.

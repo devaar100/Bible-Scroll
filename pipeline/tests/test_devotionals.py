@@ -683,3 +683,30 @@ def test_devotional_hand_fixes_reject_other_fields(tmp_path):
         "devotional-01-01": {"theme": {"before": "", "after": ""}}}}))
     with pytest.raises(fx.FixesError):
         fx.load_devotional_fixes(path)
+
+
+# ---- devotionals-6: "listed" only when it points at the writer's input ------------------------------------
+
+def test_a_list_in_the_text_itself_is_not_pipeline_wording(drafted, day, dbible):
+    # Real 03-15 sentence (Micah 6:6-7 lists the offerings).
+    drafted["context"] = words(80, "The offers listed are costly ones: burnt offerings, year-old calves, thousands "
+                                   "of rams, rivers of oil, even a firstborn child.")
+    assert "pipeline_wording" not in {r["check"] for r in check(drafted, day, dbible).reasons}
+
+
+@pytest.mark.parametrize("sentence", [
+    "Among the passages listed, Romans speaks most clearly.",
+    "The words listed show how the verb works.",
+    "As listed above, the psalm has three parts.",
+    "The verses listed below repeat the promise.",
+    "One of the listed passages repeats it.",
+    "The Greek words listed under the passage say more.",
+])
+def test_listed_that_points_at_the_input_still_blocks(drafted, day, dbible, sentence):
+    drafted["reflect"] = words(150, sentence)
+    assert "pipeline_wording" in {r["check"] for r in check(drafted, day, dbible).reasons}
+
+
+def test_prompt_asks_for_varied_prayer_openings(day, dbible):
+    request = gen.build_request(day, gen.Prompt.load(), dbible.bible_db, dbible.source_db)
+    assert 'not with a stock address such as "Lord, you know"' in request

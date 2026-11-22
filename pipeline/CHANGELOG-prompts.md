@@ -98,3 +98,11 @@ January's Haiku drafts opened applyIt with "Today" on most days and repeated the
 - devotionals/checks.py (devotionals-4): advisory repeated_openings report (an opening used more than twice in a
   month), never blocking.
 - January is not redrafted: its 31 devotionals keep promptVersion 91916e8d1419 (`draft --stale` would redraft them).
+
+## Devotional prompt d101c695f09a → 0276e6db0624 (2026-11-22)
+
+February and March: prayers opened "Lord, you know" 6 times in February and 4 in March (advisory repeatedOpenings).
+- prompts/devotional.md, prayer: open it from the passage's own words or image, not with a stock address such as
+  "Lord, you know" or "God, you are".
+- January, February and March are not redrafted (they keep d101c695f09a); April onwards uses the new prompt.
+- devotionals/checks.py (devotionals-6): "listed" is pipeline wording only when it points at the writer's input.
