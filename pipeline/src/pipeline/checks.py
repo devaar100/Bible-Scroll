@@ -575,18 +575,35 @@ def check_study(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
     (rubric_always: always). An unavailable reviewer leaves the study unchanged for the next run.
     Never mutates [study]; apply() writes the outcome.
     """
-    blocking, advisory = split_reasons(free_checks(study, bible, rules, validator))
-    rubric = None
-    if judge is not None and (rubric_always or not blocking):
-        from .rubric import RubricUnavailable
-        try:
-            result = judge.judge(study, bible.text(parse_id(study["id"])) or "", supplied=supplied_for(study, bible))
-        except RubricUnavailable as error:
-            # API down, rate limited, etc.: not the study's fault. Leave it for the next run.
-            return Outcome("unchanged", blocking, None, str(error), advisory)
-        rubric = result.rubric
-        advisory += result.reasons
-    return Outcome("flagged" if blocking else "auto_checked", blocking, rubric, None, advisory)
+    blocking, advisory = code_checks(study, bible, rules, validator)
+    if judge is None or not (rubric_always or not blocking):
+        return reviewed(blocking, advisory, None)
+    from .rubric import RubricUnavailable
+    verse_text, supplied = review_input(study, bible)
+    try:
+        result = judge.judge(study, verse_text, supplied=supplied)
+    except RubricUnavailable as error:
+        # API down, rate limited, etc.: not the study's fault. Leave it for the next run.
+        return Outcome("unchanged", blocking, None, str(error), advisory)
+    return reviewed(blocking, advisory, result)
+
+
+def code_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012Validator) -> tuple[list, list]:
+    """(blocking, advisory) reasons from the code checks alone. Reads the databases: call on the main thread."""
+    return split_reasons(free_checks(study, bible, rules, validator))
+
+
+def review_input(study: dict, bible: Bible) -> tuple[str, str | None]:
+    """(verse text, supplied text) for judge.judge. Reads the databases: call on the main thread."""
+    return bible.text(parse_id(study["id"])) or "", supplied_for(study, bible)
+
+
+def reviewed(blocking: list[dict], advisory: list[dict], result) -> Outcome:
+    """The outcome once the reviewer has answered (result: a RubricResult, or None when it didn't run)."""
+    if result is None:
+        return Outcome("flagged" if blocking else "auto_checked", blocking, None, None, advisory)
+    return Outcome("flagged" if blocking else "auto_checked", blocking, result.rubric, None,
+                   advisory + result.reasons)
 
 
 def supplied_for(study: dict, bible: Bible) -> str | None:

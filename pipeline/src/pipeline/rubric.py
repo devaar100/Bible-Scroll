@@ -14,8 +14,9 @@ from __future__ import annotations
 
 import json
 import re
+import threading
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from typing import Protocol
 
 import anthropic
@@ -26,6 +27,9 @@ from jsonschema import Draft202012Validator, ValidationError
 from .usage import Usage
 
 RUBRIC_MODEL = "claude-haiku-5-5"
+#: SDK retries (exponential backoff, honours retry-after) on 429, 5xx and connection errors before a review
+#: counts as unavailable; concurrent reviewers hit rate limits more often than one at a time.
+RUBRIC_MAX_RETRIES = 6
 THRESHOLD = 2
 DIMENSIONS = {
     "factualRisk": "factual risk",
@@ -111,13 +115,19 @@ _TITLES = {"meaning": "Meaning", "historicalContext": "Historical context", "lif
 
 
 class RubricUnavailable(Exception):
-    """The rubric couldn't be obtained (network, rate limit, server error, bad response). Retry later."""
+    """The rubric couldn't be obtained (network, rate limit, server error, bad response). Retry later.
+    usage: tokens billed for this call when a response came back but was unusable (None when nothing was billed)."""
+
+    def __init__(self, message: str, usage: Usage | None = None):
+        super().__init__(message)
+        self.usage = usage
 
 
 @dataclass(frozen=True)
 class RubricResult:
     rubric: dict | None
     reasons: list[dict]
+    usage: Usage | None = None  # this call's tokens (AnthropicJudge); None when nothing was sent
 
     @property
     def unverified(self) -> int:
@@ -303,11 +313,14 @@ class AnthropicJudge:
     """Calls the Messages API. Credentials come from the environment (ANTHROPIC_API_KEY or `ant auth login`)."""
 
     def __init__(self, client: anthropic.Anthropic | None = None, model: str = RUBRIC_MODEL):
-        self.client = client or anthropic_client()
+        self.client = client or anthropic_client().with_options(max_retries=RUBRIC_MAX_RETRIES)
         self.model = model
+        # Running totals for sequential callers (`check`, devotionals). judge() may run on worker threads
+        # (batch.check_collected), which counts from each result's own usage instead; the lock keeps these sane.
         self.usage = Usage()  # tokens across every rubric call, for cost reporting
         self.reviews = 0      # reviews returned
         self.unverified_reviews = 0  # reviews with at least one judgment whose quote isn't in the study
+        self._lock = threading.Lock()
 
     def judge(self, study: dict, verse_text: str, subject: Subject | None = None,
               supplied: str | None = None) -> RubricResult:
@@ -331,8 +344,11 @@ class AnthropicJudge:
             # Already retried by the SDK. Other API errors (400/401/403/404) are configuration problems
             # that a retry won't fix, so they propagate and stop the run.
             raise RubricUnavailable(f"{type(error).__name__}: {error}") from error
+        call = Usage()
         if getattr(response, "usage", None) is not None:
-            self.usage.add(response.usage)
+            call.add(response.usage)
+            with self._lock:
+                self.usage.add(response.usage)
 
         if response.stop_reason == "refusal":
             category = getattr(response.stop_details, "category", None) if response.stop_details else None
@@ -340,16 +356,17 @@ class AnthropicJudge:
                 "check": "rubric",
                 "message": f"The AI reviewer declined to assess this study (refusal, category: {category}). "
                            "Needs a human.",
-            }])
+            }], call)
         if response.stop_reason == "max_tokens":
-            raise RubricUnavailable("Rubric response hit max_tokens")
+            raise RubricUnavailable("Rubric response hit max_tokens", call)
         text = next((b.text for b in response.content if b.type == "text"), None)
         if text is None:
-            raise RubricUnavailable(f"No text in rubric response (request {response._request_id})")
+            raise RubricUnavailable(f"No text in rubric response (request {response._request_id})", call)
         try:
             result = to_result(json.loads(text), self.model, study, subject, supplied)
         except (json.JSONDecodeError, ValidationError) as error:
-            raise RubricUnavailable(f"Unusable rubric response: {error}") from error
-        self.reviews += 1
-        self.unverified_reviews += result.unverified > 0
-        return result
+            raise RubricUnavailable(f"Unusable rubric response: {error}", call) from error
+        with self._lock:
+            self.reviews += 1
+            self.unverified_reviews += result.unverified > 0
+        return replace(result, usage=call)

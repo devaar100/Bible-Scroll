@@ -114,10 +114,12 @@ def main() -> None:
     collect = batch_sub.add_parser("collect", help="write ended batches, run checks + Haiku rubric, submit one retry round")
     collect.add_argument("--no-retry", action="store_true", help="don't submit the retry round")
     collect.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    collect.add_argument("--workers", type=int, default=6, help="reviewer requests in flight at once (default 6)")
     bcheck = batch_sub.add_parser("check", help="re-run the checks on collected verses (no generation, no retry)")
     bcheck.add_argument("--wave", help="only this wave")
     bcheck.add_argument("--recheck", action="store_true", help="also verses already auto_checked/flagged")
     bcheck.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    bcheck.add_argument("--workers", type=int, default=6, help="reviewer requests in flight at once (default 6)")
     bcheck.add_argument("--reuse-reviews", action="store_true",
                         help="re-apply each study's stored Haiku review instead of calling the API (implies --recheck; "
                              "also verses failed on a check); use after changing how a review is scored")
@@ -583,7 +585,8 @@ def run_batch(args) -> None:
             from .rubric import AnthropicJudge
             judge = AnthropicJudge()
         statuses = bt.check_collected(state, Bible(SOURCE_DB, APP_BIBLE_DB), judge, wave=args.wave,
-                                      recheck=args.recheck or args.reuse_reviews, include_failed=args.reuse_reviews)
+                                      recheck=args.recheck or args.reuse_reviews, include_failed=args.reuse_reviews,
+                                      workers=args.workers)
         print(f"Checked: {dict(statuses)}")
         show("check")
         return
@@ -609,7 +612,7 @@ def run_batch(args) -> None:
         if not args.no_ai:
             from .rubric import AnthropicJudge
             judge = AnthropicJudge()
-        retry = bt.collect(client, state, source, Bible(SOURCE_DB, APP_BIBLE_DB), judge)
+        retry = bt.collect(client, state, source, Bible(SOURCE_DB, APP_BIBLE_DB), judge, workers=args.workers)
         show("collect")
         if retry and not args.no_retry:
             groups: dict[tuple[str, str], list[str]] = {}

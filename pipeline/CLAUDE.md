@@ -21,7 +21,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   + check_summary.json (and all/). One retry round; a second failure -> status `failed` (never published). Batch ids
   live in state/ (gitignored): `backup` zips out/ + state/ before collecting. Attempts and failures are counted per
   output folder (state format 2), so a test run into its own folder doesn't use up out/studies' retry.
-  `batch check --reuse-reviews` re-scores the stored Haiku reviews with the current code (no API call); use it after
+  `batch check|collect --workers N` (default 6) runs the reviewer on N threads; only judge.judge runs off the main
+  thread (saving, counting and DB reads stay on it). `batch check --reuse-reviews` re-scores the stored Haiku reviews with the current code (no API call); use it after
   changing how a review is scored. `batch estimate` calibrates from the latest batch wave in out/batch_runs.
 - Study request input: context.py is shared by the request and the reference check (4 verses each side within the
   book; whole psalm if <= 30 verses, plus its heading labelled as superscription). prompts/books.json (book

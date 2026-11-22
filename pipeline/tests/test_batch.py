@@ -1,4 +1,5 @@
 """Batch mode: request shape, caching, state, collect, retry, failed status, backup. Never calls the API."""
+import dataclasses
 import json
 import zipfile
 from types import SimpleNamespace
@@ -63,8 +64,11 @@ class FakeJudge:
         self.result, self.usage, self.model = result, Usage(), "claude-haiku-5-5"
 
     def judge(self, study, verse_text, supplied=None):
-        self.usage.add(SimpleNamespace(input_tokens=2000, output_tokens=500))
-        return self.result
+        """Like AnthropicJudge: each result carries its own call's usage (batch.check_collected counts that)."""
+        call = Usage()
+        call.add(SimpleNamespace(input_tokens=2000, output_tokens=500))
+        self.usage.merge(call)
+        return dataclasses.replace(self.result, usage=call)
 
 
 @pytest.fixture

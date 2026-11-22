@@ -244,6 +244,11 @@ It never edits the file. Malformed ids or duplicates stop `--wave discover` and 
   `[A-Za-z0-9_-]`.
 - `status`: polls open batches.
 - `check`: re-runs the checks on collected verses (`--wave`, `--recheck`, `--no-ai`); no generation, no retry.
+- Reviewer concurrency (`check` and `collect`, `--workers N`, default 6): code checks run on the main thread; studies
+  that pass go to the Haiku reviewer on up to N threads (normal Messages API requests, SDK `max_retries` 6 with
+  backoff on 429/5xx). Each study is saved atomically as its review comes in; rubric tokens are counted from each
+  call's own usage; state/ is saved every 25 studies and when the run stops (Ctrl-C too). An interrupted or
+  unavailable review leaves the study as it was, so re-running carries on.
 - `report`: rewrites the summary files from state/ and the study files, without calling the API.
 - `backup`: same as `python -m pipeline backup`.
 - `collect`: writes ended batches (never over a reviewed or edited study), runs the free checks and the Haiku

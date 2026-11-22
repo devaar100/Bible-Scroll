@@ -485,6 +485,12 @@ def refresh(client, state: State, log=print) -> None:
 
 # ---- Collect ----------------------------------------------------------------------------------------------
 
+#: Reviewer requests in flight at once (`batch check|collect --workers N`).
+REVIEW_WORKERS = 6
+#: The state file (rubric usage, evidence) is saved after this many checked studies, and when the run stops.
+SAVE_EVERY = 25
+
+
 def _mark_failed(study: dict, why: str) -> dict:
     from .checks import CHECKER_VERSION
     updated = json.loads(json.dumps(study))
@@ -495,7 +501,8 @@ def _mark_failed(study: dict, why: str) -> dict:
     return updated
 
 
-def collect(client, state: State, source: StudyStore, bible, judge, log=print) -> list[str]:
+def collect(client, state: State, source: StudyStore, bible, judge, log=print, *,
+            workers: int = REVIEW_WORKERS) -> list[str]:
     """Write ended batches' results, then check them. Returns the verses that need a retry."""
     from .checks import Rules, apply, check_study
     from .studies import validator as make_validator
@@ -560,16 +567,24 @@ def collect(client, state: State, source: StudyStore, bible, judge, log=print) -
         log(f"Collected {record['id']}: {dict(outcomes)}; cacheWriteTokens {u['cacheWriteTokens']}, "
             f"cacheReadTokens {u['cacheReadTokens']}, ${u['costUsd']}")
 
-    check_collected(state, bible, judge, log=log)
+    check_collected(state, bible, judge, workers=workers, log=log)
     return needs_retry(state)
 
 
 def check_collected(state: State, bible, judge, *, wave: str | None = None, recheck: bool = False,
-                    include_failed: bool = False, log=print) -> Counter:
+                    include_failed: bool = False, workers: int = REVIEW_WORKERS, log=print) -> Counter:
     """Checks collected verses still at status generated (recheck: also auto_checked/flagged; include_failed: also
-    written verses that failed on a check). Flagged on the last attempt -> failed. Rubric tokens are added to state
-    per wave. Returns the new statuses."""
-    from .checks import Rules, apply, check_study
+    written verses that failed on a check). Flagged on the last attempt -> failed. Returns the new statuses.
+
+    Code checks run on the main thread. Studies that pass them go to the reviewer (judge.judge) on up to [workers]
+    threads; that call is the only thing a worker does. Every save and every count happens back on the main thread,
+    as each review comes in: the study file is written atomically right away, rubric tokens (each result's own
+    usage) go to state per wave, and the state file is saved every SAVE_EVERY studies and when the run stops,
+    Ctrl-C included. An interrupted study stays as it was, so re-running picks it up."""
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
+    from .checks import Rules, apply, code_checks, review_input, reviewed
+    from .rubric import RubricUnavailable
     from .studies import validator as make_validator
 
     rules, validator = Rules.load(), make_validator()
@@ -577,49 +592,94 @@ def check_collected(state: State, bible, judge, *, wave: str | None = None, rech
     if include_failed:
         wanted.add("failed")
     statuses: Counter = Counter()
-    by_wave = state.data.setdefault("rubricUsageByWave", {})
-    for record in state.batches:
-        if not record.get("collectedAt") or (wave and record.get("wave") != wave):
-            continue
-        target = StudyStore(Path(record["outDir"]))
-        for sid in record["ids"]:
-            if not target.path(sid).exists():
-                continue
-            study = target.load(sid)
-            if study.get("status") not in wanted or not is_written(study) or \
-                    study["meta"].get("batchId") != record["id"]:
-                continue
-            if study.get("status") == "failed" and any(
-                    r.get("check") == "generation" for r in study.get("checks", {}).get("reasons", [])):
-                continue  # the last attempt produced nothing usable; re-checking older prose won't change that
-            before = Usage(**vars(judge.usage)) if judge is not None else None
-            outcome = check_study(study, bible, rules, validator, judge)
-            if judge is not None:
-                delta = Usage(**{k: getattr(judge.usage, k) - getattr(before, k) for k in vars(before)})
-                total = Usage.from_dict(by_wave.get(record.get("wave") or "adhoc", {}))
-                total.merge(delta)
-                by_wave[record.get("wave") or "adhoc"] = total.as_dict(MODEL)
-            if outcome.status == "unchanged":
-                log(f"{sid}: rubric unavailable ({outcome.error}); left as generated, re-run collect or check")
-                continue
-            updated = apply(study, outcome)
-            if updated["status"] == "flagged" and state.attempts(sid, target) >= MAX_ATTEMPTS:
-                updated["status"] = "failed"
-            target.save(updated)
-            statuses[updated["status"]] += 1
-    if judge is not None:
-        total = Usage.from_dict(state.data["rubricUsage"])
-        total.merge(judge.usage)
-        judge.usage = Usage()
-        reviews, unverified = getattr(judge, "reviews", 0), getattr(judge, "unverified_reviews", 0)
-        if reviews:
-            log(f"Rubric: {reviews} reviews, {unverified} unverified (a quote not found verbatim in its section)")
-            totals = state.data.setdefault("rubricEvidence", {"reviews": 0, "unverified": 0})
-            totals["reviews"] += reviews
-            totals["unverified"] += unverified
-            judge.reviews = judge.unverified_reviews = 0
+    by_wave = {k: Usage.from_dict(v) for k, v in state.data.get("rubricUsageByWave", {}).items()}
+    total = Usage.from_dict(state.data.get("rubricUsage", {}))
+    evidence = state.data.setdefault("rubricEvidence", {"reviews": 0, "unverified": 0})
+    run = {"reviews": 0, "unverified": 0, "since_save": 0}
+
+    def flush() -> None:
+        state.data["rubricUsageByWave"] = {k: u.as_dict(MODEL) for k, u in by_wave.items()}
         state.data["rubricUsage"] = total.as_dict(MODEL)
-    state.save()
+        state.save()
+        run["since_save"] = 0
+
+    def count_usage(wave_key: str, usage: Usage | None) -> None:
+        if usage is not None:
+            by_wave.setdefault(wave_key, Usage()).merge(usage)
+            total.merge(usage)
+
+    def finish(target: StudyStore, sid: str, study: dict, outcome) -> None:
+        updated = apply(study, outcome)
+        if updated["status"] == "flagged" and state.attempts(sid, target) >= MAX_ATTEMPTS:
+            updated["status"] = "failed"
+        target.save(updated)
+        statuses[updated["status"]] += 1
+        run["since_save"] += 1
+        if run["since_save"] >= SAVE_EVERY:
+            flush()
+
+    def todo():
+        for record in state.batches:
+            if not record.get("collectedAt") or (wave and record.get("wave") != wave):
+                continue
+            target = StudyStore(Path(record["outDir"]))
+            for sid in record["ids"]:
+                if not target.path(sid).exists():
+                    continue
+                study = target.load(sid)
+                if study.get("status") not in wanted or not is_written(study) or \
+                        study["meta"].get("batchId") != record["id"]:
+                    continue
+                if study.get("status") == "failed" and any(
+                        r.get("check") == "generation" for r in study.get("checks", {}).get("reasons", [])):
+                    continue  # the last attempt produced nothing usable; re-checking older prose won't change that
+                yield record.get("wave") or "adhoc", target, sid, study
+
+    def collect_one(future, pending: dict) -> None:
+        wave_key, target, sid, study, blocking, advisory = pending.pop(future)
+        try:
+            result = future.result()
+        except RubricUnavailable as error:
+            count_usage(wave_key, error.usage)
+            log(f"{sid}: rubric unavailable ({error}); left as generated, re-run collect or check")
+            return
+        count_usage(wave_key, getattr(result, "usage", None))
+        if result.rubric is not None:
+            run["reviews"] += 1
+            run["unverified"] += result.unverified > 0
+        finish(target, sid, study, reviewed(blocking, advisory, result))
+
+    pool = ThreadPoolExecutor(max_workers=max(1, workers)) if judge is not None else None
+    pending: dict = {}
+    try:
+        for wave_key, target, sid, study in todo():
+            blocking, advisory = code_checks(study, bible, rules, validator)
+            if judge is None or blocking:
+                finish(target, sid, study, reviewed(blocking, advisory, None))
+                continue
+            verse_text, supplied = review_input(study, bible)
+            future = pool.submit(judge.judge, study, verse_text, supplied=supplied)
+            pending[future] = (wave_key, target, sid, study, blocking, advisory)
+            while len(pending) >= 2 * max(1, workers):  # bounded: don't load a whole wave into memory
+                done, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for f in done:
+                    collect_one(f, pending)
+        while pending:
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for f in done:
+                collect_one(f, pending)
+    finally:
+        if pool is not None:
+            # Ctrl-C or an error: drop queued reviews (their studies stay as they were); in-flight calls are
+            # abandoned. Whatever was checked is already saved.
+            pool.shutdown(wait=not pending, cancel_futures=True)
+        if run["reviews"]:
+            evidence["reviews"] += run["reviews"]
+            evidence["unverified"] += run["unverified"]
+        flush()
+    if run["reviews"]:
+        log(f"Rubric: {run['reviews']} reviews, {run['unverified']} unverified "
+            "(a quote not found verbatim in its section)")
     return statuses
 
 
