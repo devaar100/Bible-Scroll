@@ -196,7 +196,7 @@ def submit_next(job: Path, *, dry_run: bool = False, client=None, state: bt.Stat
 # ---- Replay: every code check, no AI ---------------------------------------------------------------------
 
 def replay(directory: Path, *, bible=None, rules=None, log=print) -> dict:
-    from .checks import Rules, band_counts, describe_limits, free_checks
+    from .checks import Rules, band_counts, describe_limits, free_checks, split_reasons
     from .studies import validator as make_validator
     from .store import Bible
 
@@ -210,8 +210,8 @@ def replay(directory: Path, *, bible=None, rules=None, log=print) -> dict:
         if not is_written(study):
             continue
         studies.append(study)
-        reasons = free_checks(study, bible, rules, validator)
-        results[study_id] = {"passed": not reasons, "reasons": reasons,
+        reasons, advisory = split_reasons(free_checks(study, bible, rules, validator))
+        results[study_id] = {"passed": not reasons, "reasons": reasons, "advisory": advisory,
                              "words": {f: len(study.get(f, "").split()) for f in rules.limits}}
     bands = band_counts(studies, rules)
     report = {"directory": str(directory), "checkedAt": now(), "studies": len(results),

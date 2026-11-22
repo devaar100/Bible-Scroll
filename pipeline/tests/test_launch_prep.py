@@ -13,7 +13,7 @@ from pipeline import jobs
 from pipeline import publish as p
 from pipeline.checks import Rules, band, check_study, describe_limits, upper_limit
 from pipeline.offline import OfflineError, anthropic_client, require_online
-from pipeline.rubric import AnthropicJudge, RubricUnavailable
+from pipeline.rubric import AnthropicJudge, RubricUnavailable, support_found
 from pipeline.store import StudyStore
 from pipeline.studies import validator
 
@@ -26,7 +26,8 @@ def outcome(study, bible):
 
 
 def named(o):
-    return sorted({r["check"] for r in o.reasons})
+    """Blocking and advisory checks together (decision 25)."""
+    return sorted({r["check"] for r in [*o.reasons, *o.advisory]})
 
 
 # ---- Offline mode ---------------------------------------------------------------------------------------
@@ -121,7 +122,8 @@ def test_generic_traditions_sentences_are_rejected(written, bible, sentence):
 ])
 def test_specific_or_plain_wording_passes(written, bible, sentence):
     written["theology"] = words(80, sentence)
-    assert outcome(written, bible).reasons == []
+    o = outcome(written, bible)
+    assert o.reasons == [] and o.advisory == []
 
 
 # ---- "Did you know?" names a word of this verse (a) ------------------------------------------------------
@@ -258,6 +260,52 @@ def test_unsupported_claim_flags(written):
     assert "nothing in the text given supports it" in result.reasons[0]["message"]
 
 
+LUKE = """Surrounding verses (World English Bible):
+Luke 6:36: “Therefore be merciful, even as your Father is also merciful.
+Luke 6:37: Don’t judge, and you won’t be judged. Don’t condemn, and you won’t be condemned.
+Luke 6:38 (this verse): “Give, and it will be given to you.”
+John 1:10: He was in the world, and the world didn’t recognize him.
+John 1:11: He came to his own, and those who were his own didn’t receive him.
+
+Original words in this verse (transliteration (original) = in-context gloss):
+- lelohim (לֵֽ֭אלֹהִים) = for God
+- hochili (הוֹחִ֣ילִי) = wait
+
+Related passages for this verse:
+- Psalm 42:5
+- Psalm 42:11"""
+
+
+@pytest.mark.parametrize("support", [
+    "Therefore be merciful, even as your Father is also merciful. Don't judge, and you won't be judged.",  # 2 verses
+    "Psalm 42:5 Psalm 42:11",                                       # two list lines
+    "lelohim (לֵאלֹהִים) = for God; hochili = wait",  # other accents, joined
+    "the world didn't recognize him and those who were his own didn't receive him",  # skips 6 words between verses
+    "“Therefore be merciful ... Don’t condemn",
+])
+def test_support_found_across_lines_labels_and_marks(support):
+    assert support_found(support, LUKE)
+
+
+@pytest.mark.parametrize("support", [
+    "Don't judge, and you will be judged.",              # a changed word
+    "merciful judged",                                   # short quotes must be contiguous
+    "the world didn't recognize him and his own people didn't receive him",  # words that aren't there
+    "Therefore be merciful Give and it will be given to you",  # skips more than SUPPORT_GAP_WORDS
+    "",
+])
+def test_support_not_found(support):
+    assert not support_found(support, LUKE)
+
+
+def test_unsupported_mark_with_a_quote_in_the_text_passes(written):
+    written["meaning"] = words(60, "God so loved the world.")
+    judge, _ = _judge(_scores([{"section": "Meaning", "claim": "God so loved the world",
+                                "support": "For God so loved the world", "supported": False}]))
+    result = judge.judge(written, "", supplied=SUPPLIED)
+    assert result.reasons == [] and result.rubric["contextMismatch"]["claims"][0]["supportFound"]
+
+
 def test_missing_context_mismatch_is_an_unusable_response(written):
     judge, _ = _judge(_scores(drop_context=True))
     with pytest.raises(RubricUnavailable, match="Unusable"):
@@ -332,7 +380,7 @@ def test_submit_next_sends_the_file_unchanged_and_records_it(job):
     info = jobs.submit_next(job.dir, client=client, state=job.state, log=lambda _: None)
     sent = batches.created[0]
     assert sent == jobs.load_requests(job.dir, "batch-001.jsonl")
-    assert info["batchId"] == "msgbatch_1" and job.state.attempts("JHN.3.16") == 1
+    assert info["batchId"] == "msgbatch_1" and job.state.attempts("JHN.3.16", job.state.batches[-1]["outDir"]) == 1
     assert job.state.batches[0]["wave"] == "launch_test" and job.state.batches[0]["jobFile"] == "batch-001.jsonl"
     schedule = json.loads((job.dir / "schedule.json").read_text())
     assert schedule["batches"][0]["status"] == "submitted"
@@ -372,7 +420,8 @@ def test_replay_runs_every_code_check_without_ai(tmp_path, written, bible):
     put(folder, bad)
     report = jobs.replay(folder.directory, bible=bible, log=lambda _: None)
     assert report["passed"] == 1 and report["rejected"] == ["JHN.3.17"]
-    assert report["reasons"] == {"length": 1, "generic_traditions": 1}
+    assert report["reasons"] == {"length": 1}  # blocking only
+    assert [r["check"] for r in report["results"]["JHN.3.17"]["advisory"]] == ["generic_traditions"]
     assert report["bands"]["bySection"]["theology"]["over limit"] == 1
     assert json.loads((folder.directory / "replay.json").read_text())["rejected"] == ["JHN.3.17"]
 

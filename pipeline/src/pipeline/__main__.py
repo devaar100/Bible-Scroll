@@ -118,6 +118,9 @@ def main() -> None:
     bcheck.add_argument("--wave", help="only this wave")
     bcheck.add_argument("--recheck", action="store_true", help="also verses already auto_checked/flagged")
     bcheck.add_argument("--no-ai", action="store_true", help="free checks only (no Haiku rubric)")
+    bcheck.add_argument("--reuse-reviews", action="store_true",
+                        help="re-apply each study's stored Haiku review instead of calling the API (implies --recheck; "
+                             "also verses failed on a check); use after changing how a review is scored")
     batch_sub.add_parser("report", help="write out/batch_runs/<wave>/generate_summary.json + check_summary.json "
                                         "and print them (no API calls)")
     bback = batch_sub.add_parser("backup", help="zip out/ and state/ into backups/ (same as `pipeline backup`)")
@@ -538,7 +541,8 @@ def run_batch(args) -> None:
             "calibration": None if cal is None else {
                 "from": str(cal.folder.relative_to(g.PIPELINE)), "verses": cal.verses,
                 "outputPerVerse": round(cal.output_per_verse),
-                "flaggedShare": None if cal.retry_rate is None else round(cal.retry_rate, 3)},
+                "flaggedShare": None if cal.retry_rate is None else round(cal.retry_rate, 3),
+                "rubricUsdPerVerse": None if cal.rubric_cost_per_verse is None else round(cal.rubric_cost_per_verse, 5)},
             "waves": rows,
         }
         print(json.dumps(report, indent=2))
@@ -549,6 +553,20 @@ def run_batch(args) -> None:
 
     if args.batch_command == "report":
         show("report")
+        return
+
+    if args.batch_command == "check":
+        judge = None
+        if args.reuse_reviews:
+            from .rubric import StoredJudge
+            judge = StoredJudge()
+        elif not args.no_ai:
+            from .rubric import AnthropicJudge
+            judge = AnthropicJudge()
+        statuses = bt.check_collected(state, Bible(SOURCE_DB, APP_BIBLE_DB), judge, wave=args.wave,
+                                      recheck=args.recheck or args.reuse_reviews, include_failed=args.reuse_reviews)
+        print(f"Checked: {dict(statuses)}")
+        show("check")
         return
 
     from .offline import anthropic_client
@@ -566,15 +584,6 @@ def run_batch(args) -> None:
     elif args.batch_command == "status":
         bt.refresh(client, state)
         show("status")
-    elif args.batch_command == "check":
-        judge = None
-        if not args.no_ai:
-            from .rubric import AnthropicJudge
-            judge = AnthropicJudge()
-        statuses = bt.check_collected(state, Bible(SOURCE_DB, APP_BIBLE_DB), judge, wave=args.wave,
-                                      recheck=args.recheck)
-        print(f"Checked: {dict(statuses)}")
-        show("check")
     elif args.batch_command == "collect":
         bt.refresh(client, state)
         judge = None
@@ -705,6 +714,7 @@ def run_check(args) -> None:
                   recheck=args.recheck, rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit)
     report = {
         "checked": summary.checked, "statuses": dict(summary.statuses), "reasons": dict(summary.reasons),
+        "advisory": dict(summary.advisory),
         "skipped_not_written": summary.skipped_not_written, "skipped_already_done": summary.skipped_already_done,
         "rubric_unavailable": summary.rubric_unavailable, "seconds": round(time.monotonic() - started, 1),
     }
@@ -713,6 +723,11 @@ def run_check(args) -> None:
     summary_file = OUT / "check_summary.json" if not args.out else folder / "check_summary.json"
     summary_file.write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps(report, indent=2))
+    from . import advisory
+    from .store import is_written
+    store = StudyStore(folder)
+    written = [s for s in (store.load(i) for i in store.ids()) if is_written(s)]
+    print(f"Reviewer report (advisory): {advisory.write(advisory.build(written, folder.name), summary_file.parent)}")
 
 
 if __name__ == "__main__":

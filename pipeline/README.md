@@ -151,6 +151,9 @@ published shape didn't change.
   study in out/cc_test/, refused by publish and bundle) and `meta.round`.
 - 3, 2026-11-19 (no bump): optional unpublished `meta.promptHash` (sha256 of the cached system block sent),
   `meta.booksHash` (sha256 of prompts/books.json) and `meta.wave`; check names `verse_position` and `dotted_translit`.
+- Published 2 / internal 3, 2026-11-22 (no bump): `didYouKnow` may be an empty string (the writer leaves it out when
+  it isn't confident the fact is about this verse's own words; the key stays, and the app already hides an empty
+  section). Unpublished `checks.advisory` (non-blocking reasons); check name `placeholder`.
 
 ## Reported studies (`report`, `reports`)
 

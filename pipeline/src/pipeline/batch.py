@@ -112,23 +112,80 @@ def count_fixed_tokens(client, fixed: Fixed) -> int:
 
 # ---- State ------------------------------------------------------------------------------------------------
 
+def folder_key(out_dir) -> str:
+    """The key attempts and failures are kept under: the output folder's resolved path (a StudyStore or a path)."""
+    return str(Path(getattr(out_dir, "directory", out_dir)).resolve())
+
+
+#: 2: attempts and failures are kept per output folder ({folder: {id: n}}), so a test run into its own folder
+#: (generate/batch --out) neither uses up nor inherits the attempts of out/studies.
+STATE_FORMAT = 2
+
+
 class State:
-    """state/batches.json: every batch (id, verses, usage), attempts per verse, failures, rubric usage."""
+    """state/batches.json: every batch (id, verses, usage), attempts and failures per output folder and verse,
+    rubric usage."""
 
     def __init__(self, path: Path = STATE_FILE):
         self.path = path
         self.data = json.loads(path.read_text()) if path.exists() else {}
         self.data.setdefault("batches", [])
-        self.data.setdefault("attempts", {})
-        self.data.setdefault("failures", {})  # id -> why the last attempt produced no usable study
+        if self.data.get("stateFormat", 1) < STATE_FORMAT:
+            self._migrate_attempts()
+        self.data.setdefault("attempts", {})  # folder -> id -> attempts sent
+        self.data.setdefault("failures", {})  # folder -> id -> why the last attempt produced no usable study
         self.data.setdefault("rubricUsage", Usage().as_dict(MODEL))
+
+    def _migrate_attempts(self) -> None:
+        """Format 1 kept one count per verse id across every folder. Rebuild the counts per folder from the batches
+        that were actually sent (a batch id), restarting at each regeneration (restart_attempts) in time order. A
+        format-1 restart doesn't name its folder, so it restarts the verse in every folder. The old counts are kept
+        under attemptsFormat1 for reference."""
+        old_attempts, old_failures = self.data.get("attempts", {}), self.data.get("failures", {})
+        events = [(r["createdAt"], 1, r) for r in self.data["batches"] if r.get("id")]
+        events += [(e["at"], 0, (sid, e)) for sid, log in self.data.get("regenerated", {}).items() for e in log]
+        counts: dict[str, dict[str, int]] = {}
+        last_folder: dict[str, str] = {}
+        for _, kind, item in sorted(events, key=lambda e: (e[0], e[1])):
+            if kind == 1:
+                folder = folder_key(item["outDir"])
+                for sid in item["ids"]:
+                    counts.setdefault(folder, {})[sid] = counts.get(folder, {}).get(sid, 0) + 1
+                    last_folder[sid] = folder
+            else:
+                sid, entry = item
+                folders = [folder_key(entry["outDir"])] if entry.get("outDir") else list(counts)
+                for folder in folders:
+                    if sid in counts.get(folder, {}):
+                        counts[folder][sid] = 0
+        failures: dict[str, dict[str, str]] = {}
+        for sid, why in old_failures.items():
+            if sid in last_folder:
+                failures.setdefault(last_folder[sid], {})[sid] = why
+        if old_attempts:
+            self.data["attemptsFormat1"] = old_attempts
+        self.data["attempts"], self.data["failures"] = counts, failures
+        self.data["stateFormat"] = STATE_FORMAT
+
+    def attempts(self, study_id: str, out_dir) -> int:
+        return self.data["attempts"].get(folder_key(out_dir), {}).get(study_id, 0)
+
+    def set_attempts(self, study_id: str, out_dir, n: int) -> None:
+        self.data["attempts"].setdefault(folder_key(out_dir), {})[study_id] = n
+
+    def failure(self, study_id: str, out_dir) -> str | None:
+        return self.data["failures"].get(folder_key(out_dir), {}).get(study_id)
+
+    def set_failure(self, study_id: str, out_dir, why: str | None) -> None:
+        folder = self.data["failures"].setdefault(folder_key(out_dir), {})
+        if why is None:
+            folder.pop(study_id, None)
+        else:
+            folder[study_id] = why
 
     @property
     def batches(self) -> list[dict]:
         return self.data["batches"]
-
-    def attempts(self, study_id: str) -> int:
-        return self.data["attempts"].get(study_id, 0)
 
     def open_ids(self) -> set[str]:
         return {i for b in self.batches if not b.get("collectedAt") for i in b["ids"]}
@@ -171,7 +228,7 @@ def plan(ids: list[str], target: StudyStore, state: State, force: bool = False,
                 skipped["already on the current prompt"] += 1
             else:
                 todo.append(study_id)
-        elif state.attempts(study_id) >= MAX_ATTEMPTS and not force:
+        elif state.attempts(study_id, target) >= MAX_ATTEMPTS and not force:
             skipped["failed twice (status failed)"] += 1
         elif existing and is_written(existing) and not force:
             skipped["already written (use --force)"] += 1
@@ -187,12 +244,14 @@ def restart_attempts(state: State, ids: list[str], target: StudyStore) -> None:
     for i in ids:
         old = target.load(i).get("meta", {}) if target.path(i).exists() else {}
         last = (log.get(i) or [{}])[-1]
-        if state.attempts(i) == 0 and last.get("fromPromptVersion") == old.get("promptVersion"):
+        if state.attempts(i, target) == 0 and last.get("fromPromptVersion") == old.get("promptVersion") \
+                and last.get("outDir") in (None, folder_key(target)):
             continue  # already restarted (an earlier submit stopped before sending)
         log.setdefault(i, []).append({"fromPromptVersion": old.get("promptVersion"),
-                                      "previousAttempts": state.attempts(i), "at": now()})
-        state.data["attempts"][i] = 0
-        state.data["failures"].pop(i, None)
+                                      "previousAttempts": state.attempts(i, target), "at": now(),
+                                      "outDir": folder_key(target)})
+        state.set_attempts(i, target, 0)
+        state.set_failure(i, target, None)
     state.save()
 
 
@@ -200,7 +259,7 @@ def restart_attempts(state: State, ids: list[str], target: StudyStore) -> None:
 
 @dataclass
 class Calibration:
-    """Measured per-verse tokens from an earlier direct run with the same model and effort."""
+    """Measured per-verse tokens from an earlier batch or direct run with the same model and effort."""
     folder: Path
     verses: int
     input_per_verse: float
@@ -209,7 +268,42 @@ class Calibration:
     rubric_cost_per_verse: float | None
 
 
-def find_calibration(out: Path = OUT) -> Calibration | None:
+def _batch_calibration(runs_dir: Path) -> Calibration | None:
+    """From the batch wave whose latest batch was collected last (out/batch_runs/<wave>/, not "all"): real batch
+    requests, so output tokens include thinking as billed. Flagged share = (flagged + failed) / checked verses;
+    rubric cost per review from its check_summary.json."""
+    best = None
+    for summary_path in sorted(runs_dir.glob("*/generate_summary.json")):
+        if summary_path.parent.name == "all":
+            continue
+        s = json.loads(summary_path.read_text())
+        if s.get("model") != MODEL or s.get("effort") != EFFORT or not (s.get("usage") or {}).get("requests"):
+            continue
+        last = max((x.get("collectedAt") or "" for x in s.get("batches", [])), default="")
+        if best is None or last > best[0]:
+            best = (last, summary_path.parent, s)
+    if best is None:
+        return None
+    _, folder, s = best
+    usage = s["usage"]
+    n = usage["requests"]
+    retry_rate = rubric_cost = None
+    check_path = folder / "check_summary.json"
+    if check_path.exists():
+        c = json.loads(check_path.read_text())
+        statuses = c.get("statuses", {})
+        checked = sum(statuses.get(k, 0) for k in ("auto_checked", "flagged", "failed", "reviewed", "edited"))
+        if checked:
+            retry_rate = (statuses.get("flagged", 0) + statuses.get("failed", 0)) / checked
+        reviews = (c.get("rubric") or {}).get("reviews") or 0
+        if reviews:
+            rubric_cost = c["rubric"]["costUsd"] / reviews
+    total_in = usage["inputTokens"] + usage.get("cacheReadTokens", 0) + usage.get("cacheWriteTokens", 0)
+    return Calibration(folder, n, total_in / n, usage["outputTokens"] / n, retry_rate, rubric_cost)
+
+
+def _direct_calibration(out: Path) -> Calibration | None:
+    """From the latest direct test run (out/<folder>/generate_summary.json written by `generate --out`)."""
     best = None
     for summary_path in sorted(out.glob("*/generate_summary.json")):
         s = json.loads(summary_path.read_text())
@@ -237,6 +331,12 @@ def find_calibration(out: Path = OUT) -> Calibration | None:
         pass
     return Calibration(folder, n, usage["inputTokens"] / n, usage["outputTokens"] / n,
                        retry_rate, rubric_cost)
+
+
+def find_calibration(out: Path = OUT, runs_dir: Path | None = None) -> Calibration | None:
+    """Measured per-verse tokens, flagged share and rubric cost: the latest real batch run if there is one (same
+    model and effort), else the latest direct test run."""
+    return _batch_calibration(runs_dir or out / "batch_runs") or _direct_calibration(out)
 
 
 def project(verses: int, fixed_tokens: int, cal: Calibration) -> dict:
@@ -359,8 +459,8 @@ def send(client, requests: list[dict], round_: int, target: StudyStore, state: S
     record["id"] = batch.id
     record["processingStatus"] = batch.processing_status
     for i in chunk:
-        state.data["attempts"][i] = state.attempts(i) + 1
-        state.data["failures"].pop(i, None)
+        state.set_attempts(i, target, state.attempts(i, target) + 1)
+        state.set_failure(i, target, None)
     state.save()
     log(f"Submitted batch {batch.id}: {len(chunk)} verses (attempt {round_}"
         f"{', wave ' + wave if wave else ''})")
@@ -434,9 +534,10 @@ def collect(client, state: State, source: StudyStore, bible, judge, log=print) -
                 continue
             if why:
                 outcomes[why.split(" (")[0]] += 1
-                state.data["failures"][sid] = why
-                if state.attempts(sid) >= MAX_ATTEMPTS:
-                    target.save(_mark_failed(existing or source.load(sid), f"attempt {state.attempts(sid)}: {why}"))
+                state.set_failure(sid, target, why)
+                if state.attempts(sid, target) >= MAX_ATTEMPTS:
+                    target.save(_mark_failed(existing or source.load(sid),
+                                             f"attempt {state.attempts(sid, target)}: {why}"))
                 continue
             study = dict(source.load(sid))
             study.update(sections)
@@ -445,7 +546,8 @@ def collect(client, state: State, source: StudyStore, bible, judge, log=print) -
                              "maxTokens": record.get("maxTokens", MAX_TOKENS), "generatedAt": now(),
                              "promptVersion": record["promptVersion"],
                              "promptHash": record.get("systemHash"), "booksHash": record.get("booksHash"),
-                             "batchId": record["id"], "wave": record.get("wave"), "attempts": state.attempts(sid)}
+                             "batchId": record["id"], "wave": record.get("wave"),
+                             "attempts": state.attempts(sid, target)}
             study["meta"] = {k: v for k, v in study["meta"].items() if v is not None}
             study.pop("checks", None)
             target.save(study)
@@ -463,14 +565,17 @@ def collect(client, state: State, source: StudyStore, bible, judge, log=print) -
 
 
 def check_collected(state: State, bible, judge, *, wave: str | None = None, recheck: bool = False,
-                    log=print) -> Counter:
-    """Checks collected verses still at status generated (recheck: also auto_checked/flagged). Flagged on the
-    last attempt -> failed. Rubric tokens are added to state per wave. Returns the new statuses."""
+                    include_failed: bool = False, log=print) -> Counter:
+    """Checks collected verses still at status generated (recheck: also auto_checked/flagged; include_failed: also
+    written verses that failed on a check). Flagged on the last attempt -> failed. Rubric tokens are added to state
+    per wave. Returns the new statuses."""
     from .checks import Rules, apply, check_study
     from .studies import validator as make_validator
 
     rules, validator = Rules.load(), make_validator()
     wanted = {"generated", "auto_checked", "flagged"} if recheck else {"generated"}
+    if include_failed:
+        wanted.add("failed")
     statuses: Counter = Counter()
     by_wave = state.data.setdefault("rubricUsageByWave", {})
     for record in state.batches:
@@ -484,6 +589,9 @@ def check_collected(state: State, bible, judge, *, wave: str | None = None, rech
             if study.get("status") not in wanted or not is_written(study) or \
                     study["meta"].get("batchId") != record["id"]:
                 continue
+            if study.get("status") == "failed" and any(
+                    r.get("check") == "generation" for r in study.get("checks", {}).get("reasons", [])):
+                continue  # the last attempt produced nothing usable; re-checking older prose won't change that
             before = Usage(**vars(judge.usage)) if judge is not None else None
             outcome = check_study(study, bible, rules, validator, judge)
             if judge is not None:
@@ -495,7 +603,7 @@ def check_collected(state: State, bible, judge, *, wave: str | None = None, rech
                 log(f"{sid}: rubric unavailable ({outcome.error}); left as generated, re-run collect or check")
                 continue
             updated = apply(study, outcome)
-            if updated["status"] == "flagged" and state.attempts(sid) >= MAX_ATTEMPTS:
+            if updated["status"] == "flagged" and state.attempts(sid, target) >= MAX_ATTEMPTS:
                 updated["status"] = "failed"
             target.save(updated)
             statuses[updated["status"]] += 1
@@ -524,12 +632,12 @@ def needs_retry(state: State) -> list[str]:
             continue
         target = StudyStore(Path(record["outDir"]))
         for sid in record["ids"]:
-            if sid in busy or sid in out or state.attempts(sid) >= MAX_ATTEMPTS:
+            if sid in busy or sid in out or state.attempts(sid, target) >= MAX_ATTEMPTS:
                 continue
             study = target.load(sid) if target.path(sid).exists() else None
             if protected(study):
                 continue
-            if sid in state.data["failures"] or (study and study.get("status") == "flagged"):
+            if state.failure(sid, target) or (study and study.get("status") == "flagged"):
                 out.append(sid)
     return out
 
@@ -540,12 +648,22 @@ def _records(state: State, wave: str | None) -> list[dict]:
     return [r for r in state.batches if wave is None or (r.get("wave") or "adhoc") == wave]
 
 
-def _latest_studies(records: list[dict]) -> dict[str, dict]:
-    """(id -> study) for every verse in [records], read once from the folder of its latest batch."""
+def _latest_folders(records: list[dict]) -> dict[str, str]:
+    """(id -> output folder of its latest batch) for every verse in [records]."""
     where: dict[str, str] = {}
     for record in records:
         for sid in record["ids"]:
             where[sid] = record["outDir"]
+    return where
+
+
+def _retried(state: State, records: list[dict]) -> int:
+    return sum(1 for sid, folder in _latest_folders(records).items() if state.attempts(sid, folder) >= 2)
+
+
+def _latest_studies(records: list[dict]) -> dict[str, dict]:
+    """(id -> study) for every verse in [records], read once from the folder of its latest batch."""
+    where = _latest_folders(records)
     out = {}
     for sid, folder in where.items():
         store = StudyStore(Path(folder))
@@ -596,7 +714,7 @@ def generate_summary(state: State, wave: str | None = None) -> dict:
         "verses": len(studies),
         "statuses": dict(Counter(_status(st) for st in studies.values())),
         "outcomes": dict(outcomes),
-        "retries": {"verses": sum(1 for sid in studies if state.attempts(sid) >= 2),
+        "retries": {"verses": _retried(state, records),
                     "batches": sum(1 for r in records if r["round"] >= 2)},
         "batches": [{"id": r["id"], "round": r["round"], "wave": r.get("wave"), "verses": len(r["ids"]),
                      "status": r["processingStatus"], "collectedAt": r.get("collectedAt"),
@@ -614,6 +732,7 @@ def generate_summary(state: State, wave: str | None = None) -> dict:
 
 
 def check_summary(state: State, wave: str | None = None) -> dict:
+    from .advisory import criterion
     from .checks import CHECKER_VERSION, CHECKS_DIR, PROSE_FIELDS, length_band
 
     limits = json.loads((CHECKS_DIR / "limits.json").read_text())["words"]
@@ -623,6 +742,7 @@ def check_summary(state: State, wave: str | None = None) -> dict:
     bands: Counter = Counter()
     by_section: dict[str, Counter] = {f: Counter() for f in PROSE_FIELDS}
     reasons: Counter = Counter()
+    advisory: Counter = Counter()
     reviews = unverified_reviews = unverified_judgments = 0
     for st in written:
         for f in PROSE_FIELDS:
@@ -631,6 +751,7 @@ def check_summary(state: State, wave: str | None = None) -> dict:
                 bands[band] += 1
                 by_section[f][band] += 1
         reasons.update(r["check"] for r in st.get("checks", {}).get("reasons", []))
+        advisory.update({criterion(r) for r in st.get("checks", {}).get("advisory", [])})
         rubric = st.get("checks", {}).get("rubric")
         if rubric:
             reviews += 1
@@ -648,8 +769,10 @@ def check_summary(state: State, wave: str | None = None) -> dict:
         "updatedAt": now(),
         "verses": len(studies), "written": len(written),
         "statuses": dict(Counter(_status(st) for st in studies.values())),
-        "retries": sum(1 for sid in studies if state.attempts(sid) >= 2),
-        "reasons": dict(reasons.most_common()),
+        "retries": _retried(state, records),
+        "reasons": dict(reasons.most_common()),  # blocking
+        "advisory": {"studies": sum(1 for st in written if st.get("checks", {}).get("advisory")),
+                     "byCriterion": dict(advisory.most_common())},  # studies per criterion; never blocking
         "overLength": {"total": {k: bands[k] for k in ("up to 20% over", "20-50% over", "more than 50% over")},
                        "bySection": {f: dict(c) for f, c in by_section.items() if c}},
         "rubric": {"reviews": reviews, "unverifiedReviews": unverified_reviews,
@@ -663,7 +786,10 @@ def check_summary(state: State, wave: str | None = None) -> dict:
 
 
 def write_summaries(state: State, runs_dir: Path = RUNS_DIR) -> dict[str, Path]:
-    """generate_summary.json + check_summary.json for every wave in state and for "all". Atomic writes."""
+    """generate_summary.json + check_summary.json + reviewer_report.json/.md (advisory reasons) for every wave in
+    state and for "all". Atomic writes."""
+    from . import advisory
+
     written = {}
     waves = sorted({r.get("wave") or "adhoc" for r in state.batches})
     for wave in [*waves, None]:
@@ -675,6 +801,8 @@ def write_summaries(state: State, runs_dir: Path = RUNS_DIR) -> dict[str, Path]:
             with os.fdopen(fd, "w") as f:
                 f.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
             os.replace(tmp, folder / name)
+        studies = [st for st in _latest_studies(_records(state, wave)).values() if is_written(st)]
+        advisory.write(advisory.build(studies, f"wave {wave or 'all'}"), folder)
         written[wave or "all"] = folder
     return written
 

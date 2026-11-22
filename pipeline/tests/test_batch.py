@@ -120,7 +120,7 @@ def test_submit_saves_batch_id_and_attempts(setup):
     s = setup
     submit(s)
     saved = json.loads(s.state.path.read_text())
-    assert saved["batches"][0]["id"] == "msgbatch_1" and saved["attempts"] == {"JHN.3.16": 1}
+    assert saved["batches"][0]["id"] == "msgbatch_1" and saved["attempts"] == {bt.folder_key(s.target): {"JHN.3.16": 1}}
     request = s.client.messages.batches.created[0][0]
     assert request["custom_id"] == "JHN_3_16"
     assert bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)[1]["in an open batch"] == 1
@@ -160,16 +160,21 @@ def test_max_tokens_retries_once_then_fails(setup):
     assert list(validator().iter_errors(study)) == []
 
 
+def blocked(prose):
+    """Prose that fails a blocking code check (verse position)."""
+    return {**prose, "applyIt": prose["applyIt"] + " Read the next verse too."}
+
+
 def test_flagged_twice_becomes_failed(setup):
     s = setup
-    flagged = FakeJudge(RubricResult(RUBRIC_OK, [{"check": "rubric", "message": "tone 2/3: preachy"}]))
+    judge = FakeJudge(RubricResult(RUBRIC_OK, []))
     submit(s)
-    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(s.prose)}
-    assert collect(s, flagged) == ["JHN.3.16"]
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(blocked(s.prose))}
+    assert collect(s, judge) == ["JHN.3.16"]
     assert s.target.load("JHN.3.16")["status"] == "flagged"
     submit(s, ["JHN.3.16"], 2)
-    s.client.messages.batches.results_by_batch["msgbatch_2"] = {"JHN_3_16": ok(s.prose)}
-    collect(s, flagged)
+    s.client.messages.batches.results_by_batch["msgbatch_2"] = {"JHN_3_16": ok(blocked(s.prose))}
+    collect(s, judge)
     study = s.target.load("JHN.3.16")
     assert study["status"] == "failed" and study["meta"]["attempts"] == 2
     assert bt.needs_retry(s.state) == []
@@ -224,7 +229,7 @@ def test_submit_splits_into_batches_of_at_most_batch_size(setup, monkeypatch):
 
 def test_failed_twice_is_skipped_unless_force(setup):
     s = setup
-    s.state.data["attempts"]["JHN.3.16"] = bt.MAX_ATTEMPTS
+    s.state.set_attempts("JHN.3.16", s.target, bt.MAX_ATTEMPTS)
     todo, skipped = bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)
     assert todo == [] and skipped["failed twice (status failed)"] == 1
     assert bt.plan(["JHN.3.16"], s.target, s.state, force=True, bible_db=s.bible_db)[0] == ["JHN.3.16"]
@@ -284,18 +289,105 @@ def test_stale_picks_only_old_prompt_verses_and_restarts_attempts(setup):
     todo, _ = bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db, stale_prompt="000000000000")
     assert todo == ["JHN.3.16"]
     bt.restart_attempts(s.state, todo, s.target)
-    assert s.state.attempts("JHN.3.16") == 0
+    assert s.state.attempts("JHN.3.16", s.target) == 0
     assert s.state.data["regenerated"]["JHN.3.16"][0] == {
-        "fromPromptVersion": current, "previousAttempts": 1, "at": s.state.data["regenerated"]["JHN.3.16"][0]["at"]}
+        "fromPromptVersion": current, "previousAttempts": 1, "at": s.state.data["regenerated"]["JHN.3.16"][0]["at"],
+            "outDir": bt.folder_key(s.target)}
     submit(s, round_=1)
-    assert s.state.attempts("JHN.3.16") == 1  # a flag on this attempt still gets one retry
+    assert s.state.attempts("JHN.3.16", s.target) == 1  # a flag on this attempt still gets one retry
 
 
 def test_restart_attempts_is_idempotent(setup):
     s = setup
     put(s.target, {**skeleton("JHN.3.16"), "meta": {"model": "m", "generatedAt": "2026-11-18T00:00:00+00:00",
                                                     "promptVersion": "000000000000"}})
-    s.state.data["attempts"]["JHN.3.16"] = 1
+    s.state.set_attempts("JHN.3.16", s.target, 1)
     bt.restart_attempts(s.state, ["JHN.3.16"], s.target)
     bt.restart_attempts(s.state, ["JHN.3.16"], s.target)  # a submit that stopped before sending, then a re-run
-    assert len(s.state.data["regenerated"]["JHN.3.16"]) == 1 and s.state.attempts("JHN.3.16") == 0
+    assert len(s.state.data["regenerated"]["JHN.3.16"]) == 1 and s.state.attempts("JHN.3.16", s.target) == 0
+
+
+def test_attempts_are_kept_per_output_folder(setup, tmp_path):
+    """A test run into its own folder neither uses up nor inherits the attempts of another folder."""
+    s = setup
+    s.state.set_attempts("JHN.3.16", tmp_path / "studies", bt.MAX_ATTEMPTS)
+    assert bt.plan(["JHN.3.16"], s.target, s.state, bible_db=s.bible_db)[0] == ["JHN.3.16"]
+    submit(s)
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(blocked(s.prose))}
+    assert collect(s, None) == ["JHN.3.16"]  # attempt 1 in this folder: flagged, not failed
+    assert s.target.load("JHN.3.16")["status"] == "flagged"
+
+
+def test_format_1_state_is_rebuilt_per_folder_from_the_batches(tmp_path):
+    a, b = str((tmp_path / "studies").resolve()), str((tmp_path / "api_test").resolve())
+    batch = lambda bid, at, folder, ids: {"id": bid, "createdAt": at, "outDir": folder, "ids": ids}  # noqa: E731
+    path = tmp_path / "state.json"
+    path.write_text(json.dumps({
+        "batches": [batch("b1", "2026-11-18T22:00:00+00:00", a, ["X", "Y"]),
+                    batch("b2", "2026-11-19T15:41:00+00:00", a, ["X", "Y"]),
+                    batch("b3", "2026-11-19T15:48:00+00:00", a, ["Y"]),
+                    batch("b4", "2026-11-20T01:57:00+00:00", b, ["X", "Y"]),
+                    {**batch(None, "2026-11-20T03:00:00+00:00", b, ["Z"])}],  # never sent
+        "attempts": {"X": 2, "Y": 3},
+        "failures": {"Y": "errored"},
+        "regenerated": {i: [{"fromPromptVersion": "old", "previousAttempts": 1, "at": "2026-11-19T15:25:00+00:00"}]
+                        for i in ("X", "Y")},
+    }))
+    state = bt.State(path)
+    assert state.data["attempts"] == {a: {"X": 1, "Y": 2}, b: {"X": 1, "Y": 1}}
+    assert state.failure("Y", b) == "errored" and state.failure("Y", a) is None
+    assert state.data["stateFormat"] == bt.STATE_FORMAT and state.data["attemptsFormat1"] == {"X": 2, "Y": 3}
+    state.save()
+    assert bt.State(path).data["attempts"] == state.data["attempts"]  # loading again doesn't migrate twice
+
+
+def test_calibration_prefers_the_latest_batch_wave(tmp_path):
+    runs = tmp_path / "batch_runs"
+
+    def wave(name, collected, out_tokens, statuses, rubric_cost, reviews):
+        (runs / name).mkdir(parents=True)
+        (runs / name / "generate_summary.json").write_text(json.dumps({
+            "model": bt.MODEL, "effort": bt.EFFORT, "batches": [{"collectedAt": collected}],
+            "usage": {"requests": 10, "inputTokens": 12000, "outputTokens": out_tokens, "cacheReadTokens": 24000,
+                      "cacheWriteTokens": 3000}}))
+        (runs / name / "check_summary.json").write_text(json.dumps({
+            "statuses": statuses, "rubric": {"reviews": reviews, "costUsd": rubric_cost}}))
+
+    wave("adhoc", "2026-11-19T15:00:00+00:00", 10000, {"auto_checked": 10}, 0.01, 10)
+    wave("discover_test10", "2026-11-20T02:47:00+00:00", 46000, {"failed": 9, "auto_checked": 1}, 0.0214, 10)
+    wave("all", "2026-11-21T00:00:00+00:00", 1, {}, 0, 0)  # the all-waves total is never the calibration
+    cal = bt.find_calibration(tmp_path, runs)
+    assert cal.folder.name == "discover_test10" and cal.output_per_verse == 4600
+    assert cal.input_per_verse == 3900 and cal.retry_rate == 0.9
+    assert cal.rubric_cost_per_verse == pytest.approx(0.00214)
+
+
+def test_calibration_falls_back_to_a_direct_run(tmp_path):
+    assert bt.find_calibration(tmp_path, tmp_path / "batch_runs") is None
+
+
+def test_reviewer_flags_never_block_or_retry_and_go_to_the_report(setup, tmp_path):
+    s = setup
+    advisory_only = FakeJudge(RubricResult(RUBRIC_OK, [{"check": "rubric", "message": "tone 2/3: preachy"},
+                                                        {"check": "context_mismatch", "message": "“x”: unsupported",
+                                                         "section": "meaning"}]))
+    submit(s)
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok(s.prose)}
+    assert collect(s, advisory_only) == []  # no retry
+    study = s.target.load("JHN.3.16")
+    assert study["status"] == "auto_checked" and study["checks"]["reasons"] == []
+    assert [r["check"] for r in study["checks"]["advisory"]] == ["rubric", "context_mismatch"]
+    folder = bt.write_summaries(s.state, tmp_path / "runs")["all"]
+    report = json.loads((folder / "reviewer_report.json").read_text())
+    assert report["flagged"] == 1 and report["byCriterion"] == {"context_mismatch": 1, "rubric: tone": 1}
+    assert "## JHN.3.16 (auto_checked)" in (folder / "reviewer_report.md").read_text()
+    assert json.loads((folder / "check_summary.json").read_text())["advisory"]["studies"] == 1
+
+
+def test_empty_did_you_know_is_written_and_passes(setup):
+    s = setup
+    submit(s)
+    s.client.messages.batches.results_by_batch["msgbatch_1"] = {"JHN_3_16": ok({**s.prose, "didYouKnow": ""})}
+    assert collect(s, FakeJudge(RubricResult(RUBRIC_OK, []))) == []
+    study = s.target.load("JHN.3.16")
+    assert study["status"] == "auto_checked" and study["didYouKnow"] == ""

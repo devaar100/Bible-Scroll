@@ -19,17 +19,25 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   max_tokens 32,000; a max_tokens stop is a failed attempt. Waves in waves.yaml (waves.py, strict mini-parser, no
   YAML dependency), at most batch_size (500) requests per batch. Summaries: out/batch_runs/<wave>/generate_summary.json
   + check_summary.json (and all/). One retry round; a second failure -> status `failed` (never published). Batch ids
-  live in state/ (gitignored): `backup` zips out/ + state/ before collecting.
+  live in state/ (gitignored): `backup` zips out/ + state/ before collecting. Attempts and failures are counted per
+  output folder (state format 2), so a test run into its own folder doesn't use up out/studies' retry.
+  `batch check --reuse-reviews` re-scores the stored Haiku reviews with the current code (no API call); use it after
+  changing how a review is scored. `batch estimate` calibrates from the latest batch wave in out/batch_runs.
 - Study request input: context.py is shared by the request and the reference check (4 verses each side within the
   book; whole psalm if <= 30 verses, plus its heading labelled as superscription). prompts/books.json (book
   background, textNotes) is read by the user before any batch; only a textNote allows a manuscript remark.
 - Discover: discover.txt ("ID theme label" per line, display order; the label is free text up to publish.DISCOVER_THEME_MAX characters, shown on the card as written; one card design for all) feeds both `batch --wave discover` and publish's
   discover.json through publish.load_discover / load_discover_entries (publish refuses a line without a theme; the wave ignores themes). Keep them the single loader so the order can't diverge.
   `python -m pipeline discover` audits it; never edit discover.txt for the user.
-- Checks: rules in `checks/` (banned.txt, pipeline_wording.txt, limits.json; lengths pass up to 20% over max); code
-  checks also reject verse-number/position wording and dotted transliterations. Bump `CHECKER_VERSION` in checks.py
-  when a check changes. The AI rubric (rubric.py, claude-haiku-5-5) runs only after the free checks pass; API outages
-  must leave a study unchanged, never flag it. Tests never call the API (fake clients).
+- Checks (decision 25): only code checks in `checks.BLOCKING` block a study (references, lengths, verse
+  numbers/positions, leaked instructions (pipeline_wording.txt) and placeholders, quoted original words in the verse,
+  plus schema/generation/report); one retry, then `failed`. Everything else (banned.txt, generic_lines.txt,
+  transliteration form, and the whole AI rubric, rubric.py, claude-haiku-5-5) is advisory: `checks.advisory`, listed in
+  reviewer_report.md (out/batch_runs/<wave>/, or next to check_summary.json), never blocking or retried. The rubric
+  runs only when no blocking check failed; API outages leave a study unchanged. "Did you know?" is optional (empty
+  passes; checks.OPTIONAL_SECTIONS). Bump `CHECKER_VERSION` when a check changes. Tests never call the API.
+- Frozen (decision 25): prompts/study.md, the rubric prompts/schema and .claude/agents/study-reviewer.md
+  (tests/test_frozen.py). No rubric changes or test rounds without a new decision.
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
 - Reports (`report <ids> --reason`, `reports`, reports.py): flag + `checks.reasons` check "report" + a line in
   out/regenerate_queue.jsonl. An open report (no generatedAt/editedAt/reviewedAt after it) keeps the study out of

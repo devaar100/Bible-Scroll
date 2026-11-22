@@ -6,12 +6,15 @@ study, as does a refusal.
 
 Studies also get a contextMismatch item: the reviewer sees the text the writer was given (generate.supplied_text)
 and lists every claim about a nearby verse or about what the verse itself contains, quoting the supporting words
-from that text. A claim it marks unsupported, or whose support quote isn't in the text given, flags the study. API failures raise RubricUnavailable so the checker leaves the study for the
+from that text. A claim whose support quote isn't in the text given (support_found) is reported.
+For studies every reason here is advisory (checks.BLOCKING, decision 25): it never blocks or triggers a retry. API failures raise RubricUnavailable so the checker leaves the study for the
 next run instead of flagging it for something that isn't its fault.
 """
 from __future__ import annotations
 
 import json
+import re
+import unicodedata
 from dataclasses import dataclass
 from typing import Protocol
 
@@ -176,30 +179,69 @@ def quote_verified(study: dict, section: str | None, quote: str) -> bool:
     return bool(section and q and q in _normalise(study.get(section, "")))
 
 
-_QUOTES = str.maketrans({"“": '"', "”": '"', "‘": "'", "’": "'"})
+#: A line label in the text given: "Luke 6:37: ", "Luke 6:38 (this verse): ", "1 John 4:8: " or a list bullet "- ".
+_LINE_LABEL = re.compile(r"^\s*(?:- |(?:[1-3] )?[A-Z][A-Za-z ]+ \d+:\d+(?: \(this verse\))?: )")
+#: A support quote of at least SUPPORT_GAP_MIN_WORDS words may skip up to SUPPORT_GAP_WORDS words of the text
+#: given (a quote that runs across two verses and leaves out the words between them).
+SUPPORT_GAP_MIN_WORDS = 6
+SUPPORT_GAP_WORDS = 8
+
+
+def _words(text: str, strip_labels: bool = False) -> list[str]:
+    """Lowercase words with accents, vowel points, cantillation, punctuation and quote marks removed."""
+    if strip_labels:
+        text = "\n".join(_LINE_LABEL.sub("", line) for line in text.splitlines())
+    text = "".join(ch for ch in unicodedata.normalize("NFD", text) if not unicodedata.category(ch).startswith("M"))
+    return re.sub(r"\W+", " ", text.lower()).split()
+
+
+def _in_text(quote: list[str], text: list[str]) -> bool:
+    n = len(quote)
+    if not n:
+        return False
+    if any(text[i:i + n] == quote for i in range(len(text) - n + 1)):
+        return True
+    if n < SUPPORT_GAP_MIN_WORDS:
+        return False
+    for start, word in enumerate(text):
+        if word != quote[0]:
+            continue
+        k, skipped = 0, 0
+        for w in text[start:]:
+            if w == quote[k]:
+                k += 1
+                if k == n:
+                    return True
+            else:
+                skipped += 1
+                if skipped > SUPPORT_GAP_WORDS:
+                    break
+    return False
 
 
 def support_found(support: str, supplied: str) -> bool:
-    """True if [support] appears in the text given (case, curly quotes, whitespace and ellipses normalised;
-    a quote cut with "..." must match piece by piece)."""
-    def norm(t: str) -> str:
-        return _normalise(t.translate(_QUOTES).lower())
-    text = norm(supplied)
-    pieces = [p.strip(" \"'.,;:") for p in norm(support).replace("…", "...").split("...")]
+    """True if [support] is in the text given. Compared word by word, ignoring case, punctuation, quote marks,
+    diacritics, verse labels ("Luke 6:37:") and list bullets, so a quote may run across lines. A quote cut with
+    "..." must match piece by piece. A piece of SUPPORT_GAP_MIN_WORDS or more words may skip up to
+    SUPPORT_GAP_WORDS words of the text (a quote that joins two verses); its own words must all appear, in order."""
+    text = _words(supplied, strip_labels=True)
+    pieces = [_words(p) for p in support.replace("…", "...").split("...")]
     pieces = [p for p in pieces if p]
-    return bool(pieces) and all(p in text for p in pieces)
+    return bool(pieces) and all(_in_text(p, text) for p in pieces)
 
 
 def context_claims(found: dict, study: dict, supplied: str, sections: dict[str, str]) -> tuple[dict, list[dict]]:
-    """(the contextMismatch record with verified/supportFound per claim, reasons that flag the study)."""
+    """(the contextMismatch record with verified/supportFound per claim, reasons that flag the study).
+    A claim flags when its support isn't in the text given. A claim the reviewer marked unsupported but backed with
+    a quote that is in the text given passes: Haiku often does that for claims its own quote shows."""
     claims, reasons = [], []
     for c in found["claims"]:
         key = section_key(c["section"], sections)
         found_in_text = support_found(c["support"], supplied)
         claims.append({**c, "section": key or c["section"], "verified": quote_verified(study, key, c["claim"]),
                        "supportFound": found_in_text})
-        if not c["supported"] or not found_in_text:
-            why = "nothing in the text given supports it" if not c["supported"] else \
+        if not found_in_text:
+            why = "nothing in the text given supports it" if not c["support"].strip() else \
                 f"its support “{c['support']}” isn't in the text given"
             reason = {"check": "context_mismatch", "message": f"“{c['claim']}”: {why}"}
             if key:
@@ -227,6 +269,34 @@ def to_result(scores: dict, model: str, study: dict | None = None, subject: Subj
                                                                     supplied, sections)
         reasons += context_reasons
     return RubricResult(rubric, reasons)
+
+
+class StoredJudge:
+    """Re-scores the review already stored in study["checks"]["rubric"] with the current code (to_result), without
+    calling the API: for re-checking after a change to how a review is scored, not to how it is asked for. A study
+    with no stored review raises RubricUnavailable, so the checker leaves it unchanged."""
+
+    def __init__(self):
+        self.usage = Usage()  # always zero: nothing is sent
+        self.reviews = 0
+        self.unverified_reviews = 0
+
+    def judge(self, study: dict, verse_text: str, subject: Subject | None = None,
+              supplied: str | None = None) -> RubricResult:
+        stored = (study.get("checks") or {}).get("rubric")
+        if not stored or not all(k in stored for k in DIMENSIONS) or (supplied and "contextMismatch" not in stored):
+            raise RubricUnavailable("no stored review to reuse")
+        scores = {k: {f: stored[k][f] for f in ("score", "reason", "section", "quote")} for k in DIMENSIONS}
+        if supplied:
+            scores["contextMismatch"] = {"claims": [{f: c[f] for f in ("section", "claim", "support", "supported")}
+                                                    for c in stored["contextMismatch"]["claims"]]}
+        try:
+            result = to_result(scores, stored.get("model", RUBRIC_MODEL), study, subject, supplied)
+        except (KeyError, ValidationError) as error:
+            raise RubricUnavailable(f"stored review unusable: {error}") from error
+        self.reviews += 1
+        self.unverified_reviews += result.unverified > 0
+        return result
 
 
 class AnthropicJudge:

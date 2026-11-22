@@ -2,9 +2,29 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-22: Study pipeline simplified
+
+### 25. Only code checks block a study; the AI reviewer is advisory; prompts are frozen
+Blocking checks are code only (pipeline/src/pipeline/checks.py BLOCKING): references correct and allowed, length
+limits, no verse numbers or positions, no leaked instructions or placeholders, and quoted original words present in
+the verse (plus schema, a generation failure and an open reader report). A study that fails one gets at most one
+retry, then status `failed`. Everything else, the Haiku reviewer (factual risk, one-sided theology, tone,
+contextMismatch) and the non-blocking code checks (banned phrases, stock traditions lines, transliteration form), is
+advisory: kept in `checks.advisory`, listed in reviewer_report.md per wave, never blocking and never retried.
+"Did you know?" is optional: the writer leaves it empty unless it is confident the fact is about this verse's own
+words; an empty one passes and the app hides it. The writer prompt (prompts/study.md) and the reviewer rubric
+(rubric.py prompts and schema, .claude/agents/study-reviewer.md) are frozen as of this decision
+(pipeline/tests/test_frozen.py); no more rubric changes or test rounds.
+**Why:** your call (2026-11-22). Tuning the reviewer took several rounds without converging (decision 21's bar, then
+the contextMismatch fixes), and in the 10-verse API run the reviewer's flags were mostly judgment calls; the code
+checks catch the mistakes a reader would notice. Supersedes decision 21.
+**Revisit if:** reviewer reports show a pattern of real errors a reader would notice that no code check catches.
+Changing a frozen prompt needs a new decision and an update to pipeline/tests/test_frozen.py.
+
 ## 2026-11-19: Study readiness bar
 
 ### 21. Only reviewer ERRORs block; up to 6 WARNs per 20 studies are allowed
+**Superseded by decision 25 (2026-11-22).**
 In the Claude Code test rounds (pipeline/CHANGELOG-prompts.md), a round is ready when, among other criteria, the
 reviewer reports ERROR = 0 and at most 6 WARNs per 20 studies (was: ERROR = 0 and WARN <= 4). These are always ERROR,
 never WARN (.claude/agents/study-reviewer.md): subject and object reversed, a phrase attached to the wrong person or

@@ -21,7 +21,12 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "9"  # 9: "book background" is pipeline wording
+CHECKER_VERSION = "11"  # 11: only BLOCKING checks flag a study; the rest (banned phrases, stock traditions lines,
+# transliteration form, the AI reviewer) are advisory (checks.advisory); new placeholder check; an empty
+# "Did you know?" passes (it is optional)
+# 10: contextMismatch support matched word by word across lines and verse labels;
+# an "unsupported" mark whose quote is in the text given passes
+# 9: "book background" is pipeline wording
 # 8: 8: dotted-transliteration check no longer fires on a sentence ending inside single
 # quotes ("nothing.'"); every dotted segment needs a letter
 # 7: "Did you know?" word match ignores case, diacritics, apostrophes, dots
@@ -35,6 +40,28 @@ CHECKER_VERSION = "9"  # 9: "book background" is pipeline wording
 # 3: allowed-reference set, 20% length tolerance, pipeline wording, negated banned phrases
 # 2: English words after "Greek word" aren't treated as transliterations
 PROSE_FIELDS = ("meaning", "historicalContext", "lifeInBibleTimes", "theology", "didYouKnow", "applyIt")
+#: Code checks that block a study (status flagged, one retry, then failed). Decision 25: reference correct, length
+#: limits, no verse numbers, no leaked instructions or placeholders, quoted words in the verse; plus the schema, a
+#: generation failure and an open reader report. Every other reason, including the whole AI reviewer, is advisory:
+#: stored in checks.advisory and listed in the reviewer report, never blocking and never retried.
+BLOCKING = frozenset({
+    "schema", "generation", "report",
+    "reference", "reference_not_allowed",           # reference correct
+    "length",                                       # length limits
+    "verse_position",                               # no verse numbers or positions
+    "pipeline_wording", "placeholder",              # no leaked instructions or placeholders
+    "original_language", "did_you_know_word",       # quoted words must appear in the verse
+})
+#: Sections the writer may leave empty. "Did you know?" is left out when the model isn't confident the fact is
+#: about this verse's own words (decision 25); an empty one passes every check and the app hides it.
+OPTIONAL_SECTIONS = ("didYouKnow",)
+
+
+def split_reasons(reasons: list[dict]) -> tuple[list[dict], list[dict]]:
+    """(blocking, advisory) by BLOCKING."""
+    return ([r for r in reasons if r["check"] in BLOCKING], [r for r in reasons if r["check"] not in BLOCKING])
+
+
 #: Studies pass a section up to this share over its maximum; above it (or under the minimum) they are flagged.
 LENGTH_TOLERANCE = 0.2  # kept for old callers; limits.json "graceShare" is the setting now
 
@@ -140,13 +167,17 @@ def describe_limits(rules: "Rules", fields: tuple[str, ...] = PROSE_FIELDS) -> s
 
 
 def check_lengths(study: dict, rules: Rules, fields: tuple[str, ...] = PROSE_FIELDS,
-                  optional: tuple[str, ...] = (), tolerance: float | None = None) -> list[dict]:
+                  optional: tuple[str, ...] = (), tolerance: float | None = None,
+                  may_be_empty: tuple[str, ...] = ()) -> list[dict]:
     """Flags a section under its minimum or over its ceiling (upper_limit: hardCap, else max + grace).
+    optional: sections that may be missing; may_be_empty: sections that may be an empty string.
     tolerance: a share that overrides the file's graceShare (sections with a hardCap or their own grace keep it)."""
     grace = rules.grace if tolerance is None else tolerance
     out = []
     for section in fields:
         if section in optional and section not in study:
+            continue
+        if section in may_be_empty and not study.get(section, "").strip():
             continue
         words = len(study.get(section, "").split())
         lim = rules.limits[section]
@@ -345,6 +376,30 @@ def check_generic_lines(study: dict, rules: Rules, fields: tuple[str, ...] = PRO
     return out
 
 
+# Template fields and editing marks that should never reach a reader: "{{verse_label}}", "{name}", "[INSERT WORD]",
+# "<verse>", "TODO", "TBD", "XXX", "lorem ipsum".
+_PLACEHOLDERS = [
+    re.compile(r"\{\{[^}]*\}\}|\{[A-Za-z_][A-Za-z0-9_ ]*\}"),
+    re.compile(r"\[[A-Z][A-Z0-9 _/-]{2,}\]"),
+    re.compile(r"</?[A-Za-z][A-Za-z0-9_-]*(?:\s[^<>]*)?>"),
+    re.compile(r"\b(?:TODO|TBD|FIXME|XXX)\b"),
+    re.compile(r"\blorem ipsum\b", re.IGNORECASE),
+]
+
+
+def check_placeholders(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
+    """Unfilled template fields, bracketed editing marks, markup tags and TODO-style markers."""
+    out = []
+    for section in fields:
+        text = study.get(section, "")
+        for pattern in _PLACEHOLDERS:
+            m = pattern.search(text)
+            if m:
+                out.append(reason("placeholder", f"“{m.group(0)}”: a placeholder or markup, not prose", section))
+                break
+    return out
+
+
 # Nearby verses by number or position: "verse 5", "vv. 3-4", "the next verse", "two verses later".
 _VERSE_POSITION = [
     re.compile(r"\b(?:verses?|vv?\.)\s*\d+", re.IGNORECASE),
@@ -465,11 +520,11 @@ def free_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
     reasons = check_schema(study, validator)
     if any(r["check"] == "schema" for r in reasons) and "originalLanguage" not in study:
         return reasons  # too broken to check further
-    return [*reasons, *check_lengths(study, rules), *check_references(study, bible),
+    return [*reasons, *check_lengths(study, rules, may_be_empty=OPTIONAL_SECTIONS), *check_references(study, bible),
             *check_allowed_references(study, bible), *check_original_language(study, bible),
             *check_banned(study, rules), *check_pipeline_wording(study, rules), *check_generic_lines(study, rules),
-            *check_verse_position(study), *check_dotted_translit(study), *check_translit_form(study),
-            *check_did_you_know_word(study)]
+            *check_verse_position(study), *check_placeholders(study), *check_dotted_translit(study),
+            *check_translit_form(study), *check_did_you_know_word(study)]
 
 
 # ---- Orchestration ----------------------------------------------------------------------------------
@@ -477,29 +532,32 @@ def free_checks(study: dict, bible: Bible, rules: Rules, validator: Draft202012V
 @dataclass
 class Outcome:
     status: str               # auto_checked | flagged | unchanged (rubric unavailable)
-    reasons: list[dict]
+    reasons: list[dict]       # blocking reasons (studies) or every reason (devotionals)
     rubric: dict | None = None
     error: str | None = None
+    advisory: list[dict] = field(default_factory=list)  # studies: reported, never blocking (BLOCKING)
 
 
 def check_study(study: dict, bible: Bible, rules: Rules, validator: Draft202012Validator,
                 judge=None, rubric_always: bool = False) -> Outcome:
     """
-    Runs the checks on one study. judge: a rubric.Judge, or None to skip the AI pass.
+    Runs the checks on one study. Only BLOCKING code checks decide the status; everything else, including every
+    AI reviewer reason, is advisory. The reviewer (judge, or None to skip it) runs when no blocking check failed
+    (rubric_always: always). An unavailable reviewer leaves the study unchanged for the next run.
     Never mutates [study]; apply() writes the outcome.
     """
-    reasons = free_checks(study, bible, rules, validator)
+    blocking, advisory = split_reasons(free_checks(study, bible, rules, validator))
     rubric = None
-    if judge is not None and (rubric_always or not reasons):
+    if judge is not None and (rubric_always or not blocking):
         from .rubric import RubricUnavailable
         try:
             result = judge.judge(study, bible.text(parse_id(study["id"])) or "", supplied=supplied_for(study, bible))
         except RubricUnavailable as error:
             # API down, rate limited, etc.: not the study's fault. Leave it for the next run.
-            return Outcome("unchanged", reasons, None, str(error))
+            return Outcome("unchanged", blocking, None, str(error), advisory)
         rubric = result.rubric
-        reasons += result.reasons
-    return Outcome("flagged" if reasons else "auto_checked", reasons, rubric)
+        advisory += result.reasons
+    return Outcome("flagged" if blocking else "auto_checked", blocking, rubric, None, advisory)
 
 
 def supplied_for(study: dict, bible: Bible) -> str | None:
@@ -524,6 +582,8 @@ def apply(study: dict, outcome: Outcome, checker_version: str = CHECKER_VERSION)
     checks = {"checkedAt": now(), "checkerVersion": checker_version, "reasons": [*kept, *outcome.reasons]}
     if outcome.rubric:
         checks["rubric"] = outcome.rubric
+    if outcome.advisory:
+        checks["advisory"] = outcome.advisory
     updated["checks"] = checks
     updated["status"] = "flagged" if checks["reasons"] else "auto_checked"
     return updated
@@ -533,7 +593,8 @@ def apply(study: dict, outcome: Outcome, checker_version: str = CHECKER_VERSION)
 class RunSummary:
     checked: int = 0
     statuses: Counter = field(default_factory=Counter)
-    reasons: Counter = field(default_factory=Counter)
+    reasons: Counter = field(default_factory=Counter)   # blocking
+    advisory: Counter = field(default_factory=Counter)  # studies per advisory criterion
     skipped_not_written: int = 0
     skipped_already_done: int = 0
     rubric_unavailable: list[str] = field(default_factory=list)
@@ -567,4 +628,6 @@ def run(store: StudyStore, bible: Bible, judge=None, *, recheck: bool = False, r
         summary.checked += 1
         summary.statuses[updated["status"]] += 1
         summary.reasons.update(r["check"] for r in updated["checks"]["reasons"])
+        from .advisory import criterion
+        summary.advisory.update({criterion(r) for r in updated["checks"].get("advisory", [])})
     return summary

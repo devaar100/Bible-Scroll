@@ -13,8 +13,13 @@ def outcome(study, bible, judge=None, **kw):
     return check_study(study, bible, RULES, VALIDATOR, judge, **kw)
 
 
+def every(o):
+    """Blocking and advisory reasons together (decision 25: only BLOCKING checks flag a study)."""
+    return [*o.reasons, *o.advisory]
+
+
 def checks_named(o):
-    return sorted({r["check"] for r in o.reasons})
+    return sorted({r["check"] for r in every(o)})
 
 
 def test_clean_study_passes(written, bible):
@@ -62,8 +67,10 @@ def test_hebrew_points_ignored(written, bible):
 
 def test_banned_phrases(written, bible):
     written["theology"] = words(80, "Scholars all agree this proves that everyone was saved.")
-    msgs = [r["message"] for r in outcome(written, bible).reasons if r["check"] == "banned_phrase"]
+    o = outcome(written, bible)
+    msgs = [r["message"] for r in o.advisory if r["check"] == "banned_phrase"]
     assert any("Scholars all agree" in m for m in msgs) and any("proves that" in m for m in msgs)
+    assert o.status == "auto_checked" and o.reasons == []  # advisory: reported, never blocking
 
 
 class FakeJudge:
@@ -92,7 +99,7 @@ def test_rubric_runs_only_after_free_checks_pass(written, bible):
 def test_rubric_flags(written, bible):
     flagged = RubricResult(RUBRIC_OK, [{"check": "rubric", "message": "tone 2/3: preachy"}])
     o = outcome(written, bible, FakeJudge(flagged))
-    assert o.status == "flagged" and checks_named(o) == ["rubric"]
+    assert o.status == "auto_checked" and o.reasons == [] and checks_named(o) == ["rubric"]  # advisory
 
 
 def test_rubric_outage_leaves_study_alone(written, bible, store):
@@ -192,7 +199,7 @@ def test_generic_traditions_lines_flag(written, bible, text):
 
 def test_specific_traditions_wording_passes(written, bible):
     written["theology"] = words(80, "Catholic and Protestant readers differ on what this says about baptism.")
-    assert outcome(written, bible).reasons == []
+    assert every(outcome(written, bible)) == []
 
 
 def test_translit_form(written, bible):
@@ -203,9 +210,9 @@ def test_translit_form(written, bible):
     o = outcome(written, bible)
     # it still names the word (the DYK matcher ignores apostrophes), but the spelling check rejects the raw form
     assert checks_named(o) == ["translit_form"]
-    assert any("heōs" in r["message"] for r in o.reasons if r["check"] == "translit_form")
+    assert any("heōs" in r["message"] for r in o.advisory if r["check"] == "translit_form")
     written["didYouKnow"] = words(30, "The little word heōs marks a limit.")
-    assert outcome(written, bible).reasons == []
+    assert every(outcome(written, bible)) == []
     written["originalLanguage"] = {"language": "hebrew", "textBasis": "leningrad", "words": [
         {"surface": "הוֹדוּ־", "lemma": "יָדָה", "transliteration": "ho.Du-", "strongs": "H3034", "gloss": "give thanks",
          "morphology": "HVhv2mp"},
@@ -213,9 +220,9 @@ def test_translit_form(written, bible):
          "morphology": "HR"}]}
     written["didYouKnow"] = words(30, "The command hodu- is plural, and 'al means on.")
     o = outcome(written, bible)
-    assert checks_named(o) == ["translit_form"] and "“hodu”" in o.reasons[0]["message"]
+    assert checks_named(o) == ["translit_form"] and "“hodu”" in o.advisory[0]["message"]
     written["didYouKnow"] = words(30, "The command hodu is plural, and 'al means on.")  # Hebrew ayin mark stays
-    assert outcome(written, bible).reasons == []
+    assert every(outcome(written, bible)) == []
 
 
 def test_rubric_gets_the_text_the_writer_was_given(written, bible):
@@ -226,7 +233,7 @@ def test_rubric_gets_the_text_the_writer_was_given(written, bible):
 
 def test_negated_banned_phrases_are_ignored(written, bible):
     written["applyIt"] = words(40, "This is not for guaranteed success, and there is no right answer you must reach.")
-    assert outcome(written, bible).reasons == []
+    assert every(outcome(written, bible)) == []
     written["applyIt"] = words(40, "God will not fail; you must pray more.")  # the ; ends the negated clause
     assert checks_named(outcome(written, bible)) == ["banned_phrase"]
 
@@ -277,3 +284,47 @@ def test_clean_translit():
     assert clean_translit("he'ōs", greek=True) == "heōs"
     assert clean_translit("Hi'erosoluma", greek=True) == "Hierosoluma"
     assert clean_translit("ye.shu.'Ot") == "yeshu'ot"  # Hebrew aleph/ayin marks stay
+
+
+def test_only_blocking_checks_flag(written, bible):
+    from pipeline.checks import BLOCKING
+    assert {"reference", "reference_not_allowed", "length", "verse_position", "pipeline_wording", "placeholder",
+            "original_language", "did_you_know_word"} <= BLOCKING
+    assert not {"rubric", "context_mismatch", "banned_phrase", "generic_traditions", "dotted_translit",
+                "translit_form"} & BLOCKING
+    written["meaning"] = words(60, "As the next verse says, scholars all agree.")
+    o = outcome(written, bible)
+    assert o.status == "flagged" and checks_named(o) == ["banned_phrase", "verse_position"]
+    assert [r["check"] for r in o.reasons] == ["verse_position"] and [r["check"] for r in o.advisory] == ["banned_phrase"]
+
+
+def test_advisory_reasons_are_stored_but_do_not_flag(written, bible):
+    from pipeline.checks import apply
+    flagged = RubricResult(RUBRIC_OK, [{"check": "rubric", "message": "tone 2/3: preachy"}])
+    updated = apply(written, outcome(written, bible, FakeJudge(flagged)))
+    assert updated["status"] == "auto_checked" and updated["checks"]["reasons"] == []
+    assert updated["checks"]["advisory"] == [{"check": "rubric", "message": "tone 2/3: preachy"}]
+    assert list(VALIDATOR.iter_errors(updated)) == []
+
+
+@pytest.mark.parametrize("text", ["The word {{verse_label}} is here.", "Read {verse} slowly.", "See [INSERT WORD].",
+                                  "A <b>bold</b> claim.", "TODO add a fact.", "Lorem ipsum dolor."])
+def test_placeholders_block(written, bible, text):
+    written["applyIt"] = words(40, text)
+    o = outcome(written, bible)
+    assert o.status == "flagged" and "placeholder" in [r["check"] for r in o.reasons]
+
+
+@pytest.mark.parametrize("text", ["Follow these instructions.", "Keep to the word count.",
+                                  "The original words listed show it."])
+def test_leaked_instructions_block(written, bible, text):
+    written["applyIt"] = words(40, text)
+    assert "pipeline_wording" in [r["check"] for r in outcome(written, bible).reasons]
+
+
+def test_did_you_know_may_be_empty(written, bible):
+    written["didYouKnow"] = ""
+    o = outcome(written, bible)
+    assert o.status == "auto_checked" and every(o) == []
+    written["didYouKnow"] = words(30, "A plain remark that names no word of this verse.")
+    assert "did_you_know_word" in [r["check"] for r in outcome(written, bible).reasons]  # if present, still checked

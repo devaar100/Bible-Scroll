@@ -27,7 +27,7 @@
           "historicalContext": {"type": "string", "minLength": 1},
           "lifeInBibleTimes": {"type": "string", "minLength": 1},
           "theology": {"type": "string", "minLength": 1},
-          "didYouKnow": {"type": "string", "minLength": 1},
+          "didYouKnow": {"description": "Empty when the writer left it out (optional since 2026-11-22); the app hides an empty section.", "type": "string"},
           "applyIt": {"type": "string", "minLength": 1},
           "citations": {"$ref": "study.json#/properties/citations"},
           "reviewed": {"description": "A person approved this study (status 'reviewed').", "type": "boolean"},

@@ -229,6 +229,13 @@
         },
         "rubric": {
           "$ref": "#/$defs/rubric"
+        },
+        "advisory": {
+          "description": "Reasons that don't block the study (the AI reviewer and the non-blocking code checks); listed in the reviewer report.",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/checkReason"
+          }
         }
       }
     }
@@ -266,9 +273,6 @@
             "minLength": 1
           },
           "theology": {
-            "minLength": 1
-          },
-          "didYouKnow": {
             "minLength": 1
           },
           "applyIt": {

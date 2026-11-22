@@ -182,7 +182,9 @@ def parse_sections(text: str | None) -> dict[str, str]:
         data = json.loads(text)
     except json.JSONDecodeError as error:
         raise DraftFailed(f"not JSON: {error}") from error
-    missing = [k for k in PROSE_FIELDS if not isinstance(data.get(k), str) or not data[k].strip()]
+    from .checks import OPTIONAL_SECTIONS
+    missing = [k for k in PROSE_FIELDS if not isinstance(data.get(k), str)
+               or (not data[k].strip() and k not in OPTIONAL_SECTIONS)]
     if missing:
         raise DraftFailed(f"empty sections: {missing}")
     return {k: data[k].strip() for k in PROSE_FIELDS}
