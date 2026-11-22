@@ -89,3 +89,12 @@ Raw transliterations block (one retry, then failed): `dotted_translit` (syllable
 and the new `translit_capitals` (a capital after a lower-case letter inside one word, "bereShit"; Mc/Mac surnames
 allowed). Neither fires on any of the 499 written studies in out/. `translit_form` (a listed word's raw form,
 "he'ōs") stays advisory.
+
+## Devotional prompt 91916e8d1419 → d101c695f09a (2026-11-22)
+
+January's Haiku drafts opened applyIt with "Today" on most days and repeated the same kind of step.
+- prompts/devotional.md, applyIt: "of this kind: {{applyIt_action}}" (one of 8 action types, rotated by day of year
+  so consecutive days differ; generate.APPLY_IT_ACTIONS) and "Don't begin it with the word "Today"".
+- devotionals/checks.py (devotionals-4): advisory repeated_openings report (an opening used more than twice in a
+  month), never blocking.
+- January is not redrafted: its 31 devotionals keep promptVersion 91916e8d1419 (`draft --stale` would redraft them).

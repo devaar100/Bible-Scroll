@@ -52,7 +52,8 @@ def redraft_series(first_date: str, drafter: Drafter, *, title: str | None = Non
               + f"Current days:\n" + "\n".join(f"- {d.theme} ({d.anchor.text})" for d in rows)
               + f"\n\nReturn exactly {len(rows)} days in order. Anchor format: BOOK.C.V-BOOK.C.V within one book, "
               f"book codes: {', '.join(b.usfm for b in BOOKS)}.\nAnchors already used elsewhere: {', '.join(used)}")
-    draft = drafter.draft(SYSTEM, prompt, SCHEMA, 16000)
+    from .generate import MAX_TOKENS
+    draft = drafter.draft(SYSTEM, prompt, SCHEMA, MAX_TOKENS)
     new = draft.data["days"]
     if len(new) != len(rows):
         raise DraftFailed(f"asked for {len(rows)} days, got {len(new)}")

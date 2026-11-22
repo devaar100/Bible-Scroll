@@ -364,3 +364,226 @@ def test_standalone_words_from_the_passage_itself_are_allowed():
     assert dchecks.check_standalone(doc, passage) == []
     assert dchecks.check_standalone({"reflect": "As we saw yesterday, he cares.", "title": "x"}, passage)[0]["check"] == "standalone"
     assert dchecks.check_standalone(doc)[0]["check"] == "standalone"  # without the passage, still caught
+
+
+def test_devotionals_are_drafted_by_haiku_at_medium_effort(monkeypatch):
+    """Decision 26: every devotional call (draft, redraft-series) uses Haiku 5.5 at effort medium; plans keep theirs."""
+    from pipeline.plans import ai
+    seen = {}
+
+    class Recorder:
+        def __init__(self, **kwargs):
+            seen.update(kwargs)
+
+    monkeypatch.setattr(gen, "AnthropicDrafter", Recorder)
+    gen.default_drafter()
+    assert seen == {"model": "claude-haiku-5-5", "effort": "medium", "max_retries": 6} and gen.MAX_TOKENS == 32000
+    assert ai.MODEL == "claude-opus-5-5"  # plans unchanged
+
+
+def test_drafter_sends_the_effort_it_was_given():
+    from types import SimpleNamespace
+    from pipeline.plans import ai
+    sent = {}
+
+    class Stream:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def get_final_message(self):
+            return SimpleNamespace(stop_reason="end_turn", model="claude-haiku-5-5",
+                                   content=[SimpleNamespace(type="text", text="{}")])
+
+    client = SimpleNamespace(beta=SimpleNamespace(messages=SimpleNamespace(
+        stream=lambda **kw: (sent.update(kw), Stream())[1])))
+    draft = ai.AnthropicDrafter(client=client, model="claude-haiku-5-5", effort="medium").draft("s", "p", {}, 32000)
+    assert sent["model"] == "claude-haiku-5-5" and sent["output_config"]["effort"] == "medium"
+    assert sent["max_tokens"] == 32000 and draft.model == "claude-haiku-5-5"
+
+
+# ---- Parallel drafting and checking (--workers) --------------------------------------------------------
+
+def many_days(day, n=20):
+    import dataclasses
+    return [dataclasses.replace(day, date=f"11-{i:02d}") for i in range(1, n + 1)]
+
+
+class SlowDrafter:
+    """Thread-safe fake: random delay so answers come back out of order; fails or interrupts on chosen days."""
+
+    def __init__(self, fail=(), refuse=(), interrupt_after=None, concurrent=False):
+        import threading
+        self.fail, self.refuse, self.interrupt_after = set(fail), set(refuse), interrupt_after
+        self.lock, self.calls, self.threads = threading.Lock(), 0, set()
+        # concurrent: the first two calls wait for each other, so passing proves two ran at the same time.
+        self.barrier = threading.Barrier(2, timeout=10) if concurrent else None
+
+    def draft(self, system, prompt, schema, max_tokens):
+        import random
+        import threading
+        import time
+        from pipeline.plans.ai import DraftFailed
+        time.sleep(random.uniform(0, 0.01))
+        with self.lock:
+            self.calls += 1
+            self.threads.add(threading.get_ident())
+            n = self.calls
+        if self.barrier is not None and n <= 2:
+            self.barrier.wait()
+        if self.interrupt_after is not None and n > self.interrupt_after:
+            raise KeyboardInterrupt
+        marker = next((d for d in self.fail | self.refuse if f"[{d}]" in prompt), None)
+        if marker in self.refuse:
+            raise DraftRefused("no")
+        if marker in self.fail:
+            raise DraftFailed("cut off")
+        return Draft(copy.deepcopy(GOOD), "claude-haiku-5-5")
+
+
+def tagged(monkeypatch):
+    """Put each day's date into its request so the fake drafter can tell days apart."""
+    real = gen.build_request
+    monkeypatch.setattr(gen, "build_request", lambda d, *a, **k: f"[{d.date}] " + real(d, *a, **k))
+
+
+def saved(store):
+    out = {}
+    for i in store.ids():
+        d = store.load(i)
+        d["meta"].pop("generatedAt", None)
+        out[i] = d
+    return out
+
+
+def test_parallel_drafting_matches_sequential(tmp_path, day, dbible, monkeypatch):
+    tagged(monkeypatch)
+    days = many_days(day)
+    one, eight = DevotionalStore(tmp_path / "one"), DevotionalStore(tmp_path / "eight")
+    kw = dict(bible_db=dbible.bible_db, source_db=dbible.source_db)
+    lines_1 = list(gen.draft_days(days, SlowDrafter(), one, workers=1, **kw))
+    drafter = SlowDrafter(concurrent=True)
+    lines_8 = list(gen.draft_days(days, drafter, eight, workers=8, **kw))
+    assert sorted(lines_1) == sorted(lines_8) and len(lines_8) == 20
+    assert saved(one) == saved(eight) and len(saved(eight)) == 20
+    assert len(drafter.threads) > 1
+
+
+def test_a_failed_or_refused_day_does_not_stop_the_run(tmp_path, day, dbible, monkeypatch):
+    tagged(monkeypatch)
+    store = DevotionalStore(tmp_path / "d")
+    lines = list(gen.draft_days(many_days(day), SlowDrafter(fail={"11-04"}, refuse={"11-09"}), store,
+                                bible_db=dbible.bible_db, source_db=dbible.source_db, workers=8))
+    assert "11-04: failed (cut off); safe to retry" in lines
+    assert "11-09: refused (no); needs a person to write it" in lines
+    assert len(store.ids()) == 18 and not store.exists("devotional-11-04")
+
+
+def test_interrupted_drafting_keeps_saved_days_and_a_rerun_finishes(tmp_path, day, dbible, monkeypatch):
+    tagged(monkeypatch)
+    store = DevotionalStore(tmp_path / "d")
+    kw = dict(bible_db=dbible.bible_db, source_db=dbible.source_db)
+    with pytest.raises(KeyboardInterrupt):
+        list(gen.draft_days(many_days(day), SlowDrafter(interrupt_after=7), store, workers=2, **kw))
+    done = set(store.ids())
+    assert 0 < len(done) <= 7
+    rest = SlowDrafter()
+    lines = list(gen.draft_days(many_days(day), rest, store, workers=8, **kw))
+    assert rest.calls == 20 - len(done) and len(store.ids()) == 20
+    assert sum("skipped (exists)" in line for line in lines) == len(done)
+
+
+def test_parallel_checking_matches_sequential(tmp_path, day, dbible):
+    import threading
+    days = many_days(day)
+    stores = []
+    for name in ("one", "eight"):
+        store = DevotionalStore(tmp_path / name)
+        for d in days:
+            store.save(gen.from_draft(d, Draft(copy.deepcopy(GOOD), "claude-haiku-5-5"), gen.Prompt.load()))
+        stores.append(store)
+    bad = stores[1].load("devotional-11-05")  # a code-check failure: never sent to the reviewer
+    bad["reflect"] = "Too short."
+    stores[1].save(bad)
+    stores[0].save(dict(stores[0].load("devotional-11-05"), reflect="Too short."))
+
+    class Judge:
+        def __init__(self, unavailable=(), concurrent=False):
+            self.unavailable, self.seen, self.threads, self.lock = set(unavailable), [], set(), threading.Lock()
+            self.barrier = threading.Barrier(2, timeout=10) if concurrent else None
+
+        def judge(self, doc, text, subject=None):
+            import random
+            import time
+            time.sleep(random.uniform(0.001, 0.01))  # so the work spreads over several threads
+            with self.lock:
+                self.seen.append(doc["id"])
+                self.threads.add(threading.get_ident())
+                n = len(self.seen)
+            if self.barrier is not None and n <= 2:
+                self.barrier.wait()  # two reviews in flight at once, or this times out
+            if doc["id"] in self.unavailable:
+                raise RubricUnavailable("529")
+            note = [{"check": "rubric", "message": "tone 2/3"}] if doc["id"].endswith("7") else []
+            return RubricResult({"model": "h"}, note)
+
+    s1 = dchecks.run(stores[0], days, dbible, Judge(), workers=1)
+    judge = Judge(unavailable={"devotional-11-12"}, concurrent=True)
+    s8 = dchecks.run(stores[1], days, dbible, judge, workers=8)
+    strip = lambda d: {k: v for k, v in d.items() if k != "checks"} | {
+        "reasons": d.get("checks", {}).get("reasons"), "status": d["status"]}
+    for i in stores[0].ids():
+        if i != "devotional-11-12":
+            assert strip(stores[0].load(i)) == strip(stores[1].load(i)), i
+    assert stores[1].load("devotional-11-12")["status"] == "generated"   # left for the next run
+    assert s8.rubric_unavailable == ["devotional-11-12: 529"] and s8.checked == 19
+    assert s1.statuses["flagged"] == s8.statuses["flagged"] == 3  # 11-05 (length), 11-07 and 11-17 (rubric)
+    assert "devotional-11-05" not in judge.seen and len(judge.threads) > 1
+
+
+# ---- applyIt action types and repeated openings ---------------------------------------------------------
+
+def test_apply_it_action_rotates_and_never_repeats_on_consecutive_days():
+    import dataclasses
+    days = cal.load(verses=KJV)
+    actions = [gen.apply_it_action(d) for d in days]
+    assert set(actions) == set(gen.APPLY_IT_ACTIONS) and len(gen.APPLY_IT_ACTIONS) == 8
+    assert all(a != b for a, b in zip(actions, actions[1:]))          # 01-01 .. 12-31 in a leap year
+    assert actions[-1] != actions[0]                                   # 12-31 -> 01-01
+    by_date = {d.date: gen.apply_it_action(d) for d in days}
+    assert by_date["02-28"] != by_date["03-01"]                        # non-leap years skip 02-29
+
+
+def test_request_names_the_action_and_the_prompt_avoids_opening_with_today(day, dbible):
+    request = gen.build_request(day, gen.Prompt.load(), dbible.bible_db, dbible.source_db)
+    assert f"of this kind: {gen.apply_it_action(day)}." in request and "{{" not in request
+    assert 'Don\'t begin it with the word "Today"' in request
+
+
+def test_repeated_openings_are_reported_per_month_and_section():
+    def dv(date, apply_it, title="A title here"):
+        return {"date": date, "title": title, "applyIt": apply_it}
+    devotionals = [dv("01-01", "Today, take a breath."), dv("01-02", "Today take a walk."),
+                   dv("01-03", "today, take a minute."), dv("01-04", "Pause before lunch."),
+                   dv("02-01", "Today, take a breath."), dv("02-02", "Today, take a breath.")]
+    found = dchecks.repeated_openings(devotionals)
+    by_key = {(f["month"], f["section"], f["opening"]): f for f in found}
+    assert by_key[("01", "applyIt", "today take a")]["count"] == 3                 # more than twice in January
+    assert by_key[("01", "applyIt", "today take a")]["dates"] == ["01-01", "01-02", "01-03"]
+    assert ("02", "applyIt", "today take a") not in by_key                          # twice in February: fine
+    assert by_key[("01", "title", "a title here")]["count"] == 4 and len(found) == 2   # titles too (Feb: twice, fine)
+    assert dchecks.opening("Two words") is None
+
+
+def test_repeated_openings_never_change_a_status(tmp_path, day, dbible):
+    import dataclasses
+    store = DevotionalStore(tmp_path / "d")
+    for i in range(1, 5):
+        d = gen.from_draft(dataclasses.replace(day, date=f"11-{i:02d}"), Draft(copy.deepcopy(GOOD), "h"),
+                           gen.Prompt.load())
+        store.save(d)
+    summary = dchecks.run(store, many_days(day, 4), dbible, None)
+    assert summary.statuses == {"auto_checked": 4}                                  # same openings, still passing
+    assert dchecks.repeated_openings([store.load(i) for i in store.ids()])          # but reported

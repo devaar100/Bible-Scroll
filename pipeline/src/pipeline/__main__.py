@@ -82,6 +82,7 @@ def main() -> None:
     draft.add_argument("--stale", action="store_true", help="redraft unreviewed, unedited ones whose calendar row or prompt changed")
     draft.add_argument("--force", action="store_true", help="redraft even reviewed or edited ones")
     draft.add_argument("--limit", type=int, help="stop after this many days")
+    draft.add_argument("--workers", type=int, default=8, help="drafts in flight at once (default 8)")
     dcheck = devo_sub.add_parser("check", help="auto-check drafted devotionals: status -> auto_checked or flagged")
     dcheck.add_argument("ids", nargs="*", help="only these (devotional-MM-DD)")
     dcheck.add_argument("--no-ai", action="store_true")
@@ -90,6 +91,7 @@ def main() -> None:
     dcheck.add_argument("--rubric-always", action="store_true")
     dcheck.add_argument("--recheck", action="store_true")
     dcheck.add_argument("--limit", type=int)
+    dcheck.add_argument("--workers", type=int, default=8, help="reviewer requests in flight at once (default 8)")
     dbundle = devo_sub.add_parser("bundle", help="copy the current and next month from out/site/ into the app's assets")
     dbundle.add_argument("--date", help="YYYY-MM-DD release date (default: today)")
     batch = sub.add_parser("batch", help="study prose via the Message Batches API (claude-haiku-5-5, effort medium)")
@@ -393,8 +395,8 @@ def run_devotionals(args) -> None:
         print(json.dumps(cal.balance(days), indent=2))
     elif command == "redraft-series":
         from .devotionals.calendar_ai import redraft_series
-        from .plans.ai import AnthropicDrafter
-        for d in redraft_series(args.first_date, AnthropicDrafter(), title=args.title, guidance=args.guidance,
+        from .devotionals.generate import default_drafter
+        for d in redraft_series(args.first_date, default_drafter(), title=args.title, guidance=args.guidance,
                                 verses=bible.verses, store=DevotionalStore(), force=args.force):
             print(f"{d.date}  {d.theme}  ({d.anchor.text})")
         print("Calendar updated. Draft these days again with: devotionals draft --stale")
@@ -406,7 +408,8 @@ def run_devotionals(args) -> None:
         except FileNotFoundError as error:
             raise SystemExit(str(error))
         chosen = select_days(days, args.dates)[: args.limit]
-        for line in draft_days(chosen, default_drafter(), DevotionalStore(), force=args.force, stale=args.stale):
+        for line in draft_days(chosen, default_drafter(), DevotionalStore(), force=args.force, stale=args.stale,
+                               workers=args.workers):
             print(line)
     elif command == "check":
         from .devotionals.checks import run
@@ -415,9 +418,14 @@ def run_devotionals(args) -> None:
             from .rubric import RUBRIC_MODEL, AnthropicJudge
             judge = AnthropicJudge(model=args.reviewer_model or RUBRIC_MODEL)
         summary = run(DevotionalStore(), days, bible, judge, recheck=args.recheck,
-                      rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit)
+                      rubric_always=args.rubric_always, ids=args.ids or None, limit=args.limit,
+                      workers=args.workers)
+        from .devotionals.checks import repeated_openings
+        store = DevotionalStore()
         report = {"checked": summary.checked, "statuses": dict(summary.statuses), "reasons": dict(summary.reasons),
-                  "skipped": summary.skipped, "rubric_unavailable": summary.rubric_unavailable}
+                  "skipped": summary.skipped, "rubric_unavailable": summary.rubric_unavailable,
+                  # Advisory, never blocking: openings used more than twice in a month, over every devotional.
+                  "advisory": {"repeatedOpenings": repeated_openings([store.load(i) for i in store.ids()])}}
         (OUT / "devotionals_check_summary.json").write_text(json.dumps(report, indent=2) + "\n")
         print(json.dumps(report, indent=2))
     elif command == "bundle":

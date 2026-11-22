@@ -428,9 +428,9 @@ Masoretic paragraph end in the Old Testament, sentence end) and `core/plans/src/
 
 ```sh
 PYTHONPATH=src .venv/bin/python -m pipeline devotionals calendar             # validate calendar.csv, OT/NT balance
-PYTHONPATH=src .venv/bin/python -m pipeline devotionals draft [03 | 03-14]  # draft with Claude (needs a key)
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals draft [03 | 03-14]  # draft with Claude (needs a key; --workers N, default 8)
 PYTHONPATH=src .venv/bin/python -m pipeline devotionals draft --stale       # redraft rows/prompt that changed
-PYTHONPATH=src .venv/bin/python -m pipeline devotionals check [--no-ai]     # auto_checked or flagged
+PYTHONPATH=src .venv/bin/python -m pipeline devotionals check [--no-ai]     # auto_checked or flagged (--workers N, default 8)
 PYTHONPATH=src .venv/bin/python -m pipeline devotionals redraft-series 07-16 --guidance "..."
 PYTHONPATH=src .venv/bin/python -m pipeline devotionals bundle [--date 2027-03-01]
 ```
@@ -460,7 +460,16 @@ reviewed (unless `--force`).
   (25-60), and up to two extra `verses`.
 
 **Drafting** (`devotionals/generate.py`, prompt in [`prompts/devotional.md`](prompts/devotional.md)):
-- Model: Claude Opus 5.5 with structured output and the refusal fallback.
+- Model: Claude Haiku 5.5 at effort medium (max_tokens 32,000), with structured output and the refusal fallback
+  (decision 26; `devotionals/generate.py` DRAFT_MODEL/DRAFT_EFFORT). `redraft-series` uses the same drafter. Plans
+  keep Opus 5.5 at high effort (`plans/ai.py`).
+- "Apply it" action type: each day's request names one of 8 kinds of step (`generate.APPLY_IT_ACTIONS`: pause and
+  breathe, write one sentence, say a short prayer aloud, send a message to someone, reread a verse slowly, ask someone
+  a question, notice something during the day, do one small thing for someone), chosen by day of year so consecutive
+  days never share one. The prompt also tells the writer not to open applyIt with "Today".
+- Parallel: `draft` and `check` keep up to `--workers` (default 8) API requests in flight. Only the API call runs on a
+  worker thread; requests are built and each devotional is saved on the main thread as its answer comes in, so
+  Ctrl-C keeps finished days and a re-run carries on. The client retries 429/5xx up to 6 times with backoff.
 - The prompt gets the passage text (WEB, from the app's Bible) and the passage's Hebrew/Greek words (from
   source.db), so nothing is recalled from memory. The rules are the same as for studies: no invented facts,
   fair on disputed views, warm and plain, fixed lengths.
@@ -473,6 +482,9 @@ reviewed (unless `--force`).
   mentions (against the passage's words), banned phrases, then the Haiku rubric with a devotional prompt.
 - A calendar check: date, theme, series, cover and anchor still match the CSV.
 - An API outage leaves a devotional unchanged.
+- Advisory, never blocking (checker `devotionals-4`): `check` lists every first-three-words opening (title, context,
+  reflect, applyIt, prayer) used more than twice in one month, over all devotionals, under `advisory.repeatedOpenings`
+  in `out/devotionals_check_summary.json`.
 
 **Review**: the Devotionals tab in `review` shows each devotional beside its passages and calendar row, with
 live word counts. Approval is blocked while a schema, length, reference, original-language, banned-phrase

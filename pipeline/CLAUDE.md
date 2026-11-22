@@ -53,7 +53,11 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   its line-for-line port. Change either → change both, run `python -m pipeline plans vectors` (rewrites
   app assets/plans/verses.bin + core/plans splitting_vectors.json), and run both test suites. Paragraph
   ends = Masoretic marks (OT only); don't use TAGNT (NA28) paragraphing without a licence check.
-- Devotionals (`python -m pipeline devotionals calendar|redraft-series|draft|check|bundle`): calendar in
+- Devotionals (`python -m pipeline devotionals calendar|redraft-series|draft|check|bundle`): drafted by Haiku 5.5 at
+  effort medium (decision 26: generate.DRAFT_MODEL/DRAFT_EFFORT, max_tokens 32,000); plans keep Opus. `draft` and
+  `check` run up to --workers (default 8) requests at once; only the API call is off the main thread. Each request
+  names an applyIt action type (generate.APPLY_IT_ACTIONS, by day of year); `check` reports openings used more than
+  twice a month (advisory only, checks.repeated_openings). calendar in
   devotionals/calendar.csv (366 rows, MM-DD, 02-29 bonus; must validate), schema/devotional.json, prompt in
   prompts/devotional.md, limits in checks/devotional_limits.json. Calendar fields and passage data come from
   the CSV/source.db, never from AI. Never overwrite a reviewed or edited devotional without --force. Bump

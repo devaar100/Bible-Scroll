@@ -50,13 +50,18 @@ class Drafter(Protocol):
 class AnthropicDrafter:
     """Credentials from the environment (ANTHROPIC_API_KEY or `ant auth login`)."""
 
-    def __init__(self, client=None, model: str = MODEL):
+    def __init__(self, client=None, model: str = MODEL, effort: str = "high", max_retries: int | None = None):
         import anthropic
 
         from ..offline import anthropic_client
 
-        self.client = client or anthropic_client()
+        if client is None:
+            client = anthropic_client()
+            if max_retries is not None:
+                client = client.with_options(max_retries=max_retries)
+        self.client = client
         self.model = model
+        self.effort = effort
 
     def draft(self, system: str, prompt: str, schema: dict, max_tokens: int = 64000) -> Draft:
         with self.client.beta.messages.stream(
@@ -66,7 +71,7 @@ class AnthropicDrafter:
             fallbacks="default",
             system=system,
             messages=[{"role": "user", "content": prompt}],
-            output_config={"effort": "high", "format": {"type": "json_schema", "schema": schema}},
+            output_config={"effort": self.effort, "format": {"type": "json_schema", "schema": schema}},
         ) as stream:
             message = stream.get_final_message()
         if message.stop_reason == "refusal":

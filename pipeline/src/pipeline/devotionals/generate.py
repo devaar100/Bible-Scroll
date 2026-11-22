@@ -25,8 +25,30 @@ from .store import SCHEMA_VERSION, DevotionalStore, passage_label, passage_text,
 PROMPT_FILE = PIPELINE / "prompts" / "devotional.md"
 LIMITS_FILE = PIPELINE / "checks" / "devotional_limits.json"
 MAX_ORIGINAL_WORDS = 40
-MAX_TOKENS = 16000
+#: Devotionals are drafted by Claude Haiku 5.5 at effort medium, like the study launch run (decision 26); plans keep
+#: their own model (plans.ai.MODEL). max_tokens 32,000: Haiku's thinking can pass 16,000 (decision 17).
+DRAFT_MODEL = "claude-haiku-5-5"
+DRAFT_EFFORT = "medium"
+#: SDK retries (backoff, honours retry-after) on 429/5xx/connection errors; parallel drafts hit rate limits more.
+DRAFT_MAX_RETRIES = 6
+MAX_TOKENS = 32000
 SECTIONS = ("context", "reflect", "applyIt", "prayer")
+#: The kind of step "Apply it" asks for, rotated by day of year (leap-year numbering) so consecutive days never share
+#: one: 8 types, and neither the year's wrap (366 -> 1) nor a non-leap year's 02-28 -> 03-01 lands on the same one.
+APPLY_IT_ACTIONS = (
+    "pause and breathe",
+    "write one sentence",
+    "say a short prayer aloud",
+    "send a message to someone",
+    "reread a verse slowly",
+    "ask someone a question",
+    "notice something during the day",
+    "do one small thing for someone",
+)
+
+
+def apply_it_action(day: Day) -> str:
+    return APPLY_IT_ACTIONS[(day.day_of_year - 1) % len(APPLY_IT_ACTIONS)]
 
 #: Structured output. Lengths and reference formats are checked in code (and by `devotionals check`).
 OUTPUT_SCHEMA = {
@@ -100,6 +122,7 @@ def build_request(day: Day, prompt: Prompt, bible_db: Path = APP_BIBLE_DB, sourc
                           or "(none listed)",
         "book_codes": ", ".join(b.usfm for b in BOOKS),
         "related_passages": "\n".join(f"- {r}" for r in related_passages(p, bible_db)) or "(none)",
+        "applyIt_action": apply_it_action(day),
         **{f"{k}_words": f"{v['min']}-{v['max']}" for k, v in word_limits.items()},
     }
     return fill(prompt.request, values)
@@ -134,38 +157,66 @@ def is_stale(devotional: dict, day: Day, prompt: Prompt) -> bool:
     return devotional["contentVersion"].partition(".")[0] != content_version(day, prompt.version)
 
 
+#: Drafts in flight at once (`devotionals draft --workers N`).
+DRAFT_WORKERS = 8
+
+
 def draft_days(days: list[Day], drafter: Drafter, store: DevotionalStore, *, force: bool = False,
                stale: bool = False, prompt: Prompt | None = None, bible_db: Path = APP_BIBLE_DB,
-               source_db: Path = SOURCE_DB):
+               source_db: Path = SOURCE_DB, workers: int = DRAFT_WORKERS):
     """
     Drafts each day, yielding one line per day. Existing files are skipped unless:
       stale=True: redraft ones whose calendar row or prompt changed, but never reviewed or edited ones;
       force=True: redraft everything asked for, including reviewed and edited ones.
     A refusal or unusable response is reported and the day skipped; the run carries on.
+
+    Up to [workers] drafts run at once. Only drafter.draft runs on a worker thread: building each request (database
+    reads), turning the answer into a devotional and saving it all happen here, on the caller's thread, as each
+    answer comes in. Lines come in completion order. Stopping (Ctrl-C) drops the queued days; saved days stay saved,
+    and a re-run skips them.
     """
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
     prompt = prompt or Prompt.load()
     word_limits = limits()
-    for day in days:
-        if store.exists(day.id) and not force:
-            current = store.load(day.id)
-            protected = current.get("status") == "reviewed" or current.get("meta", {}).get("editedBy")
-            if not stale or protected or not is_stale(current, day, prompt):
-                why = "reviewed/edited; use --force" if protected else "exists"
-                yield f"{day.date}: skipped ({why})"
-                continue
-        request = build_request(day, prompt, bible_db, source_db, word_limits)
+    workers = max(1, workers)
+    pending: dict = {}
+
+    def finish(future) -> str:
+        day = pending.pop(future)
         try:
-            draft = drafter.draft(prompt.system, request, OUTPUT_SCHEMA, MAX_TOKENS)
-            devotional = from_draft(day, draft, prompt)
+            devotional = from_draft(day, future.result(), prompt)
         except DraftRefused as error:
-            yield f"{day.date}: refused ({error}); needs a person to write it"
-            continue
+            return f"{day.date}: refused ({error}); needs a person to write it"
         except (DraftFailed, KeyError, AttributeError) as error:
-            yield f"{day.date}: failed ({error}); safe to retry"
-            continue
+            return f"{day.date}: failed ({error}); safe to retry"
         store.save(devotional)
-        yield f"{day.date}: drafted \"{devotional['title']}\""
+        return f"{day.date}: drafted \"{devotional['title']}\""
+
+    pool = ThreadPoolExecutor(max_workers=workers)
+    try:
+        for day in days:
+            if store.exists(day.id) and not force:
+                current = store.load(day.id)
+                protected = current.get("status") == "reviewed" or current.get("meta", {}).get("editedBy")
+                if not stale or protected or not is_stale(current, day, prompt):
+                    why = "reviewed/edited; use --force" if protected else "exists"
+                    yield f"{day.date}: skipped ({why})"
+                    continue
+            request = build_request(day, prompt, bible_db, source_db, word_limits)
+            pending[pool.submit(drafter.draft, prompt.system, request, OUTPUT_SCHEMA, MAX_TOKENS)] = day
+            while len(pending) >= 2 * workers:  # bounded: don't queue the whole year at once
+                done, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in done:
+                    yield finish(future)
+        while pending:
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                yield finish(future)
+    finally:
+        pool.shutdown(wait=not pending, cancel_futures=True)
 
 
 def default_drafter() -> AnthropicDrafter:
-    return AnthropicDrafter()
+    """The drafter for every devotional call (draft and redraft-series)."""
+    return AnthropicDrafter(model=DRAFT_MODEL, effort=DRAFT_EFFORT, max_retries=DRAFT_MAX_RETRIES)

@@ -22,7 +22,8 @@ from .calendar import parse_anchor
 from .store import (DevotionalStore, passage_label, passage_text, passage_words, related_passages, to_passage,
                     validator)
 
-CHECKER_VERSION = "devotionals-3"  # 3: stands alone, no dates/seasons, only listed passages, Hebrews, health, pipeline wording
+CHECKER_VERSION = "devotionals-4"  # 4: advisory repeated_openings report (per month, never blocking)
+# 3: stands alone, no dates/seasons, only listed passages, Hebrews, health, pipeline wording
 FIELDS = ("context", "reflect", "applyIt", "prayer")
 OPTIONAL = ("prayer",)
 #: Everything a person must fix before approving. Rubric scores and reviewer notes don't block: approving
@@ -171,17 +172,29 @@ def check_devotional(devotional: dict, day: Day | None, bible: Bible, rules: Rul
                      schema: Draft202012Validator, judge=None, rubric_always: bool = False) -> Outcome:
     """Never mutates [devotional]; checks.apply(..., CHECKER_VERSION) writes the outcome."""
     reasons = free_checks(devotional, day, bible, rules, schema)
-    rubric = None
-    if judge is not None and (rubric_always or not reasons):
-        from ..rubric import RubricUnavailable
-        try:
-            text = passage_text(devotional["verses"][0], bible.bible_db) if bible.bible_db else ""
-            result = judge.judge(devotional, text, rubric_subject(devotional))
-        except RubricUnavailable as error:
-            return Outcome("unchanged", reasons, None, str(error))
-        rubric = result.rubric
-        reasons += result.reasons
-    return Outcome("flagged" if reasons else "auto_checked", reasons, rubric)
+    if judge is None or not (rubric_always or not reasons):
+        return reviewed(reasons, None)
+    from ..rubric import RubricUnavailable
+    try:
+        result = judge.judge(devotional, *review_input(devotional, bible))
+    except RubricUnavailable as error:
+        return Outcome("unchanged", reasons, None, str(error))
+    return reviewed(reasons, result)
+
+
+def review_input(devotional: dict, bible: Bible) -> tuple:
+    """(passage text, rubric subject) for judge.judge. Reads the Bible database: call on the main thread."""
+    text = passage_text(devotional["verses"][0], bible.bible_db) if bible.bible_db else ""
+    return text, rubric_subject(devotional)
+
+
+def reviewed(reasons: list[dict], result) -> Outcome:
+    """The outcome once the reviewer answered (result: a RubricResult, or None when it didn't run). For devotionals
+    every reason, the reviewer's included, flags."""
+    if result is None:
+        return Outcome("flagged" if reasons else "auto_checked", reasons, None)
+    reasons = reasons + result.reasons
+    return Outcome("flagged" if reasons else "auto_checked", reasons, result.rubric)
 
 
 def apply(devotional: dict, outcome: Outcome) -> dict:
@@ -197,27 +210,98 @@ class RunSummary:
     rubric_unavailable: list[str] = field(default_factory=list)
 
 
+#: Reviewer requests in flight at once (`devotionals check --workers N`).
+CHECK_WORKERS = 8
+
+
 def run(store: DevotionalStore, days: list[Day], bible: Bible, judge=None, *, recheck: bool = False,
-        rubric_always: bool = False, ids: list[str] | None = None, limit: int | None = None) -> RunSummary:
-    """Check devotionals with status 'generated' (with recheck, also auto_checked/flagged). Reviewed: never."""
+        rubric_always: bool = False, ids: list[str] | None = None, limit: int | None = None,
+        workers: int = CHECK_WORKERS) -> RunSummary:
+    """Check devotionals with status 'generated' (with recheck, also auto_checked/flagged). Reviewed: never.
+
+    Code checks run here; devotionals that pass go to the reviewer on up to [workers] threads (judge.judge is the
+    only thing a worker does). Each devotional is saved here as its review comes in; stopping keeps what was
+    saved, and a re-run checks the rest."""
+    from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
+    from ..rubric import RubricUnavailable
+
     rules, schema = load_rules(), validator()
     by_id = {d.id: d for d in days}
     wanted = {"generated", "auto_checked", "flagged"} if recheck else {"generated"}
     summary = RunSummary()
-    for devotional_id in ids or store.ids():
-        if limit is not None and summary.checked >= limit:
-            break
-        devotional = store.load(devotional_id)
-        if devotional.get("status") not in wanted:
-            summary.skipped += 1
-            continue
-        outcome = check_devotional(devotional, by_id.get(devotional_id), bible, rules, schema, judge, rubric_always)
-        if outcome.status == "unchanged":
-            summary.rubric_unavailable.append(f"{devotional_id}: {outcome.error}")
-            continue
+    workers = max(1, workers)
+    pending: dict = {}
+    started = 0
+
+    def finish(devotional: dict, outcome: Outcome) -> None:
         updated = apply(devotional, outcome)
         store.save(updated)
         summary.checked += 1
         summary.statuses[updated["status"]] += 1
         summary.reasons.update(r["check"] for r in updated["checks"]["reasons"])
+
+    def collect(future) -> None:
+        devotional, reasons = pending.pop(future)
+        try:
+            result = future.result()
+        except RubricUnavailable as error:
+            summary.rubric_unavailable.append(f"{devotional['id']}: {error}")
+            return
+        finish(devotional, reviewed(reasons, result))
+
+    pool = ThreadPoolExecutor(max_workers=workers) if judge is not None else None
+    try:
+        for devotional_id in ids or store.ids():
+            if limit is not None and started >= limit:
+                break
+            devotional = store.load(devotional_id)
+            if devotional.get("status") not in wanted:
+                summary.skipped += 1
+                continue
+            started += 1
+            reasons = free_checks(devotional, by_id.get(devotional_id), bible, rules, schema)
+            if judge is None or not (rubric_always or not reasons):
+                finish(devotional, reviewed(reasons, None))
+                continue
+            pending[pool.submit(judge.judge, devotional, *review_input(devotional, bible))] = (devotional, reasons)
+            while len(pending) >= 2 * workers:
+                done, _ = wait(pending, return_when=FIRST_COMPLETED)
+                for future in done:
+                    collect(future)
+        while pending:
+            done, _ = wait(pending, return_when=FIRST_COMPLETED)
+            for future in done:
+                collect(future)
+    finally:
+        if pool is not None:
+            pool.shutdown(wait=not pending, cancel_futures=True)
     return summary
+
+
+# ---- Advisory: repeated openings across a month (never blocking) ------------------------------------------
+
+#: An opening (first three words of a section) may appear this many times in one month before it is reported.
+OPENING_MAX_PER_MONTH = 2
+OPENING_SECTIONS = ("title", "context", "reflect", "applyIt", "prayer")
+
+
+def opening(text: str, words: int = 3) -> str | None:
+    """First [words] words, lower-cased, punctuation dropped ("Today, before the day" -> "today before the")."""
+    found = _re.findall(r"[\w’']+", (text or "").lower())
+    return " ".join(found[:words]) if len(found) >= words else None
+
+
+def repeated_openings(devotionals: list[dict], max_uses: int = OPENING_MAX_PER_MONTH) -> list[dict]:
+    """Advisory only: every (month, section, opening) used more than [max_uses] times. Never changes a status."""
+    from collections import defaultdict
+
+    seen: dict = defaultdict(list)
+    for d in devotionals:
+        month = d.get("date", "")[:2]
+        for section in OPENING_SECTIONS:
+            o = opening(d.get(section, ""))
+            if o:
+                seen[(month, section, o)].append(d.get("date"))
+    return [{"month": m, "section": s, "opening": o, "count": len(dates), "dates": sorted(dates)}
+            for (m, s, o), dates in sorted(seen.items()) if len(dates) > max_uses]

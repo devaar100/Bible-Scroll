@@ -2,6 +2,17 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-22: Devotionals on Haiku
+
+### 26. Devotionals are drafted by Claude Haiku 5.5 at effort medium
+`devotionals draft` and `redraft-series` use claude-haiku-5-5 at effort medium (max_tokens 32,000), like the study
+launch run (decision 17); the reviewer was already Haiku. Plans keep Opus 5.5 at high effort. The 30 January drafts
+made with Opus are redrafted with Haiku so the year reads as one voice.
+**Why:** your call (2026-11-22): Haiku only for devotionals, not Opus; it keeps the whole year to a few dollars.
+**Revisit if:** the January drafts read noticeably worse than the Opus ones, or the flagged share is well above the
+studies' (then raise the effort or the model for devotionals only). Spanish translation (`translate devotionals`)
+still uses Opus 5.5 with a Sonnet drift check; it isn't covered by this decision.
+
 ## 2026-11-22: Study pipeline simplified
 
 ### 25. Only code checks block a study; the AI reviewer is advisory; prompts are frozen
