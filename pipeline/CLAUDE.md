@@ -41,6 +41,7 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   (tests/test_frozen.py). No rubric changes or test rounds without a new decision.
 - Hand fixes (`fixes apply FILE --by NAME`, fixes.py): replace a section only where the text equals `before`; marks
   the study edited (meta.editedBy/editedAt/editNote, contentVersion .N) so batch retries skip it; code checks only.
+  A devotionalFixes/1 file does the same for out/devotionals (devotional code checks; reviewer reasons dropped).
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
 - Reports (`report <ids> --reason`, `reports`, reports.py): flag + `checks.reasons` check "report" + a line in
   out/regenerate_queue.jsonl. An open report (no generatedAt/editedAt/reviewedAt after it) keeps the study out of

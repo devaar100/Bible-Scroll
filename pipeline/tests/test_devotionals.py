@@ -647,3 +647,39 @@ def test_every_devotional_check_name_is_allowed_by_the_schema():
     source = open(dchecks.__file__).read()
     written = set(dchecks.BLOCKING) | set(re.findall(r'(?:reason|_scan)\([^)]*?"([a-z_]+)"', source))
     assert written <= allowed, sorted(written - allowed)
+
+
+# ---- Hand fixes for devotionals (fixes apply, devotionalFixes/1) ------------------------------------------
+
+def test_devotional_hand_fixes_apply_only_matching_text_and_mark_the_edit(tmp_path, drafted, day, dbible):
+    from pipeline import fixes as fx
+    store = DevotionalStore(tmp_path / "d")
+    drafted["checks"] = {"checkedAt": "2026-11-22T00:00:00+00:00", "checkerVersion": "devotionals-5",
+                         "reasons": [{"check": "rubric", "message": "factual risk 2/3"}]}
+    drafted["status"] = "flagged"
+    store.save(drafted)
+    new_apply = words(50, "Read it twice, pausing after the word “count.”")
+    path = tmp_path / "fixes.json"
+    path.write_text(json.dumps({"format": fx.DEVOTIONAL_FORMAT, "devotionals": {drafted["id"]: {
+        "applyIt": {"before": drafted["applyIt"], "after": new_apply},
+        "reflect": {"before": "not the current text", "after": "x"}}}}))
+    [result] = fx.apply_devotional_fixes(path, store, dbible, [day], by="claude-sonnet-5-5")
+    assert result.applied == ["applyIt"] and result.skipped == [("reflect", "current text differs from 'before'")]
+    saved = store.load(drafted["id"])
+    assert saved["applyIt"] == new_apply and saved["reflect"] == drafted["reflect"]
+    assert saved["meta"]["model"] == drafted["meta"]["model"] and saved["meta"]["editedBy"] == "claude-sonnet-5-5"
+    assert saved["meta"]["editNote"] == "Hand-edited from fixes.json: applyIt"
+    assert saved["contentVersion"] == drafted["contentVersion"] + ".1"
+    assert saved["status"] == "auto_checked" and saved["checks"]["reasons"] == []   # rubric reason not kept
+    assert not list(validator().iter_errors(saved))
+    again = fx.apply_devotional_fixes(path, store, dbible, [day], by="x")[0]
+    assert ("applyIt", "already applied") in again.skipped
+
+
+def test_devotional_hand_fixes_reject_other_fields(tmp_path):
+    from pipeline import fixes as fx
+    path = tmp_path / "fixes.json"
+    path.write_text(json.dumps({"format": fx.DEVOTIONAL_FORMAT, "devotionals": {
+        "devotional-01-01": {"theme": {"before": "", "after": ""}}}}))
+    with pytest.raises(fx.FixesError):
+        fx.load_devotional_fixes(path)

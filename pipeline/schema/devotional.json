@@ -187,6 +187,11 @@
         "editedBy": {
           "type": "string"
         },
+        "editNote": {
+          "description": "What a person changed outside the review tool, e.g. `pipeline fixes apply` (not published).",
+          "type": "string",
+          "minLength": 1
+        },
         "editedAt": {
           "type": "string"
         },

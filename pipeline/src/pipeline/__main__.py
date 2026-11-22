@@ -171,7 +171,7 @@ def main() -> None:
     vf.add_argument("--canaries-from", help="folder holding the canary studies (out/studies; read only)")
     rpt = cc_sub.add_parser("report", help="print the round table")
     rpt.add_argument("--round", type=int, required=True)
-    fx = sub.add_parser("fixes", help="hand-fixed prose (studyFixes/1 files)")
+    fx = sub.add_parser("fixes", help="hand-fixed prose (studyFixes/1 or devotionalFixes/1 files)")
     fx_sub = fx.add_subparsers(dest="fixes_command", required=True)
     fxa = fx_sub.add_parser("apply", help="replace a section only where the current text equals 'before'; marks the "
                                           "study edited (protected from batch retries) and re-runs the code checks")
@@ -232,8 +232,14 @@ def main() -> None:
         from .store import Bible, StudyStore
         from .studies import STUDIES_DIR
         try:
-            results = fx.apply_fixes(Path(args.file), StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB),
-                                     by=args.by, note=args.note, dry_run=args.dry_run)
+            if json.loads(Path(args.file).read_text()).get("format") == fx.DEVOTIONAL_FORMAT:
+                from .devotionals import calendar as dcal
+                from .devotionals.store import DevotionalStore
+                results = fx.apply_devotional_fixes(Path(args.file), DevotionalStore(), Bible(SOURCE_DB, APP_BIBLE_DB),
+                                                    dcal.load(), by=args.by, note=args.note, dry_run=args.dry_run)
+            else:
+                results = fx.apply_fixes(Path(args.file), StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB),
+                                         by=args.by, note=args.note, dry_run=args.dry_run)
         except fx.FixesError as error:
             raise SystemExit(str(error))
         print(fx.render(results, dry_run=args.dry_run))

@@ -1,0 +1,25 @@
+{
+ "format": "devotionalFixes/1",
+ "author": "Claude Code subagent on claude-sonnet-5-5, checked by the code checks; requested by the developer",
+ "rule": "Apply a section only if the devotional's current text equals 'before'. Then replace it with 'after'.",
+ "devotionals": {
+  "devotional-01-05": {
+   "applyIt": {
+    "before": "Slowly read verse 12 of the psalm, the one asking God to teach us to count our days. Read it twice, pausing after the word count. Then, before the day gets busy, name one thing that matters most to you right now. If the heaviness feels like more than a passing tired day, let a doctor, counselor, or trusted friend know.",
+    "after": "Slowly read verse 12 of the psalm, the one asking God to teach us to count our days. Read it twice, pausing after the word “count.” Then, before the day gets busy, name one thing that matters most to you right now. If the heaviness feels like more than a passing tired day, let a doctor, counselor, or trusted friend know."
+   }
+  },
+  "devotional-01-21": {
+   "context": {
+    "before": "Peter wrote this letter to Christians scattered across several regions of Asia Minor, people who often lived as outsiders in a society that did not always welcome them. Just before this passage, he describes believers as living stones being built into a spiritual house. Here he takes words that once described Israel and applies them to these followers of Jesus. He is writing to encourage them, reminding them who they are and whose they are, especially when life feels uncertain or unwelcome.",
+    "after": "This letter, which bears Peter's name, was written to Christians scattered across several regions of Asia Minor, people who often lived as outsiders in a society that did not always welcome them. Just before this passage, he describes believers as living stones being built into a spiritual house. Here he takes words that once described Israel and applies them to these followers of Jesus. He is writing to encourage them, reminding them who they are and whose they are, especially when life feels uncertain or unwelcome."
+   }
+  },
+  "devotional-01-27": {
+   "applyIt": {
+    "before": "Before the day gets busy, pause and think of one person who has annoyed or hurt you. Say their name aloud and ask God to bless them, even if you don't feel warm toward them yet. Notice how it feels, and let that be enough for now.",
+    "after": "Before the day gets busy, pause and think of one person who has annoyed or hurt you. Say their name aloud and ask God to bless them, even when warm feelings toward them haven't come yet. Notice how it feels, and let that be enough for now."
+   }
+  }
+ }
+}

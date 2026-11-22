@@ -168,6 +168,11 @@ equals `before`; anything else is listed as skipped. A changed study is marked e
 protected, so `batch submit`/`collect` and the retry round never overwrite it. The code checks re-run (no AI) and set
 auto_checked or flagged. Sends nothing (works with PIPELINE_OFFLINE=1).
 
+Devotionals use the same command with a `devotionalFixes/1` file (`{"devotionals": {devotional-MM-DD: {section:
+{"before", "after"}}}}`; sections title, context, reflect, applyIt, prayer) on out/devotionals: same matching, same
+editedBy/editedAt/editNote and contentVersion `.N`, then the devotional code checks (no AI). An AI reviewer reason
+isn't kept, so run `devotionals check --recheck ID` to have edited text reviewed again.
+
 ## Reported studies (`report`, `reports`)
 
 When someone reports a problem with a published study (the app's Report a problem sheet sends an email):
