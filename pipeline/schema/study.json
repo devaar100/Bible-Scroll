@@ -195,6 +195,11 @@
           "type": "string",
           "minLength": 1
         },
+        "editNote": {
+          "description": "What a person changed outside the review tool, e.g. hand fixes applied by `pipeline fixes apply` (not published).",
+          "type": "string",
+          "minLength": 1
+        },
         "editedAt": {
           "type": "string",
           "format": "date-time",

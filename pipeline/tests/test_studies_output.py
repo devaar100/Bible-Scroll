@@ -116,11 +116,12 @@ def test_aramaic_in_daniel():
 
 def test_prose_status_and_model_agree(all_studies):
     """Holds before and after `generate`/`batch` write prose: a study is either unwritten or fully written."""
+    from pipeline.checks import OPTIONAL_SECTIONS
     from pipeline.studies import PROSE_FIELDS
 
     problems = []
     for s in all_studies:
-        filled = [bool(s[name]) for name in PROSE_FIELDS]
+        filled = [bool(s[name]) for name in PROSE_FIELDS if name not in OPTIONAL_SECTIONS]  # didYouKnow may be empty
         model = s["meta"]["model"]
         if not any(filled):
             # Unwritten: only "generated" (never written) or "failed" (the writer gave up); never checked or reviewed.

@@ -38,6 +38,8 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   passes; checks.OPTIONAL_SECTIONS). Bump `CHECKER_VERSION` when a check changes. Tests never call the API.
 - Frozen (decision 25): prompts/study.md, the rubric prompts/schema and .claude/agents/study-reviewer.md
   (tests/test_frozen.py). No rubric changes or test rounds without a new decision.
+- Hand fixes (`fixes apply FILE --by NAME`, fixes.py): replace a section only where the text equals `before`; marks
+  the study edited (meta.editedBy/editedAt/editNote, contentVersion .N) so batch retries skip it; code checks only.
 - Review tool binds to 127.0.0.1 only; every write is schema-validated and atomic.
 - Reports (`report <ids> --reason`, `reports`, reports.py): flag + `checks.reasons` check "report" + a line in
   out/regenerate_queue.jsonl. An open report (no generatedAt/editedAt/reviewedAt after it) keeps the study out of

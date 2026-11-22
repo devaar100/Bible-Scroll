@@ -154,6 +154,17 @@ published shape didn't change.
 - Published 2 / internal 3, 2026-11-22 (no bump): `didYouKnow` may be an empty string (the writer leaves it out when
   it isn't confident the fact is about this verse's own words; the key stays, and the app already hides an empty
   section). Unpublished `checks.advisory` (non-blocking reasons); check name `placeholder`.
+- 3, 2026-11-22 (no bump): optional unpublished `meta.editNote` (what a person changed outside the review tool, e.g.
+  `pipeline fixes apply`).
+
+## Hand fixes (`fixes apply`)
+
+`python -m pipeline fixes apply fixes/FILE.json --by NAME [--note TEXT] [--dry-run]` applies a `studyFixes/1` file
+(`{"studies": {ID: {section: {"before", "after"}}}}`) to out/studies. A section is replaced only when its current text
+equals `before`; anything else is listed as skipped. A changed study is marked edited like the review tool's Edit
+(`meta.editedBy`/`editedAt`, `contentVersion` `.N`) plus `meta.editNote`; the model fields stay. `editedBy` makes it
+protected, so `batch submit`/`collect` and the retry round never overwrite it. The code checks re-run (no AI) and set
+auto_checked or flagged. Sends nothing (works with PIPELINE_OFFLINE=1).
 
 ## Reported studies (`report`, `reports`)
 

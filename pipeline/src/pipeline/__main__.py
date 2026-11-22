@@ -167,6 +167,14 @@ def main() -> None:
     vf.add_argument("--canaries-from", help="folder holding the canary studies (out/studies; read only)")
     rpt = cc_sub.add_parser("report", help="print the round table")
     rpt.add_argument("--round", type=int, required=True)
+    fx = sub.add_parser("fixes", help="hand-fixed prose (studyFixes/1 files)")
+    fx_sub = fx.add_subparsers(dest="fixes_command", required=True)
+    fxa = fx_sub.add_parser("apply", help="replace a section only where the current text equals 'before'; marks the "
+                                          "study edited (protected from batch retries) and re-runs the code checks")
+    fxa.add_argument("file", help="e.g. fixes/discover_fixes.json")
+    fxa.add_argument("--by", required=True, help="name recorded as meta.editedBy")
+    fxa.add_argument("--note", help="meta.editNote (default: 'Hand-edited from FILE'); the applied sections are appended")
+    fxa.add_argument("--dry-run", action="store_true", help="report what would change; write nothing")
     sub.add_parser("discover", help="audit discover.txt: bad ids, duplicates, verses whose Hebrew/Greek numbering differs")
     bk = sub.add_parser("backup", help="zip out/ and state/ into backups/")
     bk.add_argument("--dest", help="folder for the zip (default pipeline/backups)")
@@ -214,6 +222,17 @@ def main() -> None:
         serve(StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB), args.reviewer, args.port)
     if args.command in ("report", "reports"):
         run_reports(args)
+    if args.command == "fixes":
+        from . import fixes as fx
+        from .paths import APP_BIBLE_DB, SOURCE_DB
+        from .store import Bible, StudyStore
+        from .studies import STUDIES_DIR
+        try:
+            results = fx.apply_fixes(Path(args.file), StudyStore(STUDIES_DIR), Bible(SOURCE_DB, APP_BIBLE_DB),
+                                     by=args.by, note=args.note, dry_run=args.dry_run)
+        except fx.FixesError as error:
+            raise SystemExit(str(error))
+        print(fx.render(results, dry_run=args.dry_run))
     if args.command == "publish":
         run_publish(args)
     if args.command == "bundle":

@@ -1,0 +1,103 @@
+{
+ "format": "studyFixes/1",
+ "wave": "discover",
+ "author": "Claude (chat), reviewed by developer",
+ "generatedFor": "raw batch results msgbatch_018n618LtcFVgkNwUHrmoiAd, 01USzfkJMoZDJKeHzzVhteZX, 014ab6ACvsdcvhvX1Mc7v7Nm",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "2TI.1.7": {
+   "lifeInBibleTimes": {
+    "before": "Laying on of hands was a physical act of placing hands on a person, and the Bible uses it when someone is set apart for a task or ministry. Verse six links Timothy's gift to this act through Paul. Such a moment was often done in the presence of others, marking a person as entrusted with a responsibility. Understanding this helps explain why Paul can urge Timothy to stir up a gift he has already received.",
+    "after": "Laying on of hands was a physical act of placing hands on a person, and the Bible uses it when someone is set apart for a task or ministry. The line just before this one links Timothy's gift to this act through Paul. Such a moment was often done in the presence of others, marking a person as entrusted with a responsibility. Understanding this helps explain why Paul can urge Timothy to stir up a gift he has already received."
+   }
+  },
+  "ISA.26.3": {
+   "historicalContext": {
+    "before": "The song around this line contrasts a lofty city brought low with a faithful people made secure behind their walls, and it calls for the gates to be opened to a righteous nation. Isaiah prophesied roughly from 740 to 700 BC, and the later chapters speak to a people in exile and their return. Verse 4 is not named here, but the wider passage shows that the security described rests on trust in the LORD, not on the walls themselves.",
+    "after": "The song around this line contrasts a lofty city brought low with a faithful people made secure behind their walls, and it calls for the gates to be opened to a righteous nation. Isaiah prophesied roughly from 740 to 700 BC, and the later chapters speak to a people in exile and their return. The line right after this one is not quoted here, but the wider passage shows that the security described rests on trust in the LORD, not on the walls themselves."
+   }
+  },
+  "DAN.3.18": {
+   "historicalContext": {
+    "before": "At this point the king has already given them a choice between bowing to his image and facing the furnace. In verse 17 they expressed confidence that their God can save them, and this line adds that their refusal does not depend on that rescue. The king has threatened the furnace, so the stakes are plain. The book is set among Jews serving in foreign courts in Babylon and Persia.",
+    "after": "At this point the king has already given them a choice between bowing to his image and facing the furnace. Just before this line they expressed confidence that their God can save them, and this line adds that their refusal does not depend on that rescue. The king has threatened the furnace, so the stakes are plain. The book is set among Jews serving in foreign courts in Babylon and Persia."
+   },
+   "lifeInBibleTimes": {
+    "before": "The image was made of gold and set up for public worship. In ancient kingdoms, a ruler's statue often stood as a sign of his authority, and people were expected to show loyalty by bowing before it. Verse 15 names horns, flutes, harps and other instruments as the signal for everyone to bow, so the act was public and done together. Probably the furnace was a large heating oven, though the text does not describe how it was built.",
+    "after": "The image was made of gold and set up for public worship. In ancient kingdoms, a ruler's statue often stood as a sign of his authority, and people were expected to show loyalty by bowing before it. The king's earlier demand names horns, flutes, harps and other instruments as the signal for everyone to bow, so the act was public and done together. Probably the furnace was a large heating oven, though the text does not describe how it was built."
+   }
+  },
+  "PSA.95.1": {
+   "historicalContext": {
+    "before": "The psalm is a call to worship, and it begins a song that moves from praise to a warning. Verses 3 to 5 describe God as a great King above all gods and as the Maker of the sea and the dry land, which gives the reason for praise. Later, verses 8 to 11 recall the wilderness days of Meribah and Massah as times when the people tested God and hardened their hearts. The Psalms were gathered over several centuries and were probably completed after the exile.",
+    "after": "The psalm is a call to worship, and it begins a song that moves from praise to a warning. The lines that follow describe God as a great King above all gods and as the Maker of the sea and the dry land, which gives the reason for praise. Later still, the closing lines recall the wilderness days of Meribah and Massah as times when the people tested God and hardened their hearts. The Psalms were gathered over several centuries and were probably completed after the exile."
+   }
+  },
+  "PSA.94.19": {
+   "historicalContext": {
+    "before": "The psalm opens with a plea for God to rise up as judge against proud and wicked people who afflict God's people and kill the widow, the alien and the fatherless. Earlier in the psalm, the speaker describes a moment when he felt himself slipping and was held up by God's loving kindness. Verse 19 looks back on that inner turmoil and God's comfort. The psalm then moves toward trust, calling the LORD a high tower and affirming that the wicked will be cut off. No heading names an author, so no author is claimed here.",
+    "after": "The psalm opens with a plea for God to rise up as judge against proud and wicked people who afflict God's people and kill the widow, the alien and the fatherless. Earlier in the psalm, the speaker describes a moment when he felt himself slipping and was held up by God's loving kindness. This verse looks back on that inner turmoil and God's comfort. The psalm then moves toward trust, calling the LORD a high tower and affirming that the wicked will be cut off. No heading names an author, so no author is claimed here."
+   }
+  },
+  "ISA.9.6": {
+   "lifeInBibleTimes": {
+    "before": "In the ancient world, a yoke was a wooden frame laid across the shoulders of oxen so they could pull a load. The passage's images of a yoke and a rod describe burdens that rest on the shoulders, so a ruler carrying government on his shoulders is a picture of someone who bears the weight of leading a people. Verse three of the passage mentions dividing plunder, which was the spoil that victors gathered after a battle.",
+    "after": "In the ancient world, a yoke was a wooden frame laid across the shoulders of oxen so they could pull a load. The passage's images of a yoke and a rod describe burdens that rest on the shoulders, so a ruler carrying government on his shoulders is a picture of someone who bears the weight of leading a people. Earlier in the passage the people are pictured rejoicing like those who divide plunder, which was the spoil that victors gathered after a battle."
+   }
+  },
+  "PHP.4.13": {
+   "historicalContext": {
+    "before": "The letter is written from prison to a church in Philippi that had sent the writer a gift. Just before this verse, the writer explains that he is not speaking out of need, because he has learned to be content in any situation. Verse 13 continues that thought, showing where his steadiness comes from. The book background says Paul founded the Philippian church, which was a Roman colony in Macedonia. Where and when he was imprisoned is debated, so the exact setting is not fixed.",
+    "after": "The letter is written from prison to a church in Philippi that had sent the writer a gift. Just before this verse, the writer explains that he is not speaking out of need, because he has learned to be content in any situation. This verse continues that thought, showing where his steadiness comes from. The book background says Paul founded the Philippian church, which was a Roman colony in Macedonia. Where and when he was imprisoned is debated, so the exact setting is not fixed."
+   }
+  },
+  "ISA.43.25": {
+   "didYouKnow": {
+    "before": "The Hebrew word 'anokhi, meaning I, is written twice at the start of this verse, once before the word for am he and once before it, so the doubled 'I' in the English comes straight from the way the Hebrew is built.",
+    "after": "The Hebrew word 'anokhi, meaning I, is written twice in a row at the start of this verse, 'anokhi 'anokhi, and is followed by hu, meaning he. The English \"I, even I, am he\" follows that doubling directly."
+   }
+  },
+  "JHN.13.35": {
+   "theology": {
+    "before": "The verse shows that love among believers is something others can see, and that Jesus's command shapes how his people live together. Love here is not only a feeling; it is a way of treating one another. First John connects this directly: someone who says they love God but hates a brother is called a liar, and love for others is tied to love for God (1 John 4:20-21). First John also says that loving one's brother is a sign of living in the light (1 John 2:10). Jesus later prays that his followers may be one (John 17:21). Together these passages show love as both the evidence of belonging to Jesus and a gift that flows from him.",
+    "after": "The verse shows that love among believers is something others can see, and that Jesus's command shapes how his people live together. Love here is not only a feeling; it is a way of treating one another. First John connects this directly: someone who says they love God but hates a brother is called a liar, and love for others is tied to love for God (1 John 4:20-21). Together these passages show love as the evidence of belonging to Jesus and a gift that flows from him."
+   }
+  },
+  "ISA.53.6": {
+   "theology": {
+    "before": "The verse shows that the trouble runs deeper than a few mistakes: all people have left God's path, and each has gone their own way. It also says that the LORD placed the wrongdoing of all of us on one person, so the burden is not carried only by the wrongdoers. The New Testament links this with Jesus. First Peter 2:25 describes people who had wandered coming back to a shepherd and guardian of their souls, and Romans 4:25 speaks of Jesus being handed over for our wrongs. Christians share the belief that sin needs an answer, but how the atonement works is understood in different ways across traditions, and Jewish readers interpret the servant differently.",
+    "after": "The verse shows that the trouble runs deeper than a few mistakes: all people have left God's path, and each has gone their own way. It also says that the LORD placed the wrongdoing of all of us on one person, so the burden is not carried only by the wrongdoers. The New Testament links this with Jesus, as in 1 Peter 2:25 and Romans 4:25. Christians agree that sin needs an answer but understand the atonement in different ways, and Jewish readers interpret the servant differently."
+   }
+  },
+  "2CO.5.7": {
+   "theology": {
+    "before": "The verse shows that faith is trust in what God has promised, even when the promise is not yet visible. Paul links this trust with the Spirit, given as a down payment that points to God finishing what he has started. The wider Bible often pairs trust with unseen hope. Hebrews 11:1-27 lists many people who lived by trust in promises they did not receive in their lifetime. 2 Corinthians 4:18 urges looking at what is unseen rather than what is seen. Romans 8:24-25 says hope is for what is not yet seen, and 1 Corinthians 13:12 says now we see only in part. Faith here does not deny what is seen; it looks past it toward God.",
+    "after": "The verse shows that faith is trust in what God has promised, even when the promise is not yet visible. Paul links this trust with the Spirit, given as a down payment that points to God finishing what he has started. Hebrews 11:1-27 lists people who lived by promises they did not see fulfilled, 2 Corinthians 4:18 urges looking at what is unseen, and Romans 8:24-25 says hope is for what is not yet seen. Faith here does not deny what is seen; it looks past it toward God."
+   }
+  },
+  "2CO.5.17": {
+   "theology": {
+    "before": "This verse shows that God is the one who makes people new, and that the change belongs to life in Christ rather than to self-improvement alone. The related passages point the same way. In Ezekiel, God promises to give a new heart and a new spirit, and the psalmist asks God to create a clean heart. Jesus tells Nicodemus that a person must be born from above to see God's kingdom. Romans says there is no condemnation for those in Christ Jesus. Colossians and Ephesians describe putting off the old way of living and putting on the new, which shows that the newness is meant to shape daily life as well as a person's standing before God.",
+    "after": "This verse shows that God is the one who makes people new, and that the change belongs to life in Christ rather than to self-improvement alone. Related passages point the same way: God promises a new heart and a new spirit in Ezekiel, the psalmist asks God to create a clean heart, and Jesus tells Nicodemus that a person must be born from above. Colossians and Ephesians describe putting off the old way of living and putting on the new, so the newness shapes daily life as well as a person's standing before God."
+   }
+  },
+  "MRK.8.36": {
+   "theology": {
+    "before": "The verse suggests that a person is worth more than anything a person can own. It treats a life as something that can be lost in a bad bargain, which points to how much the self matters before God. The question fits with the call to follow in the verses before it, so following is presented as a choice about what a life is for. Matthew 16:26 and Luke 9:25 carry the same question in parallel settings. Psalm 49 reflects on how wealth cannot rescue a person from death. Philippians 3:7-9 describes gains counted as loss for the sake of knowing Christ. Together these passages show that the question is about where trust and life are placed.",
+    "after": "The verse suggests that a person is worth more than anything a person can own. It treats a life as something that can be lost in a bad bargain. The question fits the call to follow in the lines before it, so following is presented as a choice about what a life is for. Matthew 16:26 and Luke 9:25 carry the same question, and Psalm 49 reflects on how wealth cannot rescue a person from death. Together these passages show that the question is about where trust and life are placed."
+   }
+  },
+  "ISA.30.21": {
+   "theology": {
+    "before": "The verse shows a God who guides people, not only one who tells them where to end up. Whichever way a person turns, the promise is that a clear word will show the way to walk. Psalm 32:8 speaks of God instructing and teaching a person in the way to go. Proverbs 3:5-6 urges trust in the Lord rather than leaning only on one's own understanding, with the promise that he will make paths straight. Isaiah 48:17 calls the Lord the one who teaches for our good and leads in the way we should go. Together these passages show that guidance is part of God's care for his people, and that faith includes listening and walking in the way shown.",
+    "after": "The verse shows a God who guides people, not only one who tells them where to end up. Whichever way a person turns, the promise is that a clear word will show the way to walk. Psalm 32:8 speaks of God instructing and teaching a person in the way to go, and Proverbs 3:5-6 urges trust in the Lord rather than leaning only on one's own understanding. Together these passages show that guidance is part of God's care for his people, and that faith includes listening and walking in the way shown."
+   }
+  },
+  "REV.21.5": {
+   "theology": {
+    "before": "The verse shows God as the one who holds the throne, the source of authority over all things. It pictures him making things new, not merely repairing what is broken. 2 Corinthians 5:17 speaks of anyone in Christ being a new creation, and Isaiah 43:19 has God declaring that he is doing a new thing. Revelation places a throne in heaven in Revelation 4:2 and describes a great white throne in Revelation 20:11, so the image of God's rule runs through the book. The promise that these words are faithful and true gives people something solid to trust. Christians differ on how and when this full renewal arrives, with some seeing it at the end of time and others reading the visions symbolically, yet all can rest on the trustworthy word.",
+    "after": "The verse shows God as the one who sits on the throne, the source of authority over all things, and it pictures him making things new, not merely repairing what is broken. 2 Corinthians 5:17 speaks of anyone in Christ being a new creation, and Isaiah 43:19 has God declaring that he is doing a new thing. The promise that these words are faithful and true gives people something solid to trust. Christians differ on how and when this renewal arrives, yet all can rest on the trustworthy word."
+   }
+  }
+ }
+}
