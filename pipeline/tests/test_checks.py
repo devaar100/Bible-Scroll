@@ -378,3 +378,14 @@ def test_normal_text_passes_the_transliteration_checks(written, bible, text):
     written["meaning"] = words(60, text)
     names = checks_named(outcome(written, bible))
     assert "dotted_translit" not in names and "translit_capitals" not in names
+
+
+def test_every_check_name_the_code_writes_is_allowed_by_the_schema():
+    """A check name missing from schema/study.json makes every study that fails it invalid (and unsavable)."""
+    import json
+    import re
+    from pipeline import checks
+    from pipeline.studies import SCHEMA_PATH
+    allowed = set(json.loads(SCHEMA_PATH.read_text())["$defs"]["checkReason"]["properties"]["check"]["enum"])
+    written = set(re.findall(r'reason\(\s*"([a-z_]+)"', open(checks.__file__).read())) | set(checks.BLOCKING)
+    assert written <= allowed, sorted(written - allowed)

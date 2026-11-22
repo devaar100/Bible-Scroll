@@ -154,6 +154,8 @@ published shape didn't change.
 - Published 2 / internal 3, 2026-11-22 (no bump): `didYouKnow` may be an empty string (the writer leaves it out when
   it isn't confident the fact is about this verse's own words; the key stays, and the app already hides an empty
   section). Unpublished `checks.advisory` (non-blocking reasons); check name `placeholder`.
+- 3, 2026-11-22 (no bump): check names `did_you_know_word`, `placeholder` and `translit_capitals` (the code produced them
+  since decision 25 / checker 12, but the schema rejected them).
 - 3, 2026-11-22 (no bump): optional unpublished `meta.editNote` (what a person changed outside the review tool, e.g.
   `pipeline fixes apply`).
 

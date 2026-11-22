@@ -455,7 +455,10 @@
             "dotted_translit",
             "generic_traditions",
             "translit_form",
-            "context_mismatch"
+            "context_mismatch",
+            "did_you_know_word",
+            "placeholder",
+            "translit_capitals"
           ]
         },
         "message": {

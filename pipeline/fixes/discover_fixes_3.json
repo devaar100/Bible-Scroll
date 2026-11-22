@@ -1,0 +1,176 @@
+{
+ "format": "studyFixes/1",
+ "wave": "discover",
+ "author": "Claude Code subagent on claude-sonnet-5-5 (effort medium), checked by the code checks; not yet reviewed by the developer; two wording touch-ups (1TH.5.17, PHP.2.4) by the main Claude Code session",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "JHN.1.12": {
+   "historicalContext": {
+    "before": "The passage has been building a sharp contrast. The light came into the world, the world did not recognize him, and his own people did not receive him. Here the story turns to those who did receive him, and they are given a place in God's family. The Gospel's stated aim, as the book background puts it, is that readers may believe Jesus is the Messiah and the Son of God and have life. The verse is an early step toward that aim, since it names the response that leads to new life.",
+    "after": "The passage has been building a sharp contrast. The light came into the world, the world did not recognize him, and his own people did not receive him. Here the story turns to those who did receive him, and they are given a place in God's family. The Gospel's stated aim is that readers may believe Jesus is the Messiah and the Son of God and have life. The verse is an early step toward that aim, since it names the response that leads to new life."
+   }
+  },
+  "PSA.103.8": {
+   "historicalContext": {
+    "before": "The psalm has just spoken of God's righteous acts and of how he made his ways known to Moses and to the children of Israel. This line turns from those deeds to the heart behind them. Psalm 103:9 goes on to say he will not always accuse and will not stay angry forever, and Psalm 103:10 says he has not dealt with us according to our sins. The heading attributes the psalm to David, though whether the headings are original is disputed. The psalm is a song of praise that ends by calling the soul to praise the LORD again.",
+    "after": "The psalm has just spoken of God's righteous acts and of how he made his ways known to Moses and to the children of Israel. This line turns from those deeds to the heart behind them. The lines that follow say he will not always accuse or stay angry forever, and that he has not dealt with us according to our sins. The heading attributes the psalm to David, though whether the headings are original is disputed. The psalm is a song of praise that ends by calling the soul to praise the LORD again."
+   },
+   "lifeInBibleTimes": {
+    "before": "The word chased, which the verse ends with, is tied to the idea of covenant loyalty, meaning faithful commitment within a binding relationship. Psalm 103:18 speaks of those who keep his covenant. In ancient Israel a covenant was probably understood as a solemn agreement between two parties, with each side expected to keep its promises. So the psalm presents God as one who keeps faith with his people even when they fall short.",
+    "after": "The word chased, which the verse ends with, is tied to the idea of covenant loyalty, meaning faithful commitment within a binding relationship. The psalm goes on to speak of those who keep his covenant. In ancient Israel a covenant was probably understood as a solemn agreement between two parties, with each side expected to keep its promises. So the psalm presents God as one who keeps faith with his people even when they fall short."
+   }
+  },
+  "1CO.16.13": {
+   "historicalContext": {
+    "before": "The letter is written to a church in Corinth that was divided and troubled. Just before this, the verses speak of a great and effective door opening for the writer, along with many adversaries, and of Timothy possibly coming, with the readers asked to receive him without fear and send him on in peace. Apollos is also mentioned as not wishing to come at that time. Then this verse gathers up a short set of commands for the whole congregation. The verses after it ask that everything be done in love, and they recognize a household that serves the believers and some visitors who supplied what was missing.",
+    "after": "The letter is written to a church in Corinth that was divided and troubled. Just before this, the verses speak of a great and effective door opening for the writer, along with many adversaries, and of Timothy possibly coming, with the readers asked to receive him without fear and send him on in peace. Apollos is also mentioned as not wishing to come at that time. Then this verse gathers up a short set of commands for the whole congregation. The verses after it ask that everything be done in love, and they recognize a household that serves the believers and some visitors who made up for what was missing."
+   }
+  },
+  "EPH.3.19": {
+   "historicalContext": {
+    "before": "A line in the middle of a passage where the letter describes how its readers are being built up in God's plan. The verses just before it describe being rooted and grounded in love and grasping something of its size. This verse moves from that picture to a stated goal: knowing a love that goes past knowledge, so that the readers are filled with God's fullness. The book background links the letter to Paul, though whether he wrote it is disputed.",
+    "after": "A line in the middle of a passage where the letter describes how its readers are being built up in God's plan. The verses just before it describe being rooted and grounded in love and grasping something of its size. This verse moves from that picture to a stated goal: knowing a love that goes past knowledge, so that the readers are filled with God's fullness. The letter is linked to Paul, though whether he wrote it is disputed."
+   }
+  },
+  "EPH.5.1": {
+   "didYouKnow": {
+    "before": "Check the Greek word order: agapēta, beloved, comes right after tekna, children, so it describes them directly. Readers are not just children; they are beloved children.",
+    "after": "Agapēta, the word for beloved, stands right after tekna, children, and describes them directly. Readers are not just children; they are beloved children."
+   }
+  },
+  "JOS.1.9": {
+   "meaning": {
+    "before": "Joshua 1:9 is a pep talk with a reason behind it. It opens with a question, Haven't I commanded you?, which reminds the hearer that these instructions are not brand new. Then come three short commands: be strong and courageous, don't be afraid, don't be dismayed. The verse does not stop at bare orders. It ends with the reason: the LORD your God is with you wherever you go. The courage asked for rests on that presence, not on the hearer's own nerve. The words just before it link courage with keeping the law and not turning aside, so the call is to trust God and to act faithfully as you go forward.",
+    "after": "Joshua 1:9 is a pep talk with a reason behind it. It opens with a question, Haven't I commanded you?, which reminds the hearer that this command is not brand new. Then come three short commands: be strong and courageous, don't be afraid, don't be dismayed. The verse does not stop at bare orders. It ends with the reason: the LORD your God is with you wherever you go. The courage asked for rests on that presence, not on the hearer's own nerve. The words just before it link courage with keeping the law and not turning aside, so the call is to trust God and to act faithfully as you go forward."
+   }
+  },
+  "NEH.8.10": {
+   "historicalContext": {
+    "before": "This comes right after the people have heard the law read and explained, and they wept. Nehemiah 8:9 describes that weeping, and the leaders tell the crowd not to mourn. Here the instruction turns from calming them to a practical celebration. Nehemiah 8:12 notes that the people went away to eat and celebrate because they had understood what was said to them. Nehemiah, a Persian court official, returns to Jerusalem to rebuild its wall, and the book's events begin about 445 BC.",
+    "after": "This comes right after the people have heard the law read and explained, and they wept. The passage describes that weeping, and the leaders tell the crowd not to mourn. Here the instruction turns from calming them to a practical celebration. The passage goes on to note that the people went away to eat and celebrate because they had understood what was said to them. Nehemiah, a Persian court official, returns to Jerusalem to rebuild its wall, and the book's events begin about 445 BC."
+   }
+  },
+  "1CO.16.14": {
+   "historicalContext": {
+    "before": "This passage is the close of Paul's letter to the church in Corinth, a busy port city where the believers were divided and troubled. Just before this line, the letter urges them to watch, stand firm in the faith, and be courageous and strong. Earlier in the passage, the letter asks that Timothy be welcomed and sent on his way in peace, and it mentions Apollos, who was not willing to come at that time. A rule like this one, placed right after these instructions, works as a unifying summary for a church that had many quarrels, from divisions and lawsuits to disputes about worship and spiritual gifts.",
+    "after": "This passage is the close of Paul's letter to the church in Corinth, a busy port city where the believers were divided and troubled. Just before this line, the letter urges them to watch, stand firm in the faith, and be courageous and strong. Earlier in the passage, the letter asks that Timothy be welcomed and sent on his way in peace, and it mentions Apollos, who was not willing to come at that time. A rule like this one, placed right after those calls to stand firm, works as a unifying summary for a church that had many quarrels, from divisions and lawsuits to disputes about worship and spiritual gifts."
+   }
+  },
+  "PSA.32.8": {
+   "didYouKnow": {
+    "before": "Near the end of the Hebrew line, the word for eye appears with 'my' attached to it. It is paired with the word for 'on you', so the two words work together to finish the thought of God's watchful care.",
+    "after": "'Askilekha means I will instruct you, and the you is built into the end of the word rather than standing alone. It opens the verse, so the first thing said is God's promise to teach."
+   }
+  },
+  "ZEC.4.6": {
+   "theology": {
+    "before": "The verse says that the LORD's work is carried out by his Spirit, not by human might or power. This is not a call to be passive; it is a statement about where the strength comes from. The Bible often links the Spirit with God's work among people. Isaiah 11:2-4 describes a coming ruler filled with the Spirit of wisdom and righteousness. Psalm 33:16-17 says no king is saved by a great army. 1 Corinthians 2:4-5 says the teaching came in demonstration of the Spirit and of power, so that faith would rest on God's power rather than human wisdom.",
+    "after": "The verse says that the LORD's work is carried out by his Spirit, not by human might or power. This is not a call to be passive; it is a statement about where the strength comes from. Isaiah 11:2-4 describes a coming ruler filled with the Spirit of wisdom and righteousness. Psalm 33:16 says no king is saved by a great army. 1 Corinthians 2:4-5 says the teaching came in demonstration of the Spirit and of power, so that faith would rest on God's power rather than human wisdom."
+   }
+  },
+  "1TH.5.17": {
+   "historicalContext": {
+    "before": "This section is a run of short, practical instructions. Just before the prayer line, readers are told to honor the people who work among them, to be patient with everyone, and not to pay back evil with evil. Right after it, they are told to give thanks in everything. The prayer command sits in the middle of these everyday instructions, so it reads as part of ordinary daily living rather than a separate topic. The letter, which the book background places probably around AD 50 to 51, was written to a young church facing opposition.",
+    "after": "This section is a run of short, practical instructions. Just before the prayer line, readers are told to honor the people who work among them, to be patient with everyone, and not to pay back evil with evil. Right after it, they are told to give thanks in everything. The prayer command sits in the middle of these everyday instructions, so it reads as part of ordinary daily living rather than a separate topic. The letter, probably from around AD 50 to 51, was written to a young church facing opposition."
+   }
+  },
+  "ROM.8.1": {
+   "theology": {
+    "before": "The verse shows that a person's standing before God is tied to being in Christ Jesus, a phrase that describes a living union with him. It also shows that the Christian life has a direction, one shaped by the Spirit rather than by the flesh. Related passages such as John 3:18-19, Galatians 3:13 and 2 Corinthians 5:17 connect the themes of condemnation, freedom and new life in Christ to the wider Bible. The book background marks how righteousness and justification are understood as debated, so this verse is best read alongside the surrounding argument of Romans.",
+    "after": "The verse shows that a person's standing before God is tied to being in Christ Jesus, a phrase that describes a living union with him. It also shows that the Christian life has a direction, one shaped by the Spirit rather than by the flesh. Related passages such as John 3:18-19, Galatians 3:13 and 2 Corinthians 5:17 connect the themes of condemnation, freedom and new life in Christ to the wider Bible. How righteousness and justification are understood is debated, so this verse is best read alongside the surrounding argument of Romans."
+   }
+  },
+  "1TH.5.16": {
+   "historicalContext": {
+    "before": "The letter's closing stretch gives short practical instructions, and this line sits among them. Paul, with Silas and Timothy, wrote to a young church facing opposition, probably around AD 50 to 51. The instructions in this part ask the believers to honor their leaders, live at peace, and not to repay wrong with wrong. Joy is placed among these everyday habits rather than in a separate section about feelings. That placement helps show that rejoicing is part of ordinary church life, not only a response to good news.",
+    "after": "The letter's closing stretch gives short practical instructions, and this line sits among them. Paul, with Silas and Timothy, wrote to a young church facing opposition, probably around AD 50 to 51. The commands in this part ask the believers to honor their leaders, live at peace, and not to repay wrong with wrong. Joy is placed among these everyday habits rather than in a separate section about feelings. That placement helps show that rejoicing is part of ordinary church life, not only a response to good news."
+   },
+   "lifeInBibleTimes": {
+    "before": "Letters like this one were usually read aloud, probably to the whole gathering rather than read silently by one person. That means a line like this would have been heard by everyone in the room at once, including people who were newer to the faith. Early groups of believers often met in homes, so a letter read in such a setting would reach people in their everyday surroundings, where the instructions about peace and kindness would be lived out with neighbors and family.",
+    "after": "Letters like this one were usually read aloud, probably to the whole gathering rather than read silently by one person. That means a line like this would have been heard by everyone in the room at once, including people who were newer to the faith. Early groups of believers often met in homes, so a letter read in such a setting would reach people in their everyday surroundings, where the teaching about peace and kindness would be lived out with neighbors and family."
+   }
+  },
+  "MAT.6.14": {
+   "didYouKnow": {
+    "before": "The verb in 'you shall forgive' and the verb in 'will forgive' are both forms of the same verb, so the sentence uses one verb twice: once for people forgiving and once for the Father forgiving. This pairing makes the two forgivenesses easy to compare side by side.",
+    "after": "Aphēte and aphēsei are two forms of the same verb for forgiving. The first is about people forgiving and the second about the Father forgiving, so the verse sets the two side by side."
+   }
+  },
+  "MAT.5.8": {
+   "lifeInBibleTimes": {
+    "before": "In the Scriptures of Israel, being clean or unclean was often a matter of ritual, such as washing before worship or approaching holy places. So the idea of purity would have been familiar to people who knew those laws, though the verse moves the focus from outward washing to the heart. Psalm 24:3-4 links going up to the Lord's hill with having clean hands and a pure heart, which shows how closely the two ideas were connected in Israel's worship.",
+    "after": "In the Scriptures of Israel, being clean or unclean was often a matter of ritual, such as washing before worship or approaching holy places. So the idea of purity would have been familiar to people who knew those laws, though the verse moves the focus from outward washing to the heart. Psalm 24:4 speaks of having clean hands and a pure heart, which shows how closely the two ideas were connected in Israel's worship."
+   }
+  },
+  "PSA.118.6": {
+   "didYouKnow": {
+    "before": "Look at the last word of the question, which is the ordinary word for a human being, glossed here as anyone. It is paired with the word for what, so the question reads as what a human being can do. The contrast between one ordinary person and the LORD carries much of the verse's weight.",
+    "after": "'Adam, the ordinary word for a person, is the last word of the Hebrew question, after mah, what, and ya'aseh, will he do. So the question builds up to the person at the very end."
+   }
+  },
+  "NUM.6.24": {
+   "historicalContext": {
+    "before": "In this part of the passage, the LORD has been giving Moses instructions about the Nazirite, a person who took a special vow of separation to God. Numbers records Israel's journey from Sinai toward Canaan, the land God had promised. Here the instructions move from a single person's vow to the whole nation, showing how the priests are to bless the people as they travel. The blessing comes in a set form that the priests are to speak aloud.",
+    "after": "In this part of the passage, the LORD has been giving Moses instructions about the Nazirite, a person who took a special vow of separation to God. Numbers records Israel's journey from Sinai toward Canaan, the land God had promised. Here the focus moves from a single person's vow to the whole nation, showing how the priests are to bless the people as they travel. The blessing comes in a set form that the priests are to speak aloud."
+   }
+  },
+  "JER.17.7": {
+   "didYouKnow": {
+    "before": "Look closely at the two forms of the trust word. The verb 'trusts' and the word for 'his trust' share the same core letters, so the verse uses one idea twice: the man trusts, and his confidence is in the LORD.",
+    "after": "Yivtach, he trusts, and mivtacho, his trust, are built from the same Hebrew root, so the verse says the same thing twice: the man trusts, and the LORD is his trust. The second word comes last, right after Yahweh."
+   }
+  },
+  "PSA.37.4": {
+   "historicalContext": {
+    "before": "The psalm begins by telling the reader not to fret about evildoers or envy those who act unjustly, and says such people will soon fade like grass. This line answers that worry with a different focus: turn toward the LORD and take pleasure in him. The heading attributes the psalm to David. Book background: the psalms were prayed and sung in Israel's worship and in private prayer.",
+    "after": "The psalm begins by telling the reader not to fret about evildoers or envy those who act unjustly, and says such people will soon fade like grass. This line answers that worry with a different focus: turn toward the LORD and take pleasure in him. The heading attributes the psalm to David. The psalms were prayed and sung in Israel's worship and in private prayer."
+   }
+  },
+  "ISA.43.1": {
+   "historicalContext": {
+    "before": "The verses just before describe a people robbed, held in prisons, and left without anyone to restore them, and they say this suffering came from turning away from God's ways. Here the mood changes. The verses after it promise that God will be with them through deep waters and fire, and will gather their children from east and west. Book background: the later chapters of Isaiah speak to people in exile, though who wrote them, and when, is debated.",
+    "after": "The verses just before describe a people robbed, held in prisons, and left without anyone to restore them, and they say this suffering came from turning away from God's ways. Here the mood changes. The verses after it promise that God will be with them through deep waters and fire, and will gather their children from east and west. The later chapters of Isaiah speak to people in exile, though who wrote them, and when, is debated."
+   }
+  },
+  "PHP.2.4": {
+   "historicalContext": {
+    "before": "Paul is writing to the church at Philippi, which he had founded, and the book background places him in prison, though where and when is debated. In the verses just before this one, he urges the believers to be like-minded and to avoid rivalry and conceit. This verse widens that appeal: they are to care for each other's interests as well as their own. The verses that follow point to Christ as the great example of this humble attitude.",
+    "after": "Paul is writing to the church at Philippi, which he had founded, and he is in prison as he writes, though where and when is debated. In the verses just before this one, he urges the believers to be like-minded and to avoid rivalry and conceit. This verse widens that appeal: they are to care for each other's interests as well as their own. The verses that follow point to Christ as the great example of this humble attitude."
+   },
+   "didYouKnow": {
+    "before": "Notice how the word for 'the things' appears twice in this verse, once before 'their own' and once before 'of others.' The repetition sets the two sides in direct contrast, so the reader is asked to hold both together rather than choose one.",
+    "after": "Ta, the small word for the things, appears twice in this verse, once before heautōn, their own, and once before heterōn, of others. The repetition sets the two sides in direct contrast, so the reader is asked to hold both together rather than choose one."
+   }
+  },
+  "JER.33.3": {
+   "didYouKnow": {
+    "before": "Look at the pairing in the original: the word for great and the word for difficult are joined by a connecting 'and', so the verse names two kinds of unknown things side by side. The second word here means things hard to grasp or beyond easy understanding.",
+    "after": "Gedolot, great things, and uvetzurot, incomprehensible things, sit side by side, with the word for and attached to the front of the second. Both are plural, so the verse speaks of more than one great thing and more than one hard-to-grasp thing."
+   }
+  },
+  "JHN.13.34": {
+   "historicalContext": {
+    "before": "The setting is the last night Jesus spends with his disciples, as the book background describes. The verses just before show Jesus speaking about being glorified and then telling the disciples that they cannot go where he is going. A nearby verse says that this love will show everyone that these people belong to him. The book is traditionally linked to the apostle John and probably dates from around AD 90 to 100. Its purpose is to help readers believe that Jesus is the Messiah and the Son of God.",
+    "after": "The setting is the last night Jesus spends with his disciples. The verses just before show Jesus speaking about being glorified and then telling the disciples that they cannot go where he is going. A nearby verse says that this love will show everyone that these people belong to him. The book is traditionally linked to the apostle John and probably dates from around AD 90 to 100. Its purpose is to help readers believe that Jesus is the Messiah and the Son of God."
+   }
+  },
+  "PHP.4.19": {
+   "historicalContext": {
+    "before": "Paul is writing to the church in Philippi, which had sent him a gift by the hand of Epaphroditus. The book background describes Paul as writing from prison to thank the church and encourage them, though where and when he was imprisoned is debated. In the lines just before this verse, Paul says he has all he needs and more, and he calls the gift a fragrant sacrifice pleasing to God. This verse then answers that generosity: the church gave, and now God is the one who will provide for them.",
+    "after": "Paul is writing to the church in Philippi, which had sent him a gift by the hand of Epaphroditus. Paul is writing from prison to thank the church and encourage them, though where and when he was imprisoned is debated. In the lines just before this verse, Paul says he has all he needs and more, and he calls the gift a fragrant sacrifice pleasing to God. This verse then answers that generosity: the church gave, and now God is the one who will provide for them."
+   }
+  },
+  "MAT.5.7": {
+   "didYouKnow": {
+    "before": "Look at the two key words side by side. The word for merciful and the word for will receive mercy share the same root, eleē. The first is a describing word for people, while the second is a verb in the future passive form, so the people are the ones who receive the action.",
+    "after": "Eleēmones, merciful, and eleēthēsontai, will receive mercy, share the same stem, so the verse repeats one idea at its two ends. The first describes people who show mercy; the second is a passive future form, so those same people are the ones who receive mercy."
+   }
+  },
+  "COL.1.17": {
+   "didYouKnow": {
+    "before": "The verse uses two forms of the same word for all, once in the phrase about being before all things and once in the phrase about being held together. Seeing the word twice in one line makes the claim feel complete, with nothing left out.",
+    "after": "Pantōn, all things, follows pro, before, while panta, all things, goes with sunestēken, have held together. They are two forms of the same word, so the verse says all things twice: once for what he is before and once for what is held together in him."
+   }
+  }
+ }
+}
