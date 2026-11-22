@@ -54,6 +54,18 @@ def test_rerun_is_a_no_op_and_reviewed_or_missing_studies_are_skipped(setup, bib
     assert setup.load("JHN.3.16")["contentVersion"] == "0123456789ab.1"
 
 
+def test_a_second_fix_keeps_the_earlier_note(setup, bible, written, tmp_path):
+    first = fixes_file(tmp_path, {"JHN.3.16": {"applyIt": {"before": written["applyIt"], "after": words(40, "Do")}}})
+    fx.apply_fixes(first, setup, bible, by="Rob")
+    second = tmp_path / "second.json"
+    second.write_text(json.dumps({"format": fx.FORMAT, "studies": {
+        "JHN.3.16": {"applyIt": {"before": words(40, "Do"), "after": words(40, "Go")}}}}))
+    fx.apply_fixes(second, setup, bible, by="chat")
+    meta = setup.load("JHN.3.16")["meta"]
+    assert meta["editNote"] == "Hand-edited from fixes.json: applyIt; Hand-edited from second.json: applyIt"
+    assert meta["editedBy"] == "chat" and setup.load("JHN.3.16")["contentVersion"] == "0123456789ab.2"
+
+
 def test_dry_run_writes_nothing_and_still_reports_checks(setup, bible, written, tmp_path):
     path = fixes_file(tmp_path, {"JHN.3.16": {"meaning": {"before": written["meaning"], "after": words(900)}}})
     [result] = fx.apply_fixes(path, setup, bible, by="Rob", dry_run=True)

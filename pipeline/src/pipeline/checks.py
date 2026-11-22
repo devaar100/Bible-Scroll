@@ -21,7 +21,8 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "12"  # 12: dotted_translit and new translit_capitals (a capital inside one word) block
+CHECKER_VERSION = "13"  # 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions
+# 12: dotted_translit and new translit_capitals (a capital inside one word) block
 # 11: 11: only BLOCKING checks flag a study; the rest (banned phrases, stock traditions lines,
 # transliteration form, the AI reviewer) are advisory (checks.advisory); new placeholder check; an empty
 # "Did you know?" passes (it is optional)
@@ -403,17 +404,19 @@ def check_placeholders(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> l
     return out
 
 
-# Nearby verses by number or position: "verse 5", "vv. 3-4", "the next verse", "two verses later".
+# Verses by number only (decision 25, amended 2026-11-22): "verse 5", "verses 3 to 5", "vv. 3-4", "v. 5",
+# "verse three". Position wording ("the verses before it", "the next verse", "the lines after it") passes.
+_NUMBER_WORDS = (r"(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|"
+                 r"sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|"
+                 r"hundred)")
 _VERSE_POSITION = [
     re.compile(r"\b(?:verses?|vv?\.)\s*\d+", re.IGNORECASE),
-    re.compile(r"\b(?:next|previous|following|preceding|prior|earlier|later|last|first|final|opening|closing)"
-               r"\s+(?:(?:few|two|three|four|several)\s+)?verses?\b", re.IGNORECASE),
-    re.compile(r"\bverses?\s+(?:before|after|earlier|later|above|below|back|ahead)\b", re.IGNORECASE),
+    re.compile(rf"\bverses?\s+{_NUMBER_WORDS}\b", re.IGNORECASE),
 ]
 
 
 def check_verse_position(study: dict, fields: tuple[str, ...] = PROSE_FIELDS) -> list[dict]:
-    """Neighbouring verses must be described by what they say, never by number or position."""
+    """Verses must not be named by number; describing them by position ("the verses before it") is fine."""
     out = []
     for section in fields:
         text = study.get(section, "")

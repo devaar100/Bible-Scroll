@@ -161,8 +161,8 @@ def test_max_tokens_retries_once_then_fails(setup):
 
 
 def blocked(prose):
-    """Prose that fails a blocking code check (verse position)."""
-    return {**prose, "applyIt": prose["applyIt"] + " Read the next verse too."}
+    """Prose that fails a blocking code check (a verse named by number)."""
+    return {**prose, "applyIt": prose["applyIt"] + " Read verse three too."}
 
 
 def test_flagged_twice_becomes_failed(setup):

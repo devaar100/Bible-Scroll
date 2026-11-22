@@ -79,7 +79,9 @@ def apply_fixes(path: Path, store: StudyStore, bible: Bible, *, by: str, note: s
         updated["contentVersion"] = f"{base}.{int(edits or 0) + 1}"
         updated["meta"]["editedBy"] = by
         updated["meta"]["editedAt"] = now()
-        updated["meta"]["editNote"] = f"{note}: {', '.join(result.applied)}"
+        entry = f"{note}: {', '.join(result.applied)}"
+        earlier = study.get("meta", {}).get("editNote")
+        updated["meta"]["editNote"] = f"{earlier}; {entry}" if earlier else entry  # keep earlier edits' notes
         updated = apply(updated, check_study(updated, bible, rules, validator, judge=None))
         errors = [f"{e.json_path}: {e.message}" for e in validator.iter_errors(updated)]
         if errors:

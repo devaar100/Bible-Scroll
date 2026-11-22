@@ -13,6 +13,8 @@ contextMismatch) and the non-blocking code checks (banned phrases, stock traditi
 such as "he'ōs"), is advisory: kept in `checks.advisory`, listed in reviewer_report.md per wave, never blocking and
 never retried. Amended 2026-11-22 (your call): a transliteration written the raw STEPBible way inside one word, with
 syllable dots ("be.re.Shit") or a stress capital ("bereShit"), blocks too (checker 12).
+Amended again 2026-11-22 (your call): "no verse numbers or positions" now means numbers only ("verse 5", "vv. 3-4",
+"v. 5", "verse three"); position wording such as "the verses before it" or "the next verse" passes (checker 13).
 "Did you know?" is optional: the writer leaves it empty unless it is confident the fact is about this verse's own
 words; an empty one passes and the app hides it. The writer prompt (prompts/study.md) and the reviewer rubric
 (rubric.py prompts and schema, .claude/agents/study-reviewer.md) are frozen as of this decision

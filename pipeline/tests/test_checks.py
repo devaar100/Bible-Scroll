@@ -257,14 +257,38 @@ def test_context_crosses_chapters_but_not_psalms():
     assert context_keys((19, 119, 1), psalms) == [(19, 119, v) for v in range(1, 6)]  # long psalm: window, own psalm
 
 
-def test_verse_position_wording(written, bible):
-    for text in ("As verse 5 says, God acts.", "Compare vv. 3-4 here.", "The next verse explains it.",
-                 "The previous two verses show this.", "A few verses later Jesus speaks.",
-                 "In the verse before, he waits."):
+def test_verse_position_blocks_verse_numbers(written, bible):
+    for text in ("As verse 5 says, God acts.", "Verse 5 explains it.", "Read verses 3 to 5 together.",
+                 "Compare vv. 3-4 here.", "See v. 5 for the answer.", "As v.12 shows, he waits.",
+                 "In verse three the king speaks.", "Verses three and four belong together.",
+                 "Verse twenty closes the song."):
         written["meaning"] = words(60, text)
         assert "verse_position" in checks_named(outcome(written, bible)), text
-    written["meaning"] = words(60, "This verse and its neighbours speak of love; when Jesus goes on to promise life.")
-    assert outcome(written, bible).reasons == []
+
+
+# The three real Discover sentences (2TI.1.7, ISA.43.25, REV.21.5) flagged by checker 12's position rule.
+REAL_POSITION_SENTENCES = (
+    "The verses before this one recall Timothy's sincere faith, which the letter says first lived in his grandmother "
+    "Lois and his mother Eunice, and they urge him to stir up the gift he received through the laying on of Paul's "
+    "hands.",
+    "The verses before this one describe a people who have not called on God, who have not brought the offerings "
+    "expected of them, and who have burdened him with their sins.",
+    "Within this passage, the verses before it describe a new heaven and earth, the holy city coming down from God, "
+    "and the promise that God will dwell with people. The verses after it have the speaker call himself the Alpha "
+    "and the Omega and offer water of life to the thirsty, so this verse sits at a turning point.",
+)
+
+
+@pytest.mark.parametrize("text", [
+    *REAL_POSITION_SENTENCES,
+    "The verses before it set the scene.", "The verses after it answer the question.",
+    "The lines before it praise God.", "The lines after this one turn to lament.",
+    "The verse before it asks a question.", "The next verse explains it.", "A few verses later Jesus speaks.",
+    "This verse and its neighbours speak of love; when Jesus goes on to promise life.",
+])
+def test_verse_position_allows_position_wording(written, bible, text):
+    written["historicalContext"] = text + " " + " ".join(["word"] * max(0, 60 - len(text.split())))
+    assert "verse_position" not in checks_named(outcome(written, bible)), text
 
 
 def test_dotted_transliterations(written, bible):
@@ -292,7 +316,7 @@ def test_only_blocking_checks_flag(written, bible):
             "original_language", "did_you_know_word"} <= BLOCKING
     assert {"dotted_translit", "translit_capitals"} <= BLOCKING
     assert not {"rubric", "context_mismatch", "banned_phrase", "generic_traditions", "translit_form"} & BLOCKING
-    written["meaning"] = words(60, "As the next verse says, scholars all agree.")
+    written["meaning"] = words(60, "As verse three says, scholars all agree.")
     o = outcome(written, bible)
     assert o.status == "flagged" and checks_named(o) == ["banned_phrase", "verse_position"]
     assert [r["check"] for r in o.reasons] == ["verse_position"] and [r["check"] for r in o.advisory] == ["banned_phrase"]

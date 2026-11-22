@@ -281,7 +281,7 @@ v3) listing every reason with its check name and section.
 | length | a section under its minimum, or more than 20% over its maximum, in `checks/limits.json` (up to 20% over passes) |
 | reference | a Bible reference in the prose that doesn't parse or isn't a KJV verse (e.g. "John 3:99", "Hezekiah 3:5", a backwards range). Relative "v. 17" is checked against the study's own chapter |
 | reference_not_allowed | a real reference outside the verses the request showed (the verse and its context, `context.context_keys`) and its listed cross references. A whole-chapter reference passes if it is the verse's chapter or contains a listed reference |
-| verse_position | a nearby verse named by number or position: "verse 5", "vv. 3-4", "the next/previous verse", "two verses later" |
+| verse_position | a verse named by number: "verse 5", "verses 3 to 5", "vv. 3-4", "v. 5", "verse three". Position wording ("the verses before it", "the lines after it", "the next verse") passes (checker 13) |
 | dotted_translit | a transliteration with syllable dots ("be.re.Shit"); e.g./i.e.-style abbreviations pass |
 | original_language | a Strong's number, a Hebrew/Greek word, or a "Greek word *x*" transliteration that isn't in this verse's word list (points, accents and leading zeros ignored) |
 | banned_phrase | any line of `checks/banned.txt` (plain phrases, or `re:` regexes), unless negated: "not", "no", "never", "nor", "without" or "n't" within the 4 words before it in the same clause |

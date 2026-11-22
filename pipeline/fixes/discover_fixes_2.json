@@ -1,0 +1,14 @@
+{
+ "format": "studyFixes/1",
+ "wave": "discover",
+ "author": "Claude (chat), reviewed by developer",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "PHP.4.13": {
+   "historicalContext": {
+    "before": "The letter is written from prison to a church in Philippi that had sent the writer a gift. Just before this verse, the writer explains that he is not speaking out of need, because he has learned to be content in any situation. This verse continues that thought, showing where his steadiness comes from. The book background says Paul founded the Philippian church, which was a Roman colony in Macedonia. Where and when he was imprisoned is debated, so the exact setting is not fixed.",
+    "after": "The letter is written from prison to a church in Philippi that had sent the writer a gift. Just before this verse, the writer explains that he is not speaking out of need, because he has learned to be content in any situation. This verse continues that thought, showing where his steadiness comes from. Paul founded the Philippian church, which was a Roman colony in Macedonia. Where and when he was imprisoned is debated, so the exact setting is not fixed."
+   }
+  }
+ }
+}
