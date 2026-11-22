@@ -21,8 +21,9 @@ re: \b(all|every) (christians|believers|denominations) (believe|agree|accept)\b
 
 # Pressure, guilt and promises the text doesn't make
 if you don't
-you must
-you need to
+# "you must" / "you need to" only as a direct command opening a sentence or clause (not "something you must earn",
+# not after "not"/"no"/"never"). Checker 14 / devotionals-5.
+re: (?:^|(?<=[.!?;:]\s)|(?<=[.!?;:]["”’)]\s))["“‘(]?you (?:must|need to)\b
 God will bless you if
 God wants you to be rich
 guaranteed

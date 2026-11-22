@@ -236,7 +236,12 @@
                   "calendar",
                   "rubric",
                   "reviewer",
-                  "regenerate"
+                  "regenerate",
+                  "standalone",
+                  "pipeline_wording",
+                  "reference_not_allowed",
+                  "authorship",
+                  "health"
                 ]
               },
               "message": {

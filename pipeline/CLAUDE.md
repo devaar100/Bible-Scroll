@@ -64,7 +64,9 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   devotionals/checks.py CHECKER_VERSION when a devotional check changes. Published per month with the studies
   release; `devotionals bundle` puts the current + next month in app assets.
   Each devotional stands alone and is date-independent: the request carries no date and no "day X of Y"; checks
-  (devotionals-3) block "yesterday/tomorrow/this week/as we saw", Easter/Lent/Advent date words, Paul-wrote-Hebrews,
+  (devotionals-5) block references to the series or calendar ("tomorrow's reading", "yesterday's", "last/next time
+  we", "this week's", "come back tomorrow", "this season", "as we saw") but allow everyday "next time you feel…",
+  "next week", "tomorrow" in a sentence; Easter/Lent/Advent date words, Paul-wrote-Hebrews,
   faith-instead-of-medical-help and pipeline wording ("the theme", "related passages", "listed"). The model may cite
   only the passage's chapter and up to 6 related passages taken from out/studies crossReferences (store.
   related_passages; `draft` refuses to run without out/studies); extraVerses must come from that list. Reviewer:

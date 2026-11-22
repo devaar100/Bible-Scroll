@@ -22,7 +22,9 @@ from .calendar import parse_anchor
 from .store import (DevotionalStore, passage_label, passage_text, passage_words, related_passages, to_passage,
                     validator)
 
-CHECKER_VERSION = "devotionals-4"  # 4: advisory repeated_openings report (per month, never blocking)
+CHECKER_VERSION = "devotionals-5"  # 5: standalone blocks series/calendar references only; "you must" only as a
+# sentence-opening command; "word count" passes before a quoted word
+# 4: 4: advisory repeated_openings report (per month, never blocking)
 # 3: stands alone, no dates/seasons, only listed passages, Hebrews, health, pipeline wording
 FIELDS = ("context", "reflect", "applyIt", "prayer")
 OPTIONAL = ("prayer",)
@@ -33,10 +35,15 @@ BLOCKING = {"schema", "length", "reference", "original_language", "banned_phrase
 
 import re as _re
 
-#: Each devotional is read alone, on any day of any year (prompt rule 9 and 10).
+#: Each devotional is read alone, on any day of any year (prompt rule 9 and 10). Blocks references to the series or
+#: the calendar ("tomorrow's reading", "yesterday's", "last time we", "this week's", "come back tomorrow", "this
+#: season", dates); everyday "next time you feel…", "next week", "tomorrow" inside a sentence pass (devotionals-5).
 STANDALONE = [_re.compile(p, _re.I) for p in (
-    r"\byesterday\b", r"\btomorrow\b", r"\b(this|last|next) week\b", r"\bday \d+ of \d+\b",
-    r"\b(earlier|later) in (this|the) series\b", r"\bas we saw\b", r"\blast time\b", r"\bnext time\b",
+    r"\b(?:tomorrow|today|next|last)['’]s (?:devotional|reading|passage|entry|study|lesson)s?\b",
+    r"\byesterday['’]s\b", r"\b(?:last|next) time we\b", r"\bthis week['’]s\b",
+    r"\bcome back (?:tomorrow|next|later|again|here|to (?:this|these|the|today['’]s) "
+    r"(?:devotional|reading|page|passage)s?)\b",
+    r"\bday \d+ of \d+\b", r"\b(earlier|later) in (this|the) series\b", r"\bas we saw\b",
     r"\bgood friday\b", r"\beaster (sunday|morning|day)\b", r"\bholy week\b", r"\bpalm sunday\b",
     r"\bthis (lent|advent|easter|christmas|season)\b", r"\bthis morning\b",
 )]

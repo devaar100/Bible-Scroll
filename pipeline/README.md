@@ -477,7 +477,12 @@ reviewed (unless `--force`).
   but never reviewed or hand-edited ones; only `--force` touches those. Word limits live in
   `checks/devotional_limits.json`.
 
-**Checks** (`devotionals/checks.py`, `CHECKER_VERSION` `devotionals-2`):
+**Checks** (`devotionals/checks.py`, `CHECKER_VERSION` `devotionals-5`):
+- Stands alone: blocks references to the series or the calendar ("tomorrow's devotional/reading", "yesterday's",
+  "last time we", "next time we", "this week's", "come back tomorrow/later/again/here", "this season", "as we saw",
+  "day 3 of 14", Easter/Lent/Advent dates). Everyday "next time you feel…", "next week", "tomorrow" in a sentence pass.
+- Banned "you must" / "you need to" only when it opens a sentence or clause as a direct command (not "something you
+  must earn", not negated); "word count" is pipeline wording unless a quoted word follows (checker 14 for studies too).
 - The study checks, applied to the devotional's sections: schema, lengths, Bible references, original-language
   mentions (against the passage's words), banned phrases, then the Haiku rubric with a devotional prompt.
 - A calendar check: date, theme, series, cover and anchor still match the CSV.

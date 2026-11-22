@@ -186,7 +186,7 @@ def test_good_draft_passes_and_rubric_gets_devotional_subject(drafted, day, dbib
     (lambda d: d["verses"].append({"book": "ROM", "startChapter": 99, "startVerse": 1, "endChapter": 99, "endVerse": 2}), "reference"),
     (lambda d: d.update(prayer=words(5)), "length"),
     (lambda d: d.update(reflect=words(150, "As we saw yesterday,")), "standalone"),
-    (lambda d: d.update(applyIt=words(50, "Before tomorrow,")), "standalone"),
+    (lambda d: d.update(applyIt=words(50, "Tomorrow's reading picks this up.")), "standalone"),
     (lambda d: d.update(context=words(80, "On Good Friday")), "standalone"),
     (lambda d: d.update(reflect=words(150, "This is day 3 of 14.")), "standalone"),
     (lambda d: d.update(reflect=words(150, "Paul's letter to the Hebrews says")), "authorship"),
@@ -363,7 +363,11 @@ def test_standalone_words_from_the_passage_itself_are_allowed():
     doc = {"reflect": "Jesus doesn't promise that tomorrow will be easy.", "title": "Enough"}
     assert dchecks.check_standalone(doc, passage) == []
     assert dchecks.check_standalone({"reflect": "As we saw yesterday, he cares.", "title": "x"}, passage)[0]["check"] == "standalone"
-    assert dchecks.check_standalone(doc)[0]["check"] == "standalone"  # without the passage, still caught
+    assert dchecks.check_standalone(doc) == []  # devotionals-5: everyday "tomorrow" in a sentence passes anyway
+    # A still-blocked pattern is allowed when the day's own passage uses it.
+    blocked = {"reflect": "Yesterday's bread was enough.", "title": "x"}
+    assert dchecks.check_standalone(blocked)[0]["check"] == "standalone"
+    assert dchecks.check_standalone(blocked, "He gave them yesterday's bread and today's.") == []
 
 
 def test_devotionals_are_drafted_by_haiku_at_medium_effort(monkeypatch):
@@ -587,3 +591,59 @@ def test_repeated_openings_never_change_a_status(tmp_path, day, dbible):
     summary = dchecks.run(store, many_days(day, 4), dbible, None)
     assert summary.statuses == {"auto_checked": 4}                                  # same openings, still passing
     assert dchecks.repeated_openings([store.load(i) for i in store.ids()])          # but reported
+
+
+# ---- devotionals-5: fewer false positives (real January sentences) ---------------------------------------
+
+REAL_ALLOWED = [
+    ("context", "Eli tells him what to say next time."),                                                  # 01-11
+    ("applyIt", "Next time you feel too small, too far behind, or too busy to look up, pause for one slow breath "
+                "and picture Jesus stopping to say your name."),                                         # 01-17
+    ("applyIt", "Next time someone's words or actions stir up anger, pause and quietly pray for that person by "
+                "name, even just one short sentence."),                                                   # 01-27
+    ("reflect", "We lie awake running through bills, health, work, and what might go wrong next week."),  # 01-31
+    ("applyIt", "If it helps, say the sentence out loud, letting it be a gift rather than something you must earn."),  # 01-21
+]
+
+
+@pytest.mark.parametrize("section, sentence", REAL_ALLOWED)
+def test_real_january_sentences_now_pass(drafted, day, dbible, section, sentence):
+    lengths = {"context": 80, "reflect": 150, "applyIt": 50}
+    drafted[section] = words(lengths[section], sentence)
+    outcome = check(drafted, day, dbible)
+    assert outcome.status == "auto_checked", outcome.reasons
+
+
+@pytest.mark.parametrize("section, sentence, check_name", [
+    ("applyIt", "Tomorrow's devotional picks this up again.", "standalone"),
+    ("reflect", "Yesterday's reading showed the same promise.", "standalone"),
+    ("reflect", "Last time we looked at the shepherd.", "standalone"),
+    ("applyIt", "Next time we will see how he answers.", "standalone"),
+    ("context", "This week's readings follow one letter.", "standalone"),
+    ("applyIt", "Come back tomorrow for the next step.", "standalone"),
+    ("reflect", "In this season we wait for his coming.", "standalone"),
+    ("reflect", "As we saw, he keeps his word.", "standalone"),
+    ("applyIt", "You must forgive them before you sleep.", "banned_phrase"),
+    ("applyIt", "Breathe slowly. You need to let it go now.", "banned_phrase"),
+    ("applyIt", "God will not fail; you must pray more.", "banned_phrase"),
+    ("applyIt", "Pause after the word count and let the sentence rest for a moment.", "pipeline_wording"),  # 01-05
+])
+def test_real_violations_still_block(drafted, day, dbible, section, sentence, check_name):
+    lengths = {"context": 80, "reflect": 150, "applyIt": 50}
+    drafted[section] = words(lengths[section], sentence)
+    assert check_name in {r["check"] for r in check(drafted, day, dbible).reasons}
+
+
+def test_word_count_before_a_quoted_word_is_not_the_prompt_term(drafted, day, dbible):
+    drafted["reflect"] = words(150, "Psalm 90 asks God to teach us to number our days; the word count “number” here.")
+    assert "pipeline_wording" not in {r["check"] for r in check(drafted, day, dbible).reasons}
+
+
+def test_every_devotional_check_name_is_allowed_by_the_schema():
+    """A check name missing from schema/devotional.json makes every devotional that fails it invalid (and unsavable)."""
+    import re
+    schema = json.loads((gen.PIPELINE / "schema" / "devotional.json").read_text())
+    allowed = set(schema["properties"]["checks"]["properties"]["reasons"]["items"]["properties"]["check"]["enum"])
+    source = open(dchecks.__file__).read()
+    written = set(dchecks.BLOCKING) | set(re.findall(r'(?:reason|_scan)\([^)]*?"([a-z_]+)"', source))
+    assert written <= allowed, sorted(written - allowed)

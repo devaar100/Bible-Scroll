@@ -10,6 +10,7 @@ book background
 these instructions
 the instructions
 word range
-word count
+# "word count" as the prompt's term; not when a quoted word follows (the word count “number”). Checker 14.
+re: (?<!\w)word\s+count(?!\w)(?!\s*["“‘'])
 original words listed
 listed under

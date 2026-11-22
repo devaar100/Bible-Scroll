@@ -21,7 +21,9 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "13"  # 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions
+CHECKER_VERSION = "14"  # 14: banned "you must/you need to" only as a sentence-opening command; "word count"
+# passes when a quoted word follows
+# 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions
 # 12: dotted_translit and new translit_capitals (a capital inside one word) block
 # 11: 11: only BLOCKING checks flag a study; the rest (banned phrases, stock traditions lines,
 # transliteration form, the AI reviewer) are advisory (checks.advisory); new placeholder check; an empty
