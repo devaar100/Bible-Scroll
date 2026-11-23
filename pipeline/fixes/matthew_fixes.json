@@ -1,0 +1,56 @@
+{
+ "format": "studyFixes/1",
+ "wave": "matthew",
+ "author": "Claude Code subagent on claude-sonnet-5-5, checked by the code checks and read by the main session; requested by the developer",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "MAT.10.19": {
+   "historicalContext": {
+    "before": "The verses before this one warn that followers will be handed over, beaten in synagogues, and brought before governors and kings for Jesus's sake. This verse speaks to the fear that comes with that kind of pressure and offers a promise in its place. The book background is a Gospel probably written for mostly Jewish followers of Jesus, showing him fulfilling Israel's Scriptures. The verse itself does not say where or when the moment will come, only that it will come.",
+    "after": "The verses before this one warn that followers will be handed over, beaten in synagogues, and brought before governors and kings for Jesus's sake. This verse speaks to the fear that comes with that kind of pressure and offers a promise in its place. Matthew's Gospel was probably written for mostly Jewish followers of Jesus, showing him fulfilling Israel's Scriptures. The verse itself does not say where or when the moment will come, only that it will come."
+   }
+  },
+  "MAT.10.39": {
+   "theology": {
+    "before": "The verse shows that the way of God often runs against the instinct to protect oneself first. It suggests that a person's life is not finally measured by what they hold on to, but by what they give for Jesus. Related passages express the same idea in different words. Mark 8:35-36 and Luke 9:24 describe losing a life for Jesus's sake as the way to save it. Matthew 16:25-26 asks what good it is to gain the whole world and lose one's soul. John 12:25 pairs loving one's life with losing it. Philippians 1:20-21 speaks of living and dying as belonging to Christ. The common thread is that Jesus is the center, and finding life comes through him.",
+    "after": "The verse shows that the way of God often runs against the instinct to protect oneself first. It suggests that a person's life is not finally measured by what they hold on to, but by what they give for Jesus. Mark 8:35-36 and Luke 9:24 describe losing a life for Jesus's sake as the way to save it. Matthew 16:25-26 asks what good it is to gain the whole world and lose one's soul. The common thread is that Jesus is the center, and finding life comes through him."
+   }
+  },
+  "MAT.10.42": {
+   "historicalContext": {
+    "before": "The sending out of the twelve is ending. Matthew 11:1 says Jesus had finished directing his twelve disciples and moved on to teach and preach in their cities. The teaching just before this point describes welcoming the disciples, prophets and righteous people, and this verse carries that same idea down to the smallest act of kindness. Matthew was probably written mostly for Jewish followers of Jesus. The little ones are the group the verse has in mind, and the text does not explain them further here.",
+    "after": "The sending out of the twelve is ending. Right after this, Jesus finishes directing his twelve disciples and moves on to teach and preach in their cities. The teaching just before this point describes welcoming the disciples, prophets and righteous people, and this verse carries that same idea down to the smallest act of kindness. Matthew was probably written mostly for Jewish followers of Jesus. The little ones are the group the verse has in mind, and the text does not explain them further here."
+   }
+  },
+  "MAT.14.11": {
+   "lifeInBibleTimes": {
+    "before": "A platter was probably a flat serving dish, the kind used to carry food to the table. The guests at this meal were seated at the table with the king, as verse nine describes. Meals at a ruler's table were often large gatherings of officials and guests, and a request made before them carried public weight. Serving dishes like this one were used for ordinary meals, so the word here makes the scene feel domestic and close, even though the event is grim.",
+    "after": "A platter was probably a flat serving dish, the kind used to carry food to the table. The guests at this meal were seated at the table with the king. Meals at a ruler's table were often large gatherings of officials and guests, and a request made before them carried public weight. Serving dishes like this one were used for ordinary meals, so the word here makes the scene feel domestic and close, even though the event is grim."
+   }
+  },
+  "MAT.19.11": {
+   "theology": {
+    "before": "The verse suggests that the ability to receive certain teaching is a matter of gift, not just effort or willpower. Some people take in a hard saying because it has been given to them, and this fits a wider pattern in Matthew where knowledge of the kingdom is said to be given to some and not to others, as in Matthew 13:11. The topic of marriage and singleness is also discussed by Paul in 1 Corinthians 7, where he treats these as different callings rather than a single pattern for everyone. Christians have understood this verse in different ways about whether it describes a call to a celibate life, so readers may want to hold their own view with care and humility.",
+    "after": "The verse suggests that the ability to receive certain teaching is a matter of gift, not just effort or willpower. Some people take in a hard saying because it has been given to them, and this fits a wider pattern in Matthew where knowledge of the kingdom is said to be given to some and not to others, as in Matthew 13:11. Christians have understood this verse in different ways about whether it describes a call to a celibate life, so readers may want to hold their own view with care and humility."
+   }
+  },
+  "MAT.25.10": {
+   "historicalContext": {
+    "before": "The arrival of the bridegroom is the turning point of this short story. The earlier lines show the lamps going out, the foolish asking the wise for oil, and the wise refusing because there may not be enough for everyone, so the foolish must go and buy for themselves. Book background: Matthew's Gospel is anonymous, and early tradition names Matthew, though whether the apostle wrote it as we have it is disputed. This teaching comes in a series of Jesus's sayings given shortly before his death, in the part of the Gospel that looks toward the end of the age.",
+    "after": "The arrival of the bridegroom is the turning point of this short story. The earlier lines show the lamps going out, the foolish asking the wise for oil, and the wise refusing because there may not be enough for everyone, so the foolish must go and buy for themselves. Matthew's Gospel is anonymous, and early tradition names Matthew, though whether the apostle wrote it as we have it is disputed. This teaching comes in a series of Jesus's sayings given shortly before his death, in the part of the Gospel that looks toward the end of the age."
+   }
+  },
+  "MAT.25.22": {
+   "theology": {
+    "before": "The verse shows a servant who speaks plainly about what he was given and what came from it. He names the master as the one who delivered the talents, and he reports his gain openly. The story seems to show that faith is seen in faithful use of what is entrusted. The master's reply to this servant is the same as the reply to the first servant, which suggests that the praise is tied to faithfulness rather than the size of the sum. Romans 12:6-8 speaks of different gifts given by grace, and 2 Corinthians 8:1-3 praises generosity with money given to others. Together these passages suggest that what we have is a trust to be used well.",
+    "after": "The verse shows a servant who speaks plainly about what he was given and what came from it. The story seems to show that faith is seen in faithful use of what is entrusted. The master's reply to this servant is the same as the reply to the first servant, which suggests that the praise is tied to faithfulness rather than the size of the sum. Romans 12:6-8 speaks of different gifts given by grace, which suggests that what we have is a trust to be used well."
+   }
+  },
+  "MAT.27.4": {
+   "lifeInBibleTimes": {
+    "before": "The chief priests and elders were the leading men of Jerusalem, and the chief priests were tied to the temple, the central place of worship for Israel. The temple had a treasury where money given for sacred use was kept, and the leaders later refuse to put the returned silver into it (Matthew 27:6). Many people in this period treated money tied to a death as unclean, and that is probably part of why they object. The temple was the heart of religious life, so its money mattered to them.",
+    "after": "The chief priests and elders were the leading men of Jerusalem, and the chief priests were tied to the temple, the central place of worship for Israel. The temple had a treasury where money given for sacred use was kept, and the leaders later refuse to put the returned silver into it. Many people in this period treated money tied to a death as unclean, and that is probably part of why they object. The temple was the heart of religious life, so its money mattered to them."
+   }
+  }
+ }
+}
