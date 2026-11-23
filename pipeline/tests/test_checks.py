@@ -389,3 +389,35 @@ def test_every_check_name_the_code_writes_is_allowed_by_the_schema():
     allowed = set(json.loads(SCHEMA_PATH.read_text())["$defs"]["checkReason"]["properties"]["check"]["enum"])
     written = set(re.findall(r'reason\(\s*"([a-z_]+)"', open(checks.__file__).read())) | set(checks.BLOCKING)
     assert written <= allowed, sorted(written - allowed)
+
+
+
+# ---- Checker 15: "the/these instructions" only when it points at the writer's input ------------------------
+
+REAL_MARK_INSTRUCTIONS = [  # instructions given by Jesus in the text (Mark 6:7-12, 8:26)
+    "The instructions that follow tell them to take a staff only, with no bread, no bag and no money.",
+    "Here the instructions cover what the sent ones should do once they reach a town.",
+    "Travelers depended on the kindness of hosts for food and a place to sleep, which is why the instructions "
+    "about staying in one house matter.",
+    "The verse does not explain the reason, but the instructions point toward travelling with simple needs.",
+    "Readers have offered different explanations for these instructions, and the text does not settle one clearly.",
+]
+
+
+@pytest.mark.parametrize("text", REAL_MARK_INSTRUCTIONS)
+def test_instructions_in_the_text_are_not_pipeline_wording(written, bible, text):
+    written["historicalContext"] = words(60, text)
+    assert "pipeline_wording" not in [r["check"] for r in outcome(written, bible).reasons]
+
+
+@pytest.mark.parametrize("text", [
+    "Following these instructions, this note stays with the verse.",
+    "Per the instructions, the study avoids other books.",
+    "According to the instructions, only listed passages are used.",
+    "The instructions given ask for one original word.",
+    "As the instructions above say, nothing is invented.",
+    "The instructions ask me to keep it short.",
+])
+def test_instructions_that_point_at_the_input_still_block(written, bible, text):
+    written["historicalContext"] = words(60, text)
+    assert "pipeline_wording" in [r["check"] for r in outcome(written, bible).reasons]

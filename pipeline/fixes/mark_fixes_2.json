@@ -1,0 +1,14 @@
+{
+ "format": "studyFixes/1",
+ "wave": "mark",
+ "author": "main Claude Code session (claude-opus-5-5), from a Haiku reviewer finding (factual risk 2/3); requested by the developer",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "MRK.15.17": {
+   "theology": {
+    "before": "The verse shows people treating Jesus with contempt at the very moment he is being condemned. Christians read this scene as part of the Gospel's larger story of a king whose kingdom is not what the mockers imagine. The Gospels remember Jesus being mocked as a king in several places. Matthew 27:28-30 describes a similar mockery with a purple robe and a crown of thorns. John 19:2-5 shows Jesus brought out wearing these things before the crowd. Luke 23:11 describes Herod and his soldiers mocking him with a robe.",
+    "after": "The verse shows people treating Jesus with contempt at the very moment he is being condemned. Christians read this scene as part of the Gospel's larger story of a king whose kingdom is not what the mockers imagine. The Gospels remember Jesus being mocked as a king in several places. Matthew 27:28-30 describes a similar mockery with a scarlet robe and a crown of thorns. John 19:2-5 shows Jesus brought out wearing these things before the crowd. Luke 23:11 describes Herod and his soldiers mocking him with a robe."
+   }
+  }
+ }
+}

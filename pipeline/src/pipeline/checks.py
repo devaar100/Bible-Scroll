@@ -21,7 +21,8 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "14"  # 14: banned "you must/you need to" only as a sentence-opening command; "word count"
+CHECKER_VERSION = "15"  # 15: "the/these instructions" is pipeline wording only when it points at the input
+# 14: 14: banned "you must/you need to" only as a sentence-opening command; "word count"
 # passes when a quoted word follows
 # 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions
 # 12: dotted_translit and new translit_capitals (a capital inside one word) block

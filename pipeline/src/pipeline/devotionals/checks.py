@@ -22,7 +22,8 @@ from .calendar import parse_anchor
 from .store import (DevotionalStore, passage_label, passage_text, passage_words, related_passages, to_passage,
                     validator)
 
-CHECKER_VERSION = "devotionals-6"  # 6: "listed" is pipeline wording only when it points at the input
+CHECKER_VERSION = "devotionals-7"  # 7: "the/these instructions" only when it points at the input (shared rule)
+# 6: 6: "listed" is pipeline wording only when it points at the input
 # 5: standalone blocks series/calendar references only; "you must" only as a
 # sentence-opening command; "word count" passes before a quoted word
 # 4: advisory repeated_openings report (per month, never blocking)

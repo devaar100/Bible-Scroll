@@ -1,0 +1,50 @@
+{
+ "format": "studyFixes/1",
+ "wave": "mark",
+ "author": "Claude Code subagent on claude-sonnet-5-5, checked by the code checks and read by the main session; requested by the developer",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "MRK.1.22": {
+   "theology": {
+    "before": "The verse shows that Jesus's teaching carries authority that does not come from a chain of earlier teachers. People notice it, and that notice is part of the story of who Jesus is. Faith in this Gospel is often a response to what Jesus says and does, not only a matter of hearing expert opinion. Related passages show the same reaction: in Matthew the crowds are amazed at his teaching, and in Luke people are struck by his word, which has power. Jeremiah 23:29 compares God's word to fire and to a hammer, showing that God's word is meant to be powerful and true. Mark's reader is invited to take Jesus's words seriously as coming from one who holds real authority.",
+    "after": "The verse shows that Jesus's teaching carries authority that does not come from a chain of earlier teachers. People notice it, and that is part of the story. Related passages show the same reaction: in Matthew the crowds are amazed at his teaching, and in Luke people are struck by his word, which has power. Jeremiah 23:29 compares God's word to fire and to a hammer, showing that God's word is powerful. Mark's reader is invited to take Jesus's words seriously as coming from one who holds real authority."
+   }
+  },
+  "MRK.5.19": {
+   "theology": {
+    "before": "This verse shows that God's work in a person's life is something to be shared. The man is not asked to follow Jesus from place to place; he is asked to tell his own people what the Lord has done and how he was shown mercy. Psalm 66 invites listeners to hear what God has done for the one singing, and Isaiah 38 records a thankful report of healing. Daniel 4 describes a king who writes down what God has done for him, and Acts 22 and 26 show a man telling his own story of how God acted in his life. Together they suggest that telling what God has done is a natural response to God's kindness.",
+    "after": "This verse shows that God's work in a person's life is something to be shared. The man is not asked to follow Jesus from place to place; he is asked to tell his own people what the Lord has done and how he was shown mercy. Psalm 66 invites listeners to hear what God has done for the one singing. Acts 22 and 26 show a man telling his own story of God's work. Together they suggest that telling what God has done is a natural response to God's kindness."
+   }
+  },
+  "MRK.1.31": {
+   "historicalContext": {
+    "before": "The scene is in the house of Simon and Andrew. After leaving the synagogue, the group went there, and verse 30 says Simon's wife's mother lay sick with a fever and people told him about her. This verse reports what he did next. Mark's book is about Jesus's ministry in Galilee and moves at a fast pace.",
+    "after": "The scene is in the house of Simon and Andrew. After leaving the synagogue, the group went there, and Simon's wife's mother was lying sick with a fever, and people told him about her. Now we see what he did next. Mark's book is about Jesus's ministry in Galilee and moves at a fast pace."
+   }
+  },
+  "MRK.1.41": {
+   "lifeInBibleTimes": {
+    "before": "In the law of Moses, a priest was the one who examined a person with a skin disease and declared whether they were clean. Mark 1:44 says Jesus tells the man to show himself to the priest and offer what Moses commanded for his cleansing. This process probably let the community see that the person had been restored and could rejoin ordinary life. Many readers today may not know this custom, so it helps to see that the priest's role was to confirm the change.",
+    "after": "In the law of Moses, a priest was the one who examined a person with a skin disease and declared whether they were clean. Afterward Jesus tells the man to show himself to the priest and offer what Moses commanded for his cleansing. This process probably let the community see that the person had been restored and could rejoin ordinary life. Many readers today may not know this custom, so it helps to see that the priest's role was to confirm the change."
+   }
+  },
+  "MRK.14.38": {
+   "meaning": {
+    "before": "Jesus tells the disciples to watch and pray so that they do not enter into temptation, which means a time of testing. He then gives a short contrast: the spirit is willing, but the flesh is weak. The King James Version says 'ready' where this version says 'willing', and it comes from the same Greek word. Many readers take 'spirit' here as the person's own inner willingness. 'Flesh' means ordinary human weakness rather than sin alone. The disciples have just been found asleep, and this line speaks directly to that situation. It admits weakness honestly without giving up on the call to watch and pray.",
+    "after": "Jesus tells the disciples to watch and pray so that they do not enter into temptation, which means a time of testing. He then gives a short contrast: the spirit is willing, but the flesh is weak. The word 'willing' here means being ready and eager. Many readers take 'spirit' here as the person's own inner willingness. 'Flesh' means ordinary human weakness rather than sin alone. The disciples have just been found asleep, and this line speaks directly to that situation. It admits weakness honestly without giving up on the call to watch and pray."
+   }
+  },
+  "MRK.15.17": {
+   "meaning": {
+    "before": "The soldiers dress Jesus in a purple cloak and twist together a crown of thorns, then press it onto his head. Purple and a crown are signs of a king, and here they are used as a joke. The soldiers are treating his claim to be king as laughable. The reader sees the irony: the one they dress as a king is the one they are about to crucify. Verse 18 then has them greet him as King of the Jews.",
+    "after": "The soldiers dress Jesus in a purple cloak and twist together a crown of thorns, then press it onto his head. Purple and a crown are signs of a king, and here they are used as a joke. The soldiers are treating his claim to be king as laughable. The reader sees the irony: the one they dress as a king is the one they are about to crucify. Next they greet him as King of the Jews."
+   }
+  },
+  "MRK.3.15": {
+   "meaning": {
+    "before": "Jesus has just chosen twelve men to be with him and to be sent out. This line says what they are sent to do: to have authority to heal sicknesses and to cast out demons. The authority is given to them. The verse does not say they earned it. Sicknesses are illnesses or physical troubles, and demons are evil spirits. The verses just before this one show unclean spirits falling down before Jesus, so the reader already knows these spirits answer to him. The King James Version says power where this version says authority, but the idea is the same: a real ability to act, given by Jesus.",
+    "after": "Jesus has just chosen twelve men to be with him and to be sent out. This line says what they are sent to do: to have authority to heal sicknesses and to cast out demons. The authority is given to them. The verse does not say they earned it. Sicknesses are illnesses or physical troubles, and demons are evil spirits. The verses just before this one show unclean spirits falling down before Jesus, so the reader already knows these spirits answer to him. The word means real authority to act, given by Jesus."
+   }
+  }
+ }
+}

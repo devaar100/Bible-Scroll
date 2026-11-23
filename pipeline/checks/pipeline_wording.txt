@@ -6,9 +6,14 @@ supplied
 the data
 this version
 book background
-# Leaked instructions (decision 25)
-these instructions
-the instructions
+# Leaked instructions (decision 25). "the/these instructions" only when it points at the writer's own input
+# ("Follow these instructions", "per the instructions", "the instructions given/above", "the instructions ask me");
+# instructions given by someone in the text pass ("The instructions that follow tell them to take a staff only",
+# Mark 6:8). Checker 15 / devotionals-7.
+re: \b(?:follow|following|per|according to) these instructions\b
+re: \b(?:per|according to) the instructions\b
+re: \b(?:the|these) instructions (?:given|provided|above|below)\b
+re: \b(?:the|these) instructions (?:say|said|ask|asked) (?:me|us|for)\b
 word range
 # "word count" as the prompt's term; not when a quoted word follows (the word count “number”). Checker 14.
 re: (?<!\w)word\s+count(?!\w)(?!\s*["“‘'])
