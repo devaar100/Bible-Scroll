@@ -14,6 +14,7 @@ import gzip
 import hashlib
 import io
 import json
+import os
 import shutil
 import subprocess
 import urllib.error
@@ -445,7 +446,10 @@ def deploy(project: str, release: str, preview: bool = False) -> str:
         command = ["firebase", "deploy", "--only", "hosting", "--project", project,
                    "--message", f"study release {release}"]
     require_online("deploy to Firebase")
-    result = subprocess.run(command, cwd=PIPELINE, capture_output=True, text=True, timeout=900)
+    # One upload at a time: the CLI gives a file ~20 ms per KB, and with its default 200 parallel uploads the big
+    # book files (1-3 MB) time out on a slow uplink (2026-11-24: ~100 KB/s to upload-firebasehosting).
+    env = {**os.environ, "FIREBASE_HOSTING_UPLOAD_CONCURRENCY": os.environ.get("FIREBASE_HOSTING_UPLOAD_CONCURRENCY", "1")}
+    result = subprocess.run(command, cwd=PIPELINE, capture_output=True, text=True, timeout=1800, env=env)
     if result.returncode != 0:
         raise RuntimeError(f"{' '.join(command)} failed:\n{result.stdout}\n{result.stderr}")
     return result.stdout
