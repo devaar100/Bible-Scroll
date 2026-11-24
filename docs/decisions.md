@@ -2,6 +2,23 @@
 
 Product and architecture decisions, newest first. Each one has a reason and a "revisit if" trigger.
 
+## 2026-11-24: Studies stored compressed on the phone
+
+### 27. Each study is stored as its own zlib stream with a shared preset dictionary
+content.db v3 keeps a study as compressed bytes (`StudyEntity.data`, core/content `StudyCompression`): one zlib
+stream per verse, level 6, with a 32 KB preset dictionary of sample Discover studies
+(`core/content/src/main/resources/.../db/study_dictionary.bin`, built by `tools/build_study_dictionary.py`). The
+Gospels and Psalms (6,239 verses) are 33 MB as JSON and about 9.6 MB stored (14 MB with plain zlib). Reading a verse
+inflates ~2 KB on the decode dispatcher. A row that won't inflate removes its book, so it downloads (or re-imports
+from the bundle) again. Devotionals stay plain JSON (0.9 MB for the year). No migration from v2: nobody had the app
+yet, and the destructive fallback rebuilds the cache.
+**Why:** studies are ~5.3 KB a verse, so the whole Bible would be ~165 MB on the phone as JSON; this makes it ~48 MB
+with no visible cost. Per-verse streams keep every read a single row (no chapter blobs, no cache); the dictionary
+gives a third more saving than plain zlib because one verse is too short to learn the JSON keys and house style.
+**Revisit if:** studies change shape a lot (rebuild the dictionary and bump ContentDatabase's version in the same
+change), downloaded books need a size cap (LRU eviction, not built), or the original-language word lists should
+move to a shared lexicon (another 15-25%, needs a pipeline format change).
+
 ## 2026-11-22: Devotionals on Haiku
 
 ### 26. Devotionals are drafted by Claude Haiku 5.5 at effort medium

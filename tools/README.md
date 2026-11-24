@@ -79,3 +79,18 @@ Before a release build (`./gradlew bundleRelease`):
 3. `PYTHONPATH=src .venv/bin/python -m pipeline bundle`: copies Gospels and Psalms studies into
    `app/src/main/assets/studies/`.
 4. Commit `app/src/main/assets/studies/` with the release, like `bible.db`.
+
+## build_study_dictionary.py — dictionary for compressed studies
+
+Writes `core/content/src/main/resources/aarnav100/developer/biblescroll/core/content/db/study_dictionary.bin`, the
+32 KB zlib preset dictionary content.db uses to store each verse's study (decision 27). Built from published
+Discover studies in `pipeline/out/site` (run `pipeline publish --local` first), never from the bundled Gospels and
+Psalms.
+
+```sh
+python3 tools/build_study_dictionary.py
+```
+
+Rows name the dictionary they were made with, and the app rejects rows made with another one. So a new dictionary
+needs a `ContentDatabase` version bump in the same change; the content cache is then rebuilt on the phone. Rebuild it
+only if studies change shape a lot (new fields, a new format).

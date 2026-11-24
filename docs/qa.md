@@ -71,3 +71,7 @@ Play's per-device download will be a little under the universal APK (it drops un
 phone, Room copies bible.db out of the APK on first run, so installed size is about 13.9 MB + 25.5 MB ≈ 40 MB
 before downloaded studies. bible.db is two-thirds of the APK. If size becomes a concern, the options are shipping
 RV1909 as a download for Spanish phones only or storing verses compressed. Neither is needed now.
+
+Studies (2026-11-24, decision 27): content.db stores each study compressed, about 3.4x smaller than its JSON. The
+bundled Gospels and Psalms (`pipeline bundle`, 7.5 MB of .json.gzip in the APK) take about 9.6 MB in content.db
+instead of 33 MB, so a new install is about 21.5 MB from Play and about 57 MB on the phone after first launch.

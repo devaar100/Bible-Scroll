@@ -19,7 +19,10 @@ import kotlinx.coroutines.flow.Flow
  */
 @Database(
     entities = [StudyEntity::class, BookEntity::class, DevotionalEntity::class, DevotionalMonthEntity::class],
-    version = 2,
+    // 3: studies stored compressed (StudyEntity.data). No migration from 2: nobody had the app yet, and the
+    // destructive fallback rebuilds this cache (bundled books re-import at start, others download when opened).
+    // Bump it whenever study_dictionary.bin changes.
+    version = 3,
     exportSchema = true,
     // A real migration, so downloaded study books aren't thrown away when devotionals arrive.
     autoMigrations = [AutoMigration(from = 1, to = 2)],
@@ -33,15 +36,16 @@ abstract class ContentDatabase : RoomDatabase() {
     }
 }
 
-/** One verse's study, stored as its published JSON (decoded only when shown). */
+/** One verse's study: its JSON, compressed (StudyCompression), inflated and decoded only when shown. */
 @Entity(tableName = "studies", primaryKeys = ["book_id", "chapter", "verse"])
-data class StudyEntity(
+class StudyEntity(
     @ColumnInfo(name = "book_id") val bookId: Int,
     val chapter: Int,
     val verse: Int,
     /** The study's own contentVersion. */
     @ColumnInfo(name = "content_version") val contentVersion: String,
-    val json: String,
+    /** StudyCompression.compress(study JSON). Not a data class: ByteArray has no value equality. */
+    val data: ByteArray,
 )
 
 @Entity(tableName = "books", primaryKeys = ["book_id"])
@@ -56,15 +60,15 @@ data class BookEntity(
     val source: String,
     @ColumnInfo(name = "verse_count") val verseCount: Int,
     @ColumnInfo(name = "reviewed_count") val reviewedCount: Int,
-    /** Bytes of study JSON stored on the device, for Settings → Storage. */
+    /** Bytes of (compressed) study data stored on the device, for Settings → Storage. */
     @ColumnInfo(name = "stored_bytes") val storedBytes: Long,
     @ColumnInfo(name = "imported_at") val importedAt: Long,
 )
 
 @Dao
 interface ContentDao {
-    @Query("SELECT json FROM studies WHERE book_id = :bookId AND chapter = :chapter AND verse = :verse")
-    fun observeStudyJson(bookId: Int, chapter: Int, verse: Int): Flow<String?>
+    @Query("SELECT data FROM studies WHERE book_id = :bookId AND chapter = :chapter AND verse = :verse")
+    fun observeStudyData(bookId: Int, chapter: Int, verse: Int): Flow<ByteArray?>
 
     @Query("SELECT * FROM books WHERE book_id = :bookId")
     fun observeBook(bookId: Int): Flow<BookEntity?>
