@@ -21,7 +21,7 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "15"  # 15: "the/these instructions" is pipeline wording only when it points at the input
+CHECKER_VERSION = "16"  # 16: "supplied with" passes; more English words after "Hebrew word". 15: "the/these instructions" is pipeline wording only when it points at the input
 # 14: 14: banned "you must/you need to" only as a sentence-opening command; "word count"
 # passes when a quoted word follows
 # 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions
@@ -281,6 +281,7 @@ _NOT_TRANSLIT = frozenset("""
     for behind translated rendered here there means meant meaning that this these those which points is was
     are were be can could may might also used appears comes occurs itself again often usually only and or as
     in of to with from at by on into like than but so twice once
+    names rather covers carries holds has describes suggests gives captures refers stands does
 """.split())
 _FINALS = str.maketrans("ךםןףץ", "כמנפצ")
 

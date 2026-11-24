@@ -2,7 +2,9 @@
 # case-insensitive, whole words; "re:" lines are regular expressions). Unlike banned.txt, a match is never
 # excused by a nearby "not"/"no": these words shouldn't appear at all.
 re: \bcross[- ]?references?\b
-supplied
+# "supplied" as the prompt's word ("the words supplied"); not "supplied with" in a narrative ("were supplied with
+# food", Psalm 78:29). Checker 16 / devotionals-8.
+re: \bsupplied\b(?!\s+with\b)
 the data
 this version
 book background

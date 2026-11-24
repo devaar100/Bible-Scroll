@@ -1,0 +1,416 @@
+{
+ "format": "studyFixes/1",
+ "wave": "luke, john, psalms",
+ "author": "Claude Code subagents on claude-sonnet-5-5, checked by the code checks and read by the main session; requested by the developer",
+ "rule": "Apply a field only if the study's current text for that field equals 'before'. Then replace it with 'after'.",
+ "studies": {
+  "JHN.1.45": {
+   "historicalContext": {
+    "before": "Earlier in this chapter, a man has already told his brother Simon, 'We have found the Messiah,' and Jesus has called Philip to follow him. Now Philip brings the same kind of news to his friend Nathanael. Nathanael's reply, which follows, is doubtful, since he asks whether anything good can come out of Nazareth. The chapter keeps showing people brought to Jesus by others who have already met him. Book background: John's Gospel was written so that readers may believe Jesus is the Messiah, the Son of God.",
+    "after": "Earlier in this chapter, a man has already told his brother Simon, 'We have found the Messiah,' and Jesus has called Philip to follow him. Now Philip brings the same kind of news to his friend Nathanael. Nathanael's reply, which follows, is doubtful, since he asks whether anything good can come out of Nazareth. The chapter keeps showing people brought to Jesus by others who have already met him. John's Gospel was written so that readers may believe Jesus is the Messiah, the Son of God."
+   }
+  },
+  "JHN.12.14": {
+   "historicalContext": {
+    "before": "The crowd has just gone out to meet Jesus with palm branches and shouts of praise, so the scene is one of welcome and excitement as he comes toward Jerusalem. Jesus then finds a young donkey and sits on it, which shapes how the arrival looks. The writer links this act to an older prophetic text, and the phrase \"as it is written\" is the bridge to that text. Book background: this Gospel is generally dated to around AD 90 to 100, though some date it earlier, and who wrote it is debated.",
+    "after": "The crowd has just gone out to meet Jesus with palm branches and shouts of praise, so the scene is one of welcome and excitement as he comes toward Jerusalem. Jesus then finds a young donkey and sits on it, which shapes how the arrival looks. The writer links this act to an older prophetic text, and the phrase \"as it is written\" is the bridge to that text. This Gospel is generally dated to around AD 90 to 100, though some date it earlier, and who wrote it is debated."
+   }
+  },
+  "JHN.13.11": {
+   "historicalContext": {
+    "before": "The scene is a meal where Jesus has just washed his disciples' feet, and Peter has objected to it. The book background places this in Jesus's last night with his disciples before his death. In the surrounding verses Jesus speaks about having a part with him and about being clean after a full bath, and this verse adds that not all of them are clean. The word all points to one person among the group. John's Gospel is probably dated around AD 90 to 100, though some date it earlier.",
+    "after": "The scene is a meal where Jesus has just washed his disciples' feet, and Peter has objected to it. John places this on Jesus's last night with his disciples before his death. In the surrounding verses Jesus speaks about having a part with him and about being clean after a full bath, and this verse adds that not all of them are clean. The word all points to one person among the group. John's Gospel is probably dated around AD 90 to 100, though some date it earlier."
+   }
+  },
+  "JHN.15.10": {
+   "historicalContext": {
+    "before": "Jesus is teaching his disciples in a farewell talk, which the book background places on his last night with them before his death. In the surrounding verses he uses the picture of a vine: branches that stay joined to him bear fruit, while a branch cut off withers and is burned. Just before this, he tells them to remain in his love. Here he holds up his own obedience to the Father as the pattern they are to follow, as he prepares them for the time ahead.",
+    "after": "Jesus is teaching his disciples in a farewell talk, which John places on his last night with them before his death. In the surrounding verses he uses the picture of a vine: branches that stay joined to him bear fruit, while a branch cut off withers and is burned. Just before this, he tells them to remain in his love. Here he holds up his own obedience to the Father as the pattern they are to follow, as he prepares them for the time ahead."
+   }
+  },
+  "JHN.18.16": {
+   "theology": {
+    "before": "This verse shows how a person can be brought in through another person. The disciple who is known to the high priest speaks on Peter's behalf and opens the way, a small picture of how people in the Bible often draw near to God or to others through someone who goes ahead of them. Peter's place outside also reminds the reader that the story is not about Peter's own strength. In John, the central claim is that Jesus is the Son of God, and that claim is what the whole account is written to help readers believe. This verse keeps attention on who gets in and how, and on the door that stands between outside and inside.",
+    "after": "This verse shows how a person can be brought in through another person. The disciple who is known to the high priest speaks on Peter's behalf and opens the way, a small picture of how people in the Bible often draw near to God or to others through someone who goes ahead of them. Peter's place outside also reminds the reader that the story is not about Peter's own strength. John's central claim is that Jesus is the Son of God, and this verse keeps attention on who gets in and how."
+   }
+  },
+  "JHN.19.14": {
+   "theology": {
+    "before": "The verse holds together two things the Gospel keeps putting side by side. The crowd and the leaders reject Jesus as king, yet the words spoken here call him their king. John presents Jesus's kingship as real even when it is mocked or refused. The verse also places this moment on the day before Passover, the festival that looked back to God's rescue of his people, which invites the reader to see Jesus's death within that larger story. Mark 15:33 also marks the sixth hour as a time of darkness at the cross, linking the time to later events. Readers from many backgrounds have seen in this verse a stark picture of who Jesus is and how he was received.",
+    "after": "The verse holds together two things the Gospel keeps putting side by side. The crowd and the leaders reject Jesus as king, yet the words spoken here call him their king. John presents Jesus's kingship as real even when it is mocked or refused. The verse also places this moment on the day of preparation for Passover, the festival that looked back to God's rescue of his people, which invites the reader to see Jesus's death within that larger story."
+   }
+  },
+  "JHN.20.20": {
+   "theology": {
+    "before": "The verse shows the risen Jesus keeping the marks of his suffering and letting his friends see them. That fits the promise in John 16:20-22 that sorrow would turn into joy, and the wounds connect this moment with the death described in John 19:34. Luke 24:39-41 has a similar scene in which Jesus shows his hands and feet to the group. First John 1:1 speaks of what the apostles heard, saw and touched, which helps explain why seeing the risen Lord mattered so much to early believers.",
+    "after": "The verse shows the risen Jesus keeping the marks of his suffering and letting his friends see them. That fits the promise in John 16:20 and John 16:22 that sorrow would turn into joy, and the wounds connect this moment with the death described in John 19:34. Luke 24:39-41 has a similar scene in which Jesus shows his hands and feet to the group. First John 1:1 speaks of what the apostles heard, saw and touched, which helps explain why seeing the risen Lord mattered so much to early believers."
+   }
+  },
+  "JHN.21.9": {
+   "historicalContext": {
+    "before": "Before this point, the men had no fish until Jesus told them to cast the net on the right side of the boat, and then the net was too full to haul in. Now they reach the land, where a fire is already waiting. The scene marks the move from work on the water to a shared meal on the shore. Book background: John's Gospel is usually dated to about AD 90 to 100, and it is linked to the disciple whom Jesus loved, a link that is disputed.",
+    "after": "Before this point, the men had no fish until Jesus told them to cast the net on the right side of the boat, and then the net was too full to haul in. Now they reach the land, where a fire is already waiting. The scene marks the move from work on the water to a shared meal on the shore. John's Gospel is usually dated to about AD 90 to 100, and it is linked to the disciple whom Jesus loved, a link that is disputed."
+   }
+  },
+  "JHN.6.30": {
+   "theology": {
+    "before": "The verse shows people asking for proof before they trust, and it shows that they expect God's work to be visible and checkable. Jesus has just pointed to belief in the one God has sent as the work God asks for, so the question turns on what it means to trust him. The Bible often connects signs with faith. Exodus 4:8 describes signs given so that people might believe, while John 12:37 notes that people did not believe even after many signs. 1 Corinthians 1:22 notes that some people look for signs. John 10:38 invites people to believe because of the works. These passages show that God's acts matter, and that faith is a response of trust.",
+    "after": "The verse shows people asking for proof before they trust, and it shows that they expect God's work to be visible and checkable. Jesus has just named belief in the one God sent as the work God asks for. The Bible often connects signs with faith. Exodus 4:8 describes signs given so that people might believe, while John 12:37 notes that people did not believe even after many signs. These passages show that God's acts matter, and that faith is a response of trust."
+   }
+  },
+  "JHN.9.15": {
+   "historicalContext": {
+    "before": "The man has already been brought before the Pharisees, and they ask him again how he got his sight. The healing happened on a Sabbath, as verse 14 notes, and that is why the questions focus on how it was done. His answer repeats the account he gave earlier, without adding anything new. John's Gospel was written so that readers may believe Jesus is the Messiah, the Son of God, and have life.",
+    "after": "The man has already been brought before the Pharisees, and they ask him again how he got his sight. The healing happened on a Sabbath, as the line just before notes, and that is why the questions focus on how it was done. His answer repeats the account he gave earlier, without adding anything new. John's Gospel was written so that readers may believe Jesus is the Messiah, the Son of God, and have life."
+   },
+   "theology": {
+    "before": "In John, Jesus' healings are called signs, pointing beyond the act itself to who Jesus is. This man's witness is simple. He cannot explain everything, but he can say truthfully what happened to him. The related passages show him holding to the same account when pressed (John 9:26-27). The verse teaches that honest testimony about what we have experienced can be given even before we have all the answers.",
+    "after": "In John, Jesus' healings are called signs, pointing beyond the act itself to who Jesus is. This man's witness is simple. He cannot explain everything, but he can say truthfully what happened to him. The related passages show him holding to the same account when pressed (John 9:26-27). The verse teaches that honest testimony about what we have experienced can be given even before we have all the answers, and that plain testimony can stand when others doubt it."
+   }
+  },
+  "LUK.10.18": {
+   "theology": {
+    "before": "The verse shows that the enemy of God and people is real, and that his power has limits. Related passages describe a fall from heaven: Isaiah 14:12 uses the image of a morning star cast down, and Revelation 12:7-9 describes a war in heaven and a dragon thrown to the earth. John 12:31 speaks of the ruler of this world being cast out, and Hebrews 2:14 says Jesus shared in humanity so that through death he might destroy the one who holds the power of death. Christians read these passages in different ways. Some see the fall as happening before creation, and others link it to Jesus's death and victory. The verse itself does not settle when it happened.",
+    "after": "The verse shows that the enemy of God and people is real, and that his power has limits. Related passages describe a fall from heaven: Isaiah 14:12 uses the image of a morning star cast down, and Revelation 12:7-9 describes a war in heaven and a dragon thrown to the earth.  Christians read these passages in different ways. Some see the fall as happening before creation, and others link it to Jesus's death and victory. The verse itself does not settle when it happened."
+   }
+  },
+  "LUK.12.9": {
+   "historicalContext": {
+    "before": "The verse sits in a passage where a crowd is present and where the warnings look ahead to people who will oppose those being addressed. Just before it, the words tell the hearers not to fear people who can only kill the body, and they promise that God knows even the hairs of their heads. Verse 11 then speaks of being brought before synagogues, rulers and authorities. Luke's Gospel uses a long journey to Jerusalem as one of its main settings, and this teaching belongs to that wider flow of the story.",
+    "after": "The verse sits in a passage where a crowd is present and where the warnings look ahead to people who will oppose those being addressed. Just before it, the words tell the hearers not to fear people who can only kill the body, and they promise that God knows even the hairs of their heads. The lines that follow speak of being brought before synagogues, rulers and authorities. Luke's Gospel uses a long journey to Jerusalem as one of its main settings, and this teaching belongs to that wider flow of the story."
+   },
+   "lifeInBibleTimes": {
+    "before": "Synagogues were local meeting places where people gathered, especially on the Sabbath, and they were often the setting for community matters. Verse 11 mentions being brought before synagogues, rulers and authorities, which suggests the pressure in view came from public settings and local authority figures, not only from private arguments. Knowing this helps explain why the verse talks about denying someone 'in the presence of men', since being known publicly was part of everyday life in such communities.",
+    "after": "Synagogues were local meeting places where people gathered, especially on the Sabbath, and they were often the setting for community matters. The lines that follow mention being brought before synagogues, rulers and authorities, which suggests the pressure in view came from public settings and local authority figures, not only from private arguments. Knowing this helps explain why the verse talks about denying someone 'in the presence of men', since being known publicly was part of everyday life in such communities."
+   }
+  },
+  "LUK.14.24": {
+   "theology": {
+    "before": "The verse shows that God's invitation is real and that people can turn it down. The first guests had been called, and they did not come, so the table was opened to others. Other parts of the Bible use similar pictures. Matthew 22:8 tells a related story of a wedding feast where the invited guests were not ready. Acts 13:46 shows the message going to outsiders after some listeners rejected it. John 3:19 speaks of light and darkness, and John 3:36 of belief in the Son as the dividing line. The word 'chosen' is read differently: some Christians link it to God's own choosing before time, others to a person's response to the call. The verse itself does not settle that debate.",
+    "after": "The verse shows that God's invitation is real and that people can turn it down. The first guests had been called, and they did not come, so the table was opened to others. Matthew 22:8 tells a related story of a wedding feast where the invited guests were not ready. Acts 13:46 shows the message going to outsiders after some listeners rejected it, and John 3:36 names belief in the Son as the dividing line. The verse itself does not settle every question about who is finally invited."
+   }
+  },
+  "LUK.14.32": {
+   "historicalContext": {
+    "before": "In Luke's account Jesus is on a long journey toward Jerusalem, and in this stretch he gives teaching about the cost of following him. The verse is the second of two everyday examples, after a builder who must count the cost before starting. Luke's account is written for readers outside the Jewish community and stresses God's welcome for outsiders, the poor and women. Luke 15:1 then describes tax collectors and sinners drawing near to hear him, the setting that comes next.",
+    "after": "In Luke's account Jesus is on a long journey toward Jerusalem, and in this stretch he gives teaching about the cost of following him. The verse is the second of two everyday examples, after a builder who must count the cost before starting. Luke's account is written for readers outside the Jewish community and stresses God's welcome for outsiders, the poor and women. The next chapter opens with tax collectors and sinners drawing near to hear him, the setting that comes next."
+   }
+  },
+  "LUK.15.12": {
+   "historicalContext": {
+    "before": "This is the start of a new story in a set of teachings Jesus gives in Luke 15. A nearby passage describes a woman searching for a lost coin and a joy over one sinner who repents. Here the story opens with a man who had two sons. Luke's book background is that he writes to show God's welcome for outsiders, the poor and women. In the next nearby verses, the younger son gathers his things and travels to a far country, so the request in this verse sets up his journey away from home.",
+    "after": "This is the start of a new story in a set of teachings Jesus gives in Luke 15. A nearby passage describes a woman searching for a lost coin and a joy over one sinner who repents. Here the story opens with a man who had two sons. Luke writes to show God's welcome for outsiders, the poor and women. In the next nearby verses, the younger son gathers his things and travels to a far country, so the request in this verse sets up his journey away from home."
+   }
+  },
+  "LUK.20.34": {
+   "didYouKnow": {
+    "before": "In the Greek, the word for 'this' comes right after the word for 'age', so the phrase reads 'the sons of this age'. That pairing is why the phrase points to the present time of life.",
+    "after": "The Greek phrase behind 'the children of this world' uses huioi, 'sons', and aiōnos, 'age', so it reads 'the sons of this age'. The word aiōnos points to a stretch of time, which is why the phrase speaks of people living in the present age."
+   }
+  },
+  "LUK.4.14": {
+   "lifeInBibleTimes": {
+    "before": "Synagogues were local gathering places where people met, especially on the Sabbath, to hear Scripture read and explained. Luke 4:15 says he taught in their synagogues, and the passage after shows him standing up to read from a scroll of Isaiah. Scrolls were rolled and unrolled as the reader found a place, and a reader often stood to read aloud. Scholars do not agree on every detail of synagogue worship in this period, but the basic picture of a local meeting for reading and teaching is well established.",
+    "after": "Synagogues were local gathering places where people met, especially on the Sabbath, to hear Scripture read and explained. The next lines say he taught in their synagogues, and the passage after shows him standing up to read from a scroll of Isaiah. Scrolls were rolled and unrolled as the reader found a place, and a reader often stood to read aloud. Scholars do not agree on every detail of synagogue worship in this period, but the basic picture of a local meeting for reading and teaching is well established."
+   }
+  },
+  "LUK.7.15": {
+   "historicalContext": {
+    "before": "This moment comes right after Jesus meets a funeral procession at the gate of Nain, a town mentioned in the verses given. The dead man's mother is a widow, and a crowd is with her, so the scene is one of public grief. Jesus has already told her not to cry and has stopped the bearers by touching the coffin. Verse 15 shows the result of his word, and the crowd's reaction in the next verses shows why it matters. The Gospel of Luke pays close attention to the poor and to women, which helps explain why this widow's story is told in such detail.",
+    "after": "This moment comes right after Jesus meets a funeral procession at the gate of Nain, a town mentioned in the verses around it. The dead man's mother is a widow, and a crowd is with her, so the scene is one of public grief. Jesus has already told her not to cry and has stopped the bearers by touching the coffin. This verse shows the result of his word, and the crowd's reaction in the next verses shows why it matters. The Gospel of Luke pays close attention to the poor and to women, which helps explain why this widow's story is told in such detail."
+   }
+  },
+  "LUK.9.25": {
+   "theology": {
+    "before": "The verse shows that a person's real life is worth more than anything the world can offer, and that gaining the world cannot buy back a lost self. Psalm 49:6-8 says that wealth cannot ransom a life, which gives a similar message from the Old Testament. Matthew 16:26 and Mark 8:36 record a parallel saying, so the teaching is not confined to one place. Luke 12:19-21 tells of a rich man who piles up goods for himself and then dies, and Luke 4:5-7 shows the devil offering all the kingdoms of the world. Both show how strongly the world's wealth can pull at a heart. The verse points to God as the one who gives a life its true worth.",
+    "after": "The verse shows that a person's real life is worth more than anything the world can offer, and that gaining the world cannot buy back a lost self. Psalm 49:6-8 says that wealth cannot ransom a life. Matthew 16:26 and Mark 8:36 record a parallel saying. Luke 12:19-21 tells of a rich man who piles up goods for himself and then dies. The verse points to God as the one who gives a life its true worth."
+   }
+  },
+  "LUK.9.53": {
+   "didYouKnow": {
+    "before": "Look at where the small word for not sits in the Greek. It comes directly before the verb 'they did receive', so the refusal is stated right at the start of the sentence.",
+    "after": "The Greek word prosōpon means 'face', and it is the word used here for the face of Jesus. The verse says his face was set toward Jerusalem, a plain way of saying he was heading there, and that direction is the reason given for why the village would not receive him."
+   }
+  },
+  "PSA.101.4": {
+   "theology": {
+    "before": "The verse shows that God cares about the inner life, the heart, and not only outward actions. The speaker commits to keeping away from what is crooked in both heart and deed, which reflects the idea that faith shapes what we allow near us. Proverbs 11:20 says that those with a perverse heart are an abomination to the LORD, so God's view of a twisted heart is firm. The call not to be yoked unequally with unbelievers in 2 Corinthians 6:14-16, and the charge to depart from iniquity in 2 Timothy 2:19, carry a similar concern for separating from what is wrong. The verse presents this as a sincere personal commitment, not a claim to already be perfect.",
+    "after": "The verse shows that God cares about the inner life, the heart, and not only outward actions. The speaker commits to keeping away from what is crooked in both heart and deed, which reflects the idea that faith shapes what we allow near us. Proverbs 11:20 says that those with a perverse heart are an abomination to the LORD, so God's view of a twisted heart is firm. Second Timothy 2:19 charges believers to depart from iniquity. The verse presents this as a sincere personal commitment, not a claim to already be perfect."
+   }
+  },
+  "PSA.103.9": {
+   "historicalContext": {
+    "before": "The heading attributes this psalm to David, though the book background notes that headings are disputed. The psalm has moved from a call to praise into a list of what the LORD does and who he is. It has just named him merciful, gracious, slow to anger and abundant in loving kindness. This line draws the conclusion for how he deals with his people over time. Its wording continues by saying he has not treated us as our sins deserve, so the verse is presented as a reason for thankfulness rather than a warning.",
+    "after": "The heading attributes this psalm to David, though whether headings are original is disputed. The psalm has moved from a call to praise into a list of what the LORD does and who he is. It has just named him merciful, gracious, slow to anger and abundant in loving kindness. This line draws the conclusion for how he deals with his people over time. Its wording continues by saying he has not treated us as our sins deserve, so the verse is presented as a reason for thankfulness rather than a warning."
+   }
+  },
+  "PSA.104.14": {
+   "theology": {
+    "before": "The verse shows God as the one who makes plants grow and so provides food for animals and people. Human work is part of the picture, since people cultivate the ground, yet the growth itself is God's gift. Genesis 1:11-12 describes plants producing seed and fruit at God's word, while Genesis 3:18 connects the ground with hard labor after the first humans turned away from God. Psalm 145:15-16 pictures all living things looking to God for food in its season, and Psalm 147:8-9 says he makes grass grow on the mountains. First Corinthians 3:7 echoes this: the planter and the waterer count for little, because God gives the growth. The verse invites trust in God as the source of daily bread.",
+    "after": "The verse shows God as the one who makes plants grow and so provides food for animals and people. Human work is part of the picture, since people cultivate the ground, yet the growth itself is God's gift. Genesis 1:11-12 describes plants producing seed and fruit at God's word, while Genesis 3:18 connects the ground with hard labor after the first humans turned away from God. First Corinthians 3:7 echoes this: God gives the growth. The verse invites trust in God as the source of daily bread."
+   }
+  },
+  "PSA.107.29": {
+   "theology": {
+    "before": "This verse shows God as the one who has power over the sea and its wildest moods. The people in the psalm cannot control the storm, but God can turn it to calm. The same picture appears in the Gospels, where Jesus calms a storm on the lake and the people in the boat are amazed, as in Matthew 8:26, Mark 4:39-41 and Luke 8:23-25. Psalm 65:7 and Psalm 89:9 also speak of God quieting the roaring seas, and Jonah 1:15 shows the sea growing calm after Jonah is thrown in. Together these passages suggest that God's power over the chaos of nature is part of who he is, and that people can bring their fear to him.",
+    "after": "This verse shows God as the one who has power over the sea and its wildest moods. The people in the psalm cannot control the storm, but God can turn it to calm. The same picture appears in the Gospels, where Jesus calms a storm on the lake, as in Matthew 8:26 and Mark 4:39-41. Psalm 65:7 and Psalm 89:9 also speak of God quieting the roaring seas. God's power over the chaos of nature is part of who he is, and people can bring their fear to him."
+   }
+  },
+  "PSA.108.7": {
+   "historicalContext": {
+    "before": "The psalm moves from a plea for help in verse 6 to a word of confidence here. The lines that follow claim more territory and name Moab, Edom and Philistia, and then the psalm asks for help against the enemy and ends by trusting that God will tread down our enemies. Shechem and Succoth are place names in the land of Israel, and the verse names them without explaining them. The book of Psalms is a collection of many poems, and the heading attributes this psalm to David, though whether headings are original is disputed.",
+    "after": "The psalm moves from a plea for the beloved to be delivered to a word of confidence here. The lines that follow claim more territory and name Moab, Edom and Philistia, and then the psalm asks for help against the enemy and ends by trusting that God will tread down our enemies. Shechem and Succoth are place names in the land of Israel, and the verse names them without explaining them. The book of Psalms is a collection of many poems, and the heading attributes this psalm to David, though whether headings are original is disputed."
+   }
+  },
+  "PSA.119.141": {
+   "historicalContext": {
+    "before": "The psalm is built from many short stanzas about God's law, and this stretch moves between praise of God's righteousness, complaints about enemies, and pleas for help. Just before this line, the speaker describes his zeal wearing him out because his enemies ignore God's words. Verse 141 fits there as a short confession of low standing that still keeps God's words in view. Psalm 119 has no heading, so no author or occasion is named for it.",
+    "after": "The psalm is built from many short stanzas about God's law, and this stretch moves between praise of God's righteousness, complaints about enemies, and pleas for help. Just before this line, the speaker describes his zeal wearing him out because his enemies ignore God's words. This verse fits there as a short confession of low standing that still keeps God's words in view. Psalm 119 has no heading, so no author or occasion is named for it."
+   },
+   "theology": {
+    "before": "The verse shows a person who feels small and looked down on but keeps God's instructions in view. That connects to Psalm 22:6, where the psalmist also describes being scorned, and to Psalm 40:17, where the poor and needy are held in God's thoughts. Psalm 119:109 says the speaker keeps God's law close even in danger, and Proverbs 3:1 urges the reader not to forget teaching. In the New Testament, Luke 6:20 calls the poor blessed, James 2:5 says God chose the poor in the world to be rich in faith, and 2 Corinthians 8:9 says Jesus, though rich, became poor for others. Together these passages suggest God is especially near to those the world overlooks.",
+    "after": "The verse shows a person who feels small and looked down on but keeps God's instructions in view. That connects to Psalm 22:6, where the psalmist also describes being scorned, and to Psalm 40:17, where the poor and needy are held in God's thoughts. In the New Testament, Luke 6:20 calls the poor blessed, James 2:5 says God chose the poor in the world to be rich in faith, and 2 Corinthians 8:9 says Jesus, though rich, became poor for others. Together these passages suggest God is especially near to those the world overlooks."
+   }
+  },
+  "PSA.119.150": {
+   "historicalContext": {
+    "before": "Psalm 119 is a long meditation on God's law, and the verses around this one keep returning to prayer, watchfulness, and trust in God's word. The verses given show a speaker crying for help, keeping watch through the night, and holding to God's commandments. Verse 150 gives the other side of that picture, people who chase after wickedness and stand far from God's instruction. The psalm has no heading, so nothing in the text tells us who wrote it or when.",
+    "after": "Psalm 119 is a long meditation on God's law, and the verses around this one keep returning to prayer, watchfulness, and trust in God's word. The verses given show a speaker crying for help, keeping watch through the night, and holding to God's commandments. This verse gives the other side of that picture, people who chase after wickedness and stand far from God's instruction. The psalm has no heading, so nothing in the text tells us who wrote it or when."
+   }
+  },
+  "PSA.119.158": {
+   "historicalContext": {
+    "before": "The psalm keeps returning to one commitment: holding fast to God's word while others oppose it. The lines just before this one speak of many persecutors and adversaries, and say the writer has not swerved from God's testimonies. The lines that follow ask God to revive him and speak of loving his precepts. So this verse is the writer's honest response to people who ignore God's word, set within that steady loyalty. Psalm 119 has no heading, so nothing is claimed about who wrote it. The book background adds that these poems were prayed in Israel's worship.",
+    "after": "The psalm keeps returning to one commitment: holding fast to God's word while others oppose it. The lines just before this one speak of many persecutors and adversaries, and say the writer has not swerved from God's testimonies. The lines that follow ask God to revive him and speak of loving his precepts. So this verse is the writer's honest response to people who ignore God's word, set within that steady loyalty. Psalm 119 has no heading, so nothing is claimed about who wrote it. Psalms like these were prayed in Israel's worship."
+   }
+  },
+  "PSA.119.164": {
+   "didYouKnow": {
+    "before": "Look at the first word of the Hebrew line: it is the word for seven, placed before the word for day, so the number comes first in the phrase.",
+    "after": "The verse opens with the Hebrew word sheva, meaning seven times, placed before the word for day, so the number comes first in the phrase."
+   }
+  },
+  "PSA.119.56": {
+   "lifeInBibleTimes": {
+    "before": "A precept is a specific instruction, something you can actually put into practice in daily life. The verse therefore describes an everyday kind of faithfulness. Verse 54 in the surrounding text says God's statutes were the writer's songs in the house where they live, which suggests that God's word was part of ordinary home life, probably sung, spoken and remembered as the day went on.",
+    "after": "A precept is a specific instruction, something you can actually put into practice in daily life. The verse therefore describes an everyday kind of faithfulness. The line a little earlier says God's statutes were the writer's songs in the house where they live, which suggests that God's word was part of ordinary home life, probably sung, spoken and remembered as the day went on."
+   },
+   "historicalContext": {
+    "before": "The verses around this one show a writer who is troubled by people who turn away from God's law. Just before, the writer speaks of anger at the wicked who forsake it, and of remembering God's name in the night. Just after, the writer says the LORD is their portion and promises to obey God's words. Psalm 119 is a long poem about God's law. The book background notes that Psalms were sung and prayed in worship and in private prayer, and that the dates of individual psalms are disputed.",
+    "after": "The verses around this one show a writer who is troubled by people who turn away from God's law. Just before, the writer speaks of anger at the wicked who forsake it, and of remembering God's name in the night. Just after, the writer says the LORD is their portion and promises to obey God's words. Psalm 119 is a long poem about God's law. Psalms were sung and prayed in worship and in private prayer, and the dates of individual psalms are disputed."
+   }
+  },
+  "PSA.120.6": {
+   "theology": {
+    "before": "The verse shows that God's people can feel the weight of living among those who reject peace, and it is honest about that weight rather than hiding it. It treats the soul as something that can be worn down by a long stay in a hostile setting. The wider Bible speaks to the same tension. Matthew 10:16 pictures followers sent out among hostile people, asked to be wise and harmless at once. Matthew 10:36 says a person's enemies may come from their own household. Psalm 57:4 uses a similar picture of living among people whose words cut like sharp weapons. Titus 3:3 reminds readers that hatred and conflict once marked everyone's life, which helps explain why peace is treated as something received.",
+    "after": "The verse shows that God's people can feel the weight of living among those who reject peace, and it is honest about that weight. It treats the soul as something that can be worn down by a long stay in a hostile setting. Matthew 10:16 pictures followers sent out among hostile people, asked to be wise and harmless at once. Psalm 57:4 uses a similar picture of living among people whose words cut like sharp weapons. Titus 3:3 reminds readers that hatred and conflict once marked everyone's life, which helps explain why peace is received."
+   }
+  },
+  "PSA.135.21": {
+   "theology": {
+    "before": "The verse shows that God is worthy of blessing and praise, and that his presence is tied to a particular place of worship. The LORD is spoken of as the one who dwells in Zion and Jerusalem, a picture that runs through the related passages. Psalm 132 speaks of Zion as the place God chose to dwell, and 2 Chronicles 6 speaks of Jerusalem as the city he chose for his name. Psalm 134 and Psalm 48 also link Zion with worship and with the LORD's greatness. Isaiah 12 calls God's people to joyful praise because the Holy One of Israel is among them, which shows that praise and God's presence belong together in the wider Bible.",
+    "after": "The verse shows that God is worthy of blessing and praise, and that his presence is tied to a particular place of worship. The LORD is spoken of as the one who dwells in Zion and Jerusalem. Psalm 132 speaks of Zion as the place God chose to dwell, and 2 Chronicles 6 speaks of Jerusalem as the city he chose for his name. Isaiah 12 calls God's people to joyful praise because the Holy One of Israel is among them, so praise and God's presence belong together."
+   }
+  },
+  "PSA.138.2": {
+   "theology": {
+    "before": "This verse shows God as the one whose Name and Word stand above everything. The psalm joins worship with two of his qualities: loving kindness, the steady covenant love that keeps faith with his people, and truth, a faithfulness that can be relied on. Related passages show a similar pattern. Solomon's prayer at the dedication of the temple asks God to hear prayers offered toward that place (1 Kings 8:29-30), and Psalm 5:7 also speaks of worshiping toward his holy temple. Jesus taught that heaven and earth will pass away before his words do (Matthew 24:35), and Matthew 5:18 speaks of not even the smallest letter passing from the law. God's word is presented as lasting and trustworthy.",
+    "after": "This verse shows God as the one whose Name and Word stand above everything. The psalm joins worship with two of his qualities: loving kindness, the steady covenant love that keeps faith with his people, and truth, a faithfulness that can be relied on. Solomon's prayer at the temple's dedication asks God to hear prayers offered toward that place (1 Kings 8:29-30), and Psalm 5:7 also speaks of worshiping toward his holy temple. Jesus taught that heaven and earth will pass away before his words do (Matthew 24:35)."
+   }
+  },
+  "PSA.138.5": {
+   "lifeInBibleTimes": {
+    "before": "Israel's worship centred on the temple, and singing was a central part of it. Psalm 138 speaks of bowing toward God's holy temple, and the book background says these psalms were used in worship at the temple and in personal prayer. Songs like this were probably sung by the gathered people, so the picture in this verse is of a public, shared act of praise rather than a quiet private one.",
+    "after": "Israel's worship centred on the temple, and singing was a central part of it. Psalm 138 speaks of bowing toward God's holy temple, and psalms like these were used in worship at the temple and in personal prayer. Songs like this were probably sung by the gathered people, so the picture in this verse is of a public, shared act of praise rather than a quiet private one."
+   },
+   "historicalContext": {
+    "before": "The psalm is a song of thanks, and its heading attributes it to David. This verse sits near the end of a short section where the writer has been giving thanks for being heard and rescued, and now looks beyond himself. The kings of the earth are pictured as joining in thanks, so the verse imagines a wider chorus of praise. Psalms like this were sung in worship, and this one treats praise as something shared rather than private. Book background: the psalms were gathered over many centuries, and the collection was probably finished after the exile.",
+    "after": "The psalm is a song of thanks, and its heading attributes it to David. This verse sits near the end of a short section where the writer has been giving thanks for being heard and rescued, and now looks beyond himself. The kings of the earth are pictured as joining in thanks, so the verse imagines a wider chorus of praise. Psalms like this were sung in worship, and this one treats praise as something shared rather than private. The psalms were gathered over many centuries, and the collection was probably finished after the exile."
+   }
+  },
+  "PSA.144.3": {
+   "historicalContext": {
+    "before": "The heading attributes this psalm to David. The psalm opens by praising the LORD as a rock and fortress who trains hands for battle. It then asks for rescue from enemies and closes by picturing a people whose God is the LORD. This question sits in the middle of that movement, where the writer pauses to wonder at the LORD's attention to people. Book background: the psalms were gathered over several centuries and used in Israel's worship and private prayer.",
+    "after": "The heading attributes this psalm to David. The psalm opens by praising the LORD as a rock and fortress who trains hands for battle. It then asks for rescue from enemies and closes by picturing a people whose God is the LORD. This question sits in the middle of that movement, where the writer pauses to wonder at the LORD's attention to people. The psalms were gathered over several centuries and used in Israel's worship and private prayer."
+   }
+  },
+  "PSA.145.1": {
+   "historicalContext": {
+    "before": "This is a psalm of praise, and it begins with the singer's own resolve before turning to what God is like. The heading attributes the psalm to David, though the psalm itself does not describe an occasion. The lines that follow move from the singer's praise to God's greatness and goodness, then to his works and to a kingdom that endures through all generations. Psalms like this one were sung in worship at the temple and in personal prayer, which is the setting the book background describes.",
+    "after": "This is a psalm of praise, and it begins with the singer's own resolve before turning to what God is like. The heading attributes the psalm to David, though the psalm itself does not describe an occasion. The lines that follow move from the singer's praise to God's greatness and goodness, then to his works and to a kingdom that endures through all generations. Psalms like this one were sung in worship at the temple and in personal prayer."
+   }
+  },
+  "PSA.145.6": {
+   "historicalContext": {
+    "before": "Psalm 145 is a praise psalm, and its heading attributes it to David. The psalm opens with the writer's own promise to exalt God every day, and by this point the focus widens. The lines just before speak of one generation telling its works to another, and the lines after speak of God's goodness being sung and of his kingdom being made known to people. This verse sits in the middle of that widening circle, moving praise from the writer to the wider company of people who will hear. The book background places psalms like this in Israel's worship, both in the temple and in personal prayer.",
+    "after": "Psalm 145 is a praise psalm, and its heading attributes it to David. The psalm opens with the writer's own promise to exalt God every day, and by this point the focus widens. The lines just before speak of one generation telling its works to another, and the lines after speak of God's goodness being sung and of his kingdom being made known to people. This verse sits in the middle of that widening circle, moving praise from the writer to the wider company of people who will hear. Psalms like this belong in Israel's worship, both in the temple and in personal prayer."
+   }
+  },
+  "PSA.146.1": {
+   "didYouKnow": {
+    "before": "Look at the two forms of the praise word. The opening call is plural, addressed to a group, while the word used with my soul is singular, addressed to one person. The verse uses two number forms of the same verb in one short line.",
+    "after": "Look at the two forms of the praise word, halu and hali. The opening call, halu, is plural, addressed to a group, while hali, used with my soul, is singular, addressed to one person. The verse uses two number forms of the same verb in one short line."
+   },
+   "lifeInBibleTimes": {
+    "before": "The book background says Israel used the psalms in worship at the temple and in personal prayer. The closing line mentions Zion, the hill in Jerusalem where the temple stood, so the psalm links praise with that place of worship. Singing was a common part of this kind of worship, and psalms were probably sung or chanted by groups as well as spoken alone. This helps explain why a poem can speak of praise as something the whole community and the individual soul both take part in.",
+    "after": "Israel used the psalms in worship at the temple and in personal prayer. The closing line mentions Zion, the hill in Jerusalem where the temple stood, so the psalm links praise with that place of worship. Singing was a common part of this kind of worship, and psalms were probably sung or chanted by groups as well as spoken alone. This helps explain why a poem can speak of praise as something the whole community and the individual soul both take part in."
+   }
+  },
+  "PSA.149.6": {
+   "lifeInBibleTimes": {
+    "before": "Swords were common weapons for soldiers in the ancient world. In this psalm the sword stands for force used to carry out judgment, and the verse pairs it with praise as something held in the hand. Verse 3 of the psalm mentions a tambourine and a harp, which were common instruments for praise in ancient Israel and probably were played at festivals and at worship.",
+    "after": "Swords were common weapons for soldiers in the ancient world. In this psalm the sword stands for force used to carry out judgment, and the verse pairs it with praise as something held in the hand. The psalm also mentions a tambourine and a harp, which were common instruments for praise in ancient Israel and probably were played at festivals and at worship."
+   }
+  },
+  "PSA.17.6": {
+   "lifeInBibleTimes": {
+    "before": "The book background notes that the psalms were used in worship at the temple and in personal prayer. A prayer like this one was probably spoken aloud, with the words meant to be heard by God and perhaps by others present. Speaking a prayer out loud was a normal way to call on God, and the verse's focus on hearing speech fits that setting.",
+    "after": "The psalms were used in worship at the temple and in personal prayer. A prayer like this one was probably spoken aloud, with the words meant to be heard by God and perhaps by others present. Speaking a prayer out loud was a normal way to call on God, and the verse's focus on hearing speech fits that setting."
+   }
+  },
+  "PSA.31.8": {
+   "theology": {
+    "before": "This verse names God as the one who keeps a person from being handed over to enemies and who gives room to move. The psalm is a prayer of trust, and the line shows that trust in God is not only about holding on inside a hard situation but also about being brought out of it. The LORD is addressed directly, so the relationship described is personal rather than distant. A related passage, Psalm 18:19, speaks of God bringing a person into a large place, which links this experience with other poems of rescue. Across the Bible, God is often shown as one who frees people from danger, and this verse gives that truth a first-person voice of thanks.",
+    "after": "This verse names God as the one who keeps a person from being handed over to enemies and who gives room to move. The psalm is a prayer of trust, and the line shows that trust in God is not only about holding on inside a hard situation but also about being brought out of it. The LORD is addressed directly, so the relationship described is personal rather than distant. Psalm 18:19 speaks of God bringing a person into a large place, which links this experience with other poems of rescue."
+   }
+  },
+  "PSA.37.30": {
+   "theology": {
+    "before": "The verse shows that God's people are meant to be known by their words as well as their deeds. Wisdom and justice are what God cares about, and the psalm has just said that the Lord loves justice. Speech is treated as a window into the heart: the law of God is said to be in the righteous person's heart, so words come out of that inner life. Matthew 12:35 makes a similar point, that the mouth speaks out of what fills the heart. Proverbs also links wise speech with a righteous life, and Ephesians 4:29 asks that words build others up. The verse does not promise that a good speaker will always be understood or praised; it describes what a faithful life tends to sound like.",
+    "after": "The verse shows that God's people are meant to be known by their words as well as their deeds. Wisdom and justice are what God cares about, and the psalm has just said that the LORD loves justice. Speech is treated as a window into the heart: the law of God is said to be in the righteous person's heart, so words come out of that inner life. Matthew 12:35 makes a similar point, that the mouth speaks out of what fills the heart. Ephesians 4:29 asks that words build others up."
+   }
+  },
+  "PSA.38.14": {
+   "theology": {
+    "before": "This verse shows an honest person before God. The psalmist does not pretend he has a clever answer or a strong defense. He admits he has gone quiet. The psalm also shows that God hears even when a person cannot speak, since the psalmist says his groaning is not hidden from the Lord. Confession runs through the psalm as well, as he says he will declare his iniquity and be sorry for his sin. The related passages help the reader see silence in a wider light. Mark 15:3-5 describes Jesus remaining silent before accusers, and some readers connect that silence with the picture here. Micah 7:5 warns against placing trust in a friend, which echoes the psalm's sense of abandonment.",
+    "after": "This verse shows an honest person before God. The psalmist does not pretend he has a clever answer or a strong defense. He admits he has gone quiet. The psalm also shows that God hears even when a person cannot speak, since the psalmist says his groaning is not hidden from the Lord, and he says he will declare his iniquity. Mark 15:3-5 describes Jesus remaining silent before accusers, and some readers connect that silence with the picture here. Micah 7:5 warns against placing trust in a friend, which echoes the psalm's sense of abandonment."
+   }
+  },
+  "PSA.41.6": {
+   "lifeInBibleTimes": {
+    "before": "Visiting a sick friend or relative was a common way to show care. The psalm's speaker is ill and lying in bed, and verse 3 mentions a sickbed. Visitors probably came into the house or the room where the sick person rested, and they may have talked with family and neighbors while they were there. The phrase about going abroad most likely refers to going out into the open, where people gathered in streets, gates or town squares to talk. This is a general picture of village life, and the verse does not spell out these details.",
+    "after": "Visiting a sick friend or relative was a common way to show care. The psalm's speaker is ill and lying in bed, as the lines just before describe. Visitors probably came into the house or the room where the sick person rested, and they may have talked with family and neighbors while they were there. The phrase about going abroad most likely refers to going out into the open, where people gathered in streets, gates or town squares to talk. This is a general picture of village life, and the verse does not spell out these details."
+   }
+  },
+  "PSA.45.11": {
+   "theology": {
+    "before": "The verse shows a relationship between God and his people built on love and loyal honor, not only duty. The king's desire is drawn toward one who turns to him, and the call to honor rests on the fact that he is her lord. Psalm 45:6 speaks of a throne that lasts forever and ever. Isaiah 54:5 describes the one who made Israel as a husband, and Song of Solomon 4:1-5 praises a beloved's beauty. Philippians 2:10-11 speaks of every knee bowing to Jesus as Lord. Christians have often read psalms like this as pointing to Christ, while Jewish readers usually take the king to be an Israelite king. Both readings take the call to honor seriously.",
+    "after": "The verse shows a relationship between God and his people built on love and loyal honor, not only duty. The king's desire is drawn toward one who turns to him, and the call to honor rests on the fact that he is her lord. Isaiah 54:5 describes the one who made Israel as a husband, and Philippians 2:10-11 speaks of every knee bowing to Jesus as Lord. Christians have often read psalms like this as pointing to Christ, while Jewish readers usually take the king to be an Israelite king."
+   }
+  },
+  "PSA.48.10": {
+   "didYouKnow": {
+    "before": "Word order in the Hebrew of this verse puts the word for 'is full' before the word for 'your right hand', while English reads the right hand first. The fullness comes first, and the hand that carries it follows.",
+    "after": "The Hebrew word malah means 'it is full' and comes before the word for 'your right hand', yeminekha. English reads the right hand first, but the Hebrew puts the fullness first, and the hand that carries it follows."
+   }
+  },
+  "PSA.48.11": {
+   "historicalContext": {
+    "before": "The psalm praises God for the city of Zion. Earlier in the psalm, kings are said to have gathered, seen the city, been amazed, and hurried away, and the psalm speaks of God being a refuge in its citadels. That is why the call to joy comes here: the city has been kept safe, and God's rulings are seen as right. The psalm calls the city the city of the great King and God's holy mountain. Book background: the psalms were sung and prayed in Israel's worship. The heading links this psalm to the sons of Korah, though the headings' origins are debated.",
+    "after": "The psalm praises God for the city of Zion. Earlier in the psalm, kings are said to have gathered, seen the city, been amazed, and hurried away, and the psalm speaks of God being a refuge in its citadels. That is why the call to joy comes here: the city has been kept safe, and God's rulings are seen as right. The psalm calls the city the city of the great King and God's holy mountain. The psalms were sung and prayed in Israel's worship. The heading links this psalm to the sons of Korah, though the headings' origins are debated."
+   }
+  },
+  "PSA.49.14": {
+   "theology": {
+    "before": "The verse shows that wealth and status cannot protect anyone from death. People who trust in riches are pictured as sheep led away by a shepherd they did not choose. Yet the verse also hints at a reversal in the morning, when the upright hold authority over those who once seemed powerful, so God's justice is not shown as ended by death. Related passages develop this hope. Malachi 4:3 speaks of the righteous treading down the wicked, and 1 Corinthians 6:2 says the holy ones will judge the world. Psalm 39:11 and Job 24:19-20 show the same hard reality of mortal life and the fading of the proud. The hope in the verse rests on God, not on wealth.",
+    "after": "The verse shows that wealth and status cannot protect anyone from death. People who trust in riches are pictured as sheep led away by a shepherd they did not choose. Yet the verse also hints at a reversal in the morning, when the upright hold authority over those who once seemed powerful, so God's justice is not shown as ended by death. Malachi 4:3 speaks of the righteous treading down the wicked, and 1 Corinthians 6:2 says the holy ones will judge the world. The hope in the verse rests on God, not on wealth."
+   }
+  },
+  "PSA.51.15": {
+   "meaning": {
+    "before": "The psalmist asks the Lord to open their lips so that their mouth can declare God's praise. The request comes right after verse 14's plea to be freed from the guilt of bloodshed and its promise that the tongue will sing of God's righteousness. The speaker seems to recognize that praise does not come from their own ability; they need God to give them the words. The verse uses two nouns for speech, lips and mouth, which together describe the whole of speaking and singing aloud.",
+    "after": "The psalmist asks the Lord to open their lips so that their mouth can declare God's praise. The request comes right after the plea to be freed from the guilt of bloodshed and the promise that the tongue will sing of God's righteousness. The speaker seems to recognize that praise does not come from their own ability; they need God to give them the words. The verse uses two nouns for speech, lips and mouth, which together describe the whole of speaking and singing aloud."
+   }
+  },
+  "PSA.66.13": {
+   "didYouKnow": {
+    "before": "The word here is the ordinary word for a vow, a promise made to God. The word ends with a small ending that means 'my', so the verse says 'my vows' in one word rather than two.",
+    "after": "The Hebrew word nedarai means 'my vows', the ordinary word for a promise made to God. It ends with a small ending that means 'my', so the verse says 'my vows' in one word rather than two."
+   }
+  },
+  "PSA.68.21": {
+   "theology": {
+    "before": "The verse shows God as both deliverer and judge. The psalm has just said that escape from death belongs to the LORD, and this line shows that his rescue of his people goes together with his opposition to those who keep on in their guilt. Habakkuk 3:13 uses a similar picture of God going out to save his people and striking the head of the wicked, so the image belongs to a wider pattern in the Bible. Psalm 110:6 also speaks of God striking heads, and Hebrews 12:25 warns readers not to refuse the one who speaks, linking God's justice with a call to listen. The verse suggests that God's justice is real and that evil does not stand forever.",
+    "after": "The verse shows God as both deliverer and judge. The psalm has just said that escape from death belongs to the LORD, and this line shows that his rescue of his people goes together with his opposition to those who keep on in their guilt. Habakkuk 3:13 uses a similar picture of God going out to save his people and striking the head of the wicked. Hebrews 12:25 warns readers not to refuse the one who speaks. God's justice is real, and evil does not stand forever."
+   }
+  },
+  "PSA.71.20": {
+   "didYouKnow": {
+    "before": "The word here is the ordinary word for turning back or returning. It appears twice in this verse, once with the promise to keep the speaker alive and once with the promise to bring them up, so the repetition links these two promises closely together.",
+    "after": "The Hebrew word tashuv means 'you will return' and is the ordinary word for turning back. It appears twice in this verse, once with the promise to keep the speaker alive and once with the promise to bring them up, so the repetition links these two promises closely together."
+   }
+  },
+  "PSA.72.5": {
+   "theology": {
+    "before": "The verse shows that good rule is meant to last and to earn lasting respect, and the psalm treats this as something to ask for from God. Fear here means reverent honor rather than terror. The wider Bible links this hope to a ruler whose reign God establishes for a long time. Psalm 89:36-37 uses similar sun and moon imagery for David's line. Daniel 7:14 speaks of a figure given everlasting dominion that all peoples serve, and Revelation 11:15 says the kingdoms of the world become the kingdom of our Lord and of his Christ. Jewish and Christian readers differ on how this psalm's king relates to these later hopes, and this verse alone does not settle that question.",
+    "after": "The verse shows that good rule is meant to last and to earn lasting respect, and the psalm treats this as something to ask for from God. Fear here means reverent honor rather than terror. The wider Bible links this hope to a ruler whose reign God establishes for a long time. Psalm 89:36-37 uses similar sun and moon imagery for David's line, and Daniel 7:14 speaks of a figure given everlasting dominion. Jewish and Christian readers differ on how this psalm's king relates to these later hopes."
+   }
+  },
+  "PSA.73.14": {
+   "meaning": {
+    "before": "The psalmist says that all day long he has been plagued, and that every morning brought punishment. The King James Version says chastened, which carries the idea of being corrected or disciplined. The verse is his own complaint, spoken in the first person as I. It sits in a passage where he looks at the wicked, who seem to prosper without trouble, and feels that his own devotion has gained him little. The line just before says he cleansed his heart and washed his hands in innocence for nothing. Verse 14 names his ongoing hardship plainly, day after day, without softening it.",
+    "after": "The psalmist says that all day long he has been plagued, and that every morning brought punishment. The King James Version says chastened, which carries the idea of being corrected or disciplined. The verse is his own complaint, spoken in the first person as I. It sits in a passage where he looks at the wicked, who seem to prosper without trouble, and feels that his own devotion has gained him little. The line just before says he cleansed his heart and washed his hands in innocence for nothing. This verse names his ongoing hardship plainly, day after day, without softening it."
+   }
+  },
+  "PSA.74.15": {
+   "historicalContext": {
+    "before": "The psalm is a lament written in a time of great loss. The verses given show the sanctuary burned and enemies mocking God, and the writer asks how long this will last. Then verse twelve turns with the words \"Yet God is my King of old,\" and the lines that follow, including this one, recall God's power over the sea and the waters. The poem moves from grief to remembrance, so this verse offers a reason to trust in the middle of pain. The psalms were gathered over several centuries and have long been used in worship and personal prayer.",
+    "after": "The psalm is a lament written in a time of great loss. The verses around it show the sanctuary burned and enemies mocking God, and the writer asks how long this will last. Then the poem turns with the words \"Yet God is my King of old,\" and the lines that follow, including this one, recall God's power over the sea and the waters. The poem moves from grief to remembrance, so this verse offers a reason to trust in the middle of pain. The psalms were gathered over several centuries and have long been used in worship and personal prayer."
+   }
+  },
+  "PSA.74.5": {
+   "historicalContext": {
+    "before": "Psalm 74 is a lament, a prayer of grief and complaint addressed to God. It opens by asking why God seems to have rejected his people, and the verses that follow describe enemies destroying the sanctuary and the places where God was worshiped. The line about axes is one of the most vivid images in that account of ruin. The heading attributes this psalm to Asaph, and the book background notes that the psalms were gathered over several centuries.",
+    "after": "Psalm 74 is a lament, a prayer of grief and complaint addressed to God. It opens by asking why God seems to have rejected his people, and the verses that follow describe enemies destroying the sanctuary and the places where God was worshiped. The line about axes is one of the most vivid images in that account of ruin. The heading attributes this psalm to Asaph, and the psalms were gathered over several centuries."
+   }
+  },
+  "PSA.80.5": {
+   "historicalContext": {
+    "before": "The heading attributes this psalm to Asaph, and it is a prayer for help for the people. The line just before asks how long God will stay angry at his people's prayer. The lines after describe neighbors who quarrel with them and enemies who laugh at them, so this verse sits inside a picture of hardship from every side. Book background: the psalms were gathered over several centuries, and the dates of most single psalms are disputed.",
+    "after": "The heading attributes this psalm to Asaph, and it is a prayer for help for the people. The line just before asks how long God will stay angry at his people's prayer. The lines after describe neighbors who quarrel with them and enemies who laugh at them, so this verse sits inside a picture of hardship from every side. The psalms were gathered over several centuries, and the dates of most single psalms are disputed."
+   }
+  },
+  "PSA.83.9": {
+   "didYouKnow": {
+    "before": "Look at the three names in the verse. Each one is joined to a short word that means like, so the same pattern repeats: like Midian, like Sisera, like Jabin.",
+    "after": "Look at the three names in the verse. Each one is joined to a short prefix, as in kemidyan, that means like, so the same pattern repeats: like Midian, like Sisera, like Jabin."
+   }
+  },
+  "PSA.89.12": {
+   "theology": {
+    "before": "This verse shows God as the maker of the whole world, from the far north to the far south, and even its landmarks owe their existence to him. Creation is pictured as glad, since the mountains rejoice in God's name, in line with Psalm 98:8, where rivers clap and mountains sing. Job 26:7 also speaks of God stretching out the north and hanging the earth on nothing, which shows how wide and firm his making is. Psalm 133:3 mentions the dew of Hermon, reminding readers that the mountain is linked with blessing as well as beauty. For the reader, the verse suggests that God's care reaches every corner of the world, and that praise can rise from all of it.",
+    "after": "This verse shows God as the maker of the whole world, from the far north to the far south, and even its landmarks owe their existence to him. Creation is pictured as glad, since the mountains rejoice in God's name, in line with Psalm 98:8, where rivers clap and mountains sing. Job 26:7 also speaks of God stretching out the north, which shows how wide his making is. Psalm 133:3 mentions the dew of Hermon, reminding readers that the mountain is linked with blessing as well as beauty."
+   }
+  },
+  "PSA.89.25": {
+   "meaning": {
+    "before": "Here the psalm pictures God promising a king power over the sea and the rivers. Setting a hand on something means taking hold of it, so this is a picture of rule and control. Sea and rivers stand for wide lands and waters, so the promise is that the king's authority will reach very far. The verse follows lines about God's strength, protection from enemies and exaltation, and it carries the same theme of a secure, lasting rule. The nearby lines speak of 'my name' and 'my faithfulness,' so the promise is presented as coming from God. The king is not named in the verses given, but verse 27 calls him the highest of the kings of the earth.",
+    "after": "Here the psalm pictures God promising a king power over the sea and the rivers. Setting a hand on something means taking hold of it, so this is a picture of rule and control. Sea and rivers stand for wide lands and waters, so the promise is that the king's authority will reach very far. The verse follows lines about God's strength, protection from enemies and exaltation, and it carries the same theme of a secure, lasting rule. The nearby lines speak of 'my name' and 'my faithfulness,' so the promise is presented as coming from God. The king is not named in the verses around it, but a line just after calls him the highest of the kings of the earth."
+   }
+  },
+  "PSA.89.26": {
+   "didYouKnow": {
+    "before": "Look at the last word, 'my salvation': in Hebrew, the word for salvation ends in a small ending that means 'my', so the pronoun is built into the word rather than standing alone. The word for father works the same way, carrying its own 'my' at the end.",
+    "after": "Look at the word avi, 'my father', and the word yeshuati, 'my salvation': each ends in a small ending that means 'my', so the pronoun is built into the word rather than standing alone."
+   }
+  },
+  "PSA.9.3": {
+   "historicalContext": {
+    "before": "This line sits in the opening part of a thanksgiving psalm. Just before it, the writer says he will be glad, rejoice and sing praise. Just after it, the psalm says that God has maintained his just cause and sits on the throne judging righteously, so the verse gives the reason for that gladness. The picture widens later to the nations and to God's rule forever, and the psalm closes with a plea that God would put the nations in fear. The heading links the psalm to David, and the book background says many psalms were gathered over several centuries.",
+    "after": "This line sits in the opening part of a thanksgiving psalm. Just before it, the writer says he will be glad, rejoice and sing praise. Just after it, the psalm says that God has maintained his just cause and sits on the throne judging righteously, so the verse gives the reason for that gladness. The picture widens later to the nations and to God's rule forever, and the psalm closes with a plea that God would put the nations in fear. The heading links the psalm to David, and many psalms were gathered over several centuries."
+   }
+  },
+  "PSA.91.4": {
+   "meaning": {
+    "before": "The verse uses two pictures. The first is a bird spreading its feathers and wings over someone, so they are covered and kept close. The second is a shield, a piece of protection held up against harm. The verse says that God covers the reader this way, and that a person can take refuge under his wings. It then names what makes this safe: his faithfulness, meaning that he keeps his word and stays true. That faithfulness is called a shield and a rampart, a wall of defense. In the psalm, the verses just before this one speak of dwelling in the shelter of the Most High and calling him a refuge and fortress. Verse 4 gives that trust a picture a person can see, as a starting point for the fears the psalm goes on to name.",
+    "after": "The verse uses two pictures. The first is a bird spreading its feathers and wings over someone, so they are covered and kept close. The second is a shield, a piece of protection held up against harm. The verse says that God covers the reader this way, and that a person can take refuge under his wings. It then names what makes this safe: his faithfulness, meaning that he keeps his word and stays true. That faithfulness is called a shield and a rampart, a wall of defense. In the psalm, the verses just before this one speak of dwelling in the shelter of the Most High and calling him a refuge and fortress. This verse gives that trust a picture a person can see, as a starting point for the fears the psalm goes on to name."
+   }
+  },
+  "PSA.97.1": {
+   "didYouKnow": {
+    "before": "Look at the word that follows islands. The ordinary Hebrew word for many comes after the noun it describes, so the phrase reads roughly islands, many. That word order is how the multitude of islands is expressed in this line.",
+    "after": "Look at the word ravim, 'many', which follows iyim, 'islands'. The ordinary Hebrew word for many comes after the noun it describes, so the phrase reads roughly islands, many. That word order is how the multitude of islands is expressed in this line."
+   }
+  }
+ }
+}

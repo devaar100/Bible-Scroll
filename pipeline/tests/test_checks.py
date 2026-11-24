@@ -246,6 +246,25 @@ def test_pipeline_wording_flags_even_when_negated(written, bible):
         assert "pipeline_wording" in checks_named(outcome(written, bible)), text
 
 
+def test_supplied_with_in_a_narrative_passes(written, bible):
+    # Psalm 78:29's study, real sentence (checker 16)
+    written["didYouKnow"] = words(30, "It looks back at a time when the people were living in a camp and were "
+                                      "supplied with food.")
+    assert "pipeline_wording" not in checks_named(outcome(written, bible))
+    for text in ("The words supplied here.", "The verses supplied show this.", "As supplied, the list is short."):
+        written["didYouKnow"] = words(30, text)
+        assert "pipeline_wording" in checks_named(outcome(written, bible)), text
+
+
+def test_english_words_after_hebrew_word_are_not_transliterations(written, bible):
+    # Real sentences from Psalms 81:3, 136:15 and 18:38 (checker 16)
+    for text in ("A shofar is a ram's horn, and that is the instrument the Hebrew word names here.",
+                 "So the phrase comes from one Hebrew word rather than two.",
+                 "The verb ends with a built-on 'them', so one Hebrew word covers what English needs two words to say."):
+        written["lifeInBibleTimes"] = words(40, text)
+        assert "original_language" not in checks_named(outcome(written, bible)), text
+
+
 def test_context_crosses_chapters_but_not_psalms():
     from pipeline.context import context_keys
     verses = [(43, 1, v) for v in range(1, 52)] + [(43, 2, v) for v in range(1, 26)]
