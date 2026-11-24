@@ -21,7 +21,7 @@ from .prose_refs import check_reference, find_references
 from .store import Bible, StudyStore, is_written, now, parse_id
 
 CHECKS_DIR = PIPELINE / "checks"
-CHECKER_VERSION = "16"  # 16: "supplied with" passes; more English words after "Hebrew word". 15: "the/these instructions" is pipeline wording only when it points at the input
+CHECKER_VERSION = "17"  # 17: "the verses given" etc. are pipeline wording. 16: "supplied with" passes; more English words after "Hebrew word". 15: "the/these instructions" is pipeline wording only when it points at the input
 # 14: 14: banned "you must/you need to" only as a sentence-opening command; "word count"
 # passes when a quoted word follows
 # 13: verse_position blocks verse numbers only ("verse 5", "verse three"), not positions

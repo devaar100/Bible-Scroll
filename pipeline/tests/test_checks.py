@@ -265,6 +265,25 @@ def test_english_words_after_hebrew_word_are_not_transliterations(written, bible
         assert "original_language" not in checks_named(outcome(written, bible)), text
 
 
+def test_verses_given_is_pipeline_wording(written, bible):
+    # Real sentences (checker 17): Psalm 55:1, Luke 11:30, Psalm 69:7, Luke 12:43, Psalm 55:6, Matthew 7:22
+    for text in ("The verses given show a person under attack, speaking of the voice of the enemy.",
+                 "In the verses given, the answer is that only the sign of Jonah will be given.",
+                 "In the lines given here, the speaker asks God to protect those who trust him.",
+                 "In the text given, the steward's job is to hand out food to the household.",
+                 "Lines given with it describe violence and strife in a city.",
+                 "In the words given here, people address the one they call Lord."):
+        written["historicalContext"] = words(60, text)
+        assert "pipeline_wording" in checks_named(outcome(written, bible)), text
+    # Ordinary uses: John 16:4, John 17:9, Matthew 4:21, and the rewritten forms
+    for text in ("Hard days are part of the path, and words given in advance are meant to steady people.",
+                 "They are those who received the words given to them and came to know where those words came from.",
+                 "It says only that he called them, with no words given, which keeps the focus on the invitation.",
+                 "The surrounding verses show a person under attack.", "The verses around it describe a city."):
+        written["historicalContext"] = words(60, text)
+        assert "pipeline_wording" not in checks_named(outcome(written, bible)), text
+
+
 def test_context_crosses_chapters_but_not_psalms():
     from pipeline.context import context_keys
     verses = [(43, 1, v) for v in range(1, 52)] + [(43, 2, v) for v in range(1, 26)]

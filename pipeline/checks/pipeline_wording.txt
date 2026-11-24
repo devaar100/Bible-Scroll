@@ -21,3 +21,8 @@ word range
 re: (?<!\w)word\s+count(?!\w)(?!\s*["“‘'])
 original words listed
 listed under
+# "the verses given" and the like talk about the writer's input (checker 17 / devotionals-9). Ordinary uses pass:
+# "words given in advance", "the words given to them", "with no words given".
+re: \b(?:the|these) (?:verses?|lines|text|passages?) (?:given|provided)\b(?!\s+(?:to|by|for|in advance)\b)
+re: \b(?:verses|lines|words) given (?:with|around|alongside) (?:it|this|the)\b
+re: \bthe words given(?: here)?(?=[,.:;]|\s+here\b)
