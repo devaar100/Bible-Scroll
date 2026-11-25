@@ -66,10 +66,6 @@ fun DevotionalArchiveScreen(
             )
         },
     ) { padding ->
-        if (state.visible == false) {
-            Box(Modifier.padding(padding).padding(20.dp)) { AiDevotionalsNotice(onShowAnyway = viewModel::showAnyway) }
-            return@Scaffold
-        }
         LazyColumn(Modifier.padding(padding).fillMaxSize(), contentPadding = PaddingValues(bottom = 24.dp)) {
             item(key = "count") {
                 Text(

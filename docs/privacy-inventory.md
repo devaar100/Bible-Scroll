@@ -104,8 +104,9 @@ or tracking SDK; no advertising ID permission; no account or sign-in.
 9. Study sources: the STEP Bible / OpenBible.info CC BY 4.0 attributions as shown; TAHOT morphology (ETCBC, CC BY-NC
    vs MIT, hidden in the app for now); TAGNT NA28 spellings; the five lemmas taken from STEP's brief lexicons
    (TBESH lemma column unconfirmed); TSK public domain.
-10. "How studies are made": that studies are AI-generated, checked automatically, and not individually reviewed by a
-    person unless marked; naming Anthropic's Claude.
+10. AI disclosure: the S8 "How studies are made" section was removed (2026-11-25, user decision: not a legal requirement).
+    The app now says only "Crafted with help from AI" on studies and devotionals, plus the Help FAQ; Anthropic's Claude
+    is no longer named in the app. Worth confirming with the lawyer that this is enough.
 11. Open-source notices: Apache-2.0 NOTICE files (Licensee doesn't collect them), the protobuf BSD-3-Clause notice,
     OFL notices for Literata and Inter.
 12. "Give directly": that the app handles no money and isn't responsible for ministries' sites; ministry vetting.

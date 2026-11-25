@@ -3,7 +3,6 @@ package aarnav100.developer.biblescroll.feature.community
 import aarnav100.developer.biblescroll.core.content.model.Ministry
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.time.Instant
 import java.time.ZoneId
@@ -70,10 +69,10 @@ class CommunityFormatTest {
     }
 
     @Test
-    fun aMinistryKeepsItsTintOnEveryScreen() {
-        assertEquals(tintIndex("caritas"), tintIndex("caritas"))
-        assertEquals(ministryTint("caritas", dark = false), ministryTint("caritas", dark = false))
-        val spread = listOf("caritas", "acn", "pms", "peters-pence", "malteser", "river", "harbor").map(::tintIndex).toSet()
-        assertTrue(spread.size >= 3) // ids spread over the palette instead of all landing on one colour
+    fun placeholderShowsTheNamesFirstLetter() {
+        assertEquals("R", ministryInitial("River Bible Translation", java.util.Locale.ENGLISH))
+        assertEquals("É", ministryInitial("«église» locale", java.util.Locale.FRENCH))
+        assertEquals("7", ministryInitial("  7 Hills", java.util.Locale.ENGLISH))
+        assertEquals("", ministryInitial("— ", java.util.Locale.ENGLISH))
     }
 }

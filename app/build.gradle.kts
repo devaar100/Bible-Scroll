@@ -13,6 +13,10 @@ plugins {
 val supportEmail = "<YOUR ADDRESS>"
 val supportEmailUnset = !supportEmail.contains('@')
 
+/** Who publishes the app: named in the privacy policy (S8 and web/privacy/). Replace before a release. */
+val developerName = "<YOUR NAME>"
+val developerNameUnset = developerName.isBlank() || developerName.startsWith("<")
+
 android {
     namespace = "aarnav100.developer.biblescroll"
     compileSdk {
@@ -30,6 +34,7 @@ android {
 
         // S7 "Report a problem" / "Send feedback": the address reports are emailed to. Defined here only.
         buildConfigField("String", "SUPPORT_EMAIL", "\"$supportEmail\"")
+        buildConfigField("String", "DEVELOPER_NAME", "\"$developerName\"")
     }
 
     buildTypes {
@@ -179,6 +184,9 @@ tasks.matching { it.name == "preReleaseBuild" }.configureEach {
     doFirst {
         if (supportEmailUnset) {
             throw GradleException("Set supportEmail in app/build.gradle.kts (S7 support address) before building a release.")
+        }
+        if (developerNameUnset) {
+            throw GradleException("Set developerName in app/build.gradle.kts (named in the privacy policy) before building a release.")
         }
     }
 }

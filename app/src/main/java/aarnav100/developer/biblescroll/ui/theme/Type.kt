@@ -47,12 +47,14 @@ val Typography = Typography(
     headlineMedium = base.headlineMedium.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
     headlineSmall = base.headlineSmall.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
     // UI: Inter
-    titleLarge = base.titleLarge.copy(fontFamily = Inter, fontWeight = FontWeight.SemiBold),
-    titleMedium = base.titleMedium.copy(fontFamily = Inter),
-    titleSmall = base.titleSmall.copy(fontFamily = Inter),
-    bodyLarge = base.bodyLarge.copy(fontFamily = Inter),
-    bodyMedium = base.bodyMedium.copy(fontFamily = Inter),
-    bodySmall = base.bodySmall.copy(fontFamily = Inter),
+    // Titles and body: no extra tracking. Material's defaults (0.15–0.5 sp) were tuned for Roboto; Inter already has
+    // open spacing, so they spread letters and made the gaps between words look wide.
+    titleLarge = base.titleLarge.copy(fontFamily = Inter, fontWeight = FontWeight.SemiBold, letterSpacing = 0.sp),
+    titleMedium = base.titleMedium.copy(fontFamily = Inter, letterSpacing = 0.sp),
+    titleSmall = base.titleSmall.copy(fontFamily = Inter, letterSpacing = 0.sp),
+    bodyLarge = base.bodyLarge.copy(fontFamily = Inter, letterSpacing = 0.sp),
+    bodyMedium = base.bodyMedium.copy(fontFamily = Inter, letterSpacing = 0.sp),
+    bodySmall = base.bodySmall.copy(fontFamily = Inter, letterSpacing = 0.sp),
     labelLarge = base.labelLarge.copy(fontFamily = Inter),
     labelMedium = base.labelMedium.copy(fontFamily = Inter),
     labelSmall = base.labelSmall.copy(fontFamily = Inter),

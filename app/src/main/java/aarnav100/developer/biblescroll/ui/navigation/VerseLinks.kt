@@ -35,7 +35,16 @@ class PendingVerseLink @Inject constructor() {
     private val _ref = MutableStateFlow<VerseRef?>(null)
     val ref: StateFlow<VerseRef?> = _ref.asStateFlow()
 
-    fun post(ref: VerseRef) {
+    /**
+     * Whether the pending link came from inside the app (a pill, "Read in context", a library row), so Back on the
+     * Bible tab returns to where it was tapped. False for links from outside (the widget), where Back exits as usual.
+     */
+    @Volatile
+    var fromApp: Boolean = true
+        private set
+
+    fun post(ref: VerseRef, fromApp: Boolean = true) {
+        this.fromApp = fromApp
         _ref.value = ref
     }
 

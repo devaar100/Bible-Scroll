@@ -55,8 +55,6 @@ internal suspend fun BibleRepository.devotionalVerses(translationId: String, dev
 @Immutable
 data class DevotionalDetailUiState(
     val date: LocalDate,
-    /** Null while settings load; false = Hide AI studies is on and the reader hasn't chosen to show them. */
-    val visible: Boolean? = null,
     val content: DevotionalState = DevotionalState.Loading(),
     val passages: List<String> = emptyList(),
     val read: Boolean = false,
@@ -88,19 +86,15 @@ class DevotionalDetailViewModel internal constructor(
         }
 
     val uiState: StateFlow<DevotionalDetailUiState> = combine(
-        devotionals.visible(), content, devotionals.finished(date.year), bible.books(), shareVerse,
-    ) { visible, c, finished, books, verse ->
+        content, devotionals.finished(date.year), bible.books(), shareVerse,
+    ) { c, finished, books, verse ->
         val names = books.associate { it.id to it.name }
         DevotionalDetailUiState(
-            date = date, visible = visible, content = c,
+            date = date, content = c,
             passages = (c as? DevotionalState.Available)?.devotional?.verses?.labels(names).orEmpty(),
             read = date in finished, shareVerse = verse, bookNames = names,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), DevotionalDetailUiState(date))
-
-    fun showAnyway() {
-        viewModelScope.launch { devotionals.showAnyway() }
-    }
 
     fun retry() = devotionals.content.retry(DevotionalCalendar.key(date).take(2))
 }
@@ -119,7 +113,6 @@ enum class SectionKind { Context, Reflect, ApplyIt, Prayer }
 @Immutable
 data class DevotionalReaderUiState(
     val date: LocalDate,
-    val visible: Boolean? = null,
     val content: DevotionalState = DevotionalState.Loading(),
     /** Cover, each verse, Context, Reflect, Apply it, then Prayer if there is one. Empty until verses load. */
     val pages: List<StoryPage> = emptyList(),
@@ -163,9 +156,9 @@ class DevotionalReaderViewModel internal constructor(
             }
 
     val uiState: StateFlow<DevotionalReaderUiState> = combine(
-        devotionals.visible(), content, pages, devotionals.finished(date.year),
-    ) { visible, c, (translation, pages), finished ->
-        DevotionalReaderUiState(date, visible, c, pages, date in finished, translation)
+        content, pages, devotionals.finished(date.year),
+    ) { c, (translation, pages), finished ->
+        DevotionalReaderUiState(date, c, pages, date in finished, translation)
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), DevotionalReaderUiState(date))
 
     /** The last page's "Finish": progress + streak (first time only). */
@@ -181,10 +174,6 @@ class DevotionalReaderViewModel internal constructor(
             }
         }
     }
-
-    fun showAnyway() {
-        viewModelScope.launch { devotionals.showAnyway() }
-    }
 }
 
 // ---- H17 Archive -----------------------------------------------------------------------------------
@@ -196,22 +185,19 @@ data class ArchiveDay(val date: LocalDate, val title: String?, val read: Boolean
 data class ArchiveMonth(val month: Int, val state: DevotionalMonthState, val days: List<ArchiveDay>)
 
 @Immutable
-data class DevotionalArchiveUiState(val visible: Boolean? = null, val months: List<ArchiveMonth> = emptyList(), val readCount: Int = 0)
+data class DevotionalArchiveUiState(val months: List<ArchiveMonth> = emptyList(), val readCount: Int = 0)
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class DevotionalArchiveViewModel @Inject constructor(private val devotionals: DevotionalsRepository) : ViewModel() {
 
-    val uiState: StateFlow<DevotionalArchiveUiState> = combine(devotionals.visible(), devotionals.today()) { v, t -> v to t }
-        .flatMapLatest { (visible, today) ->
-            // Only touch content (and so start downloads) once the reader can see devotionals.
-            if (!visible) return@flatMapLatest flowOf(DevotionalArchiveUiState(visible = false))
+    val uiState: StateFlow<DevotionalArchiveUiState> = devotionals.today()
+        .flatMapLatest { today ->
             val months = DevotionalCalendar.archiveMonths(today).map { m ->
                 devotionals.month(DevotionalCalendar.monthKey(m)).map { m to it }
             }
             combine(combine(months) { it.toList() }, devotionals.finished(today.year)) { states, finished ->
                 DevotionalArchiveUiState(
-                    visible = true,
                     months = states.map { (m, state) ->
                         val published = (state as? DevotionalMonthState.Available)?.devotionals.orEmpty()
                         ArchiveMonth(m, state, DevotionalCalendar.pastDays(today.year, m, today).reversed().map { d ->
@@ -224,10 +210,6 @@ class DevotionalArchiveViewModel @Inject constructor(private val devotionals: De
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), DevotionalArchiveUiState())
 
-    fun showAnyway() {
-        viewModelScope.launch { devotionals.showAnyway() }
-    }
-
     fun retry(month: Int) = devotionals.content.retry(DevotionalCalendar.monthKey(month))
 }
 
@@ -235,7 +217,7 @@ class DevotionalArchiveViewModel @Inject constructor(private val devotionals: De
 
 @Immutable
 data class HomeDevotionalUiState(
-    val visible: Boolean? = null,
+    /** Null until the date is known (loading). */
     val today: LocalDate? = null,
     val todayState: DevotionalState = DevotionalState.Loading(),
     val readToday: Boolean = false,
@@ -246,20 +228,15 @@ data class HomeDevotionalUiState(
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class HomeDevotionalViewModel @Inject constructor(private val devotionals: DevotionalsRepository) : ViewModel() {
-    val uiState: StateFlow<HomeDevotionalUiState> = combine(devotionals.visible(), devotionals.today()) { v, t -> v to t }
-        .flatMapLatest { (visible, today) ->
-            if (!visible) return@flatMapLatest flowOf(HomeDevotionalUiState(visible = false, today = today))
+    val uiState: StateFlow<HomeDevotionalUiState> = devotionals.today()
+        .flatMapLatest { today ->
             combine(
                 devotionals.devotional(DevotionalCalendar.key(today)),
                 devotionals.devotional(DevotionalCalendar.key(today.plusDays(1))),
                 devotionals.finished(today.year),
             ) { todayState, tomorrowState, finished ->
-                HomeDevotionalUiState(true, today, todayState, today in finished, (tomorrowState as? DevotionalState.Available)?.devotional)
+                HomeDevotionalUiState(today, todayState, today in finished, (tomorrowState as? DevotionalState.Available)?.devotional)
             }
         }
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), HomeDevotionalUiState())
-
-    fun showAnyway() {
-        viewModelScope.launch { devotionals.showAnyway() }
-    }
 }

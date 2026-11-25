@@ -121,8 +121,12 @@ class LegalTextTest {
         val pages = mapOf(en to File("../web/privacy/index.html"), es to File("../web/privacy/es/index.html"))
         for ((lang, page) in pages) {
             val html = page.readText()
-            for (key in privacyKeys - setOf("privacy_updated", "privacy_contact")) {
+            for (key in privacyKeys - setOf("privacy_updated", "privacy_contact", "privacy_who")) {
                 assertTrue("${page.path} is out of date for $key: run python3 tools/build_privacy_page.py", html.contains(escaped(lang.getValue(key))))
+            }
+            // privacy_who has the developer's name filled in: check the text on either side of it.
+            for (part in lang.getValue("privacy_who").split("%1\$s")) {
+                assertTrue("${page.path} is out of date for privacy_who: run python3 tools/build_privacy_page.py", html.contains(escaped(part)))
             }
         }
     }

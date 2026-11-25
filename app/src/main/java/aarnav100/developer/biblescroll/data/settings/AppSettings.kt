@@ -5,7 +5,7 @@ data class AppSettings(
     val themeMode: ThemeMode = ThemeMode.System,
     /** Background of the verse feed, independent of [themeMode]. Dark by default, per spec. */
     val readingBackground: ReadingBackground = ReadingBackground.Charcoal,
-    val accent: AccentPreset = AccentPreset.Crimson,
+    val accent: AccentPreset = AccentPreset.Amber,
     /** "Match my wallpaper"; only honoured on Android 12+. */
     val dynamicColor: Boolean = false,
     val redLetters: Boolean = true,

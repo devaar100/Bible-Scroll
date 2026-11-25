@@ -17,7 +17,7 @@
       </trans-unit>
       <trans-unit id="tab_home" resname="tab_home">
         <source>Home</source>
-        <note from="where">Bottom tab bar; H1 Home tab</note>
+        <note from="where">Bottom tab bar</note>
       </trans-unit>
       <trans-unit id="tab_bible" resname="tab_bible">
         <source>Bible</source>
@@ -48,7 +48,7 @@
       </trans-unit>
       <trans-unit id="feed_share" resname="feed_share">
         <source>Share</source>
-        <note from="where">B1 Bible feed: verse page</note>
+        <note from="where">B1 Bible feed: verse page; D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="feed_copy" resname="feed_copy">
         <source>Copy verse</source>
@@ -142,7 +142,7 @@
       </trans-unit>
       <trans-unit id="actions_copy" resname="actions_copy">
         <source>Copy</source>
-        <note from="where">B7 Verse actions sheet</note>
+        <note from="where">B7 Verse actions sheet; D1 Discover tab</note>
         <note from="developer">Verse actions (B7)</note>
       </trans-unit>
       <trans-unit id="actions_compare" resname="actions_compare">
@@ -964,7 +964,7 @@
         <note from="developer">S2: Hide AI studies</note>
       </trans-unit>
       <trans-unit id="settings_hide_ai_studies_summary" resname="settings_hide_ai_studies_summary">
-        <source>Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</source>
+        <source>Hides verse studies written with AI help. Scripture, notes, plans and devotionals aren\'t affected.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="settings_verse_scrubber" resname="settings_verse_scrubber">
@@ -1093,12 +1093,12 @@
         <source>Sources</source>
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
-      <trans-unit id="study_ai_assisted" resname="study_ai_assisted">
-        <source>AI-assisted, checked automatically</source>
-        <note from="where">B8/D2 Verse study</note>
+      <trans-unit id="ai_crafted" resname="ai_crafted">
+        <source>Crafted with help from AI</source>
+        <note from="where">B8/D2 Verse study; H15 Devotional detail</note>
       </trans-unit>
       <trans-unit id="study_reviewed" resname="study_reviewed">
-        <source>AI-assisted, reviewed by a person</source>
+        <source>Crafted with help from AI, reviewed by a person</source>
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_downloading" resname="study_downloading">
@@ -1110,7 +1110,7 @@
         <note from="where">B8/D2 Verse study</note>
       </trans-unit>
       <trans-unit id="study_offline_body" resname="study_offline_body">
-        <source>Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.</source>
+        <source>Studies for %1$s aren\'t on your phone yet. They\'ll download when you\'re back online.</source>
         <note from="where">B8/D2 Verse study</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
@@ -1159,13 +1159,33 @@
         <note from="where">D1 Discover tab</note>
         <note from="developer">D1 Discover</note>
       </trans-unit>
+      <trans-unit id="discover_copy_cd" resname="discover_copy_cd">
+        <source>Copy verse</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
       <trans-unit id="discover_open_in_context_cd" resname="discover_open_in_context_cd">
         <source>Read %1$s in context</source>
         <note from="where">D1 Discover tab</note>
         <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
-      <trans-unit id="discover_copy_cd" resname="discover_copy_cd">
-        <source>Copy verse</source>
+      <trans-unit id="discover_study_loading" resname="discover_study_loading">
+        <source>Study loading</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_study_offline" resname="discover_study_offline">
+        <source>Available when you\'re online</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_study_tap" resname="discover_study_tap">
+        <source>Tap to open the study</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_open_study" resname="discover_open_study">
+        <source>Open study</source>
+        <note from="where">D1 Discover tab</note>
+      </trans-unit>
+      <trans-unit id="discover_share_text" resname="discover_share_text">
+        <source>Share text</source>
         <note from="where">D1 Discover tab</note>
       </trans-unit>
       <trans-unit id="discover_state_liked" resname="discover_state_liked">
@@ -1224,12 +1244,12 @@
       </trans-unit>
       <trans-unit id="library_total[one]" resname="library_total[one]">
         <source>%1$d item</source>
-        <note from="where">H1 Home tab; H3 Library</note>
+        <note from="where">H3 Library</note>
         <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="library_total[other]" resname="library_total[other]">
         <source>%1$d items</source>
-        <note from="where">H1 Home tab; H3 Library</note>
+        <note from="where">H3 Library</note>
         <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="library_group_studies" resname="library_group_studies">
@@ -1254,7 +1274,7 @@
       </trans-unit>
       <trans-unit id="library_liked" resname="library_liked">
         <source>Liked</source>
-        <note from="where">H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+        <note from="where">H1 Home tab; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
       </trans-unit>
       <trans-unit id="library_bookmarked" resname="library_bookmarked">
         <source>Bookmarked</source>
@@ -1262,7 +1282,7 @@
       </trans-unit>
       <trans-unit id="library_notes" resname="library_notes">
         <source>Notes</source>
-        <note from="where">H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
+        <note from="where">H1 Home tab; H3 Library; H4-H7 Library lists (saved studies, studied, liked &amp; bookmarked, notes)</note>
       </trans-unit>
       <trans-unit id="library_sort_bible" resname="library_sort_bible">
         <source>Bible order</source>
@@ -1438,7 +1458,7 @@
       </trans-unit>
       <trans-unit id="plans_home_body" resname="plans_home_body">
         <source>Short, steady plans for every season</source>
-        <note from="where">H1 Home tab</note>
+        <note from="where">UNUSED (not referenced in code)</note>
       </trans-unit>
       <trans-unit id="plans_my_plans" resname="plans_my_plans">
         <source>My plans</source>
@@ -1450,7 +1470,7 @@
       </trans-unit>
       <trans-unit id="plans_build_title" resname="plans_build_title">
         <source>Build your own plan</source>
-        <note from="where">H8 Reading plans browser</note>
+        <note from="where">H1 Home tab; H8 Reading plans browser</note>
       </trans-unit>
       <trans-unit id="plans_build_body" resname="plans_build_body">
         <source>Pick a book and a pace that suits you</source>
@@ -1458,11 +1478,11 @@
       </trans-unit>
       <trans-unit id="plans_days[one]" resname="plans_days[one]">
         <source>%d day</source>
-        <note from="where">H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
+        <note from="where">H1 Home tab; H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
       </trans-unit>
       <trans-unit id="plans_days[other]" resname="plans_days[other]">
         <source>%d days</source>
-        <note from="where">H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
+        <note from="where">H1 Home tab; H13/H14 Create your own plan; H8 Reading plans browser; Names of plans the reader builds (H14)</note>
       </trans-unit>
       <trans-unit id="plans_minutes_a_day[one]" resname="plans_minutes_a_day[one]">
         <source>about %d min a day</source>
@@ -1887,7 +1907,7 @@
       </trans-unit>
       <trans-unit id="devo_tomorrow" resname="devo_tomorrow">
         <source>Tomorrow\'s devotional</source>
-        <note from="where">H1 Home: devotional cards</note>
+        <note from="where">UNUSED (not referenced in code)</note>
       </trans-unit>
       <trans-unit id="devo_tomorrow_in" resname="devo_tomorrow_in">
         <source>Tomorrow\'s devotional in %1$s</source>
@@ -1914,22 +1934,6 @@
       <trans-unit id="devo_share_verse" resname="devo_share_verse">
         <source>Share the verse as an image</source>
         <note from="where">H15 Devotional detail; H16 Devotional reader</note>
-      </trans-unit>
-      <trans-unit id="devo_ai_label" resname="devo_ai_label">
-        <source>Written with AI help and checked before publishing.</source>
-        <note from="where">H15 Devotional detail</note>
-      </trans-unit>
-      <trans-unit id="devo_ai_notice_title" resname="devo_ai_notice_title">
-        <source>Devotionals are AI-assisted</source>
-        <note from="where">Devotionals (H15-H17)</note>
-      </trans-unit>
-      <trans-unit id="devo_ai_notice_body" resname="devo_ai_notice_body">
-        <source>You\'ve chosen to hide AI studies. Daily devotionals are written with AI help, then checked before they\'re published. Scripture itself is never AI-written.</source>
-        <note from="where">Devotionals (H15-H17)</note>
-      </trans-unit>
-      <trans-unit id="devo_ai_show_anyway" resname="devo_ai_show_anyway">
-        <source>Show devotionals anyway</source>
-        <note from="where">Devotionals (H15-H17)</note>
       </trans-unit>
       <trans-unit id="devo_loading" resname="devo_loading">
         <source>Getting the devotional…</source>
@@ -2396,11 +2400,11 @@
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="help_q_studies" resname="help_q_studies">
-        <source>What does “AI-assisted” mean on a study?</source>
+        <source>What does “Crafted with help from AI” mean on a study?</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="help_a_studies" resname="help_a_studies">
-        <source>Each study was written once with help from an AI model, using openly licensed sources (original-language word data and cross-reference lists) that are named at the end of the study. Every study is checked automatically, and studies marked “reviewed by a person” were also read by someone. Nothing is generated while you read. To turn studies off, go to Settings → General → Hide AI studies. If something looks wrong, use Report a problem.</source>
+        <source>Some study content was written and reviewed with help from AI, drawing on several trusted sources to give you clear, helpful commentary. To hide it, go to Settings → General → Hide AI studies.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="help_q_backup" resname="help_q_backup">
@@ -2530,6 +2534,30 @@
         <source>Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
+      <trans-unit id="community_purpose_short" resname="community_purpose_short">
+        <source>Each month, readers choose one ministry. We donate to the one with the most votes.</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_how_it_works" resname="community_how_it_works">
+        <source>How it works</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_your_vote" resname="community_your_vote">
+        <source>Your vote</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_confirm_action" resname="community_confirm_action">
+        <source>Confirm vote</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_description_more" resname="community_description_more">
+        <source>Show full description</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
+      <trans-unit id="community_description_less" resname="community_description_less">
+        <source>Show less</source>
+        <note from="where">C1 Community tab</note>
+      </trans-unit>
       <trans-unit id="community_closes_today" resname="community_closes_today">
         <source>Closes today</source>
         <note from="where">C1 Community tab</note>
@@ -2548,10 +2576,6 @@
       </trans-unit>
       <trans-unit id="community_info_title" resname="community_info_title">
         <source>How the vote works</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_voted" resname="community_voted">
-        <source>Voted</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_voted_cd" resname="community_voted_cd">
@@ -2628,10 +2652,6 @@
       </trans-unit>
       <trans-unit id="community_confirm_body" resname="community_confirm_body">
         <source>Your vote is anonymous and can’t be changed this month.</source>
-        <note from="where">C1 Community tab</note>
-      </trans-unit>
-      <trans-unit id="community_confirm_vote" resname="community_confirm_vote">
-        <source>Vote</source>
         <note from="where">C1 Community tab</note>
       </trans-unit>
       <trans-unit id="community_confirm_cancel" resname="community_confirm_cancel">
@@ -2767,7 +2787,7 @@
         <note from="placeholders">Keep %1$s %2$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="privacy_title" resname="privacy_title">
-        <source>Privacy</source>
+        <source>Privacy policy</source>
         <note from="where">S1-S4 Settings</note>
         <note from="developer">Privacy (S8 Privacy and web/privacy/, generated from these strings by tools/build_privacy_page.py). Source of truth: docs/privacy-inventory.md. Never say data "never leaves" the phone.</note>
       </trans-unit>
@@ -2821,6 +2841,30 @@
         <source>If you let your phone share usage and diagnostics with Google, Google Play may send us crash statistics. The app has no crash-reporting code of its own.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
+      <trans-unit id="privacy_sharing_title" resname="privacy_sharing_title">
+        <source>Who we share data with</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_sharing" resname="privacy_sharing">
+        <source>We don’t sell personal information, we don’t share it for advertising, and nobody else gets data from the app. Google runs our content server and vote counter for us as a service provider, and sees IP addresses as described above. Google’s privacy policy (policies.google.com/privacy) covers that.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_security_title" resname="privacy_security_title">
+        <source>Keeping data safe</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_security" resname="privacy_security">
+        <source>Everything the app downloads or sends goes over an encrypted connection (HTTPS), and the app refuses unencrypted ones. Downloaded files are checked against a published fingerprint before they’re used. Your notes and other data stay in the app’s private storage, which other apps can’t read.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_retention_title" resname="privacy_retention_title">
+        <source>How long data is kept</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_retention" resname="privacy_retention">
+        <source>Data on your phone stays until you delete it or uninstall the app. The vote counter keeps only a total per ministry per month. Google keeps its server logs, which include IP addresses, for a limited time under its own policies, and we don’t use them to identify anyone. We keep emails you send only as long as we need them to answer you or correct the content, and we delete them sooner if you ask.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
       <trans-unit id="privacy_delete_title" resname="privacy_delete_title">
         <source>Deleting your data</source>
         <note from="where">S1-S4 Settings</note>
@@ -2829,9 +2873,35 @@
         <source>Uninstalling the app, or clearing its data, deletes everything it stored on this phone. A backup in your Google account follows your Google account settings. Community votes can’t be deleted because they aren’t linked to anyone. To ask us to delete an email you sent, write to us.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
-      <trans-unit id="privacy_contact_title" resname="privacy_contact_title">
-        <source>Contact</source>
+      <trans-unit id="privacy_rights_title" resname="privacy_rights_title">
+        <source>Your rights</source>
         <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_rights" resname="privacy_rights">
+        <source>Depending on where you live (for example under the GDPR in the EU and UK, or the CCPA in California), you can ask to see, correct or delete personal data we hold about you, object to how we use it, and complain to your data protection authority. We have no account or profile for you, so the only personal data we might hold is an email you sent us. Write to us and we’ll answer within 30 days.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_legal_basis" resname="privacy_legal_basis">
+        <source>We use your email only to answer it and correct the content, because you chose to send it. IP addresses are needed for any download or vote to work, which is our legitimate interest in running the app.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_children_title" resname="privacy_children_title">
+        <source>Children</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_children" resname="privacy_children">
+        <source>The app is for a general audience. It doesn’t ask anyone, including children, for personal information. If you think a child has emailed us personal information, write to us and we’ll delete it.</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_contact_title" resname="privacy_contact_title">
+        <source>Who we are and how to contact us</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="privacy_who" resname="privacy_who">
+        <source>Bible Scroll is made by %1$s, an independent developer, who is responsible for the personal data described on this page.</source>
+        <note from="where">S1-S4 Settings</note>
+        <note from="developer">%1$s = the developer's name</note>
+        <note from="placeholders">Keep %1$s (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="privacy_contact" resname="privacy_contact">
         <source>Questions about privacy: %1$s</source>
@@ -2870,14 +2940,6 @@
       </trans-unit>
       <trans-unit id="legal_source_lexicons" resname="legal_source_lexicons">
         <source>Word meanings come from the STEP Bible tagged Hebrew and Greek texts above. A few dictionary forms come from STEP Bible’s brief lexicons (TBESH, TBESG; CC BY 4.0). No lexicon definitions are included.</source>
-        <note from="where">S1-S4 Settings</note>
-      </trans-unit>
-      <trans-unit id="legal_studies_title" resname="legal_studies_title">
-        <source>How studies are made</source>
-        <note from="where">S1-S4 Settings</note>
-      </trans-unit>
-      <trans-unit id="legal_studies_body" resname="legal_studies_body">
-        <source>Each study was written once by an AI model (Anthropic’s Claude) from the sources above: the original-language data and cross references come from those datasets, not from the AI. Every study is checked automatically, partly by a second AI model. Studies are not individually reviewed by a person unless they say “reviewed by a person”. If something looks wrong, please tell us.</source>
         <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="legal_fonts" resname="legal_fonts">
@@ -2945,7 +3007,7 @@
       </trans-unit>
       <trans-unit id="legal_close" resname="legal_close">
         <source>Close</source>
-        <note from="where">C1 Community tab; S1-S4 Settings</note>
+        <note from="where">S1-S4 Settings</note>
       </trans-unit>
       <trans-unit id="widget_guide_title" resname="widget_guide_title">
         <source>Widget guide</source>
@@ -3046,21 +3108,58 @@
       </trans-unit>
       <trans-unit id="home_plan_caught_up" resname="home_plan_caught_up">
         <source>You’re up to date. The next day is here if you’d like to read ahead.</source>
-        <note from="where">H1 Home tab</note>
+        <note from="where">UNUSED (not referenced in code)</note>
       </trans-unit>
       <trans-unit id="home_plan_day_of" resname="home_plan_day_of">
         <source>Day %1$d of %2$d</source>
         <note from="where">H1 Home tab</note>
         <note from="placeholders">Keep %1$d %2$d (you may reorder them).</note>
       </trans-unit>
+      <trans-unit id="home_plan_day_done" resname="home_plan_day_done">
+        <source>Day %1$d done</source>
+        <note from="where">H1 Home tab</note>
+        <note from="placeholders">Keep %1$d (you may reorder them).</note>
+      </trans-unit>
+      <trans-unit id="home_greeting_morning" resname="home_greeting_morning">
+        <source>Good morning</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_greeting_afternoon" resname="home_greeting_afternoon">
+        <source>Good afternoon</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_greeting_evening" resname="home_greeting_evening">
+        <source>Good evening</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_votd_more" resname="home_votd_more">
+        <source>More actions</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_plans_see_all" resname="home_plans_see_all">
+        <source>See all</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_library_open" resname="home_library_open">
+        <source>Open</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_library_bookmarks" resname="home_library_bookmarks">
+        <source>Bookmarks</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
+      <trans-unit id="home_library_studies" resname="home_library_studies">
+        <source>Studies</source>
+        <note from="where">H1 Home tab</note>
+      </trans-unit>
       <trans-unit id="home_plan_minutes[one]" resname="home_plan_minutes[one]">
         <source>About %1$d minute</source>
-        <note from="where">H1 Home tab</note>
+        <note from="where">UNUSED (not referenced in code)</note>
         <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="home_plan_minutes[other]" resname="home_plan_minutes[other]">
         <source>About %1$d minutes</source>
-        <note from="where">H1 Home tab</note>
+        <note from="where">UNUSED (not referenced in code)</note>
         <note from="placeholders">Keep %1$d (you may reorder them).</note>
       </trans-unit>
       <trans-unit id="home_plan_read_day" resname="home_plan_read_day">

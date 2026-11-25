@@ -42,6 +42,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import aarnav100.developer.biblescroll.ui.theme.Spacing
+import aarnav100.developer.biblescroll.ui.theme.AppText
+import androidx.compose.material3.TextButton
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.stateDescription
@@ -56,13 +64,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltViewModel()) {
+fun DeepStudyScreen(onLeave: () -> Unit, theme: String? = null, viewModel: DeepStudyViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val reference = stringResource(R.string.ref_verse, state.bookName, state.ref.chapter, state.ref.verse)
-    val readInContext = { target: VerseRef ->
-        onLeave()
-        viewModel.readInContext(target)
-    }
+    // The study stays open under the jump to the Bible tab, so Back there returns here (BibleScrollAppUi.returnTo).
+    val readInContext = { target: VerseRef -> viewModel.readInContext(target) }
     val available = state.study is StudyState.Available && !state.hidden
     var reporting by rememberSaveable { mutableStateOf(false) }
     (state.study as? StudyState.Available)?.study?.takeIf { reporting }?.let { study ->
@@ -90,6 +96,14 @@ fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltVie
                 },
                 actions = {
                     if (available) {
+                        // Save study (H4): an icon in the bar; the accent when on.
+                        IconToggleButton(checked = state.marks.saved, onCheckedChange = { viewModel.toggleSaved() }) {
+                            Icon(
+                                if (state.marks.saved) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder,
+                                contentDescription = stringResource(if (state.marks.saved) R.string.study_saved else R.string.study_save),
+                                tint = if (state.marks.saved) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
                         val studiedLabel = stringResource(if (state.marks.studied) R.string.study_studied else R.string.study_not_studied)
                         IconToggleButton(
                             checked = state.marks.studied,
@@ -106,37 +120,32 @@ fun DeepStudyScreen(onLeave: () -> Unit, viewModel: DeepStudyViewModel = hiltVie
                 },
             )
         },
-        bottomBar = {
-            if (available) {
-                Surface(tonalElevation = 3.dp) {
-                    Row(
-                        Modifier.fillMaxWidth().navigationBarsPadding().padding(horizontal = 16.dp, vertical = 8.dp),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    ) {
-                        OutlinedButton(onClick = viewModel::toggleSaved, modifier = Modifier.weight(1f)) {
-                            Icon(if (state.marks.saved) Icons.Filled.Bookmark else Icons.Outlined.BookmarkBorder, contentDescription = null)
-                            Spacer(Modifier.padding(start = 8.dp))
-                            Text(stringResource(if (state.marks.saved) R.string.study_saved else R.string.study_save))
-                        }
-                        Button(onClick = { readInContext(state.ref) }, modifier = Modifier.weight(1f)) {
-                            Icon(Icons.AutoMirrored.Outlined.MenuBook, contentDescription = null)
-                            Spacer(Modifier.padding(start = 8.dp))
-                            Text(stringResource(R.string.study_read_in_context))
-                        }
-                    }
-                }
-            }
-        },
     ) { padding ->
         Column(
             Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 20.dp, vertical = 12.dp),
+                .navigationBarsPadding()
+                .padding(horizontal = Spacing.gutter)
+                .padding(top = Spacing.s, bottom = Spacing.xxl),
         ) {
-            StudyVerseHeader(reference, state.verseText)
-            Spacer(Modifier.height(12.dp))
+            StudyVerseHeader(reference, state.verse, verseText = state.verseText, translationId = state.translationId, theme = theme)
+            if (available) {
+                // Read in context: a quiet accent link under the verse (it replaced the filled bottom button).
+                TextButton(
+                    onClick = { readInContext(state.ref) },
+                    contentPadding = PaddingValues(horizontal = 0.dp),
+                    modifier = Modifier.padding(top = Spacing.s).heightIn(min = 48.dp),
+                ) {
+                    Icon(Icons.AutoMirrored.Outlined.MenuBook, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(Modifier.width(Spacing.s))
+                    Text(stringResource(R.string.study_read_in_context), style = AppText.button)
+                    Spacer(Modifier.width(Spacing.xs))
+                    Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(18.dp))
+                }
+            }
+            Spacer(Modifier.height(Spacing.l))
             StudyStateContent(
                 state, dataOnlyWhenHidden = false, onRetry = viewModel::retry, onShowStudies = viewModel::showStudies,
                 onOpenReference = readInContext, onReport = { reporting = true },

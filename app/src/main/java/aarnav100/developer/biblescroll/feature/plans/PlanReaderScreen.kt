@@ -127,8 +127,7 @@ private fun ReaderContent(
     val copied = stringResource(R.string.feed_copied)
     val copyAndConfirm: (Verse, String, SnackbarHostState) -> Unit = remember(context, scope, copied) {
         { verse, reference, host ->
-            context.copyVerse(verse, reference)
-            scope.launch {
+            if (context.copyVerse(verse, reference)) scope.launch {
                 host.currentSnackbarData?.dismiss()
                 host.showSnackbar(copied, duration = SnackbarDuration.Short)
             }

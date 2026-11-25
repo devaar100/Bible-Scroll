@@ -30,7 +30,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -103,7 +103,7 @@ fun SectionHeader(text: String) {
 
 /**
  * Live preview for S3/S4: a real red-letter verse on the chosen reading background, with the
- * accent-coloured like icon, at the chosen Scripture size. Uses the same theming as the feed.
+ * accent-coloured bookmark (likes stay red, so a heart wouldn't show the accent), at the chosen Scripture size. Uses the same theming as the feed.
  */
 @Composable
 fun VersePreviewCard(verse: Verse?, reference: String, modifier: Modifier = Modifier) {
@@ -131,9 +131,9 @@ fun VersePreviewCard(verse: Verse?, reference: String, modifier: Modifier = Modi
                     Text(reference, style = MaterialTheme.typography.titleSmall, color = colors.secondaryText)
                 }
                 Icon(
-                    Icons.Filled.Favorite,
+                    Icons.Filled.Bookmark,
                     contentDescription = null,
-                    tint = BibleScrollTheme.extendedColors.like,
+                    tint = MaterialTheme.colorScheme.primary,
                     modifier = Modifier
                         .padding(start = 16.dp)
                         .size(28.dp),

@@ -46,16 +46,31 @@ internal object DiscoverSamples {
         fact = if (fact) "Jesus said these words at the last supper, on the night before he died." else null,
     )
 
+    private const val ECC_9_10 = "Whatever your hand finds to do, do it with your might; for there is no work, nor plan, nor " +
+        "knowledge, nor wisdom, in Sheol, where you are going."
+    private const val SNG_8_6 = "Set me as a seal on your heart, as a seal on your arm; for love is strong as death. Jealousy is as cruel as " +
+        "Sheol. Its flashes are flashes of fire, a very flame of Yahweh."
+
+    /** The study's book is still downloading: placeholders hold its space. */
+    fun pending() = card(
+        "Love", VerseRef(22, 8, 6), "Song of Solomon 8:6", SNG_8_6, emptyList(), hook = null, fact = null, studySlot = StudySlot.DOWNLOADING,
+    )
+
+    /** Offline and the study's book isn't on the phone: a faded outline of the study and a caption. */
+    fun offline() = card(
+        "Purpose", VerseRef(21, 9, 10), "Ecclesiastes 9:10", ECC_9_10, emptyList(), hook = null, fact = null, studySlot = StudySlot.OFFLINE,
+    )
+
     private fun card(
         theme: String, ref: VerseRef, reference: String, text: String, jesus: List<IntRange>,
         hook: String?, fact: String?, aiHidden: Boolean = false, liked: Boolean = false, bookmarked: Boolean = false, hasNote: Boolean = false,
-        related: List<RelatedVerse> = emptyList(),
+        related: List<RelatedVerse> = emptyList(), studySlot: StudySlot = StudySlot.SHOWN,
     ) = DiscoverCardUi(
         ref = ref, theme = theme, reference = reference, translationId = "WEB",
         verse = Verse("WEB", ref, 0, text, jesus),
         hook = if (aiHidden) null else hook, fact = if (aiHidden) null else fact,
         dataLine = if (aiHidden) StudyDataLine(Language.HEBREW, 12) else null,
-        aiHidden = aiHidden, liked = liked, bookmarked = bookmarked, hasNote = hasNote, related = related,
+        aiHidden = aiHidden, liked = liked, bookmarked = bookmarked, hasNote = hasNote, related = related, studySlot = studySlot,
     )
 }
 
@@ -76,4 +91,5 @@ private fun CardPreview(dark: Boolean, card: DiscoverCardUi) {
 @Preview(name = "Light, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun ShortLight() = CardPreview(false, DiscoverSamples.love())
 @Preview(name = "Dark, red letters, short verse", widthDp = 390, heightDp = 660) @Composable private fun ShortDark() = CardPreview(true, DiscoverSamples.love())
 @Preview(name = "No Did you know", widthDp = 390, heightDp = 660) @Composable private fun NoFact() = CardPreview(false, DiscoverSamples.hope(fact = false))
+@Preview(name = "Study downloading", widthDp = 390, heightDp = 660) @Composable private fun Pending() = CardPreview(false, DiscoverSamples.pending())
 @Preview(name = "Hide AI studies on", widthDp = 390, heightDp = 660) @Composable private fun AiHidden() = CardPreview(false, DiscoverSamples.trust(aiHidden = true))

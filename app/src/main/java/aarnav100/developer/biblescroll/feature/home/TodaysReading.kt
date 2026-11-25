@@ -41,6 +41,29 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.draw.clip
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Button
+import androidx.compose.material.icons.automirrored.outlined.MenuBook
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.Icons
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
+import aarnav100.developer.biblescroll.ui.theme.Spacing
+import aarnav100.developer.biblescroll.ui.theme.AppText
+import aarnav100.developer.biblescroll.ui.theme.AppShapes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -91,6 +114,8 @@ sealed interface ReadingItem {
         val passages: List<String>,
         val minutes: Int,
         val startDate: LocalDate,
+        /** The plan's id (its Home photo); empty in older call sites and previews. */
+        val planId: String = "",
     ) : ReadingItem
 
     /** No active plan: back to the last reading place in the feed. */
@@ -145,6 +170,7 @@ object TodaysReadingRules {
                 passages = labels(d, day),
                 minutes = d.plan.minutesPerDay,
                 startDate = d.plan.startDate,
+                planId = d.plan.planId,
             )
         }
         if (active.isNotEmpty()) return pages
@@ -183,7 +209,12 @@ class TodaysReadingViewModel @Inject constructor(
     fun continueReading(ref: VerseRef) = pendingVerseLink.post(ref)
 }
 
-/** H1 Today's Reading card. Several plans: a small pager with dots. */
+/**
+ * H1 Today's Reading (docs/ui-direction.md, Home): one compact card. A plan page shows the plan's photo, where you are
+ * ("Psalms in 30 days · Day 3 of 30"), the passages in Literata, one button and a progress bar; with no active plan it's
+ * a single "Continue reading" (or "Start reading") row. Several plans: a pager with dots. The section label sits above
+ * the card (HomeScreen).
+ */
 @Composable
 fun TodaysReadingCard(
     items: List<ReadingItem>,
@@ -193,14 +224,8 @@ fun TodaysReadingCard(
     modifier: Modifier = Modifier,
 ) {
     if (items.isEmpty()) return
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = modifier.fillMaxWidth()) {
-        Column(Modifier.padding(top = 18.dp, bottom = 8.dp)) {
-            Text(
-                stringResource(R.string.home_todays_reading),
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(horizontal = 20.dp).semantics { heading() },
-            )
+    Surface(shape = AppShapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = modifier.fillMaxWidth()) {
+        Column(Modifier.padding(vertical = Spacing.xs)) {
             if (items.size == 1) {
                 ReadingPage(items.single(), onOpenPlanDay, onContinue, onOpenBible)
             } else {
@@ -210,7 +235,7 @@ fun TodaysReadingCard(
                 }
                 val position = stringResource(R.string.home_reading_page_of, pager.currentPage + 1, items.size)
                 Row(
-                    Modifier.fillMaxWidth().padding(top = 4.dp).clearAndSetSemantics { stateDescription = position },
+                    Modifier.fillMaxWidth().padding(bottom = Spacing.s).clearAndSetSemantics { stateDescription = position },
                     horizontalArrangement = Arrangement.Center,
                 ) {
                     repeat(items.size) { i ->
@@ -235,50 +260,107 @@ private fun pageKey(item: ReadingItem): String = when (item) {
 
 @Composable
 private fun ReadingPage(item: ReadingItem, onOpenPlanDay: (String, Int) -> Unit, onContinue: (VerseRef) -> Unit, onOpenBible: () -> Unit) {
-    Column(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        when (item) {
-            is ReadingItem.PlanDay -> {
-                Text(item.planTitle, style = MaterialTheme.typography.titleMedium)
-                when (item.state) {
-                    PlanDayState.FINISHED -> Body(pluralStringResource(R.plurals.home_plan_finished, item.totalDays, item.totalDays))
-                    PlanDayState.STARTS_LATER -> {
-                        val date = item.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault()))
-                        Body(stringResource(R.string.home_plan_starts, date))
-                    }
-                    PlanDayState.DUE, PlanDayState.CAUGHT_UP -> {
-                        if (item.state == PlanDayState.CAUGHT_UP) Body(stringResource(R.string.home_plan_caught_up))
-                        Text(dayHeading(item.dayNumber, item.dayTitle), style = MaterialTheme.typography.bodyLarge)
-                        if (item.passages.isNotEmpty()) Body(localizedList(item.passages))
-                        Body(stringResource(R.string.two_parts,
-                            stringResource(R.string.home_plan_day_of, item.dayNumber, item.totalDays),
-                            pluralStringResource(R.plurals.home_plan_minutes, item.minutes, item.minutes)))
-                    }
-                }
-                val action = when (item.state) {
-                    PlanDayState.DUE -> R.string.home_plan_read_day
-                    PlanDayState.CAUGHT_UP -> R.string.home_plan_read_ahead
-                    PlanDayState.STARTS_LATER -> R.string.home_plan_preview
-                    PlanDayState.FINISHED -> R.string.home_plan_look_back
-                }
-                TextButton(onClick = { onOpenPlanDay(item.enrollmentId, item.dayNumber) }, modifier = Modifier.padding(start = 0.dp)) {
-                    Text(stringResource(action))
-                }
-            }
-            is ReadingItem.ContinueReading -> {
-                Text(stringResource(R.string.home_continue_title), style = MaterialTheme.typography.titleMedium)
-                Body(item.reference)
-                TextButton(onClick = { onContinue(item.ref) }) { Text(stringResource(R.string.home_continue_action)) }
-            }
-            ReadingItem.StartReading -> {
-                Text(stringResource(R.string.home_start_title), style = MaterialTheme.typography.titleMedium)
-                Body(stringResource(R.string.home_start_body))
-                TextButton(onClick = onOpenBible) { Text(stringResource(R.string.home_start_action)) }
-            }
-        }
+    when (item) {
+        is ReadingItem.PlanDay -> PlanPage(item) { onOpenPlanDay(item.enrollmentId, item.dayNumber) }
+        is ReadingItem.ContinueReading -> RowPage(
+            icon = Icons.AutoMirrored.Outlined.MenuBook,
+            meta = stringResource(R.string.home_continue_title),
+            main = item.reference,
+            actionLabel = stringResource(R.string.home_continue_action),
+        ) { onContinue(item.ref) }
+        ReadingItem.StartReading -> RowPage(
+            icon = Icons.AutoMirrored.Outlined.MenuBook,
+            meta = stringResource(R.string.home_start_body),
+            main = stringResource(R.string.home_start_title),
+            actionLabel = stringResource(R.string.home_start_action),
+            onClick = onOpenBible,
+        )
     }
 }
 
 @Composable
-private fun Body(text: String) {
-    Text(text, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+private fun PlanPage(item: ReadingItem.PlanDay, onOpen: () -> Unit) {
+    val where = when (item.state) {
+        PlanDayState.DUE -> stringResource(R.string.home_plan_day_of, item.dayNumber, item.totalDays)
+        PlanDayState.CAUGHT_UP -> stringResource(R.string.home_plan_day_done, item.dayNumber - 1)
+        PlanDayState.STARTS_LATER -> stringResource(
+            R.string.home_plan_starts,
+            item.startDate.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(Locale.getDefault())),
+        )
+        PlanDayState.FINISHED -> pluralStringResource(R.plurals.home_plan_finished, item.totalDays, item.totalDays)
+    }
+    val main = when (item.state) {
+        PlanDayState.FINISHED -> item.planTitle
+        else -> item.passages.takeIf { it.isNotEmpty() }?.let { localizedList(it) } ?: dayHeading(item.dayNumber, item.dayTitle)
+    }
+    val action = stringResource(
+        when (item.state) {
+            PlanDayState.DUE -> R.string.home_plan_read_day
+            PlanDayState.CAUGHT_UP -> R.string.home_plan_read_ahead
+            PlanDayState.STARTS_LATER -> R.string.home_plan_preview
+            PlanDayState.FINISHED -> R.string.home_plan_look_back
+        },
+    )
+    // Days read so far: everything before the day to open (all of them when finished).
+    val progress = if (item.state == PlanDayState.FINISHED) 1f else ((item.dayNumber - 1).toFloat() / item.totalDays.coerceAtLeast(1))
+    Column(Modifier.fillMaxWidth().padding(Spacing.l)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painterResource(HomePhotos.forPlan(item.planId.ifEmpty { item.enrollmentId }).res),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(48.dp).clip(AppShapes.small),
+            )
+            Spacer(Modifier.width(Spacing.m))
+            Column(Modifier.weight(1f)) {
+                Text(
+                    stringResource(R.string.two_parts, item.planTitle, where),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Text(main, style = AppText.itemTitle.copy(fontSize = 17.sp, lineHeight = 22.sp), maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
+            Spacer(Modifier.width(Spacing.s))
+            if (item.state == PlanDayState.DUE) {
+                Button(onClick = onOpen, contentPadding = PaddingValues(horizontal = Spacing.l)) { Text(action, style = AppText.button) }
+            } else {
+                TextButton(onClick = onOpen, contentPadding = PaddingValues(horizontal = Spacing.s)) { Text(action, style = AppText.button) }
+            }
+        }
+        Spacer(Modifier.height(Spacing.m))
+        LinearProgressIndicator(
+            progress = { progress },
+            modifier = Modifier.fillMaxWidth().height(4.dp),
+            trackColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+            strokeCap = StrokeCap.Round,
+            drawStopIndicator = {},
+        )
+    }
+}
+
+/** No active plan: one tappable row (icon, small label, the place in Literata, chevron). */
+@Composable
+private fun RowPage(icon: ImageVector, meta: String, main: String, actionLabel: String, onClick: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clickable(onClickLabel = actionLabel, role = Role.Button, onClick = onClick)
+            .padding(Spacing.l),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            Modifier.size(44.dp).background(MaterialTheme.colorScheme.surfaceContainerHigh, CircleShape),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+        }
+        Spacer(Modifier.width(Spacing.m))
+        Column(Modifier.weight(1f)) {
+            Text(meta, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Text(main, style = AppText.itemTitle.copy(fontSize = 17.sp, lineHeight = 22.sp))
+        }
+        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
+    }
 }

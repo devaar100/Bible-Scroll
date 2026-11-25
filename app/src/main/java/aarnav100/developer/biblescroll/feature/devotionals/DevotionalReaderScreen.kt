@@ -76,14 +76,11 @@ fun DevotionalReaderScreen(onClose: () -> Unit, viewModel: DevotionalReaderViewM
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val devotional = (state.content as? DevotionalState.Available)?.devotional
     when {
-        devotional != null && state.visible == true && state.pages.isNotEmpty() -> StoryPager(state, devotional, onClose, viewModel::finish)
+        devotional != null && state.pages.isNotEmpty() -> StoryPager(state, devotional, onClose, viewModel::finish)
         else -> Surface(Modifier.fillMaxSize()) {
             Box(Modifier.fillMaxSize()) {
                 Column(Modifier.align(Alignment.Center).padding(24.dp)) {
-                    when {
-                        state.visible == false -> AiDevotionalsNotice(onShowAnyway = viewModel::showAnyway)
-                        devotional == null -> DevotionalStateMessage(state.content, onRetry = {})
-                    }
+                    if (devotional == null) DevotionalStateMessage(state.content, onRetry = {})
                 }
                 IconButton(onClick = onClose, modifier = Modifier.align(Alignment.TopStart).padding(4.dp)) {
                     Icon(Icons.Filled.Close, contentDescription = stringResource(R.string.devo_close))

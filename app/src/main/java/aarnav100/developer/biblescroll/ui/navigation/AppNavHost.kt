@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.ui.navigation
 
+import androidx.navigation.toRoute
 import aarnav100.developer.biblescroll.feature.bible.BibleScreen
 import aarnav100.developer.biblescroll.feature.community.CommunityScreen
 import aarnav100.developer.biblescroll.feature.community.HistoryScreen
@@ -67,7 +68,8 @@ import kotlinx.serialization.Serializable
 
 /** D2 Deep study, pushed full-screen over the Discover tab. */
 @Serializable data object CommunityHistoryRoute
-@Serializable data class DeepStudyRoute(val bookId: Int, val chapter: Int, val verse: Int)
+/** [theme]: the Discover card's theme label, shown above the verse when the study is opened from a card. */
+@Serializable data class DeepStudyRoute(val bookId: Int, val chapter: Int, val verse: Int, val theme: String? = null)
 
 @Composable
 fun AppNavHost(
@@ -83,14 +85,17 @@ fun AppNavHost(
         composable<CommunityRoute> { CommunityScreen(onOpenHistory = { navController.navigate(CommunityHistoryRoute) }) }
         composable<CommunityHistoryRoute> { HistoryScreen(onBack = back) }
         composable<DiscoverRoute> {
-            DiscoverScreen(onOpenStudy = { ref -> navController.navigate(DeepStudyRoute(ref.bookId, ref.chapter, ref.verse)) })
+            DiscoverScreen(onOpenStudy = { ref, theme -> navController.navigate(DeepStudyRoute(ref.bookId, ref.chapter, ref.verse, theme)) })
         }
-        composable<DeepStudyRoute> { DeepStudyScreen(onLeave = back) }
+        composable<DeepStudyRoute> { entry -> DeepStudyScreen(onLeave = back, theme = entry.toRoute<DeepStudyRoute>().theme) }
         composable<HomeRoute> {
             HomeScreen(
                 onOpenSettings = { navController.navigate(SettingsRoute) },
                 onOpenLibrary = { navController.navigate(LibraryRoute) },
                 onOpenPlans = { navController.navigate(PlansRoute) },
+                onOpenPlan = { navController.navigate(PlanDetailRoute(it)) },
+                onBuildPlan = { navController.navigate(CreatePlanRoute) },
+                onOpenLibraryList = { navController.navigate(LibraryListRoute(it.name)) },
                 onOpenDevotional = { navController.navigate(DevotionalRoute(it)) },
                 onOpenDevotionalArchive = { navController.navigate(DevotionalArchiveRoute) },
                 onOpenPlanDay = { id, day -> navController.navigate(PlanReaderRoute(id, day)) },

@@ -187,7 +187,6 @@ object BackupSettings {
         "hide_ai_studies" to Type.BOOLEAN,
         "verse_scrubber" to Type.STRING,
         "streak_grace_day" to Type.BOOLEAN,
-        "show_devotionals_when_ai_hidden" to Type.BOOLEAN,
         "translation_id" to Type.STRING,
         "reminder_enabled" to Type.BOOLEAN,
         "reminder_minute_of_day" to Type.INT,

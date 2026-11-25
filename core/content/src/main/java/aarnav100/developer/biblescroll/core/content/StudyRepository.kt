@@ -23,6 +23,8 @@ class StudyRepository(
     private val json: Json,
     private val decodeDispatcher: CoroutineDispatcher,
 ) {
+    private val reconnect = ReconnectRetry<Int>(downloader::retry)
+
     fun studyState(bookId: Int, chapter: Int, verse: Int): Flow<StudyState> {
         val key = VerseKey(bookId, chapter, verse)
         return combine(
@@ -44,6 +46,18 @@ class StudyRepository(
             .map { json -> json?.let { runCatching { this.json.decodeFromString(Study.serializer(), it) }.getOrNull() } }
             .distinctUntilChanged()
             .flowOn(decodeDispatcher)
+
+    /** Whether this book's studies are on the phone (for Discover's "why is the study missing" line). */
+    fun bookStored(bookId: Int): Flow<Boolean> = store.observeBook(bookId).map { it != null }.distinctUntilChanged()
+
+    /**
+     * True while this book's studies are downloading and not stored yet. Never starts a download (Discover cards show
+     * placeholders for the study while this is true).
+     */
+    fun downloading(bookId: Int): Flow<Boolean> =
+        combine(store.observeBook(bookId), downloader.state(bookId)) { book, download ->
+            book == null && (download is DownloadState.Downloading || download == DownloadState.Done)
+        }.distinctUntilChanged()
 
     /** Start downloading any of these books that aren't on the device yet (callers check for Wi-Fi). */
     suspend fun prefetch(bookIds: Collection<Int>) {
@@ -79,9 +93,12 @@ class StudyRepository(
             is DownloadState.Failed -> when (download.reason) {
                 DownloadFailure.NOT_PUBLISHED -> StudyState.Unavailable(StudyState.Unavailable.Reason.NO_STUDY)
                 DownloadFailure.APP_UPDATE_REQUIRED -> StudyState.Unavailable(StudyState.Unavailable.Reason.APP_UPDATE_REQUIRED)
-                DownloadFailure.NETWORK, DownloadFailure.INTEGRITY ->
-                    if (!online) StudyState.NotDownloaded(bookId, StudyState.NotDownloaded.Reason.OFFLINE)
-                    else StudyState.NotDownloaded(bookId, StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED)
+                DownloadFailure.NETWORK, DownloadFailure.INTEGRITY -> when {
+                    // Failed while offline and now back online: try once more by itself.
+                    reconnect.onFailure(bookId, online) -> StudyState.Loading(DownloadProgress(0, null))
+                    !online -> StudyState.NotDownloaded(bookId, StudyState.NotDownloaded.Reason.OFFLINE)
+                    else -> StudyState.NotDownloaded(bookId, StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED)
+                }
             }
             DownloadState.Idle ->
                 if (online) {

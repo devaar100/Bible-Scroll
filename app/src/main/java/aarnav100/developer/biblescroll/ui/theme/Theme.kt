@@ -104,7 +104,7 @@ private val LightExtended = ExtendedColors(
 
 private val DarkExtended = ExtendedColors(
     wordsOfJesus = CrimsonLight,
-    like = CrimsonLight,
+    like = LikeRedDark,
     streak = StreakOrangeDark,
     success = SuccessGreenDark,
     successContainer = SuccessContainerDark,
@@ -173,8 +173,8 @@ fun BibleScrollTheme(
         )
     }
     val baseExtended = if (dark) DarkExtended else LightExtended
+    // Likes stay red whatever the accent: a red heart is the convention people expect (decided 2026-11-24).
     val extended = baseExtended.copy(
-        like = colorScheme.primary,
         wordsOfJesus = if (settings.redLetters) baseExtended.wordsOfJesus else colorScheme.onSurface,
     )
 
@@ -191,8 +191,8 @@ fun BibleScrollTheme(
 
 /**
  * Re-themes [content] for a reading background (the feed, and S3/S4 previews): the Material roles
- * the feed uses map onto [background]'s colours, likes use the accent tuned for it, and Words of
- * Jesus use its own red. Defaults to the user's chosen background.
+ * the feed uses map onto [background]'s colours, likes stay red (tuned for light or dark), and Words
+ * of Jesus use its own red. Defaults to the user's chosen background.
  */
 @Composable
 fun ReadingTheme(
@@ -217,7 +217,7 @@ fun ReadingTheme(
         surfaceContainerHigh = reading.container,
     )
     val extended = BibleScrollTheme.extendedColors.copy(
-        like = accentColor,
+        like = if (reading.isDark) LikeRedDark else Crimson,
         wordsOfJesus = if (redLetters) reading.wordsOfJesus else reading.text,
     )
     CompositionLocalProvider(

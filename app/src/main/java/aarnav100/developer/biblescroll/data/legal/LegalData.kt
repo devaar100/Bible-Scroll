@@ -13,7 +13,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.time.LocalDate
 
 /** The privacy text's "Last updated" date (S8 and web/privacy/; tools/build_privacy_page.py reads it from here). */
-val PRIVACY_UPDATED: LocalDate = LocalDate.of(2026, 11, 18)
+val PRIVACY_UPDATED: LocalDate = LocalDate.of(2026, 11, 24)
 
 /**
  * bible.db keeps one `licence` text per translation with the attribution after "Source:", e.g.

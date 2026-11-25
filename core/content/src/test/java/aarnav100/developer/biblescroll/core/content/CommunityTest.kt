@@ -244,4 +244,19 @@ class CommunityTest {
         assertTrue(repo.refresh())
         assertEquals(MinistriesState.Ready(file), repo.ministries.first())
     }
+
+    // ---- ministries.json fields ----
+
+    @Test
+    fun categoriesFollowTheLanguageAndTheCreditIsRead() {
+        val json = """{"formatVersion":1,"ministries":[{"id":"river","name":"River","description":{"en":"x"},
+            "website":"https://r.org","give_url":"https://r.org/give","months_featured":["2026-12"],
+            "category":"Relief, Health","category_i18n":{"es":"Ayuda, Salud"},
+            "image":"https://x.web.app/community/images/river.jpg","image_credit":"Jane Doe, CC BY-SA 4.0"}]}"""
+        val m = Json.decodeFromString(MinistriesFile.serializer(), json).ministries.single()
+        assertEquals(listOf("Ayuda", "Salud"), m.categories("es"))
+        assertEquals(listOf("Relief", "Health"), m.categories("en"))
+        assertEquals(listOf("Relief", "Health"), m.categories("fr")) // English where there's no translation
+        assertEquals("Jane Doe, CC BY-SA 4.0", m.imageCredit)
+    }
 }

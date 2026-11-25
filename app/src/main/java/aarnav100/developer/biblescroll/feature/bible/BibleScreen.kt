@@ -115,9 +115,10 @@ fun BibleScreen(
             // Copy, then confirm in [host]. currentSnackbarData?.dismiss() so rapid copies don't queue up.
             val copyAndConfirm: (Verse, String, SnackbarHostState) -> Unit = remember(context, scope, copiedMessage) {
                 { verse, reference, host ->
-                    context.copyVerse(verse, reference)
-                    host.currentSnackbarData?.dismiss()
-                    scope.launch { host.showSnackbar(copiedMessage, duration = SnackbarDuration.Short) }
+                    if (context.copyVerse(verse, reference)) {
+                        host.currentSnackbarData?.dismiss()
+                        scope.launch { host.showSnackbar(copiedMessage, duration = SnackbarDuration.Short) }
+                    }
                 }
             }
 

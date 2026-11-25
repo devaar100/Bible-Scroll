@@ -81,15 +81,15 @@ class MainActivity : ComponentActivity() {
                     }
                     OnboardingScreen()
                 } else BibleScrollAppUi(
-                    pendingVerse = pendingVerseLink.ref,
+                    pendingVerse = pendingVerseLink,
                     pendingPlan = pendingPlanLink,
                     appDark = appDark,
-                    onSystemBarsDark = { statusDark ->
+                    onSystemBarsDark = { statusDark, navigationDark ->
                         // Status bar follows what's under it (the feed's reading background on the
-                        // Bible tab); the navigation bar sits on app chrome, so it follows app mode.
+                        // Bible tab); the navigation bar sits on app chrome (always dark on Discover).
                         enableEdgeToEdge(
                             statusBarStyle = barStyle(statusDark),
-                            navigationBarStyle = barStyle(appDark),
+                            navigationBarStyle = barStyle(navigationDark),
                         )
                     },
                 )
@@ -102,7 +102,7 @@ class MainActivity : ComponentActivity() {
 
     /** Widget taps arrive as biblescroll://verse/... links, plan reminders as biblescroll://plan/...; anything else is ignored. */
     private fun handleVerseLink(intent: Intent?) {
-        VerseLinks.parse(intent?.dataString)?.let(pendingVerseLink::post)
+        VerseLinks.parse(intent?.dataString)?.let { pendingVerseLink.post(it, fromApp = false) }
         PlanLinks.parse(intent?.dataString)?.let(pendingPlanLink::post)
     }
 }

@@ -165,10 +165,11 @@ internal fun WelcomeStep(onGetStarted: () -> Unit) {
         bottom = { PrimaryButton(stringResource(R.string.onb_get_started), onGetStarted) },
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            // The launcher art (its rounded square fills about 68% of the 108dp canvas, so about 98dp here).
+            painter = painterResource(R.mipmap.ic_launcher_foreground),
             contentDescription = null,
             modifier = Modifier
-                .size(112.dp)
+                .size(144.dp)
                 .align(Alignment.CenterHorizontally),
         )
         Spacer(Modifier.height(16.dp))

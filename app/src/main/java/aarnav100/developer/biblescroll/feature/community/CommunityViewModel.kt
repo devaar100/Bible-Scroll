@@ -238,7 +238,7 @@ class CommunityViewModel @Inject constructor(
             is MinistriesState.Ready -> ministries.file
         }
         val language = Locale.getDefault().language
-        fun ui(m: Ministry) = MinistryUi(m.id, m.name, m.description(language), m.website, m.giveUrl, m.categories, m.image)
+        fun ui(m: Ministry) = MinistryUi(m.id, m.name, m.description(language), m.website, m.giveUrl, m.categories(language), m.image)
         val round = CommunityRules.round(file, month, community.includeTest)
         val vote = votes[month]
         val anyListed = file.ministries.any { community.includeTest || !it.test }

@@ -20,7 +20,7 @@ class SettingsRepositoryTest {
         val s = repo.settings.first()
         assertEquals(ThemeMode.System, s.themeMode)
         assertEquals(ReadingBackground.Charcoal, s.readingBackground) // dark-default feed
-        assertEquals(AccentPreset.Crimson, s.accent)
+        assertEquals(AccentPreset.Amber, s.accent)
         assertFalse(s.dynamicColor)
         assertTrue(s.redLetters)
         assertEquals(ScriptureSize.Default, s.scriptureSize)

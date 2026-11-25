@@ -4,7 +4,10 @@ import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.core.content.CommunityHistoryRepository
 import aarnav100.developer.biblescroll.core.content.HistoryState
 import aarnav100.developer.biblescroll.core.content.model.Donation
+import aarnav100.developer.biblescroll.ui.theme.AppShapes
+import aarnav100.developer.biblescroll.ui.theme.AppText
 import aarnav100.developer.biblescroll.ui.theme.Literata
+import aarnav100.developer.biblescroll.ui.theme.Spacing
 import android.text.format.DateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,7 +19,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
@@ -49,6 +51,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -122,19 +125,19 @@ fun HistoryScreen(onBack: () -> Unit, viewModel: HistoryViewModel = hiltViewMode
 fun HistoryContent(state: HistoryUiState, onRetry: () -> Unit, modifier: Modifier = Modifier) {
     val locale = Locale.getDefault()
     Column(
-        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
+        modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = Spacing.gutter).padding(bottom = Spacing.xxl),
+        verticalArrangement = Arrangement.spacedBy(Spacing.m),
     ) {
-        Column(Modifier.padding(horizontal = 4.dp).padding(bottom = 8.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Column(Modifier.padding(bottom = Spacing.s), verticalArrangement = Arrangement.spacedBy(Spacing.s)) {
             Text(
                 stringResource(R.string.history_title),
-                style = MaterialTheme.typography.headlineLarge.copy(fontFamily = Literata, fontWeight = FontWeight.Medium),
+                style = AppText.screenTitle,
                 modifier = Modifier.semantics { heading() },
             )
             Text(stringResource(R.string.history_subtitle), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         when (state) {
-            HistoryUiState.Loading -> Box(Modifier.fillMaxWidth().padding(32.dp), contentAlignment = Alignment.Center) { CircularProgressIndicator() }
+            HistoryUiState.Loading -> Box(Modifier.fillMaxWidth().padding(Spacing.xxl), contentAlignment = Alignment.Center) { CircularProgressIndicator(color = MaterialTheme.colorScheme.onSurfaceVariant) }
             is HistoryUiState.Unavailable -> Message(stringResource(if (state.offline) R.string.history_offline else R.string.history_unavailable)) {
                 TextButton(onClick = onRetry) { Text(stringResource(R.string.community_retry)) }
             }
@@ -150,22 +153,20 @@ fun HistoryContent(state: HistoryUiState, onRetry: () -> Unit, modifier: Modifie
 @Composable
 private fun DonationCard(donation: Donation, locale: Locale) {
     Surface(
-        shape = RoundedCornerShape(20.dp),
+        shape = AppShapes.medium,
         color = MaterialTheme.colorScheme.surfaceContainerLow,
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.6f)),
-        shadowElevation = 1.dp,
         modifier = Modifier.fillMaxWidth().semantics(mergeDescendants = true) { },
     ) {
-        Row(Modifier.padding(14.dp), verticalAlignment = Alignment.CenterVertically) {
-            MinistryPlaceholder(donation.ministryId, iconSize = 20.dp, modifier = Modifier.size(56.dp).clip(RoundedCornerShape(14.dp)))
+        Row(Modifier.padding(Spacing.l), verticalAlignment = Alignment.CenterVertically) {
+            MinistryPlaceholder(donation.ministryName, letterSize = 24.sp, modifier = Modifier.size(56.dp).clip(AppShapes.small))
             Spacer(Modifier.width(14.dp))
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
                 Text(
                     historyMonth(donation.month, locale).uppercase(locale),
-                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.SemiBold, letterSpacing = 0.14.em),
+                    style = AppText.sectionLabel,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
-                Text(donation.ministryName, style = MaterialTheme.typography.titleMedium.copy(fontFamily = Literata, fontWeight = FontWeight.Medium))
+                Text(donation.ministryName, style = AppText.itemTitle)
                 donation.amountValue?.let { amount ->
                     Text(donatedLine(formatDonation(amount, donation.currency, locale)), style = MaterialTheme.typography.bodySmall)
                 }
@@ -188,8 +189,8 @@ private fun donatedLine(amount: String): AnnotatedString {
 
 @Composable
 private fun Message(text: String, action: (@Composable () -> Unit)? = null) {
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
-        Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+    Surface(shape = AppShapes.medium, color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
+        Column(Modifier.padding(Spacing.card), verticalArrangement = Arrangement.spacedBy(Spacing.s)) {
             Text(text, style = MaterialTheme.typography.bodyLarge)
             action?.invoke()
         }

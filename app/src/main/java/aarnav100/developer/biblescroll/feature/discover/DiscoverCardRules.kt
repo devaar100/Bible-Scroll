@@ -10,14 +10,14 @@ object DiscoverCardRules {
     const val MEDIUM_MAX = 190
 
     /** The verse slot shows at most this many lines (auto-sized to fit, then ellipsis); the full verse is one tap away. */
-    const val VERSE_MAX_LINES = 6
+    const val VERSE_MAX_LINES = 8
 
     fun verseSize(text: String): VerseSize {
         val length = text.trim().length
         return when {
-            length <= SHORT_MAX -> VerseSize(18f, 1.45f)
-            length <= MEDIUM_MAX -> VerseSize(16f, 1.45f)
-            else -> VerseSize(15f, 1.45f)
+            length <= SHORT_MAX -> VerseSize(24f, 1.4f)
+            length <= MEDIUM_MAX -> VerseSize(21f, 1.4f)
+            else -> VerseSize(19f, 1.4f)
         }
     }
 

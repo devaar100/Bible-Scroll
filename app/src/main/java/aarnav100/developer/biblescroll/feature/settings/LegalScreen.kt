@@ -1,5 +1,6 @@
 package aarnav100.developer.biblescroll.feature.settings
 
+import aarnav100.developer.biblescroll.BuildConfig
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.legal.LicenceText
 import aarnav100.developer.biblescroll.data.legal.OpenSourceLibrary
@@ -126,9 +127,21 @@ private fun LazyListScope.privacySection() {
     item { SubHeading(stringResource(R.string.privacy_android_title)) }
     item { Body(stringResource(R.string.privacy_android_backup)) }
     item { Body(stringResource(R.string.privacy_android_crashes)) }
+    item { SubHeading(stringResource(R.string.privacy_sharing_title)) }
+    item { Body(stringResource(R.string.privacy_sharing)) }
+    item { SubHeading(stringResource(R.string.privacy_security_title)) }
+    item { Body(stringResource(R.string.privacy_security)) }
+    item { SubHeading(stringResource(R.string.privacy_retention_title)) }
+    item { Body(stringResource(R.string.privacy_retention)) }
     item { SubHeading(stringResource(R.string.privacy_delete_title)) }
     item { Body(stringResource(R.string.privacy_delete)) }
+    item { SubHeading(stringResource(R.string.privacy_rights_title)) }
+    item { Body(stringResource(R.string.privacy_rights)) }
+    item { Body(stringResource(R.string.privacy_legal_basis)) }
+    item { SubHeading(stringResource(R.string.privacy_children_title)) }
+    item { Body(stringResource(R.string.privacy_children)) }
     item { SubHeading(stringResource(R.string.privacy_contact_title)) }
+    item { Body(stringResource(R.string.privacy_who, BuildConfig.DEVELOPER_NAME)) }
     item { Body(stringResource(R.string.privacy_contact, SupportAddress)) }
     item { Body(stringResource(R.string.privacy_changes)) }
 }
@@ -149,8 +162,6 @@ private fun LazyListScope.sourcesSection(onReport: () -> Unit) {
     items(listOf(R.string.legal_source_step, R.string.legal_source_openbible, R.string.legal_source_tsk, R.string.legal_source_lexicons)) {
         Body(stringResource(it))
     }
-    item { Heading(stringResource(R.string.legal_studies_title)) }
-    item { Body(stringResource(R.string.legal_studies_body)) }
     item {
         TextButton(onClick = onReport, contentPadding = PaddingValues(horizontal = 0.dp)) {
             Icon(Icons.Outlined.Flag, contentDescription = null, modifier = Modifier.size(18.dp))

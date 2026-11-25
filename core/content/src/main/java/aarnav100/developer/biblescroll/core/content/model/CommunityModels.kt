@@ -27,13 +27,22 @@ data class Ministry(
     val test: Boolean = false,
     /** Comma-separated categories, e.g. "Relief, Development"; shown above the name. */
     val category: String? = null,
+    /** [category] in other languages, by language code ("es"); English [category] where one is missing. */
+    @SerialName("category_i18n") val categoryI18n: Map<String, String> = emptyMap(),
     /** Card image (https, our Firebase Hosting site or Storage bucket; see MinistryImages). Optional. */
     val image: String? = null,
+    /** Who took the image and its licence, shown on the card (CC BY / BY-SA need it), e.g. "Jane Doe, CC BY-SA 4.0". */
+    @SerialName("image_credit") val imageCredit: String? = null,
     // amountPlanned is ignored on purpose: no amount is shown before a vote ends.
 ) {
     /** [category] split on commas, trimmed, blanks dropped. */
     val categories: List<String>
-        get() = category?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()
+        get() = split(category)
+
+    /** [categories] in [language] ("es"), falling back to English. */
+    fun categories(language: String): List<String> = split(categoryI18n[language] ?: category)
+
+    private fun split(text: String?): List<String> = text?.split(',')?.map { it.trim() }?.filter { it.isNotEmpty() }.orEmpty()
 
     /** In [language] ("es"), falling back to English. */
     fun description(language: String): String = description[language] ?: description["en"].orEmpty()

@@ -2,6 +2,25 @@ package aarnav100.developer.biblescroll.feature.devotionals
 
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.core.content.DevotionalState
+import aarnav100.developer.biblescroll.feature.home.HomePhotos
+import aarnav100.developer.biblescroll.ui.components.SectionHeader
+import aarnav100.developer.biblescroll.ui.theme.AppShapes
+import aarnav100.developer.biblescroll.ui.theme.AppText
+import aarnav100.developer.biblescroll.ui.theme.Spacing
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
+import java.util.Locale
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,7 +49,11 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
-/** Home: today's devotional, a "Tomorrow" countdown card, and the archive link. */
+/**
+ * Home: today's devotional as a photo card (the photo matching its cover style, HomePhotos) with the series and title
+ * over a dark scrim, a "Read today" tick once read, and one line counting down to tomorrow's. "All days" opens the
+ * archive.
+ */
 @Composable
 fun DevotionalHomeCards(
     onOpen: (date: String) -> Unit,
@@ -39,59 +62,73 @@ fun DevotionalHomeCards(
     viewModel: HomeDevotionalViewModel = hiltViewModel(),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    Column(modifier.fillMaxWidth().padding(top = 16.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(stringResource(R.string.devo_today_title), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
-            if (state.visible == true) TextButton(onClick = onOpenArchive) { Text(stringResource(R.string.devo_archive_link)) }
+    val today = state.today ?: return
+    Column(modifier.fillMaxWidth()) {
+        SectionHeader(stringResource(R.string.devo_today_title), link = stringResource(R.string.devo_archive_link), onLink = onOpenArchive)
+        val devotional = (state.todayState as? DevotionalState.Available)?.devotional
+        if (devotional == null) {
+            DevotionalStateMessage(state.todayState, onRetry = {})
+            return@Column
         }
-        when {
-            state.visible == false -> AiDevotionalsNotice(onShowAnyway = viewModel::showAnyway)
-            state.visible == null -> Unit
-            else -> {
-                val today = state.today
-                val devotional = (state.todayState as? DevotionalState.Available)?.devotional
-                if (devotional != null && today != null) {
-                    Surface(onClick = { onOpen(today.toString()) }, shape = RoundedCornerShape(20.dp), modifier = Modifier.fillMaxWidth()) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            CoverThumb(devotional.coverStyle, Modifier.size(96.dp))
-                            Column(Modifier.weight(1f).padding(horizontal = 16.dp, vertical = 12.dp)) {
-                                Text(devotional.title, style = MaterialTheme.typography.titleMedium)
-                                Text(devotional.theme, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 2)
-                                if (state.readToday) {
-                                    Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 4.dp)) {
-                                        Icon(Icons.Outlined.CheckCircle, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(16.dp))
-                                        Spacer(Modifier.width(4.dp))
-                                        Text(stringResource(R.string.devo_read_today), style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.primary)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    DevotionalStateMessage(state.todayState, onRetry = {})
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .clip(AppShapes.large)
+                .clickable(role = Role.Button) { onOpen(today.toString()) },
+        ) {
+            Image(
+                painterResource(HomePhotos.forDevotional(devotional.coverStyle).res),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.matchParentSize(),
+            )
+            // Bottom scrim so the white title reads on any photo.
+            Box(Modifier.matchParentSize().background(Brush.verticalGradient(0.35f to Color.Transparent, 1f to Color.Black.copy(alpha = 0.72f))))
+            Column(Modifier.align(Alignment.BottomStart).padding(Spacing.l)) {
+                Text(
+                    devotional.series.title.uppercase(Locale.getDefault()),
+                    style = AppText.sectionLabel,
+                    color = Color.White.copy(alpha = 0.85f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+                Spacer(Modifier.height(Spacing.xs))
+                Text(devotional.title, style = AppText.cardTitle, color = Color.White, maxLines = 2, overflow = TextOverflow.Ellipsis)
+            }
+            if (state.readToday) {
+                Row(
+                    Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(Spacing.m)
+                        .background(Color.Black.copy(alpha = 0.45f), CircleShape)
+                        .padding(horizontal = 10.dp, vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = Color.White, modifier = Modifier.size(14.dp))
+                    Spacer(Modifier.width(Spacing.xs))
+                    Text(stringResource(R.string.devo_read_today), style = MaterialTheme.typography.labelMedium, color = Color.White)
                 }
-                Spacer(Modifier.height(12.dp))
-                TomorrowCard(state.tomorrow?.theme)
             }
         }
+        TomorrowLine()
     }
 }
 
 /** Counts down to local midnight, when tomorrow's devotional becomes today's. */
 @Composable
-private fun TomorrowCard(theme: String?) {
+private fun TomorrowLine() {
     val left = rememberCountdown()
     val label = stringResource(R.string.devo_tomorrow_in, left)
-    Surface(shape = RoundedCornerShape(20.dp), color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = Modifier.fillMaxWidth()) {
-        Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(Icons.Outlined.Bedtime, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.width(16.dp))
-            Column(Modifier.weight(1f)) {
-                Text(stringResource(R.string.devo_tomorrow), style = MaterialTheme.typography.titleSmall)
-                theme?.let { Text(it, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant) }
-            }
-            // Read once by TalkBack (not every second): the label is static semantics, refreshed on focus.
-            Text(left, style = MaterialTheme.typography.titleMedium, modifier = Modifier.clearAndSetSemantics { contentDescription = label })
-        }
+    Row(Modifier.padding(top = Spacing.s), verticalAlignment = Alignment.CenterVertically) {
+        Icon(Icons.Outlined.Bedtime, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(16.dp))
+        Spacer(Modifier.width(6.dp))
+        // Read once by TalkBack (not every second): the label is static semantics, refreshed on focus.
+        Text(
+            label,
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.clearAndSetSemantics { contentDescription = label },
+        )
     }
 }

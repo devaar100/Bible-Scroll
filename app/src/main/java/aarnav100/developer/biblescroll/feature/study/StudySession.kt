@@ -3,6 +3,7 @@ package aarnav100.developer.biblescroll.feature.study
 import aarnav100.developer.biblescroll.core.content.StudyRepository
 import aarnav100.developer.biblescroll.core.content.StudyState
 import aarnav100.developer.biblescroll.data.bible.BibleRepository
+import aarnav100.developer.biblescroll.data.bible.model.Verse
 import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.settings.SettingsRepository
@@ -31,6 +32,8 @@ data class StudyUiState(
     val ref: VerseRef,
     val bookName: String = "",
     val verseText: String? = null,
+    /** The verse itself (for the header's red letters); null while loading. */
+    val verse: Verse? = null,
     /** Settings → Hide AI studies is on. */
     val hidden: Boolean = false,
     val study: StudyState = StudyState.Loading(),
@@ -75,12 +78,12 @@ class StudySession(
             }
         }
 
-    private val verseText = translationId.flatMapLatest { bible.verse(it, ref) }.map { it?.text }
+    private val verse = translationId.flatMapLatest { bible.verse(it, ref) }
 
     val uiState: StateFlow<StudyUiState> = combine(
-        hidden, studyState, crossReferences, userData.studyMarks(ref), combine(verseText, bookNames, translationId, ::Triple),
-    ) { isHidden, state, xrefs, marks, (text, names, translation) ->
-        StudyUiState(ref, names[ref.bookId].orEmpty(), text, isHidden, state, xrefs, marks, translation)
+        hidden, studyState, crossReferences, userData.studyMarks(ref), combine(verse, bookNames, translationId, ::Triple),
+    ) { isHidden, state, xrefs, marks, (v, names, translation) ->
+        StudyUiState(ref, names[ref.bookId].orEmpty(), v?.text, v, isHidden, state, xrefs, marks, translation)
     }.stateIn(scope, SharingStarted.WhileSubscribed(5_000), StudyUiState(ref))
 
     init {

@@ -5,7 +5,6 @@ import aarnav100.developer.biblescroll.core.content.DevotionalState
 import aarnav100.developer.biblescroll.core.content.DevotionalMonthState
 import aarnav100.developer.biblescroll.core.content.DevotionalRepository
 import aarnav100.developer.biblescroll.core.content.model.Devotional
-import aarnav100.developer.biblescroll.data.settings.SettingsRepository
 import aarnav100.developer.biblescroll.data.streak.StreakRepository
 import aarnav100.developer.biblescroll.domain.streak.StreakActivity
 import kotlinx.coroutines.flow.Flow
@@ -16,18 +15,17 @@ import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
 
-/** H15-H17 data: content (core/content), what's been read (user.db), and the Hide AI studies choice. */
+/** H15-H17 data: content (core/content) and what's been read (user.db). Devotionals stay visible with Hide AI studies on (spec S2). */
 @Singleton
 class DevotionalsRepository internal constructor(
     val content: DevotionalRepository,
     private val progress: DevotionalProgressDao,
     private val streaks: StreakRepository,
-    private val settings: SettingsRepository,
     private val clock: () -> Long,
 ) {
     @Inject
-    constructor(content: DevotionalRepository, progress: DevotionalProgressDao, streaks: StreakRepository, settings: SettingsRepository) :
-        this(content, progress, streaks, settings, System::currentTimeMillis)
+    constructor(content: DevotionalRepository, progress: DevotionalProgressDao, streaks: StreakRepository) :
+        this(content, progress, streaks, System::currentTimeMillis)
 
     /** One day's devotional ("MM-DD") in the app's language (English where it isn't translated). */
     fun devotional(date: String): Flow<DevotionalState> =
@@ -51,16 +49,6 @@ class DevotionalsRepository internal constructor(
     /** Dates in [year] whose devotional was finished. */
     fun finished(year: Int): Flow<Set<LocalDate>> =
         progress.observeYear(year.toString()).map { rows -> rows.map(LocalDate::parse).toSet() }.distinctUntilChanged()
-
-    /**
-     * Devotionals are AI-assisted. With "Hide AI studies" on they're hidden behind a short note until the reader
-     * chooses to show them (remembered). True = show them.
-     */
-    fun visible(): Flow<Boolean> = combine(settings.settings, settings.showDevotionalsWhenAiHidden) { s, anyway ->
-        !s.hideAiStudies || anyway
-    }.distinctUntilChanged()
-
-    suspend fun showAnyway() = settings.setShowDevotionalsWhenAiHidden(true)
 
     /** H16 finished: saves progress and counts towards the streak, the first time only. Returns whether it was new. */
     suspend fun markFinished(date: LocalDate, devotional: Devotional): Boolean {

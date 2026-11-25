@@ -47,6 +47,8 @@ class DevotionalRepository(
     private val json: Json,
     private val decodeDispatcher: CoroutineDispatcher,
 ) {
+    private val reconnect = ReconnectRetry<String>(downloader::retry)
+
     /** [date] is "MM-DD". */
     fun devotional(date: String): Flow<DevotionalState> {
         val month = date.take(2)
@@ -77,9 +79,12 @@ class DevotionalRepository(
             is DownloadState.Failed -> when (download.reason) {
                 DownloadFailure.NOT_PUBLISHED -> DevotionalMonthState.Unavailable(DevotionalState.Unavailable.Reason.NOT_PUBLISHED)
                 DownloadFailure.APP_UPDATE_REQUIRED -> DevotionalMonthState.Unavailable(DevotionalState.Unavailable.Reason.APP_UPDATE_REQUIRED)
-                DownloadFailure.NETWORK, DownloadFailure.INTEGRITY -> DevotionalMonthState.NotDownloaded(
-                    if (!online) StudyState.NotDownloaded.Reason.OFFLINE else StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED,
-                )
+                DownloadFailure.NETWORK, DownloadFailure.INTEGRITY ->
+                    // Failed while offline and now back online: try once more by itself.
+                    if (reconnect.onFailure(month, online)) DevotionalMonthState.Loading(DownloadProgress(0, null))
+                    else DevotionalMonthState.NotDownloaded(
+                        if (!online) StudyState.NotDownloaded.Reason.OFFLINE else StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED,
+                    )
             }
             DownloadState.Idle -> if (online) {
                 downloader.ensure(month)

@@ -29,20 +29,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-/** Shown instead of devotionals while "Hide AI studies" is on, until the reader chooses to see them. */
-@Composable
-fun AiDevotionalsNotice(onShowAnyway: () -> Unit, modifier: Modifier = Modifier) {
-    Surface(shape = MaterialTheme.shapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = modifier.fillMaxWidth()) {
-        Column(Modifier.padding(20.dp)) {
-            Icon(Icons.Outlined.AutoAwesome, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.height(8.dp))
-            Text(stringResource(R.string.devo_ai_notice_title), style = MaterialTheme.typography.titleMedium)
-            Text(stringResource(R.string.devo_ai_notice_body), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            TextButton(onClick = onShowAnyway, modifier = Modifier.padding(top = 4.dp)) { Text(stringResource(R.string.devo_ai_show_anyway)) }
-        }
-    }
-}
-
 /** Loading / offline / failed / not published / update needed, worded like the study screens. */
 @Composable
 fun DevotionalStateMessage(state: DevotionalState, onRetry: () -> Unit, modifier: Modifier = Modifier, forMonth: Boolean = false) {

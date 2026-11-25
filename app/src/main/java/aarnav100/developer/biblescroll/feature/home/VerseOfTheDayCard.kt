@@ -4,49 +4,70 @@ import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.data.votd.VotdVerse
 import aarnav100.developer.biblescroll.feature.bible.redLetterText
 import aarnav100.developer.biblescroll.feature.bible.spokenSentence
+import aarnav100.developer.biblescroll.feature.study.withoutOpeningQuote
+import aarnav100.developer.biblescroll.ui.theme.AppShapes
+import aarnav100.developer.biblescroll.ui.theme.AppText
 import aarnav100.developer.biblescroll.ui.theme.BibleScrollTheme
+import aarnav100.developer.biblescroll.ui.theme.Literata
 import aarnav100.developer.biblescroll.ui.theme.ScriptureTextStyle
+import aarnav100.developer.biblescroll.ui.theme.Spacing
 import aarnav100.developer.biblescroll.ui.theme.scriptureSp
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
-import androidx.compose.foundation.layout.FlowRow
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.MenuBook
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.outlined.ContentCopy
-import androidx.compose.material.icons.outlined.Image
+import androidx.compose.material.icons.outlined.MoreHoriz
 import androidx.compose.material.icons.outlined.School
+import androidx.compose.material.icons.outlined.Share
 import androidx.compose.material.icons.outlined.Widgets
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import java.util.Locale
 
 /**
- * H1 Verse of the Day card. Scripture in Literata at the reader's font size (S4), red letters as in the feed.
- * TalkBack reads it as one item ("Verse of the Day: <verse> <reference>, <translation>") with a custom action
- * per button. The actions wrap onto more lines at large font sizes and in longer languages.
+ * H1 Verse of the Day (docs/ui-direction.md, Home): the Discover card's look (label, faint accent quote mark, verse in
+ * Literata italic with red letters, reference), then "Read in context →" and three icons: Study, Share as image, and ⋯
+ * (set as widget verse, copy). TalkBack reads it as one item ("Verse of the Day: <verse> <reference>, <translation>")
+ * with a custom action for every action.
  */
-@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun VerseOfTheDayCard(
     votd: VotdVerse,
@@ -58,7 +79,7 @@ fun VerseOfTheDayCard(
     modifier: Modifier = Modifier,
 ) {
     val jesusColor = BibleScrollTheme.extendedColors.wordsOfJesus
-    val text = remember(votd.verse, jesusColor) { votd.verse.redLetterText(jesusColor) }
+    val text = remember(votd.verse, jesusColor) { votd.verse.redLetterText(jesusColor).withoutOpeningQuote() }
     val title = stringResource(R.string.votd_title)
     val readLabel = stringResource(R.string.votd_read_in_context)
     val shareLabel = stringResource(R.string.actions_share_image)
@@ -72,12 +93,10 @@ fun VerseOfTheDayCard(
     }
     val spokenVerse = stringResource(R.string.feed_verse_cd, spokenSentence(votd.verse.text), votd.reference, votd.translationName)
     val spoken = stringResource(R.string.votd_cd, title, listOfNotNull(spokenVerse, fallback).joinToString(" "))
+    var menu by rememberSaveable { mutableStateOf(false) }
+    val muted = MaterialTheme.colorScheme.onSurfaceVariant
 
-    Surface(
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        modifier = modifier.fillMaxWidth(),
-    ) {
+    Surface(shape = AppShapes.large, color = MaterialTheme.colorScheme.surfaceContainerLow, modifier = modifier.fillMaxWidth()) {
         Column(
             Modifier
                 .clearAndSetSemantics {
@@ -90,58 +109,71 @@ fun VerseOfTheDayCard(
                         CustomAccessibilityAction(copyLabel) { onCopy(); true },
                     )
                 }
-                // Text sits 12 dp further in, level with the buttons' own inner padding, so icons and text line up.
-                .padding(start = 8.dp, end = 8.dp, top = 18.dp, bottom = 8.dp),
+                .padding(start = Spacing.card, end = Spacing.s, top = Spacing.card, bottom = Spacing.xs),
         ) {
-            Text(
-                title,
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(horizontal = 12.dp),
-            )
-            Spacer(Modifier.height(10.dp))
+            Text(title.uppercase(Locale.getDefault()), style = AppText.sectionLabel, color = muted)
+            // The faint quote mark (accent at low strength), as on Discover and the study page.
+            Box(Modifier.fillMaxWidth().height(40.dp).clipToBounds()) {
+                Text(
+                    "“",
+                    style = TextStyle(fontFamily = Literata, fontSize = 72.sp, color = MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)),
+                    modifier = Modifier.wrapContentHeight(Alignment.Top, unbounded = true).offset(x = (-4).dp, y = (-4).dp),
+                )
+            }
             Text(
                 text,
                 style = ScriptureTextStyle.copy(
+                    fontStyle = FontStyle.Italic,
                     fontSize = scriptureSp(20.sp),
                     lineHeight = 1.45.em,
                     color = MaterialTheme.colorScheme.onSurface,
                 ),
-                modifier = Modifier.padding(horizontal = 12.dp),
+                modifier = Modifier.padding(end = Spacing.m),
             )
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(Spacing.m))
             Text(
                 stringResource(R.string.two_parts, votd.reference, votd.verse.translationId),
-                style = MaterialTheme.typography.titleSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(horizontal = 12.dp),
+                style = MaterialTheme.typography.titleMedium.copy(fontFamily = Literata, fontWeight = FontWeight.SemiBold),
             )
             if (fallback != null) {
-                Text(
-                    fallback,
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(start = 12.dp, end = 12.dp, top = 2.dp),
-                )
+                Text(fallback, style = MaterialTheme.typography.bodySmall, color = muted, modifier = Modifier.padding(top = 2.dp))
             }
-            Spacer(Modifier.height(4.dp))
-            FlowRow(Modifier.fillMaxWidth()) {
-                CardAction(Icons.AutoMirrored.Outlined.MenuBook, readLabel, onReadInContext)
-                CardAction(Icons.Outlined.School, studyLabel, onStudy)
-                CardAction(Icons.Outlined.Image, shareLabel, onShareImage)
-                CardAction(Icons.Outlined.Widgets, widgetLabel, onSetWidget)
-                CardAction(Icons.Outlined.ContentCopy, copyLabel, onCopy)
+            Spacer(Modifier.height(Spacing.xs))
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                // The link takes whatever the icons leave (weighted children measure last), then the icons sit at the end.
+                Box(Modifier.weight(1f)) {
+                    TextButton(onClick = onReadInContext, contentPadding = PaddingValues(start = 0.dp, end = Spacing.s)) {
+                        Text(readLabel, style = AppText.button)
+                        Spacer(Modifier.width(Spacing.xs))
+                        Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, modifier = Modifier.size(16.dp))
+                    }
+                }
+                CardIcon(Icons.Outlined.School, studyLabel, onStudy)
+                CardIcon(Icons.Outlined.Share, shareLabel, onShareImage)
+                Box {
+                    CardIcon(Icons.Outlined.MoreHoriz, stringResource(R.string.home_votd_more)) { menu = true }
+                    DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
+                        DropdownMenuItem(
+                            text = { Text(widgetLabel) },
+                            leadingIcon = { Icon(Icons.Outlined.Widgets, contentDescription = null) },
+                            onClick = { menu = false; onSetWidget() },
+                        )
+                        DropdownMenuItem(
+                            text = { Text(copyLabel) },
+                            leadingIcon = { Icon(Icons.Outlined.ContentCopy, contentDescription = null) },
+                            onClick = { menu = false; onCopy() },
+                        )
+                    }
+                }
             }
         }
     }
 }
 
 @Composable
-private fun CardAction(icon: ImageVector, label: String, onClick: () -> Unit) {
-    // TextButton keeps a 48 dp touch target.
-    TextButton(onClick = onClick) {
-        Icon(icon, contentDescription = null, modifier = Modifier.size(18.dp))
-        Spacer(Modifier.width(8.dp))
-        Text(label)
+private fun CardIcon(icon: ImageVector, label: String, onClick: () -> Unit) {
+    // IconButton keeps a 48 dp touch target.
+    IconButton(onClick = onClick) {
+        Icon(icon, contentDescription = label, tint = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }

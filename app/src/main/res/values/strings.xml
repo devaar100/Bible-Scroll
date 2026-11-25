@@ -266,7 +266,7 @@
     </plurals>
     <!-- S2: Hide AI studies -->
     <string name="settings_hide_ai_studies">Hide AI studies</string>
-    <string name="settings_hide_ai_studies_summary">Hides verse studies written with AI help, and asks before showing AI-assisted devotionals. Scripture, notes and plans aren\'t affected.</string>
+    <string name="settings_hide_ai_studies_summary">Hides verse studies written with AI help. Scripture, notes, plans and devotionals aren\'t affected.</string>
     <string name="settings_verse_scrubber">Verse scrubber</string>
     <string name="settings_verse_scrubber_always">Always</string>
     <string name="settings_verse_scrubber_while_scrolling">Only while scrolling</string>
@@ -299,11 +299,11 @@
     <string name="study_open_reference">Go to verse</string>
     <string name="study_reference_note">On “%1$s”</string>
     <string name="study_sources">Sources</string>
-    <string name="study_ai_assisted">AI-assisted, checked automatically</string>
-    <string name="study_reviewed">AI-assisted, reviewed by a person</string>
+    <string name="ai_crafted">Crafted with help from AI</string>
+    <string name="study_reviewed">Crafted with help from AI, reviewed by a person</string>
     <string name="study_downloading">Downloading studies for this book…</string>
     <string name="study_offline_title">Not available offline</string>
-    <string name="study_offline_body">Studies for %1$s aren\'t on your phone yet. Connect to the internet and they\'ll download.</string>
+    <string name="study_offline_body">Studies for %1$s aren\'t on your phone yet. They\'ll download when you\'re back online.</string>
     <string name="study_failed_title">Couldn\'t download this study</string>
     <string name="study_failed_body">Something went wrong on the way. Try again in a moment.</string>
     <string name="study_retry">Try again</string>
@@ -316,8 +316,13 @@
     <string name="study_hidden_show">Show studies again</string>
     <!-- D1 Discover -->
     <string name="discover_meaning_label">What it means</string>
-    <string name="discover_open_in_context_cd">Read %1$s in context</string>
     <string name="discover_copy_cd">Copy verse</string>
+    <string name="discover_open_in_context_cd">Read %1$s in context</string>
+    <string name="discover_study_loading">Study loading</string>
+    <string name="discover_study_offline">Available when you\'re online</string>
+    <string name="discover_study_tap">Tap to open the study</string>
+    <string name="discover_open_study">Open study</string>
+    <string name="discover_share_text">Share text</string>
     <string name="discover_state_liked">Liked</string>
     <string name="discover_state_not_liked">Not liked</string>
     <string name="discover_data_language">Original language: %1$s</string>
@@ -543,10 +548,6 @@
     <string name="devo_read_again">Read again</string>
     <string name="devo_read_already">You\'ve read this one.</string>
     <string name="devo_share_verse">Share the verse as an image</string>
-    <string name="devo_ai_label">Written with AI help and checked before publishing.</string>
-    <string name="devo_ai_notice_title">Devotionals are AI-assisted</string>
-    <string name="devo_ai_notice_body">You\'ve chosen to hide AI studies. Daily devotionals are written with AI help, then checked before they\'re published. Scripture itself is never AI-written.</string>
-    <string name="devo_ai_show_anyway">Show devotionals anyway</string>
     <string name="devo_loading">Getting the devotional…</string>
     <string name="devo_offline">This devotional isn\'t on your phone yet. It will download when you\'re online.</string>
     <string name="devo_failed">The devotional couldn\'t be downloaded.</string>
@@ -690,8 +691,8 @@
     <string name="help_a_likes">Use the heart and note buttons beside a verse. Everything you like, bookmark or write is in Home → Your library, and it’s saved on this phone only.</string>
     <string name="help_q_translations">Which translations are there?</string>
     <string name="help_a_translations">The World English Bible (WEB) and the King James Version (KJV) are built in and work offline. Tap the translation name at the top of the feed to switch. Verse actions → Compare versions shows a verse in every translation.</string>
-    <string name="help_q_studies">What does “AI-assisted” mean on a study?</string>
-    <string name="help_a_studies">Each study was written once with help from an AI model, using openly licensed sources (original-language word data and cross-reference lists) that are named at the end of the study. Every study is checked automatically, and studies marked “reviewed by a person” were also read by someone. Nothing is generated while you read. To turn studies off, go to Settings → General → Hide AI studies. If something looks wrong, use Report a problem.</string>
+    <string name="help_q_studies">What does “Crafted with help from AI” mean on a study?</string>
+    <string name="help_a_studies">Some study content was written and reviewed with help from AI, drawing on several trusted sources to give you clear, helpful commentary. To hide it, go to Settings → General → Hide AI studies.</string>
     <string name="help_q_backup">How do I keep my data when I change phones?</string>
     <string name="help_a_backup">If Google backup is turned on in your phone’s settings, Android may restore your notes, likes, plans and settings on a new phone. To be sure, go to Settings → Data &amp; backup → Export my data, move the file to the new phone and choose Import there.</string>
     <string name="help_q_reminders">How do reminders and the widget work?</string>
@@ -729,6 +730,12 @@
     <string name="community_headline_voted">Thank you for voting</string>
     <string name="community_purpose_voted">Your vote is in, and it’s anonymous. When the month ends, we donate to the ministry with the most votes, and you’ll see it in History.</string>
     <string name="community_purpose">Each month, readers vote for one ministry. When the month ends, we donate to the one with the most votes. Voting is anonymous and final. To give yourself, use a ministry’s own site.</string>
+    <string name="community_purpose_short">Each month, readers choose one ministry. We donate to the one with the most votes.</string>
+    <string name="community_how_it_works">How it works</string>
+    <string name="community_your_vote">Your vote</string>
+    <string name="community_confirm_action">Confirm vote</string>
+    <string name="community_description_more">Show full description</string>
+    <string name="community_description_less">Show less</string>
     <string name="community_closes_today">Closes today</string>
     <plurals name="community_closes_in_days">
         <item quantity="one">Closes in %d day</item>
@@ -736,7 +743,6 @@
     </plurals>
     <string name="community_info_cd">How the monthly vote works</string>
     <string name="community_info_title">How the vote works</string>
-    <string name="community_voted">Voted</string>
     <string name="community_voted_cd">You voted for %1$s</string>
     <string name="community_view_history">View history</string>
     <string name="history_title">History</string>
@@ -755,7 +761,6 @@
     <string name="community_give_cd">Give to %1$s directly</string>
     <string name="community_confirm_title">Vote for %1$s?</string>
     <string name="community_confirm_body">Your vote is anonymous and can’t be changed this month.</string>
-    <string name="community_confirm_vote">Vote</string>
     <string name="community_confirm_cancel">Cancel</string>
     <string name="community_pick_pending">You voted for %1$s. It will be sent when you’re online.</string>
     <string name="community_pick_not_counted">Your vote for %1$s couldn’t be sent before voting closed, so it didn’t count.</string>
@@ -799,7 +804,7 @@
 
     <!-- Privacy (S8 Privacy and web/privacy/, generated from these strings by tools/build_privacy_page.py).
          Source of truth: docs/privacy-inventory.md. Never say data "never leaves" the phone. -->
-    <string name="privacy_title">Privacy</string>
+    <string name="privacy_title">Privacy policy</string>
     <!-- %1$s = date, e.g. "18 November 2026" -->
     <string name="privacy_updated">Last updated: %1$s</string>
     <string name="privacy_intro">We don’t track you. There’s no account, no ads and no analytics, and the app contains no tracking or crash-reporting code. This page explains what the app keeps on your phone and the few things that leave it.</string>
@@ -813,9 +818,22 @@
     <string name="privacy_android_title">What Android and Google Play do</string>
     <string name="privacy_android_backup">If backup is turned on in your phone’s settings, Android may save a copy of your notes, plans and settings to your own Google account. On Android 12 and later, the app allows this only when Android can encrypt the backup end to end, which needs a screen lock. If you use Export my data, the file goes wherever you save it.</string>
     <string name="privacy_android_crashes">If you let your phone share usage and diagnostics with Google, Google Play may send us crash statistics. The app has no crash-reporting code of its own.</string>
+    <string name="privacy_sharing_title">Who we share data with</string>
+    <string name="privacy_sharing">We don’t sell personal information, we don’t share it for advertising, and nobody else gets data from the app. Google runs our content server and vote counter for us as a service provider, and sees IP addresses as described above. Google’s privacy policy (policies.google.com/privacy) covers that.</string>
+    <string name="privacy_security_title">Keeping data safe</string>
+    <string name="privacy_security">Everything the app downloads or sends goes over an encrypted connection (HTTPS), and the app refuses unencrypted ones. Downloaded files are checked against a published fingerprint before they’re used. Your notes and other data stay in the app’s private storage, which other apps can’t read.</string>
+    <string name="privacy_retention_title">How long data is kept</string>
+    <string name="privacy_retention">Data on your phone stays until you delete it or uninstall the app. The vote counter keeps only a total per ministry per month. Google keeps its server logs, which include IP addresses, for a limited time under its own policies, and we don’t use them to identify anyone. We keep emails you send only as long as we need them to answer you or correct the content, and we delete them sooner if you ask.</string>
     <string name="privacy_delete_title">Deleting your data</string>
     <string name="privacy_delete">Uninstalling the app, or clearing its data, deletes everything it stored on this phone. A backup in your Google account follows your Google account settings. Community votes can’t be deleted because they aren’t linked to anyone. To ask us to delete an email you sent, write to us.</string>
-    <string name="privacy_contact_title">Contact</string>
+    <string name="privacy_rights_title">Your rights</string>
+    <string name="privacy_rights">Depending on where you live (for example under the GDPR in the EU and UK, or the CCPA in California), you can ask to see, correct or delete personal data we hold about you, object to how we use it, and complain to your data protection authority. We have no account or profile for you, so the only personal data we might hold is an email you sent us. Write to us and we’ll answer within 30 days.</string>
+    <string name="privacy_legal_basis">We use your email only to answer it and correct the content, because you chose to send it. IP addresses are needed for any download or vote to work, which is our legitimate interest in running the app.</string>
+    <string name="privacy_children_title">Children</string>
+    <string name="privacy_children">The app is for a general audience. It doesn’t ask anyone, including children, for personal information. If you think a child has emailed us personal information, write to us and we’ll delete it.</string>
+    <string name="privacy_contact_title">Who we are and how to contact us</string>
+    <!-- %1$s = the developer's name -->
+    <string name="privacy_who">Bible Scroll is made by %1$s, an independent developer, who is responsible for the personal data described on this page.</string>
     <!-- %1$s = support email address -->
     <string name="privacy_contact">Questions about privacy: %1$s</string>
     <string name="privacy_changes">If this changes, we’ll update this page and the app before the change takes effect.</string>
@@ -831,8 +849,6 @@
     <string name="legal_source_openbible" translatable="false">Cross references: OpenBible.info (www.openbible.info/labs/cross-references), CC BY 4.0. Modified (re-versified to KJV).</string>
     <string name="legal_source_tsk" translatable="false">Treasury of Scripture Knowledge (c. 1880), public domain; digital edition by CrossWire Bible Society.</string>
     <string name="legal_source_lexicons">Word meanings come from the STEP Bible tagged Hebrew and Greek texts above. A few dictionary forms come from STEP Bible’s brief lexicons (TBESH, TBESG; CC BY 4.0). No lexicon definitions are included.</string>
-    <string name="legal_studies_title">How studies are made</string>
-    <string name="legal_studies_body">Each study was written once by an AI model (Anthropic’s Claude) from the sources above: the original-language data and cross references come from those datasets, not from the AI. Every study is checked automatically, partly by a second AI model. Studies are not individually reviewed by a person unless they say “reviewed by a person”. If something looks wrong, please tell us.</string>
     <string name="legal_fonts">Fonts</string>
     <string name="legal_font_literata" translatable="false">Literata. Copyright 2017 The Literata Project Authors. SIL Open Font License 1.1.</string>
     <string name="legal_font_inter" translatable="false">Inter. Copyright 2016 The Inter Project Authors. SIL Open Font License 1.1.</string>
@@ -895,6 +911,15 @@
     <string name="home_plan_starts">Starts %1$s</string>
     <string name="home_plan_caught_up">You’re up to date. The next day is here if you’d like to read ahead.</string>
     <string name="home_plan_day_of">Day %1$d of %2$d</string>
+    <string name="home_plan_day_done">Day %1$d done</string>
+    <string name="home_greeting_morning">Good morning</string>
+    <string name="home_greeting_afternoon">Good afternoon</string>
+    <string name="home_greeting_evening">Good evening</string>
+    <string name="home_votd_more">More actions</string>
+    <string name="home_plans_see_all">See all</string>
+    <string name="home_library_open">Open</string>
+    <string name="home_library_bookmarks">Bookmarks</string>
+    <string name="home_library_studies">Studies</string>
     <plurals name="home_plan_minutes">
         <item quantity="one">About %1$d minute</item>
         <item quantity="other">About %1$d minutes</item>

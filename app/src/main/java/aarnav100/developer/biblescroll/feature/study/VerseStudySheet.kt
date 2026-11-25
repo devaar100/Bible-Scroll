@@ -112,7 +112,7 @@ fun VerseStudyContent(
             )
             IconButton(onClick = onClose) { Icon(Icons.Outlined.Close, contentDescription = stringResource(R.string.study_close)) }
         }
-        StudyVerseHeader(reference, state.verseText)
+        StudyVerseHeader(reference, state.verse, verseText = state.verseText, translationId = state.translationId)
         if (state.study is StudyState.Available) {
             Spacer(Modifier.height(12.dp))
             OutlinedButton(onClick = onToggleSaved) {

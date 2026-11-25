@@ -4,7 +4,7 @@ Full spec: docs/spec.md. Background: docs/context.md. Read the relevant spec sec
 
 ## Hard rules
 - 100% free: no billing library, no entitlement checks, no "premium" flags, no ads, no tracking SDKs.
-- Original name, copy, colours and art.
+- Original name, copy, colours and art. Exception (user decision 2026-11-25): free-licence Unsplash stock photos on Home, bundled in res/drawable-nodpi and listed in feature/home/HomePhotos.kt with photographer and source (Unsplash License: no credit needed, none shown in the app). Add any new photo there too.
 
 ## Privacy & network (decided 2026-11-18; reasons in docs/decisions.md)
 - No accounts, no sign-in, no sync. All user data stays on the device. A new phone is covered by Android Auto Backup plus manual export/import (S9 Data & backup, Session 29).
@@ -43,6 +43,9 @@ Room (bundled Bible DB via createFromAsset + separate user DB), DataStore for se
 - New screen with lots of text: add it to PseudoLocaleScreenshotTest (en-XA, 320 dp).
 - One feature per session. Keep changes small; app must build and run after every task.
 - Room reads off the main thread, exposed as Flow. ViewModels expose StateFlow<UiState>.
-- Fonts: Literata for Scripture/headlines, Inter for UI. Words of Jesus in red (tuned per reading background); likes use the user's accent (default Crimson).
+- UI sizes come from ui/theme/Tokens.kt: AppShapes (12/20/28 dp corners), Spacing (8 dp grid, 20 dp gutter), AppText roles (screenTitle, screenSubtitle, sectionLabel, cardTitle, itemTitle, button). No new corner sizes, gutters or typography `.copy(...)` styles; add a token if one is truly missing. Screens move onto them as they're redesigned (Community done). Look and feel: docs/ui-direction.md.
+- Colour: neutrals plus one accent (the user's accent, colorScheme.primary; default Amber, chosen 2026-11-24 so it never blends with the red words of Jesus). The accent goes only on: the screen's main button, text links ("Read in context", "How it works"), "on" states (saved, bookmarked, studied, note added, "Your vote"), the selected tab, callout labels ("Did you know?", "Apply it") and the faint quote-mark ornament. Never on card backgrounds, panels or body text; no success/tint colours for decoration. Words of Jesus keep their own red, and likes are always red (Crimson; a red heart is the convention).
+- Redesigning a screen: show the user an HTML mockup (light + dark, app colours and fonts) and get approval before writing Compose code.
+- Fonts: Literata for Scripture/headlines, Inter for UI. Words of Jesus in red (tuned per reading background); likes are always red (Crimson on light, LikeRedDark #F04F57 on dark), whatever the accent.
 - Use version catalog (gradle/libs.versions.toml) for all dependencies.
 - After changes, run ./gradlew assembleDebug and fix errors before saying you're done.

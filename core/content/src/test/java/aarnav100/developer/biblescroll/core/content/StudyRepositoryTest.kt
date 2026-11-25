@@ -143,6 +143,40 @@ class StudyRepositoryTest {
     }
 
     @Test
+    fun failureWhileOfflineRetriesByItselfWhenBackOnline() = runTest {
+        val (repository, network, _) = setUp(online = true)
+        api.manifestError = IOException("no route")
+        val states = collect(repository)
+        advanceUntilIdle()
+        network.online.value = false
+        advanceUntilIdle()
+        assertEquals(NotDownloaded(43, NotDownloaded.Reason.OFFLINE), states.last())
+
+        // Connection back (and the server reachable): the study downloads without tapping Try again.
+        api.manifestError = null
+        serveJohn()
+        network.online.value = true
+        advanceUntilIdle()
+        assertEquals("JHN.3.16", (states.last() as StudyState.Available).study.id)
+        assertEquals(2, api.manifestCalls)
+    }
+
+    @Test
+    fun reconnectRetriesOnlyOnceSoAFailingServerDoesNotLoop() = runTest {
+        val (repository, network, _) = setUp(online = true)
+        api.manifestError = IOException("server down")
+        val states = collect(repository)
+        advanceUntilIdle()
+        assertEquals(1, api.manifestCalls) // a failure while online isn't retried by itself
+        network.online.value = false
+        advanceUntilIdle()
+        network.online.value = true
+        advanceUntilIdle()
+        assertEquals(NotDownloaded(43, NotDownloaded.Reason.DOWNLOAD_FAILED), states.last())
+        assertEquals(2, api.manifestCalls) // one retry for the reconnect, then it stays failed
+    }
+
+    @Test
     fun newerContentFormatAsksForAnAppUpdate() = runTest {
         val (repository, _, _) = setUp(online = true)
         api.manifest = manifest(john.second, schemaVersion = 3)

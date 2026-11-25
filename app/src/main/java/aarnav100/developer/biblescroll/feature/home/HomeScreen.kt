@@ -1,5 +1,18 @@
 package aarnav100.developer.biblescroll.feature.home
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.Arrangement
+import java.util.Locale
+import java.time.format.DateTimeFormatter
+import java.time.LocalDateTime
+import android.text.format.DateFormat
+import aarnav100.developer.biblescroll.ui.theme.Spacing
+import aarnav100.developer.biblescroll.ui.theme.AppText
+import aarnav100.developer.biblescroll.ui.components.SectionHeader
+import aarnav100.developer.biblescroll.feature.plans.PlansBrowserViewModel
+import aarnav100.developer.biblescroll.feature.plans.PlansBrowserUiState
+import aarnav100.developer.biblescroll.feature.library.LibraryScreen
+import aarnav100.developer.biblescroll.feature.streak.StreakUiState
 import aarnav100.developer.biblescroll.feature.study.VerseStudySheet
 import aarnav100.developer.biblescroll.feature.study.VerseStudyViewModel
 import aarnav100.developer.biblescroll.R
@@ -60,15 +73,19 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 /**
- * H1 Home, top to bottom: header (streak chip, Settings gear), the one-time restore notice when present, Verse of the
- * Day, Today's Reading, Today's Devotional, Verse Search, Library (H3), Reading plans (H8). Every card follows its
- * Flow live; the scroll position is saved and restored with the tab.
+ * H1 Home (redesigned 2026-11-25, docs/ui-direction.md), top to bottom: date and greeting with the streak chip and
+ * Settings, the one-time restore notice when present, Verse of the Day, Today's reading, Today's devotional (photo
+ * card), Reading plans (photo row), Find a verse, Your library (counts). Every card follows its Flow live; the scroll
+ * position is saved and restored with the tab.
  */
 @Composable
 fun HomeScreen(
     onOpenSettings: () -> Unit,
     onOpenLibrary: () -> Unit,
     onOpenPlans: () -> Unit,
+    onOpenPlan: (planId: String) -> Unit,
+    onBuildPlan: () -> Unit,
+    onOpenLibraryList: (LibraryScreen) -> Unit,
     onOpenDevotional: (date: String) -> Unit,
     onOpenDevotionalArchive: () -> Unit,
     onOpenPlanDay: (enrollmentId: String, day: Int) -> Unit,
@@ -80,7 +97,9 @@ fun HomeScreen(
     studyViewModel: VerseStudyViewModel = hiltViewModel(),
     readingViewModel: TodaysReadingViewModel = hiltViewModel(),
     searchViewModel: VerseSearchViewModel = hiltViewModel(),
+    plansViewModel: PlansBrowserViewModel = hiltViewModel(),
 ) {
+    val plansState by plansViewModel.uiState.collectAsStateWithLifecycle()
     val reading by readingViewModel.items.collectAsStateWithLifecycle()
     val search by searchViewModel.uiState.collectAsStateWithLifecycle()
     val library by libraryViewModel.uiState.collectAsStateWithLifecycle()
@@ -100,27 +119,25 @@ fun HomeScreen(
     // Same copy format and confirmation as B7 in the feed.
     val copyAndConfirm: (Verse, String, SnackbarHostState) -> Unit = remember(context, scope, copiedMessage) {
         { verse, reference, host ->
-            context.copyVerse(verse, reference)
-            host.currentSnackbarData?.dismiss()
-            scope.launch { host.showSnackbar(copiedMessage, duration = SnackbarDuration.Short) }
+            if (context.copyVerse(verse, reference)) {
+                host.currentSnackbarData?.dismiss()
+                scope.launch { host.showSnackbar(copiedMessage, duration = SnackbarDuration.Short) }
+            }
         }
     }
     Box(modifier.fillMaxSize()) {
-        Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 16.dp).padding(bottom = 24.dp)) {
-            Row(Modifier.fillMaxWidth().padding(top = 8.dp), verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    stringResource(R.string.tab_home),
-                    style = MaterialTheme.typography.headlineMedium,
-                    modifier = Modifier.weight(1f).semantics { heading() },
-                )
-                StreakChip(streak, onClick = {
+        Column(
+            Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = Spacing.gutter).padding(bottom = Spacing.xxl),
+            verticalArrangement = Arrangement.spacedBy(Spacing.l),
+        ) {
+            HomeHeader(
+                streak = streak,
+                onStreak = {
                     streakViewModel.resetMonth()
                     showStreak = true
-                })
-                IconButton(onClick = onOpenSettings) {
-                    Icon(Icons.Outlined.Settings, contentDescription = stringResource(R.string.settings_title))
-                }
-            }
+                },
+                onOpenSettings = onOpenSettings,
+            )
             RestoreNoticeCard()
             (votd as? VotdUiState.Ready)?.votd?.let { today ->
                 VerseOfTheDayCard(
@@ -130,19 +147,26 @@ fun HomeScreen(
                     onSetWidget = { sheetsViewModel.openWidgetConfirm(today.verse, WidgetMode.VERSE_OF_THE_DAY) },
                     onCopy = { copyAndConfirm(today.verse, today.reference, snackbarHostState) },
                     onStudy = { studyViewModel.open(today.verse.ref) },
-                    modifier = Modifier.padding(top = 8.dp),
                 )
             }
-            reading?.let { items ->
-                TodaysReadingCard(
-                    items = items,
-                    onOpenPlanDay = onOpenPlanDay,
-                    onContinue = readingViewModel::continueReading,
-                    onOpenBible = { readingViewModel.continueReading(VerseRef(1, 1, 1)) },
-                    modifier = Modifier.padding(top = 16.dp),
-                )
+            reading?.takeIf { it.isNotEmpty() }?.let { items ->
+                Column {
+                    SectionHeader(stringResource(R.string.home_todays_reading))
+                    TodaysReadingCard(
+                        items = items,
+                        onOpenPlanDay = onOpenPlanDay,
+                        onContinue = readingViewModel::continueReading,
+                        onOpenBible = { readingViewModel.continueReading(VerseRef(1, 1, 1)) },
+                    )
+                }
             }
             DevotionalHomeCards(onOpen = onOpenDevotional, onOpenArchive = onOpenDevotionalArchive)
+            (plansState as? PlansBrowserUiState.Ready)?.let { ready ->
+                // The featured ("start-here") plans first, then the rest of the catalogue, a few at most.
+                val featured = (ready.categories.filter { it.id == FEATURED_CATEGORY } + ready.categories)
+                    .flatMap { it.plans }.distinctBy { it.id }.take(HOME_PLANS)
+                HomePlansRow(featured, onOpenPlan = onOpenPlan, onBuildYourOwn = onBuildPlan, onSeeAll = onOpenPlans)
+            }
             VerseSearchCard(
                 state = search,
                 onSelectBook = searchViewModel::selectBook,
@@ -150,20 +174,8 @@ fun HomeScreen(
                 onSelectVerse = searchViewModel::selectVerse,
                 onRead = searchViewModel::read,
                 onStudy = { studyViewModel.open(search.selection) },
-                modifier = Modifier.padding(top = 16.dp),
             )
-            HomeEntry(
-                icon = Icons.Outlined.CollectionsBookmark,
-                title = stringResource(R.string.library_title),
-                subtitle = pluralStringResource(R.plurals.library_total, library.total, library.total),
-                onClick = onOpenLibrary,
-            )
-            HomeEntry(
-                icon = Icons.AutoMirrored.Outlined.MenuBook,
-                title = stringResource(R.string.plans_title),
-                subtitle = stringResource(R.string.plans_home_body),
-                onClick = onOpenPlans,
-            )
+            HomeLibraryCard(library, onOpenLibrary = onOpenLibrary, onOpenList = onOpenLibraryList)
         }
         SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter))
     }
@@ -187,22 +199,33 @@ fun HomeScreen(
     }
 }
 
+private const val FEATURED_CATEGORY = "start-here"
+private const val HOME_PLANS = 6
+
+/** Today's date as a small label, a greeting for the time of day, then the streak chip and Settings. */
 @Composable
-private fun HomeEntry(icon: ImageVector, title: String, subtitle: String, onClick: () -> Unit) {
-    Surface(
-        onClick = onClick,
-        shape = RoundedCornerShape(20.dp),
-        color = MaterialTheme.colorScheme.surfaceContainerLow,
-        modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
-    ) {
-        Row(Modifier.padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-            Spacer(Modifier.width(16.dp))
-            Column(Modifier.weight(1f)) {
-                Text(title, style = MaterialTheme.typography.titleMedium)
-                Text(subtitle, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
-            }
-            Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
+private fun HomeHeader(streak: StreakUiState, onStreak: () -> Unit, onOpenSettings: () -> Unit) {
+    val locale = Locale.getDefault()
+    val now = LocalDateTime.now()
+    val date = remember(now.toLocalDate(), locale) {
+        now.toLocalDate().format(DateTimeFormatter.ofPattern(DateFormat.getBestDateTimePattern(locale, "EEEEMMMMd"), locale))
+    }
+    val greeting = stringResource(
+        when (now.hour) {
+            in 5..11 -> R.string.home_greeting_morning
+            in 12..16 -> R.string.home_greeting_afternoon
+            else -> R.string.home_greeting_evening
+        },
+    )
+    Row(Modifier.fillMaxWidth().padding(top = Spacing.m), verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(date.uppercase(locale), style = AppText.sectionLabel, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            Spacer(Modifier.height(Spacing.xs))
+            Text(greeting, style = AppText.screenTitle, modifier = Modifier.semantics { heading() })
+        }
+        StreakChip(streak, onClick = onStreak)
+        IconButton(onClick = onOpenSettings) {
+            Icon(Icons.Outlined.Settings, contentDescription = stringResource(R.string.settings_title), tint = MaterialTheme.colorScheme.onSurfaceVariant)
         }
     }
 }

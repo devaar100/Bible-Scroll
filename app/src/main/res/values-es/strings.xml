@@ -263,7 +263,7 @@
     </plurals>
     <!-- S2: Hide AI studies -->
     <string name="settings_hide_ai_studies">Ocultar estudios con IA</string>
-    <string name="settings_hide_ai_studies_summary">Oculta los estudios de versículos escritos con ayuda de IA y pregunta antes de mostrar devocionales hechos con IA. Las Escrituras, las notas y los planes no cambian.</string>
+    <string name="settings_hide_ai_studies_summary">Oculta los estudios de versículos escritos con ayuda de IA. Las Escrituras, las notas, los planes y los devocionales no cambian.</string>
     <string name="settings_verse_scrubber">Barra de versículos</string>
     <string name="settings_verse_scrubber_always">Siempre</string>
     <string name="settings_verse_scrubber_while_scrolling">Solo al desplazarte</string>
@@ -296,11 +296,11 @@
     <string name="study_open_reference">Ir al versículo</string>
     <string name="study_reference_note">Sobre “%1$s”</string>
     <string name="study_sources">Fuentes</string>
-    <string name="study_ai_assisted">Hecho con ayuda de IA, revisado automáticamente</string>
-    <string name="study_reviewed">Hecho con ayuda de IA, revisado por una persona</string>
+    <string name="ai_crafted">Creado con ayuda de IA</string>
+    <string name="study_reviewed">Creado con ayuda de IA, revisado por una persona</string>
     <string name="study_downloading">Descargando los estudios de este libro…</string>
     <string name="study_offline_title">No disponible sin conexión</string>
-    <string name="study_offline_body">Los estudios de %1$s aún no están en tu teléfono. Conéctate a internet y se descargarán.</string>
+    <string name="study_offline_body">Los estudios de %1$s aún no están en tu teléfono. Se descargarán cuando vuelvas a tener conexión.</string>
     <string name="study_failed_title">No se pudo descargar este estudio</string>
     <string name="study_failed_body">Algo salió mal en el camino. Inténtalo de nuevo en un momento.</string>
     <string name="study_retry">Reintentar</string>
@@ -313,8 +313,8 @@
     <string name="study_hidden_show">Volver a mostrar estudios</string>
     <!-- D1 Discover -->
     <string name="discover_meaning_label">Qué significa</string>
-    <string name="discover_open_in_context_cd">Leer %1$s en contexto</string>
     <string name="discover_copy_cd">Copiar versículo</string>
+    <string name="discover_open_in_context_cd">Leer %1$s en contexto</string>
     <string name="discover_state_liked">Te gusta</string>
     <string name="discover_state_not_liked">No te gusta</string>
     <string name="discover_data_language">Idioma original: %1$s</string>
@@ -540,10 +540,6 @@
     <string name="devo_read_again">Leer otra vez</string>
     <string name="devo_read_already">Ya leíste este.</string>
     <string name="devo_share_verse">Compartir el versículo como imagen</string>
-    <string name="devo_ai_label">Escrito con ayuda de IA y revisado antes de publicarse.</string>
-    <string name="devo_ai_notice_title">Los devocionales se hacen con ayuda de IA</string>
-    <string name="devo_ai_notice_body">Elegiste ocultar los estudios hechos con IA. Los devocionales diarios se escriben con ayuda de IA y se revisan antes de publicarse. Las Escrituras nunca las escribe una IA.</string>
-    <string name="devo_ai_show_anyway">Mostrar devocionales de todos modos</string>
     <string name="devo_loading">Cargando el devocional…</string>
     <string name="devo_offline">Este devocional aún no está en tu teléfono. Se descargará cuando tengas conexión.</string>
     <string name="devo_failed">No se pudo descargar el devocional.</string>
@@ -687,8 +683,8 @@
     <string name="help_a_likes">Usa los botones de corazón y de nota junto a cada versículo. Todo lo que marques con me gusta, guardes o escribas está en Inicio → Tu biblioteca, y se guarda solo en este teléfono.</string>
     <string name="help_q_translations">¿Qué traducciones hay?</string>
     <string name="help_a_translations">La World English Bible (WEB) y la King James Version (KJV) vienen incluidas y funcionan sin conexión. Toca el nombre de la traducción arriba en el feed para cambiarla. Opciones del versículo → Comparar versiones muestra un versículo en todas las traducciones.</string>
-    <string name="help_q_studies">¿Qué significa “hecho con ayuda de IA” en un estudio?</string>
-    <string name="help_a_studies">Cada estudio se escribió una sola vez con ayuda de un modelo de IA, a partir de fuentes con licencia abierta (datos de las palabras en el idioma original y listas de referencias cruzadas) que se nombran al final del estudio. Todos los estudios se revisan automáticamente, y los marcados como “revisado por una persona” también los leyó alguien. No se genera nada mientras lees. Para desactivar los estudios, ve a Ajustes → General → Ocultar estudios con IA. Si algo parece incorrecto, usa Informar de un problema.</string>
+    <string name="help_q_studies">¿Qué significa “creado con ayuda de IA” en un estudio?</string>
+    <string name="help_a_studies">Parte del contenido de los estudios se escribió y revisó con ayuda de IA, a partir de varias fuentes fiables, para ofrecerte comentarios claros y útiles. Para ocultarlo, ve a Ajustes → General → Ocultar estudios con IA.</string>
     <string name="help_q_backup">¿Cómo conservo mis datos al cambiar de teléfono?</string>
     <string name="help_a_backup">Si la copia de seguridad de Google está activada en los ajustes del teléfono, Android puede restaurar tus notas, me gusta, planes y ajustes en el teléfono nuevo. Para asegurarte, ve a Ajustes → Datos y copia de seguridad → Exportar mis datos, pasa el archivo al teléfono nuevo y elige Importar allí.</string>
     <string name="help_q_reminders">¿Cómo funcionan los recordatorios y el widget?</string>
@@ -730,7 +726,6 @@
     </plurals>
     <string name="community_info_cd">Cómo funciona la votación mensual</string>
     <string name="community_info_title">Cómo funciona la votación</string>
-    <string name="community_voted">Votado</string>
     <string name="community_voted_cd">Votaste por %1$s</string>
     <string name="community_view_history">Ver historial</string>
     <string name="history_title">Historial</string>
@@ -748,7 +743,6 @@
     <string name="community_give_cd">Donar directamente a %1$s</string>
     <string name="community_confirm_title">¿Votar por %1$s?</string>
     <string name="community_confirm_body">Tu voto es anónimo y no se puede cambiar este mes.</string>
-    <string name="community_confirm_vote">Votar</string>
     <string name="community_confirm_cancel">Cancelar</string>
     <string name="community_pick_pending">Votaste por %1$s. Se enviará cuando tengas conexión.</string>
     <string name="community_pick_not_counted">Tu voto por %1$s no se pudo enviar antes de que cerrara la votación, así que no se contó.</string>
@@ -784,7 +778,7 @@
     <string name="study_citation">%1$s (%2$s)</string>
 
     <!-- Privacidad (S8 y web/privacy/, generada desde estas cadenas) -->
-    <string name="privacy_title">Privacidad</string>
+    <string name="privacy_title">Política de privacidad</string>
     <string name="privacy_updated">Última actualización: %1$s</string>
     <string name="privacy_intro">No te rastreamos. No hay cuenta, ni anuncios, ni analíticas, y la app no contiene código de rastreo ni de informes de fallos. Esta página explica qué guarda la app en tu teléfono y las pocas cosas que salen de él.</string>
     <string name="privacy_on_phone_title">Lo que se queda en tu teléfono</string>
@@ -797,9 +791,21 @@
     <string name="privacy_android_title">Lo que hacen Android y Google Play</string>
     <string name="privacy_android_backup">Si la copia de seguridad está activada en los ajustes del teléfono, Android puede guardar una copia de tus notas, planes y ajustes en tu propia cuenta de Google. En Android 12 y versiones posteriores, la app solo lo permite cuando Android puede cifrar la copia de extremo a extremo, para lo que hace falta un bloqueo de pantalla. Si usas Exportar mis datos, el archivo va donde lo guardes.</string>
     <string name="privacy_android_crashes">Si permites que tu teléfono comparta datos de uso y diagnóstico con Google, Google Play puede enviarnos estadísticas de fallos. La app no tiene código propio de informes de fallos.</string>
+    <string name="privacy_sharing_title">Con quién compartimos datos</string>
+    <string name="privacy_sharing">No vendemos información personal, no la compartimos con fines publicitarios y nadie más recibe datos de la app. Google gestiona por nosotros el servidor de contenido y el contador de votos como proveedor de servicios, y ve las direcciones IP como se explica arriba. La política de privacidad de Google (policies.google.com/privacy) cubre ese uso.</string>
+    <string name="privacy_security_title">Cómo protegemos los datos</string>
+    <string name="privacy_security">Todo lo que la app descarga o envía viaja por una conexión cifrada (HTTPS), y la app rechaza las conexiones sin cifrar. Los archivos descargados se comprueban con una huella publicada antes de usarse. Tus notas y demás datos se quedan en el almacenamiento privado de la app, que otras apps no pueden leer.</string>
+    <string name="privacy_retention_title">Cuánto tiempo se guardan los datos</string>
+    <string name="privacy_retention">Los datos de tu teléfono se guardan hasta que los borres o desinstales la app. El contador de votos solo guarda un total por ministerio y por mes. Google conserva sus registros de servidor, que incluyen direcciones IP, durante un tiempo limitado según sus propias políticas, y nosotros no los usamos para identificar a nadie. Guardamos los correos que nos envías solo el tiempo necesario para responderte o corregir el contenido, y los borramos antes si nos lo pides.</string>
     <string name="privacy_delete_title">Borrar tus datos</string>
     <string name="privacy_delete">Desinstalar la app, o borrar sus datos, elimina todo lo que guardó en este teléfono. Una copia de seguridad en tu cuenta de Google sigue los ajustes de tu cuenta de Google. Los votos de la Comunidad no se pueden borrar porque no están vinculados a nadie. Para pedirnos que borremos un correo que nos enviaste, escríbenos.</string>
-    <string name="privacy_contact_title">Contacto</string>
+    <string name="privacy_rights_title">Tus derechos</string>
+    <string name="privacy_rights">Según dónde vivas (por ejemplo, con el RGPD en la UE y el Reino Unido, o la CCPA en California), puedes pedir ver, corregir o borrar los datos personales que tengamos sobre ti, oponerte a cómo los usamos y presentar una reclamación ante tu autoridad de protección de datos. No tenemos ninguna cuenta ni perfil tuyo, así que el único dato personal que podríamos tener es un correo que nos hayas enviado. Escríbenos y te responderemos en un plazo de 30 días.</string>
+    <string name="privacy_legal_basis">Usamos tu correo solo para responderte y corregir el contenido, porque decidiste enviárnoslo. Las direcciones IP son necesarias para que funcione cualquier descarga o voto, lo que constituye nuestro interés legítimo en hacer funcionar la app.</string>
+    <string name="privacy_children_title">Niños</string>
+    <string name="privacy_children">La app está pensada para todo el público. No pide información personal a nadie, tampoco a niños. Si crees que un niño nos ha enviado información personal por correo, escríbenos y la borraremos.</string>
+    <string name="privacy_contact_title">Quiénes somos y cómo contactarnos</string>
+    <string name="privacy_who">Bible Scroll es una app de %1$s, desarrollador independiente y responsable de los datos personales descritos en esta página.</string>
     <string name="privacy_contact">Preguntas sobre privacidad: %1$s</string>
     <string name="privacy_changes">Si esto cambia, actualizaremos esta página y la app antes de que el cambio entre en vigor.</string>
 
@@ -811,8 +817,6 @@
     <string name="legal_attribution">Atribución</string>
     <string name="legal_sources">Fuentes de los estudios</string>
     <string name="legal_source_lexicons">Los significados de las palabras vienen de los textos hebreos y griegos etiquetados de STEP Bible citados arriba. Algunas formas de diccionario vienen de los léxicos breves de STEP Bible (TBESH, TBESG; CC BY 4.0). No se incluyen definiciones de léxicos.</string>
-    <string name="legal_studies_title">Cómo se hacen los estudios</string>
-    <string name="legal_studies_body">Cada estudio se escribió una sola vez con un modelo de IA (Claude, de Anthropic) a partir de las fuentes de arriba: los datos del idioma original y las referencias cruzadas vienen de esas fuentes, no de la IA. Todos los estudios se revisan automáticamente, en parte con un segundo modelo de IA. Los estudios no los revisa una persona uno por uno, salvo los que dicen “revisado por una persona”. Si algo parece incorrecto, avísanos.</string>
     <string name="legal_fonts">Tipografías</string>
     <string name="legal_libraries">Bibliotecas de código abierto</string>
     <plurals name="legal_libraries_count">
@@ -884,4 +888,25 @@
     <string name="home_wheel_previous">Anterior</string>
     <string name="home_wheel_next">Siguiente</string>
     <string name="home_verse_search_read">Leer</string>
+    <!-- UI redesign 2026-11-24/25 -->
+    <string name="discover_study_loading">Cargando el estudio</string>
+    <string name="discover_study_offline">Disponible cuando tengas conexión</string>
+    <string name="discover_study_tap">Toca para abrir el estudio</string>
+    <string name="discover_open_study">Abrir estudio</string>
+    <string name="discover_share_text">Compartir texto</string>
+    <string name="community_purpose_short">Cada mes, los lectores eligen un ministerio. Donamos al que reciba más votos.</string>
+    <string name="community_how_it_works">Cómo funciona</string>
+    <string name="community_your_vote">Tu voto</string>
+    <string name="community_confirm_action">Confirmar voto</string>
+    <string name="community_description_more">Mostrar la descripción completa</string>
+    <string name="community_description_less">Mostrar menos</string>
+    <string name="home_plan_day_done">Día %1$d completado</string>
+    <string name="home_greeting_morning">Buenos días</string>
+    <string name="home_greeting_afternoon">Buenas tardes</string>
+    <string name="home_greeting_evening">Buenas noches</string>
+    <string name="home_votd_more">Más acciones</string>
+    <string name="home_plans_see_all">Ver todos</string>
+    <string name="home_library_open">Abrir</string>
+    <string name="home_library_bookmarks">Marcadores</string>
+    <string name="home_library_studies">Estudios</string>
 </resources>

@@ -49,7 +49,7 @@ class DevotionalViewModelsTest {
 
     private fun TestScope.repo(online: Boolean = false): DevotionalsRepository {
         val dispatcher = UnconfinedTestDispatcher(testScheduler)
-        return DevotionalsRepository(devotionalContent(store, dispatcher, backgroundScope, online), progress, streaks, settings) { 5L }
+        return DevotionalsRepository(devotionalContent(store, dispatcher, backgroundScope, online), progress, streaks) { 5L }
     }
 
     private fun <T> TestScope.collect(flow: kotlinx.coroutines.flow.Flow<T>) =
@@ -99,16 +99,12 @@ class DevotionalViewModelsTest {
     }
 
     @Test
-    fun hideAiStudiesShowsTheNoteUntilTheReaderChoosesToSeeThem() = runTest {
+    fun devotionalsStayVisibleWithHideAiStudiesOn() = runTest {
         store.put(sampleDevotional("11-18"))
         settings.setHideAiStudies(true)
         val vm = DevotionalDetailViewModel(date, repo(), bible, preferences)
         collect(vm.uiState)
         advanceUntilIdle()
-        assertEquals(false, vm.uiState.value.visible)
-        vm.showAnyway()
-        advanceUntilIdle()
-        assertEquals(true, vm.uiState.value.visible)
         assertTrue(vm.uiState.value.content is DevotionalState.Available)
     }
 

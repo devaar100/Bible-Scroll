@@ -47,8 +47,11 @@ import aarnav100.developer.biblescroll.feature.study.VerseStudyContent
 import aarnav100.developer.biblescroll.feature.community.CommunityContent
 import aarnav100.developer.biblescroll.feature.community.CommunitySamples
 import aarnav100.developer.biblescroll.feature.community.HistoryContent
+import aarnav100.developer.biblescroll.feature.community.HowItWorksContent
+import aarnav100.developer.biblescroll.feature.community.VoteConfirmContent
 import aarnav100.developer.biblescroll.feature.community.HistoryUiState
 import aarnav100.developer.biblescroll.feature.discover.DiscoverCard
+import aarnav100.developer.biblescroll.feature.discover.DiscoverShareContent
 import aarnav100.developer.biblescroll.feature.discover.DiscoverSamples
 import aarnav100.developer.biblescroll.feature.community.CommunityEmpty
 import aarnav100.developer.biblescroll.feature.community.CommunityUiState
@@ -58,6 +61,7 @@ import aarnav100.developer.biblescroll.feature.report.ProblemReport
 import aarnav100.developer.biblescroll.feature.report.ReportContext
 import aarnav100.developer.biblescroll.feature.report.ReportProblemContent
 import aarnav100.developer.biblescroll.feature.report.ReportType
+import aarnav100.developer.biblescroll.data.settings.ThemeMode
 import aarnav100.developer.biblescroll.ui.theme.BibleScrollTheme
 import android.content.res.Configuration
 import android.graphics.Bitmap
@@ -110,7 +114,7 @@ class PseudoLocaleScreenshotTest {
     private val target = InstrumentationRegistry.getInstrumentation().targetContext
     private val outDir = File(target.getExternalFilesDir(null), "pseudolocale").apply { mkdirs() }
 
-    private fun shot(name: String, heightDp: Int = 720, content: @Composable () -> Unit) {
+    private fun shot(name: String, heightDp: Int = 720, dark: Boolean = false, content: @Composable () -> Unit) {
         val config = Configuration(target.resources.configuration).apply { setLocale(Locale.forLanguageTag("en-XA")) }
         val pseudo = target.createConfigurationContext(config)
         assertTrue("en-XA resources missing: is isPseudoLocalesEnabled on for debug?", pseudo.getString(aarnav100.developer.biblescroll.R.string.settings_title).contains('['))
@@ -122,7 +126,8 @@ class PseudoLocaleScreenshotTest {
                 LocalConfiguration provides config,
                 LocalResources provides pseudo.resources,
             ) {
-                BibleScrollTheme(AppSettings()) {
+                // [dark]: screens the app always shows dark (Discover and its studies).
+                BibleScrollTheme(if (dark) AppSettings(themeMode = ThemeMode.Dark) else AppSettings()) {
                     Box(Modifier.size(320.dp, heightDp.dp)) { Surface { content() } }
                 }
             }
@@ -155,17 +160,28 @@ class PseudoLocaleScreenshotTest {
     }
     @Test fun featureTour() = shot("onboarding_tour") { FeatureTourStep(TourVerses(), onBack = {}, onSkip = {}, onContinue = {}) }
 
-    @Test fun discoverCard() = shot("d1_discover_card", heightDp = 900) {
+    @Test fun discoverCard() = shot("d1_discover_card", heightDp = 760, dark = true) {
         DiscoverCard(DiscoverSamples.trust(), DiscoverSamples.noActions, Modifier.fillMaxSize())
     }
-    @Test fun discoverCardHiddenAi() = shot("d1_discover_card_hide_ai", heightDp = 720) {
+    @Test fun discoverCardHiddenAi() = shot("d1_discover_card_hide_ai", heightDp = 720, dark = true) {
         DiscoverCard(DiscoverSamples.trust(aiHidden = true), DiscoverSamples.noActions, Modifier.fillMaxSize())
     }
+    @Test fun discoverPending() = shot("d1_discover_card_pending", heightDp = 760, dark = true) {
+        DiscoverCard(DiscoverSamples.pending(), DiscoverSamples.noActions, Modifier.fillMaxSize())
+    }
+    @Test fun discoverOffline() = shot("d1_discover_card_offline", heightDp = 760, dark = true) {
+        DiscoverCard(DiscoverSamples.offline(), DiscoverSamples.noActions, Modifier.fillMaxSize())
+    }
+    @Test fun discoverShare() = shot("d1_discover_share", heightDp = 400, dark = true) { DiscoverShareContent("Jeremiah 17:8", {}, {}, {}) }
     @Test fun community() = shot("community", heightDp = 1500) {
         CommunityContent(CommunitySamples.beforeVoting(), onVote = {}, onOpen = {}, onRetry = {})
     }
     @Test fun communityVoted() = shot("community_voted", heightDp = 1500) {
         CommunityContent(CommunitySamples.afterVoting(), onVote = {}, onOpen = {}, onRetry = {})
+    }
+    @Test fun communityHowItWorks() = shot("community_how_it_works", heightDp = 1000) { HowItWorksContent() }
+    @Test fun communityConfirm() = shot("community_confirm", heightDp = 400) {
+        VoteConfirmContent(CommunitySamples.river, image = null, onConfirm = {}, onCancel = {})
     }
     @Test fun history() = shot("community_history", heightDp = 600) { HistoryContent(CommunitySamples.history, onRetry = {}) }
     @Test fun historyEmpty() = shot("community_history_empty", heightDp = 400) { HistoryContent(HistoryUiState.Ready(emptyList()), onRetry = {}) }
@@ -249,6 +265,24 @@ class PseudoLocaleScreenshotTest {
         VerseOfTheDayCard(
             votd = VotdVerse(LocalDate.of(2028, 3, 16), verse, "John 3:16", requestedTranslationId = "BSB", translationName = "King James Version"),
             onReadInContext = {}, onShareImage = {}, onSetWidget = {}, onCopy = {}, onStudy = {},
+        )
+    }
+
+    @Test fun homePlans() = shot("home_plans", heightDp = 320) {
+        aarnav100.developer.biblescroll.feature.home.HomePlansRow(
+            plans = listOf(
+                aarnav100.developer.biblescroll.data.plans.PlanSummary("gospels-30", "The Gospels in 30 days", "", "start-here", 30, 15, "easy"),
+                aarnav100.developer.biblescroll.data.plans.PlanSummary("psalms-31", "Psalms for every day", "", "start-here", 31, 10, "easy"),
+            ),
+            onOpenPlan = {}, onBuildYourOwn = {}, onSeeAll = {},
+        )
+    }
+    @Test fun homeLibrary() = shot("home_library", heightDp = 240) {
+        aarnav100.developer.biblescroll.feature.home.HomeLibraryCard(
+            aarnav100.developer.biblescroll.feature.library.LibraryUiState(
+                aarnav100.developer.biblescroll.data.user.LibraryCounts(liked = 12, bookmarked = 5, studied = 7, saved = 3, notes = 4),
+            ),
+            onOpenLibrary = {}, onOpenList = {},
         )
     }
 

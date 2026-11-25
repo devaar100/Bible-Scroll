@@ -50,10 +50,10 @@ fun StudyStateContent(
         )
         is StudyState.Loading -> StudyLoading(s)
         is StudyState.NotDownloaded -> when (s.reason) {
+            // No Try again while offline: it can't work, and the download restarts by itself on reconnect.
             StudyState.NotDownloaded.Reason.OFFLINE -> StudyMessage(
                 stringResource(R.string.study_offline_title),
                 stringResource(R.string.study_offline_body, state.bookName),
-                action = stringResource(R.string.study_retry), onAction = onRetry,
             )
             StudyState.NotDownloaded.Reason.DOWNLOAD_FAILED -> StudyMessage(
                 stringResource(R.string.study_failed_title), stringResource(R.string.study_failed_body),

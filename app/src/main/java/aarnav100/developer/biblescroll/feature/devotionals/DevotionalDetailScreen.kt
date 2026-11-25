@@ -62,7 +62,7 @@ fun DevotionalDetailScreen(
                     IconButton(onClick = onBack) { Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.settings_back)) }
                 },
                 actions = {
-                    if (state.visible == true && state.shareVerse != null) {
+                    if (state.shareVerse != null) {
                         IconButton(onClick = { sharing = true }) {
                             Icon(Icons.Outlined.Image, contentDescription = stringResource(R.string.devo_share_verse))
                         }
@@ -74,7 +74,6 @@ fun DevotionalDetailScreen(
     ) { padding ->
         Column(Modifier.padding(padding).fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 20.dp, vertical = 8.dp)) {
             when {
-                state.visible == false -> AiDevotionalsNotice(onShowAnyway = viewModel::showAnyway)
                 devotional == null -> DevotionalStateMessage(state.content, onRetry = viewModel::retry)
                 else -> {
                     DevotionalCover(
@@ -97,7 +96,7 @@ fun DevotionalDetailScreen(
                             color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 8.dp))
                     }
                     if (!devotional.reviewed) {
-                        Text(stringResource(R.string.devo_ai_label), style = MaterialTheme.typography.bodySmall,
+                        Text(stringResource(R.string.ai_crafted), style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant, modifier = Modifier.padding(top = 16.dp))
                     }
                 }

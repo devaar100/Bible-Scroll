@@ -35,6 +35,8 @@ internal val Crimson = Color(0xFFA4132E)
 internal val CrimsonContainer = Color(0xFFF6D9DC)
 internal val OnCrimsonContainer = Color(0xFF410010)
 internal val CrimsonLight = Color(0xFFF2A5AE)       // crimson tuned for dark backgrounds
+/** The like heart on dark backgrounds: a true red (CrimsonLight reads as pink). 4.1:1 or more on every dark surface. */
+internal val LikeRedDark = Color(0xFFF04F57)
 internal val CrimsonDarkContainer = Color(0xFF6E0A1F)
 internal val OnCrimsonDarkContainer = Color(0xFFFFD9DC)
 

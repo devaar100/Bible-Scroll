@@ -12,9 +12,9 @@ import aarnav100.developer.biblescroll.data.bible.model.VerseRef
 import aarnav100.developer.biblescroll.data.settings.ReaderPreferences
 import aarnav100.developer.biblescroll.data.settings.SettingsRepository
 import aarnav100.developer.biblescroll.data.user.UserDataRepository
-import aarnav100.developer.biblescroll.feature.study.studyHook
 import aarnav100.developer.biblescroll.feature.study.formatRefRange
 import aarnav100.developer.biblescroll.feature.study.parseRefRange
+import aarnav100.developer.biblescroll.feature.study.studyHook
 import aarnav100.developer.biblescroll.ui.navigation.PendingVerseLink
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
@@ -51,9 +51,24 @@ sealed interface DiscoverUiState {
 @Immutable
 data class DiscoverCardRef(val ref: VerseRef, val theme: String)
 
-/** A cross reference from the study (source data, not AI) shown as a chip: "Luke 12:31". */
+/** A cross reference from the study (source data, not AI) shown as a pill: "Luke 12:31". */
 @Immutable
 data class RelatedVerse(val start: VerseRef, val label: String)
+
+/** Why a card's study text isn't shown, which decides what fills its place (docs/spec.md D1). */
+enum class StudySlot {
+    /** The study is shown, or there's nothing to explain (no study published, or Hide AI studies on). */
+    SHOWN,
+
+    /** The book is downloading: gray placeholder bars hold the space. */
+    DOWNLOADING,
+
+    /** The book isn't on the phone and there's no connection: a faded outline, "Available when you're online". */
+    OFFLINE,
+
+    /** Online but the book isn't downloaded (Discover only prefetches on Wi-Fi): a faded outline, "Tap to open the study". */
+    NOT_DOWNLOADED,
+}
 
 /** Source data (not AI) shown in the hook's place when Hide AI studies is on. */
 @Immutable
@@ -80,7 +95,12 @@ data class DiscoverCardUi(
     val hasNote: Boolean,
     /** Up to [DiscoverViewModel.RELATED_MAX] of the study's cross references (shown with Hide AI studies on too). */
     val related: List<RelatedVerse> = emptyList(),
-)
+    /** What fills the study's place when its text isn't shown. */
+    val studySlot: StudySlot = StudySlot.SHOWN,
+) {
+    /** The study's book is downloading: placeholders hold its space. */
+    val studyPending: Boolean get() = studySlot == StudySlot.DOWNLOADING
+}
 
 /**
  * D1 Discover feed. The list itself is curated Scripture, so it shows even with Hide AI studies on; then each card
@@ -136,7 +156,21 @@ class DiscoverViewModel @Inject constructor(
     fun card(card: DiscoverCardRef): Flow<DiscoverCardUi> {
         val ref = card.ref
         val verse = translationId.flatMapLatest { id -> bible.verse(id, ref).map { id to it } }
-        return combine(verse, studies.storedStudy(ref.bookId, ref.chapter, ref.verse), bookNames, hidden, marks) { (id, v), study, names, aiHidden, (liked, bookmarked, noted) ->
+        val studyAndSlot = combine(
+            studies.storedStudy(ref.bookId, ref.chapter, ref.verse),
+            studies.downloading(ref.bookId),
+            studies.bookStored(ref.bookId),
+            network.isOnline,
+        ) { study, downloading, stored, online ->
+            val slot = when {
+                study != null || stored -> StudySlot.SHOWN // stored book without this verse: no study published
+                downloading -> StudySlot.DOWNLOADING
+                !online -> StudySlot.OFFLINE
+                else -> StudySlot.NOT_DOWNLOADED
+            }
+            study to slot
+        }
+        return combine(verse, studyAndSlot, bookNames, hidden, marks) { (id, v), (study, slot), names, aiHidden, (liked, bookmarked, noted) ->
             DiscoverCardUi(
                 ref = ref,
                 theme = card.theme,
@@ -150,6 +184,7 @@ class DiscoverViewModel @Inject constructor(
                 liked = ref in liked,
                 bookmarked = ref in bookmarked,
                 hasNote = ref in noted,
+                studySlot = if (aiHidden) StudySlot.SHOWN else slot,
                 related = study?.crossReferences.orEmpty().asSequence()
                     .mapNotNull { x -> parseRefRange(x.ref) }
                     .filter { it.start != ref }
@@ -192,8 +227,9 @@ class DiscoverViewModel @Inject constructor(
     companion object {
         const val PREFETCH_AHEAD = 3
 
-        /** Related-verse chips per card. */
+        /** Related-verse pills per card. */
         const val RELATED_MAX = 2
+
         private const val KEY_CURRENT = "discover_current_card"
     }
 }
