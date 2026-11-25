@@ -5,53 +5,113 @@
   "description": "Published as /ministries.json and pinned by sha256 in manifest.community. The app ignores entries with test:true in release builds. The seed script (backend/scripts/seed-month.mjs) reads the same file.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["formatVersion", "ministries"],
+  "required": [
+    "formatVersion",
+    "ministries"
+  ],
   "properties": {
-    "formatVersion": { "const": 1 },
+    "formatVersion": {
+      "const": 1
+    },
     "ministries": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "name", "description", "website", "give_url", "months_featured"],
+        "required": [
+          "id",
+          "name",
+          "description",
+          "website",
+          "give_url",
+          "months_featured"
+        ],
         "properties": {
           "id": {
             "description": "Stable, used in Firestore doc ids (YYYY-MM_id). Never reuse or rename once featured.",
             "type": "string",
             "pattern": "^[a-z0-9][a-z0-9-]{1,48}[a-z0-9]$"
           },
-          "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
           "description": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["en"],
+            "required": [
+              "en"
+            ],
             "properties": {
-              "en": { "type": "string", "minLength": 1, "maxLength": 240 },
-              "es": { "type": "string", "minLength": 1, "maxLength": 240 }
+              "en": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240
+              },
+              "es": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 240
+              }
             }
           },
-          "website": { "type": "string", "pattern": "^https://" },
-          "give_url": { "type": "string", "pattern": "^https://" },
+          "website": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "give_url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
           "months_featured": {
             "description": "UTC months (YYYY-MM) in which this ministry is in the spotlight vote.",
             "type": "array",
             "minItems": 1,
             "uniqueItems": true,
-            "items": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$" }
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$"
+            }
           },
           "category": {
             "description": "Comma-separated categories shown above the name, e.g. \"Relief, Development\". Optional.",
-            "type": "string", "minLength": 1, "maxLength": 120
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
           },
           "image": {
             "description": "Card image: an https URL on our Firebase Hosting site or in our project's Firebase Storage bucket (community.image_problems). Optional: the app draws a tinted fallback with a category icon.",
-            "type": "string", "pattern": "^https://"
+            "type": "string",
+            "pattern": "^https://"
           },
           "amountPlanned": {
             "description": "Reserved. The app ignores it: no amount is shown before a vote ends.",
-            "type": "number", "minimum": 0
+            "type": "number",
+            "minimum": 0
           },
-          "test": { "description": "Debug builds only; never shown in release.", "type": "boolean" }
+          "test": {
+            "description": "Debug builds only; never shown in release.",
+            "type": "boolean"
+          },
+          "category_i18n": {
+            "description": "category in other languages, by language code (the app falls back to English category).",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "es": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
+            }
+          },
+          "image_credit": {
+            "description": "Photographer and licence, shown on the card; required by CC BY / BY-SA images (e.g. \"Jane Doe, CC BY-SA 4.0, via Wikimedia Commons\"). Source page in images/CREDITS.md.",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
         }
       }
     }

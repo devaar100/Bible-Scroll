@@ -88,6 +88,11 @@ Offline Python tool that builds `data/source.db`. Separate from the Android app;
   deletes them. Never overwrite reviewed without --force; flagged only with --retry-flagged. Devotional translation
   refuses to run without the target Bible's text (RV1909, Session 30a). Prompts: prompts/translate.md, drift.md.
   Bump engine.CHECKER_VERSION when a translation check changes. Tests use fake clients.
+  Without the API (Claude Code subagents): `translate requests --out DIR` (batchNN.md, own file names per batch;
+  `--retry-flagged` adds the problems as feedback) -> translator subagents write batchNN.json -> `translate
+  drift-requests --dir DIR` (skips free-check failures) -> a second set of subagents writes drift_batchNN.json ->
+  `translate import devotionals --translations .. --drift .. --model M --drift-model M2` (same rules as run_unit;
+  record the model the subagents actually ran on). LORD in Spanish prose = Jehová (glossary, user's choice 2026-11-24).
 - Community (community.py): community/ministries.json (schema/ministries.json) is published as /ministries.json and
   pinned in manifest.community. Ministry ids name Firestore docs (YYYY-MM_id): never rename or reuse one once featured.
   test:true entries need ids starting test- (debug and qa builds only). backend/scripts/seed-month.mjs reads the same file.

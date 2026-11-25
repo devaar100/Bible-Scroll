@@ -12,8 +12,26 @@
       "give_url": "https://donate.caritas.org/en/",
       "months_featured": [
         "2026-11",
-        "2026-12"
-      ]
+        "2026-12",
+        "2027-01",
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12"
+      ],
+      "category": "Humanitarian aid, Development, Advocacy",
+      "category_i18n": {
+        "es": "Ayuda humanitaria, Desarrollo, Incidencia"
+      },
+      "image": "https://biblescroll-content.web.app/community/images/caritas-internationalis.jpg",
+      "image_credit": "Mark Ahsmann, CC BY-SA 3.0, via Wikimedia Commons"
     },
     {
       "id": "aid-to-the-church-in-need",
@@ -26,8 +44,26 @@
       "give_url": "https://acninternational.org/donate/",
       "months_featured": [
         "2026-11",
-        "2026-12"
-      ]
+        "2026-12",
+        "2027-01",
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12"
+      ],
+      "category": "Persecuted Christians, Pastoral aid",
+      "category_i18n": {
+        "es": "Cristianos perseguidos, Ayuda pastoral"
+      },
+      "image": "https://biblescroll-content.web.app/community/images/aid-to-the-church-in-need.jpg",
+      "image_credit": "Muccl, CC BY-SA 4.0, via Wikimedia Commons"
     },
     {
       "id": "pontifical-mission-societies",
@@ -40,8 +76,26 @@
       "give_url": "https://give.pontificalmissions.org/donate/give",
       "months_featured": [
         "2026-11",
-        "2026-12"
-      ]
+        "2026-12",
+        "2027-01",
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12"
+      ],
+      "category": "Missions, Young churches",
+      "category_i18n": {
+        "es": "Misiones, Iglesias jóvenes"
+      },
+      "image": "https://biblescroll-content.web.app/community/images/pontifical-mission-societies.jpg",
+      "image_credit": "Sheila1988, CC BY-SA 4.0, via Wikimedia Commons"
     },
     {
       "id": "peters-pence",
@@ -54,8 +108,26 @@
       "give_url": "https://www.obolodisanpietro.va/en/dona.html",
       "months_featured": [
         "2026-11",
-        "2026-12"
-      ]
+        "2026-12",
+        "2027-01",
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12"
+      ],
+      "category": "Pope's charity, Mission support",
+      "category_i18n": {
+        "es": "Caridad del Papa, Apoyo a la misión"
+      },
+      "image": "https://biblescroll-content.web.app/community/images/peters-pence.jpg",
+      "image_credit": "Jebulon, CC0, via Wikimedia Commons"
     },
     {
       "id": "malteser-international",
@@ -68,8 +140,26 @@
       "give_url": "https://www.malteser-international.org/en/donation.html",
       "months_featured": [
         "2026-11",
-        "2026-12"
-      ]
+        "2026-12",
+        "2027-01",
+        "2027-02",
+        "2027-03",
+        "2027-04",
+        "2027-05",
+        "2027-06",
+        "2027-07",
+        "2027-08",
+        "2027-09",
+        "2027-10",
+        "2027-11",
+        "2027-12"
+      ],
+      "category": "Emergency relief, Health",
+      "category_i18n": {
+        "es": "Ayuda de emergencia, Salud"
+      },
+      "image": "https://biblescroll-content.web.app/community/images/malteser-international.jpg",
+      "image_credit": "MALTESER Austria, CC BY-SA 2.0, via Wikimedia Commons"
     }
   ]
 }

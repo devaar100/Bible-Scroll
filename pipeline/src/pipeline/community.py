@@ -17,6 +17,9 @@ MINISTRIES_FILE = PIPELINE / "community" / "ministries.json"
 SCHEMA = PIPELINE / "schema" / "ministries.json"
 HISTORY_FILE = PIPELINE / "community" / "history.json"
 HISTORY_SCHEMA = PIPELINE / "schema" / "history.json"
+# Card images we host ourselves: community/images/<file> is published at /community/images/<file> on the CDN.
+IMAGES_DIR = PIPELINE / "community" / "images"
+IMAGES_URL_PATH = "/community/images/"
 
 # Where ministry images may live: our Firebase Hosting site, or our project's Firebase Storage bucket. The app
 # refuses any other host too (core/content MinistryImages), so a new host needs docs/network-calls.md first.
@@ -113,6 +116,28 @@ def image_problems(ministry: dict) -> list[str]:
         return [f"{ministry['id']}: image is in Firebase Storage but not in our bucket ({', '.join(sorted(IMAGE_STORAGE_BUCKETS))}): {url}"]
     return [f"{ministry['id']}: image host {host or '?'} isn't ours; use Firebase Hosting ({', '.join(sorted(IMAGE_HOSTING_HOSTS))}) "
             f"or Firebase Storage ({IMAGE_STORAGE_HOST}/v0/b/<our bucket>/o/...)"]
+
+
+def hosted_images(data: dict, images_dir: Path = IMAGES_DIR) -> dict[str, bytes]:
+    """
+    Site path -> bytes for every ministry image on our Hosting site under /community/images/, read from
+    community/images/. Publish adds them to the release (write_site removes anything not in it). A missing file
+    is an error, so a card never points at an image the CDN doesn't have.
+    """
+    files: dict[str, bytes] = {}
+    for ministry in data["ministries"]:
+        url = ministry.get("image")
+        if not url:
+            continue
+        parts = urlsplit(url)
+        if (parts.hostname or "").lower() not in IMAGE_HOSTING_HOSTS or not parts.path.startswith(IMAGES_URL_PATH):
+            continue
+        name = parts.path[len(IMAGES_URL_PATH):]
+        source = images_dir / name
+        if "/" in name or not name or not source.is_file():
+            raise FileNotFoundError(f"{ministry['id']}: image {url} needs the file {source}")
+        files[parts.path.lstrip("/")] = source.read_bytes()
+    return files
 
 
 def load_history(path: Path = HISTORY_FILE, current_month: str | None = None) -> dict | None:

@@ -33,8 +33,13 @@ LAYOUT = [
     ("h2", "privacy_leaves_title"),
     ("p", "privacy_leaves_content"), ("p", "privacy_leaves_vote"), ("p", "privacy_leaves_email"), ("p", "privacy_leaves_links"),
     ("h2", "privacy_android_title"), ("p", "privacy_android_backup"), ("p", "privacy_android_crashes"),
+    ("h2", "privacy_sharing_title"), ("p", "privacy_sharing"),
+    ("h2", "privacy_security_title"), ("p", "privacy_security"),
+    ("h2", "privacy_retention_title"), ("p", "privacy_retention"),
     ("h2", "privacy_delete_title"), ("p", "privacy_delete"),
-    ("h2", "privacy_contact_title"), ("p", "privacy_contact"),
+    ("h2", "privacy_rights_title"), ("p", "privacy_rights"), ("p", "privacy_legal_basis"),
+    ("h2", "privacy_children_title"), ("p", "privacy_children"),
+    ("h2", "privacy_contact_title"), ("p", "privacy_who"), ("p", "privacy_contact"),
     ("p", "privacy_changes"),
 ]
 MONTHS = {
@@ -68,6 +73,13 @@ def support_email() -> str:
     return m.group(1)
 
 
+def developer_name() -> str:
+    m = re.search(r'val developerName = "([^"]*)"', GRADLE.read_text())
+    if not m:
+        sys.exit(f"developerName not found in {GRADLE}")
+    return m.group(1)
+
+
 def fill(template: str, *args: str) -> str:
     """Android positional args (%1$s, %2$d)."""
     return re.sub(r"%(\d+)\$[sd]", lambda m: args[int(m.group(1)) - 1], template)
@@ -86,6 +98,8 @@ def page(lang: str) -> str:
             label = html.escape(fill(text, "\x00"))
             link = f'<a href="mailto:{html.escape(email, quote=True)}">{html.escape(email)}</a>'
             body.append(f"<p>{label.replace(chr(0), link)}</p>")
+        elif key == "privacy_who":
+            body.append(f"<p>{html.escape(fill(text, developer_name()))}</p>")
         else:
             body.append(f"<{tag}>{html.escape(text)}</{tag}>")
     other = ('<a href="es/" hreflang="es">Español</a>' if lang == "en" else '<a href="../" hreflang="en">English</a>')

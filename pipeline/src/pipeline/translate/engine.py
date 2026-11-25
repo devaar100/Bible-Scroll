@@ -47,10 +47,13 @@ LANGUAGES = {
                  "it reads naturally (\"cuando quieras\", not \"cuando estés listo\").",
         "example_reference": "Juan 3:16",
         "bible_name": "Reina-Valera 1909",
+        "bible_id": "RV1909",  # translation_id in the app's bible.db (Session 30a)
         "glossary": "Study = Estudio, Devotional = Devocional, Streak = Racha, Notes = Notas, Liked = Me gusta, "
                     "Bookmark = Marcador, Discover = Descubrir, Community = Comunidad, Reading plan = Plan de lectura, "
                     "Scripture = las Escrituras, Psalms = Salmos, Song of Solomon = Cantares, James = Santiago, "
-                    "Revelation = Apocalipsis, Gospels = Evangelios",
+                    "Revelation = Apocalipsis, Gospels = Evangelios, "
+                    # User's choice 2026-11-24: RV1909's word for LORD in the text's own sentences too.
+                    "LORD (God's name, in your own sentences) = Jehová",
     },
 }
 

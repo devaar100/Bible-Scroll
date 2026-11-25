@@ -145,6 +145,24 @@ def test_category_image_and_amount_planned_are_accepted(tmp_path, image):
     assert load_ministries(write(tmp_path, data))["ministries"][0]["category"] == "Bible translation, Literacy"
 
 
+def test_hosted_images_are_published_with_the_release(store, tmp_path):
+    data = copy.deepcopy(GOOD)
+    data["ministries"][0]["image"] = "https://biblescroll-content.web.app/community/images/river.jpg"
+    data["ministries"][1]["image"] = "https://firebasestorage.googleapis.com/v0/b/biblescroll-content.appspot.com/o/h.jpg"
+    (tmp_path / "images").mkdir()
+    (tmp_path / "images" / "river.jpg").write_bytes(b"jpeg")
+
+    release = p.build_release(store, "", discover=[], ministries_path=write(tmp_path, data))
+    assert release.files["community/images/river.jpg"] == b"jpeg"  # Storage images aren't ours to upload
+
+
+def test_a_hosted_image_without_its_file_fails(store, tmp_path):
+    data = copy.deepcopy(GOOD)
+    data["ministries"][0]["image"] = "https://biblescroll-content.web.app/community/images/missing.jpg"
+    with pytest.raises(FileNotFoundError, match="missing.jpg"):
+        p.build_release(store, "", discover=[], ministries_path=write(tmp_path, data))
+
+
 HISTORY = {"formatVersion": 1, "donations": [
     {"month": "2026-11", "ministryId": "river-translation", "ministryName": "River", "amount": 300, "currency": "USD"},
     {"month": "2026-12", "ministryId": "river-translation", "ministryName": "River", "amount": 312.5, "currency": "EUR"},

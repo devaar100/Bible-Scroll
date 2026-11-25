@@ -158,7 +158,7 @@ def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[st
     ministries_path: community/ministries.json by default; a missing file leaves manifest.community out.
     history_path: community/history.json by default; a missing file leaves manifest.history out.
     """
-    from .community import HISTORY_FILE, MINISTRIES_FILE, load_history, load_ministries
+    from .community import HISTORY_FILE, MINISTRIES_FILE, hosted_images, load_history, load_ministries
     from .devotionals.publish import collect, month_files
 
     refuse_test_path(store.directory)
@@ -222,6 +222,7 @@ def build_release(store: StudyStore, base_url: str = "", discover: list[tuple[st
     ministries = load_ministries(ministries_path or MINISTRIES_FILE)
     if ministries is not None:
         files["ministries.json"] = canonical_json(ministries)
+        files.update(hosted_images(ministries, (ministries_path or MINISTRIES_FILE).parent / "images"))
         body["community"] = {"url": prefix + "ministries.json", "count": len(ministries["ministries"]),
                              "sha256": hashlib.sha256(files["ministries.json"]).hexdigest(),
                              "bytes": len(files["ministries.json"])}

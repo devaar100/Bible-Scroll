@@ -342,6 +342,28 @@ def test_devotionals_wont_run_without_the_target_bible(monkeypatch, tmp_path):
     assert "Reina-Valera 1909" in lines[0] and translator.calls == []
 
 
+def test_target_scripture_reads_rv1909_from_the_app_bible():
+    from pipeline.paths import APP_BIBLE_DB
+    from pipeline.translate import cli
+    if not APP_BIBLE_DB.exists():
+        pytest.skip("no app bible.db")
+    text = cli.target_scripture("es")({"id": "d", "verses": [
+        {"book": "JHN", "startChapter": 3, "startVerse": 16, "endChapter": 3, "endVerse": 17}]})
+    lines = text.splitlines()
+    assert [l.split(" ", 2)[1] for l in lines] == ["3:16", "3:17"]
+    assert "Dios" in lines[0] and "mundo" in lines[0]  # Reina-Valera wording, not English
+
+
+def test_target_scripture_fails_loudly_for_a_missing_passage():
+    from pipeline.paths import APP_BIBLE_DB
+    from pipeline.translate import cli
+    if not APP_BIBLE_DB.exists():
+        pytest.skip("no app bible.db")
+    with pytest.raises(ValueError, match="no RV1909 text"):
+        cli.target_scripture("es")({"id": "d", "verses": [
+            {"book": "JHN", "startChapter": 99, "startVerse": 1, "endChapter": 99, "endVerse": 2}]})
+
+
 def test_category_translations_file_isnt_loaded_as_a_plan(tmp_path, plan):
     from pipeline.plans import build as pb
     pb.write_json(tmp_path / f"{plan['id']}.json", plan)
