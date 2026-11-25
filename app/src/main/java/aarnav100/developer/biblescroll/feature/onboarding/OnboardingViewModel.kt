@@ -117,16 +117,7 @@ class OnboardingViewModel @Inject constructor(
             if (g == null) flow { emit(null) } else combine(bible.verse(tid, g.verse), bookNames) { v, names -> v?.shown(names) }
         }
 
-    private val tourVerses: Flow<TourVerses> = combine(translationId, bookNames, ::Pair)
-        .mapLatest { (tid, names) ->
-            val byRef = bible.versesByRefs(tid, TOUR_FEED + TOUR_LIKED + TOUR_CARD + TOUR_REMINDER).associateBy { it.ref }
-            TourVerses(
-                feed = TOUR_FEED.mapNotNull { byRef[it]?.shown(names) },
-                liked = byRef[TOUR_LIKED]?.shown(names),
-                card = byRef[TOUR_CARD]?.shown(names),
-                reminder = byRef[TOUR_REMINDER]?.shown(names),
-            )
-        }
+    private val tourVerses: Flow<TourVerses> = tourVerses(bible, translationId)
 
     private val answers = combine(history, goal, timing, reminderOn, reminderMinute) { h, g, t, on, minute ->
         OnboardingUiState(
@@ -267,7 +258,7 @@ class OnboardingViewModel @Inject constructor(
         }
     }
 
-    private companion object {
+    internal companion object {
         const val KEY_HISTORY = "onb_history"
         const val KEY_GOAL = "onb_goal"
         const val KEY_TIMING = "onb_timing"
@@ -291,6 +282,22 @@ class OnboardingViewModel @Inject constructor(
 private fun LocalTime.toMinuteOfDay() = hour * 60 + minute
 
 private fun Verse.shown(bookNames: Map<Int, String>) = ShownVerse(this, bookNames[ref.bookId].orEmpty())
+
+/** The tour's demo verses in [translationId] (O3, and the tour replayed from Settings). */
+@OptIn(ExperimentalCoroutinesApi::class)
+internal fun tourVerses(bible: BibleRepository, translationId: Flow<String>): Flow<TourVerses> =
+    combine(translationId, bible.books().map { books -> books.associate { it.id to it.name } }, ::Pair)
+        .mapLatest { (tid, names) ->
+            val refs = OnboardingViewModel.TOUR_FEED + OnboardingViewModel.TOUR_LIKED +
+                OnboardingViewModel.TOUR_CARD + OnboardingViewModel.TOUR_REMINDER
+            val byRef = bible.versesByRefs(tid, refs).associateBy { it.ref }
+            TourVerses(
+                feed = OnboardingViewModel.TOUR_FEED.mapNotNull { byRef[it]?.shown(names) },
+                liked = byRef[OnboardingViewModel.TOUR_LIKED]?.shown(names),
+                card = byRef[OnboardingViewModel.TOUR_CARD]?.shown(names),
+                reminder = byRef[OnboardingViewModel.TOUR_REMINDER]?.shown(names),
+            )
+        }
 
 private inline fun <reified E : Enum<E>> String?.toEnum(): E? =
     this?.let { name -> enumValues<E>().firstOrNull { it.name == name } }

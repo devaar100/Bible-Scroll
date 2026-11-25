@@ -186,7 +186,7 @@ fun StudyVerseHeader(
             }
             Spacer(Modifier.height(Spacing.s))
         }
-        Text(reference, style = AppText.screenTitle, modifier = Modifier.semantics { heading() })
+        Text(reference, style = AppText.screenTitle, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.semantics { heading() })
         // The faint quote mark: the accent at low strength, as on the Discover card.
         Box(Modifier.fillMaxWidth().height(40.dp).clipToBounds().clearAndSetSemantics { }) {
             Text(

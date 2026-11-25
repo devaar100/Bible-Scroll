@@ -1,5 +1,15 @@
 package aarnav100.developer.biblescroll.feature.onboarding
 
+import androidx.compose.ui.graphics.Color
+import aarnav100.developer.biblescroll.ui.theme.AppText
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.animateFloatAsState
+import aarnav100.developer.biblescroll.ui.theme.BibleScrollTheme
+import aarnav100.developer.biblescroll.feature.study.StudyVerseHeader
+import aarnav100.developer.biblescroll.feature.discover.DiscoverSamples
+import aarnav100.developer.biblescroll.feature.discover.DiscoverCardUi
+import aarnav100.developer.biblescroll.feature.discover.DiscoverCard
+import aarnav100.developer.biblescroll.data.settings.ThemeMode
 import aarnav100.developer.biblescroll.R
 import aarnav100.developer.biblescroll.feature.bible.VersePage
 import aarnav100.developer.biblescroll.feature.share.CardContent
@@ -69,6 +79,7 @@ import kotlinx.coroutines.launch
 private enum class TourPage(@StringRes val title: Int, @StringRes val body: Int) {
     Feed(R.string.onb_tour_feed_title, R.string.onb_tour_feed_body),
     Like(R.string.onb_tour_like_title, R.string.onb_tour_like_body),
+    Discover(R.string.onb_tour_discover_title, R.string.onb_tour_discover_body),
     Share(R.string.onb_tour_share_title, R.string.onb_tour_share_body),
     Reminder(R.string.onb_tour_reminder_title, R.string.onb_tour_reminder_body),
 }
@@ -84,6 +95,10 @@ internal fun FeatureTourStep(
     onBack: () -> Unit,
     onSkip: () -> Unit,
     onContinue: () -> Unit,
+    /** The last page's button: "Continue" in onboarding, "Done" when replayed from Settings. */
+    lastLabel: String = stringResource(R.string.onb_continue),
+    /** Replayed from Settings: no Skip (Back and Done already leave). */
+    showSkip: Boolean = true,
 ) {
     val pages = TourPage.entries
     // rememberPagerState is saveable, so rotation keeps the page.
@@ -96,12 +111,12 @@ internal fun FeatureTourStep(
         onBack = onBack,
         scrollable = false,
         actions = {
-            TextButton(onClick = onSkip) { Text(stringResource(R.string.onb_skip)) }
+            if (showSkip) TextButton(onClick = onSkip) { Text(stringResource(R.string.onb_skip)) }
         },
         bottom = {
             PageDots(count = pages.size, current = pager.currentPage)
             Spacer(Modifier.height(16.dp))
-            PrimaryButton(stringResource(R.string.onb_continue), onClick = {
+            PrimaryButton(if (last) lastLabel else stringResource(R.string.onb_continue), onClick = {
                 if (last) onContinue() else scope.launch { pager.animateScrollToPage(pager.currentPage + 1) }
             })
         },
@@ -118,6 +133,7 @@ internal fun FeatureTourStep(
                     when (page) {
                         TourPage.Feed -> FeedDemo(tour.feed, active)
                         TourPage.Like -> LikeDemo(tour.liked, active)
+                        TourPage.Discover -> DiscoverDemo(tour.card, active)
                         TourPage.Share -> ShareDemo(tour.card, active)
                         TourPage.Reminder -> ReminderDemo(tour.reminder, active)
                     }
@@ -262,6 +278,110 @@ private fun DemoVersePage(verse: ShownVerse, liked: Boolean) {
         onCopy = {},
         onActions = {},
     )
+}
+
+/**
+ * A Discover card (always dark, as in the app) that gets "tapped": a soft ring at the centre, then the study page
+ * fades in, and back to the card. Built from the real DiscoverCard and study header.
+ */
+@Composable
+private fun DiscoverDemo(verse: ShownVerse?, active: Boolean) {
+    verse ?: return
+    var studying by remember { mutableStateOf(false) }
+    var tapping by remember { mutableStateOf(false) }
+    LaunchedEffect(active) {
+        if (!active) {
+            studying = false
+            tapping = false
+            return@LaunchedEffect
+        }
+        while (true) {
+            studying = false
+            delay(1_600)
+            tapping = true
+            delay(450)
+            tapping = false
+            studying = true
+            delay(2_600)
+        }
+    }
+    val settings = BibleScrollTheme.settings
+    BibleScrollTheme(settings.copy(themeMode = ThemeMode.Dark)) {
+        Box(Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
+            Crossfade(targetState = studying, label = "discoverDemo") { open ->
+                if (open) {
+                    Column(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 56.dp)) {
+                        StudyVerseHeader(verse.reference(), verse.verse, theme = stringResource(R.string.onb_tour_discover_theme))
+                        Spacer(Modifier.height(28.dp))
+                        DemoLabel(stringResource(R.string.study_meaning), MaterialTheme.colorScheme.onSurfaceVariant)
+                        DemoLines(listOf(1f, 0.92f, 0.6f))
+                        Spacer(Modifier.height(20.dp))
+                        Column(
+                            Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(20.dp))
+                                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+                                .padding(16.dp),
+                        ) {
+                            DemoLabel(stringResource(R.string.study_did_you_know), MaterialTheme.colorScheme.primary)
+                            DemoLines(listOf(0.95f, 0.7f))
+                        }
+                    }
+                } else {
+                    val ui = DiscoverCardUi(
+                        ref = verse.verse.ref,
+                        theme = stringResource(R.string.onb_tour_discover_theme),
+                        reference = verse.reference(),
+                        translationId = verse.verse.translationId,
+                        verse = verse.verse,
+                        hook = null,
+                        fact = null,
+                        dataLine = null,
+                        aiHidden = false,
+                        liked = false,
+                        bookmarked = false,
+                        hasNote = false,
+                    )
+                    Box(Modifier.fillMaxSize().padding(horizontal = 20.dp, vertical = 72.dp)) {
+                        DiscoverCard(ui, DiscoverSamples.noActions, Modifier.fillMaxSize())
+                    }
+                }
+            }
+            // The "tap": a ring that grows and fades at the card's centre.
+            val ring by animateFloatAsState(if (tapping) 1f else 0f, tween(450), label = "tapRing")
+            if (ring > 0f) {
+                Box(
+                    Modifier
+                        .align(Alignment.Center)
+                        .size(56.dp + 40.dp * ring)
+                        .graphicsLayer { alpha = 1f - ring * 0.6f }
+                        .border(3.dp, MaterialTheme.colorScheme.primary, CircleShape),
+                )
+            }
+        }
+    }
+}
+
+/** A study section label in the demo (spaced caps). */
+@Composable
+private fun DemoLabel(text: String, color: Color) {
+    Text(text.uppercase(), style = AppText.sectionLabel, color = color)
+    Spacer(Modifier.height(10.dp))
+}
+
+/** Soft placeholder lines standing in for study text (the demo shows the shape, not real commentary). */
+@Composable
+private fun DemoLines(widths: List<Float>) {
+    widths.forEach { w ->
+        Box(
+            Modifier
+                .fillMaxWidth(w)
+                .height(10.dp)
+                .clip(CircleShape)
+                .background(MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.25f)),
+        )
+        Spacer(Modifier.height(8.dp))
+    }
 }
 
 /** The share card, trying on each background in turn. */

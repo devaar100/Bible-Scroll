@@ -698,6 +698,30 @@
         <source>Pick a time and we\'ll send you one verse. Nothing more.</source>
         <note from="where">O3 Onboarding feature tour</note>
       </trans-unit>
+      <trans-unit id="onb_tour_discover_title" resname="onb_tour_discover_title">
+        <source>Study any verse</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_discover_body" resname="onb_tour_discover_body">
+        <source>In Discover, tap a card to open its study. Double-tap to like it, press and hold to copy.</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_discover_theme" resname="onb_tour_discover_theme">
+        <source>Love</source>
+        <note from="where">O3 Onboarding feature tour</note>
+      </trans-unit>
+      <trans-unit id="onb_tour_done" resname="onb_tour_done">
+        <source>Done</source>
+        <note from="where">O1-O8 Onboarding</note>
+      </trans-unit>
+      <trans-unit id="settings_tour" resname="settings_tour">
+        <source>Take the app tour</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
+      <trans-unit id="settings_tour_summary" resname="settings_tour_summary">
+        <source>See how the app works again</source>
+        <note from="where">S1-S4 Settings</note>
+      </trans-unit>
       <trans-unit id="onb_goal_title" resname="onb_goal_title">
         <source>What do you want from five minutes a day?</source>
         <note from="where">O1-O8 Onboarding</note>

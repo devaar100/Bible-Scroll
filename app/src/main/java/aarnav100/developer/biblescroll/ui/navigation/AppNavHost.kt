@@ -55,6 +55,8 @@ import kotlinx.serialization.Serializable
 @Serializable data object PlansRoute
 @Serializable data class PlanDetailRoute(val planId: String)
 @Serializable data object CreatePlanRoute
+/** Settings > "Take the app tour": the onboarding feature tour again. */
+@Serializable data object AppTourRoute
 
 /** H11 plan reader (immersive, no tab bar), H12 days & notes, and the completion screen. */
 @Serializable data class PlanReaderRoute(val enrollmentId: String, val dayNumber: Int)
@@ -170,7 +172,11 @@ fun AppNavHost(
                 onOpenHelp = { navController.navigate(HelpRoute) },
                 onOpenWidgetGuide = { navController.navigate(WidgetGuideRoute) },
                 onOpenLegal = { navController.navigate(LegalRoute) },
+                onOpenTour = { navController.navigate(AppTourRoute) },
             )
+        }
+        composable<AppTourRoute> {
+            aarnav100.developer.biblescroll.feature.onboarding.AppTourScreen(onDone = back)
         }
         composable<GeneralSettingsRoute> {
             GeneralSettingsScreen(

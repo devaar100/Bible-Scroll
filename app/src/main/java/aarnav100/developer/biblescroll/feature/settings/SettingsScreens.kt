@@ -23,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.automirrored.outlined.HelpOutline
 import androidx.compose.material.icons.outlined.Backup
 import androidx.compose.material.icons.outlined.Gavel
+import androidx.compose.material.icons.outlined.Slideshow
 import androidx.compose.material.icons.outlined.Widgets
 import androidx.compose.material.icons.outlined.FormatSize
 import androidx.compose.material.icons.outlined.Notifications
@@ -66,6 +67,7 @@ fun SettingsScreen(
     onOpenHelp: () -> Unit,
     onOpenWidgetGuide: () -> Unit,
     onOpenLegal: () -> Unit,
+    onOpenTour: () -> Unit = {},
 ) {
     SettingsPage(title = stringResource(R.string.settings_title), onBack = onBack) {
         NavRow(Icons.Outlined.Tune, stringResource(R.string.settings_general), stringResource(R.string.settings_general_summary), onOpenGeneral)
@@ -88,6 +90,7 @@ fun SettingsScreen(
             onOpenDataBackup,
         )
         NavRow(Icons.Outlined.Widgets, stringResource(R.string.widget_guide_title), stringResource(R.string.widget_guide_summary), onOpenWidgetGuide)
+        NavRow(Icons.Outlined.Slideshow, stringResource(R.string.settings_tour), stringResource(R.string.settings_tour_summary), onOpenTour)
         NavRow(
             Icons.AutoMirrored.Outlined.HelpOutline,
             stringResource(R.string.help_title),

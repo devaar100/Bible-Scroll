@@ -193,6 +193,12 @@
     <string name="onb_tour_share_body">Turn any verse into a clean card for a message or a story.</string>
     <string name="onb_tour_reminder_title">A gentle daily nudge</string>
     <string name="onb_tour_reminder_body">Pick a time and we\'ll send you one verse. Nothing more.</string>
+    <string name="onb_tour_discover_title">Study any verse</string>
+    <string name="onb_tour_discover_body">In Discover, tap a card to open its study. Double-tap to like it, press and hold to copy.</string>
+    <string name="onb_tour_discover_theme">Love</string>
+    <string name="onb_tour_done">Done</string>
+    <string name="settings_tour">Take the app tour</string>
+    <string name="settings_tour_summary">See how the app works again</string>
     <string name="onb_goal_title">What do you want from five minutes a day?</string>
     <string name="onb_goal_peace">Peace</string>
     <string name="onb_goal_peace_detail">A calmer moment in a busy day</string>

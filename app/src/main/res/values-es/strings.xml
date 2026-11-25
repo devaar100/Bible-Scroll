@@ -190,6 +190,12 @@
     <string name="onb_tour_share_body">Convierte cualquier versículo en una tarjeta limpia para un mensaje o una historia.</string>
     <string name="onb_tour_reminder_title">Un recordatorio amable cada día</string>
     <string name="onb_tour_reminder_body">Elige una hora y te enviaremos un versículo. Nada más.</string>
+    <string name="onb_tour_discover_title">Estudia cualquier versículo</string>
+    <string name="onb_tour_discover_body">En Descubrir, toca una tarjeta para abrir su estudio. Toca dos veces para darle me gusta y mantén pulsado para copiar.</string>
+    <string name="onb_tour_discover_theme">Amor</string>
+    <string name="onb_tour_done">Listo</string>
+    <string name="settings_tour">Ver el recorrido de la app</string>
+    <string name="settings_tour_summary">Vuelve a ver cómo funciona la app</string>
     <string name="onb_goal_title">¿Qué quieres de cinco minutos al día?</string>
     <string name="onb_goal_peace">Paz</string>
     <string name="onb_goal_peace_detail">Un momento de calma en un día ocupado</string>
